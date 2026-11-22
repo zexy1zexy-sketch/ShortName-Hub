@@ -621,8 +621,8 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end
     end, Color3.fromRGB(85, 75, 105))
 
-    -- UTILITY FEATURES
-    local UtilityFolder = MakeFolder("UTILITY")
+    -- PLAYER UTILITIES (SETTINGS TAB)
+    local UtilityFolder = SettingsPage
 
     Label(UtilityFolder, "PLAYER UTILITIES", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(UtilityFolder, "Convenience tools for your current session.", 10, 22, Grey)
