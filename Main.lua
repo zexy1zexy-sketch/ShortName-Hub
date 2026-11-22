@@ -185,6 +185,7 @@ StartHub = function(skipKey)
     end)
     local Scythe = ScytheModule.new()
     local Scanner = ThanksgivingScanner.new()
+    local FightScanner = FightScannerModule.new()
 
     local success, result = pcall(function()
         return GUI.Create(
