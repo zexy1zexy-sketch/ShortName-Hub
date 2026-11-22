@@ -1586,14 +1586,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AssetResults.Text = #found > 0 and table.concat(found, "  •  ") or "No known combat asset folders found."
     end, Color3.fromRGB(45, 105, 145))
 
-    Label(CombatToolsFolder, "HITBOX VISUALIZER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    Label(CombatToolsFolder, "Highlights only existing Workspace BaseParts named Hitbox or Hurtbox. It does not create or change hitboxes.", 10, 42, Grey)
+    Label(CombatToolsFolder, "HITBOX / WEAPON ATTACHMENT VISUALIZER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(CombatToolsFolder, "Shows named hitbox parts in Workspace and attachment points on your equipped weapon. Attachment markers show origins, not the full raycast hitbox volume.", 10, 48, Grey)
     local HitboxEnabled = false
     local HitboxAdornments = {}
+    local HitboxStatus = Label(CombatToolsFolder, "VISUALIZER: READY", 10, 22, Color3.fromRGB(170, 210, 255))
     local function ClearHitboxVisuals()
-        for part, adornment in pairs(HitboxAdornments) do
+        for object, adornment in pairs(HitboxAdornments) do
             pcall(function() adornment:Destroy() end)
-            HitboxAdornments[part] = nil
+            HitboxAdornments[object] = nil
         end
     end
     local HitboxButton
@@ -1602,27 +1603,78 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ClearHitboxVisuals()
         if HitboxEnabled then
             local count = 0
+            local function AddPartBox(part)
+                if HitboxAdornments[part] then return end
+                local adornment = Instance.new("BoxHandleAdornment")
+                adornment.Name = "ShortNameHitboxVisual"
+                adornment.Adornee = part
+                adornment.Size = part.Size
+                adornment.Color3 = Color3.fromRGB(255, 75, 95)
+                adornment.Transparency = 0.68
+                adornment.AlwaysOnTop = true
+                adornment.ZIndex = 5
+                adornment.Parent = workspace
+                HitboxAdornments[part] = adornment
+                count += 1
+            end
+            local function AddAttachmentMarker(attachment)
+                if HitboxAdornments[attachment] then return end
+                local parentPart = attachment.Parent
+                if not parentPart or not parentPart:IsA("BasePart") then return end
+                local marker = Instance.new("SphereHandleAdornment")
+                marker.Name = "ShortNameWeaponAttachmentMarker"
+                marker.Adornee = parentPart
+                marker.CFrame = attachment.CFrame
+                marker.Radius = 0.2
+                marker.Color3 = Color3.fromRGB(255, 190, 65)
+                marker.Transparency = 0.18
+                marker.AlwaysOnTop = true
+                marker.ZIndex = 6
+                marker.Parent = workspace
+                HitboxAdornments[attachment] = marker
+                count += 1
+            end
+
             for _, object in ipairs(workspace:GetDescendants()) do
                 if object:IsA("BasePart") then
                     local lowerName = string.lower(object.Name)
-                    if string.find(lowerName, "hitbox", 1, true) or string.find(lowerName, "hurtbox", 1, true) then
-                        local adornment = Instance.new("BoxHandleAdornment")
-                        adornment.Name = "ShortNameHitboxVisual"
-                        adornment.Adornee = object
-                        adornment.Size = object.Size
-                        adornment.Color3 = Color3.fromRGB(255, 75, 95)
-                        adornment.Transparency = 0.68
-                        adornment.AlwaysOnTop = true
-                        adornment.ZIndex = 5
-                        adornment.Parent = workspace
-                        HitboxAdornments[object] = adornment
-                        count += 1
+                    if string.find(lowerName, "hitbox", 1, true)
+                        or string.find(lowerName, "hurtbox", 1, true)
+                        or string.find(lowerName, "damagebox", 1, true)
+                    then
+                        AddPartBox(object)
                     end
                 end
             end
+
+            local player = Players.LocalPlayer
+            local character = player and player.Character
+            local equippedTool = character and character:FindFirstChildOfClass("Tool")
+            if equippedTool then
+                for _, object in ipairs(equippedTool:GetDescendants()) do
+                    if object:IsA("Attachment") then
+                        AddAttachmentMarker(object)
+                    elseif object:IsA("BasePart") then
+                        local lowerName = string.lower(object.Name)
+                        if string.find(lowerName, "hit", 1, true)
+                            or string.find(lowerName, "hurt", 1, true)
+                            or string.find(lowerName, "damage", 1, true)
+                        then
+                            AddPartBox(object)
+                        end
+                    end
+                end
+            end
+
             HitboxButton.Text = "HITBOX VISUALIZER: ON (" .. tostring(count) .. ")"
+            if count == 0 then
+                HitboxStatus.Text = "NO VISIBLE HITBOX PARTS OR EQUIPPED-WEAPON ATTACHMENTS FOUND"
+            else
+                HitboxStatus.Text = tostring(count) .. " LOCAL VISUAL MARKERS SHOWN"
+            end
         else
             HitboxButton.Text = "HITBOX VISUALIZER: OFF"
+            HitboxStatus.Text = "VISUALIZER: READY"
         end
     end, Color3.fromRGB(45, 115, 75))
 
