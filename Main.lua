@@ -123,6 +123,11 @@ local function StopRuntime(runtime)
         end
     end)
     pcall(function()
+        if runtime.FightScanner and type(runtime.FightScanner.Stop) == "function" then
+            runtime.FightScanner:Stop()
+        end
+    end)
+    pcall(function()
         if runtime.Interface and runtime.Interface.ScreenGui then
             runtime.Interface.ScreenGui:Destroy()
         end
@@ -170,6 +175,7 @@ StartHub = function(skipKey)
     local GUI = LoadModule("GUI.lua")
     local ScytheModule = LoadModule("Scythe.lua")
     local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
+    local FightScannerModule = LoadModule("FightOnABaseplateScanner.lua")
 
     local Interface
     local Controller = Teleport.new(Config, NPC, function(status)
@@ -186,6 +192,7 @@ StartHub = function(skipKey)
             Controller,
             Scythe,
             Scanner,
+            FightScanner,
             RefreshHub
         )
     end)
@@ -194,7 +201,8 @@ StartHub = function(skipKey)
         StopRuntime({
             Controller = Controller,
             Scythe = Scythe,
-            Scanner = Scanner
+            Scanner = Scanner,
+            FightScanner = FightScanner
         })
         error("GUI creation failed: " .. tostring(result))
     end
@@ -205,6 +213,7 @@ StartHub = function(skipKey)
         Controller = Controller,
         Scythe = Scythe,
         Scanner = Scanner,
+        FightScanner = FightScanner,
         Interface = Interface
     }
 
