@@ -872,6 +872,35 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
+    local StructureUploadKey = ""
+    MakeBox(FightStructureFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
+        StructureUploadKey = value
+    end)
+
+    MakeButton(FightStructureFolder, "UPLOAD STRUCTURE REPORT", function()
+        if not FightStructureScanner or type(FightStructureScanner.UploadReport) ~= "function" then
+            UpdateStructureDisplay("UPLOAD MODULE NOT LOADED", nil)
+            return
+        end
+        if StructureUploadKey == "" then
+            UpdateStructureDisplay("ENTER UPLOAD KEY FIRST", nil)
+            return
+        end
+        UpdateStructureDisplay("UPLOADING REPORT...", nil)
+        task.spawn(function()
+            local ok, success, message = pcall(function()
+                return FightStructureScanner:UploadReport(StructureUploadKey)
+            end)
+            if not ok then
+                UpdateStructureDisplay("UPLOAD ERROR: " .. tostring(success), nil)
+            elseif success then
+                UpdateStructureDisplay(message or "UPLOADED TO GITHUB", nil)
+            else
+                UpdateStructureDisplay("UPLOAD FAILED: " .. tostring(message), nil)
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 145))
+
     MakeButton(FightStructureFolder, "START STRUCTURE SCAN", function()
         if not FightStructureScanner or type(FightStructureScanner.Start) ~= "function" then
             UpdateStructureDisplay("MODULE NOT LOADED", nil)
