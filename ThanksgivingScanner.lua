@@ -259,11 +259,6 @@ function Scanner:Start(onUpdate)
                         task.wait()
                     end
 
-                    if #self._results >= MAX_RESULTS then
-                        self._running = false
-                        notify("RESULT LIMIT REACHED")
-                        return
-                    end
                 end
             end
         end
