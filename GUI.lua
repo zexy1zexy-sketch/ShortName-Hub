@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -769,6 +769,83 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(85, 75, 105))
 
 
+    -- READ-ONLY COMBAT SYSTEM INSPECTOR
+    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM INSPECTOR", FightFolder)
+    Label(FightInspectorFolder, "COMBAT SYSTEM INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(
+        FightInspectorFolder,
+        "Inspects selected combat-related instances, their classes, paths, and child structure. It never calls remotes or reads script source.",
+        10,
+        48,
+        Grey
+    )
+    local InspectorStatus = Label(FightInspectorFolder, "INSPECTOR: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+    InspectorStatus.Font = Enum.Font.GothamBold
+    local InspectorCount = Label(FightInspectorFolder, "OBJECTS INSPECTED: 0", 10, 22, Grey)
+
+    local function UpdateInspectorDisplay(status, count)
+        if status ~= nil then
+            InspectorStatus.Text = "INSPECTOR: " .. tostring(status)
+        end
+        if count ~= nil then
+            InspectorCount.Text = "OBJECTS INSPECTED: " .. tostring(count)
+        elseif FightInspector and type(FightInspector.GetCount) == "function" then
+            local ok, result = pcall(function() return FightInspector:GetCount() end)
+            if ok then InspectorCount.Text = "OBJECTS INSPECTED: " .. tostring(result) end
+        end
+    end
+
+    MakeButton(FightInspectorFolder, "INSPECT COMBAT SYSTEMS", function()
+        if not FightInspector or type(FightInspector.Inspect) ~= "function" then
+            UpdateInspectorDisplay("MODULE NOT LOADED", nil)
+            return
+        end
+        UpdateInspectorDisplay("INSPECTING...", 0)
+        task.spawn(function()
+            local ok, success, count = pcall(function()
+                return FightInspector:Inspect(function(status, total)
+                    UpdateInspectorDisplay(status, total)
+                end)
+            end)
+            if not ok then
+                UpdateInspectorDisplay("ERROR: " .. tostring(success), nil)
+            elseif success then
+                UpdateInspectorDisplay("INSPECTION COMPLETE", count or 0)
+            else
+                UpdateInspectorDisplay("INSPECTION FAILED", nil)
+            end
+        end)
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(FightInspectorFolder, "COPY INSPECTION REPORT", function()
+        if not FightInspector or type(FightInspector.GetReport) ~= "function" then
+            UpdateInspectorDisplay("MODULE NOT LOADED", nil)
+            return
+        end
+        local ok, report = pcall(function() return FightInspector:GetReport() end)
+        if not ok then
+            UpdateInspectorDisplay("REPORT ERROR", nil)
+            return
+        end
+        local copied = false
+        if type(setclipboard) == "function" then
+            copied = pcall(function() setclipboard(report) end)
+        end
+        if not copied and type(toclipboard) == "function" then
+            copied = pcall(function() toclipboard(report) end)
+        end
+        UpdateInspectorDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
+    end)
+
+    MakeButton(FightInspectorFolder, "CLEAR INSPECTION", function()
+        if FightInspector and type(FightInspector.Clear) == "function" then
+            local ok = pcall(function() FightInspector:Clear() end)
+            UpdateInspectorDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
+        else
+            UpdateInspectorDisplay("MODULE NOT LOADED", nil)
+        end
+    end, Color3.fromRGB(85, 75, 105))
+
     -- PLAYER UTILITIES (SETTINGS TAB)
     local UtilityFolder = SettingsPage
 
@@ -1493,6 +1570,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         pcall(function()
             if FightScanner and type(FightScanner.Stop) == "function" then
                 FightScanner:Stop()
+            end
+        end)
+        pcall(function()
+            if FightInspector and type(FightInspector.Clear) == "function" then
+                FightInspector:Clear()
             end
         end)
         HouseAutoEnabled = false
