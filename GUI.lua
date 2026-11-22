@@ -619,10 +619,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(85, 75, 105))
 
     -- FIGHT ON A BASEPLATE FOLDER
-    -- FIGHT ON A BASEPLATE FOLDER
-    -- Kept separate from Halloween so event features stay organized.
-    local ThanksgivingFolder = MakeFolder("FIGHT ON A BASEPLATE")
-    local FightScannerFolder = MakeFolder("GAME SCANNER", ThanksgivingFolder)
+    -- Kept separate from the other game folders.
+    local FightFolder = MakeFolder("FIGHT ON A BASEPLATE")
+    local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder)
 
     Label(FightScannerFolder, "FIGHT ON A BASEPLATE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
