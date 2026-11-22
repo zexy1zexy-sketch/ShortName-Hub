@@ -1,135 +1,232 @@
 
--- SHORTNAME HUB | THANKSGIVING SCANNER
--- Read-only client-side inspection
--- Does not fire remotes or modify the game.
+-- SHORTNAME HUB | THANKSGIVING EVENT SCANNER
+-- Read-only client-side discovery.
+-- Does not fire remotes or modify game state.
 
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Player = Players.LocalPlayer
-local Results = {}
-local MAX_RESULTS = 300
+local Scanner = {}
+Scanner.__index = Scanner
 
-local Keywords = {
-    "thanksgiving", "turkey", "thank", "harvest",
-    "feast", "corn", "pumpkin", "event",
-    "cranberry", "stuffing", "autumn", "reward"
+local KEYWORDS = {
+    "thanksgiving", "turkey", "harvest", "feast",
+    "corn", "pumpkin", "cranberry", "stuffing",
+    "autumn", "pilgrim", "gravy", "gobble",
+    "event", "reward"
 }
 
-local function matches(text)
-    text = tostring(text):lower()
-    for _, word in ipairs(Keywords) do
-        if text:find(word, 1, true) then
+local MAX_RESULTS = 300
+local MAX_SCAN_OBJECTS = 12000
+
+function Scanner.new()
+    return setmetatable({
+        Running = false,
+        Results = {},
+        Report = "",
+        Count = 0,
+        ScanToken = 0
+    }, Scanner)
+end
+
+local function matches(value)
+    local text = tostring(value or ""):lower()
+
+    for _, keyword in ipairs(KEYWORDS) do
+        if text:find(keyword, 1, true) then
             return true
         end
     end
+
     return false
 end
 
-local function add(category, text)
-    if #Results >= MAX_RESULTS then return end
-    table.insert(Results, "[" .. category .. "] " .. text)
-end
-
-local function getPath(obj)
-    local success, result = pcall(function()
-        return obj:GetFullName()
-    end)
-    return success and result or obj.Name
-end
-
-local function inspect(root, category)
-    local descendants = root:GetDescendants()
-
-    for _, obj in ipairs(descendants) do
-        if #Results >= MAX_RESULTS then break end
-
-        if matches(obj.Name) then
-            add(category, getPath(obj) ..
-                " | Class: " .. obj.ClassName)
-        end
-
-        if obj:IsA("ProximityPrompt") then
-            local info = obj.Name ..
-                " | Parent: " .. getPath(obj.Parent) ..
-                " | Action: " .. obj.ActionText ..
-                " | Object: " .. obj.ObjectText ..
-                " | Distance: " .. obj.MaxActivationDistance
-
-            if matches(info) then
-                add("PROMPT", info)
-            end
-        end
-
-        if obj:IsA("BillboardGui") or obj:IsA("SurfaceGui") then
-            if matches(obj.Name) then
-                add("WORLD GUI", getPath(obj))
-            end
-        end
-
-        if obj:IsA("TextLabel")
-        or obj:IsA("TextButton")
-        or obj:IsA("TextBox") then
-            local success, value = pcall(function()
-                return obj.Text
-            end)
-
-            if success and matches(value) then
-                add("VISIBLE TEXT",
-                    getPath(obj) .. " | Text: " .. value)
-            end
-        end
-    end
-end
-
-print("Starting ShortName Hub Scanner...")
-
-add("PLAYER", Player.Name)
-
--- Inspect visible game world
-inspect(Workspace, "WORKSPACE")
-
--- Inspect locally replicated game objects
-inspect(ReplicatedStorage, "REPLICATED STORAGE")
-
--- Inspect the player's visible interface
-local playerGui = Player:FindFirstChildOfClass("PlayerGui")
-if playerGui then
-    inspect(playerGui, "PLAYER GUI")
-end
-
-local report = table.concat(Results, "\n")
-
-local header = [[
-========================================
-       SHORTNAME HUB EVENT SCANNER
-========================================
-Game: ]] .. game.Name .. [[
-Place ID: ]] .. game.PlaceId .. [[
-Player: ]] .. Player.Name .. [[
-
-Results: ]] .. #Results .. [[
-========================================
-
-]]
-
-report = header .. report
-
-print(report)
-
-if setclipboard then
-    local success = pcall(function()
-        setclipboard(report)
+local function safePath(object)
+    local success, path = pcall(function()
+        return object:GetFullName()
     end)
 
-    if success then
-        print("REPORT COPIED TO CLIPBOARD!")
-    else
-        warn("Clipboard unavailable. Copy the output manually.")
-    end
-else
-    warn("Clipboard unavailable. Copy the output manually.")
+    return success and path or object.Name
 end
 
-print("SCAN COMPLETE!")
+function Scanner:GetCount()
+    return self.Count
+end
+
+function Scanner:GetReport()
+    return self.Report
+end
+
+function Scanner:Clear()
+    self.Results = {}
+    self.Report = ""
+    self.Count = 0
+end
+
+function Scanner:Stop()
+    self.Running = false
+    self.ScanToken = self.ScanToken + 1
+end
+
+function Scanner:Start(onUpdate)
+    if self.Running then
+        return
+    end
+
+    self:Clear()
+    self.Running = true
+    self.ScanToken = self.ScanToken + 1
+
+    local token = self.ScanToken
+
+    task.spawn(function()
+        local player = Players.LocalPlayer
+        local inspected = 0
+
+        local function notify(status)
+            if onUpdate then
+                pcall(
+                    onUpdate,
+                    status,
+                    self.Count,
+                    self.Report
+                )
+            end
+        end
+
+        local function add(category, detail)
+            if #self.Results >= MAX_RESULTS then
+                return
+            end
+
+            table.insert(
+                self.Results,
+                "[" .. category .. "] " .. detail
+            )
+
+            self.Count = #self.Results
+        end
+
+        local function inspect(root, category)
+            if not root then
+                return
+            end
+
+            local descendants = root:GetDescendants()
+
+            for _, object in ipairs(descendants) do
+                if not self.Running
+                    or self.ScanToken ~= token then
+                    return
+                end
+
+                inspected = inspected + 1
+
+                if inspected > MAX_SCAN_OBJECTS
+                    or #self.Results >= MAX_RESULTS then
+                    return
+                end
+
+                if matches(object.Name) then
+                    add(
+                        category,
+                        safePath(object)
+                        .. " | Class: "
+                        .. object.ClassName
+                    )
+                end
+
+                if object:IsA("ProximityPrompt") then
+                    local details =
+                        object.ActionText
+                        .. " "
+                        .. object.ObjectText
+
+                    if matches(details) then
+                        add(
+                            "PROMPT",
+                            safePath(object)
+                            .. " | "
+                            .. details
+                        )
+                    end
+
+                elseif object:IsA("TextLabel")
+                    or object:IsA("TextButton")
+                    or object:IsA("TextBox") then
+
+                    local success, value = pcall(function()
+                        return object.Text
+                    end)
+
+                    if success and matches(value) then
+                        add(
+                            "VISIBLE TEXT",
+                            safePath(object)
+                            .. " | Text: "
+                            .. tostring(value)
+                        )
+                    end
+                end
+
+                if inspected % 250 == 0 then
+                    notify("SCANNING")
+                    task.wait()
+                end
+            end
+        end
+
+        notify("SCANNING WORKSPACE")
+        inspect(Workspace, "WORKSPACE")
+
+        if self.Running and self.ScanToken == token then
+            notify("SCANNING REPLICATED STORAGE")
+            inspect(
+                ReplicatedStorage,
+                "REPLICATED STORAGE"
+            )
+        end
+
+        if self.Running and self.ScanToken == token and player then
+            notify("SCANNING PLAYER GUI")
+
+            inspect(
+                player:FindFirstChildOfClass("PlayerGui"),
+                "PLAYER GUI"
+            )
+        end
+
+        if not self.Running
+            or self.ScanToken ~= token then
+            return
+        end
+
+        local header = {
+            "========================================",
+            "       SHORTNAME HUB EVENT SCANNER",
+            "========================================",
+            "Game: " .. tostring(game.Name),
+            "Place ID: " .. tostring(game.PlaceId),
+            "Player: " .. (player and player.Name or "Unknown"),
+            "Objects inspected: " .. tostring(
+                math.min(inspected, MAX_SCAN_OBJECTS)
+            ),
+            "Discoveries: " .. tostring(self.Count),
+            "========================================",
+            ""
+        }
+
+        self.Report =
+            table.concat(header, "\n")
+            .. table.concat(self.Results, "\n")
+
+        self.Running = false
+
+        notify("SCAN COMPLETE")
+
+        print(self.Report)
+    end)
+end
+
+return Scanner
