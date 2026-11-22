@@ -37,8 +37,8 @@ end
 
 local function inspectInstance(label, instance, lines)
     if not instance then
-        table.insert(lines, label .. ": NOT FOUND / NOT REPLICATED")
-        return
+        table.insert(lines, label .. ": NOT FOUND IN CLIENT REPLICATED DATA")
+        return false
     end
 
     local okName, fullName = pcall(function() return instance:GetFullName() end)
@@ -52,7 +52,7 @@ local function inspectInstance(label, instance, lines)
     table.insert(lines, "  Descendants: " .. tostring(okDesc and #descendants or "unavailable"))
 
     if okChildren and children then
-        local shown = math.min(#children, 24)
+        local shown = math.min(#children, 30)
         for index = 1, shown do
             local child = children[index]
             local childOk, childClass = pcall(function() return child.ClassName end)
@@ -67,6 +67,45 @@ local function inspectInstance(label, instance, lines)
     end
 
     table.insert(lines, "")
+    return true
+end
+
+local function findNamedInstances(roots, targetName, limit)
+    local matches = {}
+    for _, root in ipairs(roots) do
+        local ok, descendants = pcall(function() return root:GetDescendants() end)
+        if ok and descendants then
+            for _, instance in ipairs(descendants) do
+                local nameOk, name = pcall(function() return instance.Name end)
+                if nameOk and name == targetName then
+                    table.insert(matches, instance)
+                    if #matches >= limit then return matches end
+                end
+            end
+        end
+    end
+    return matches
+end
+
+local function inspectTarget(label, root, path, fallbackName, lines)
+    local instance = resolve(root, path)
+    if instance then
+        return inspectInstance(label, instance, lines) and 1 or 0
+    end
+
+    local matches = findNamedInstances({root}, fallbackName or path[#path], 12)
+    if #matches == 0 then
+        inspectInstance(label, nil, lines)
+        return 0
+    end
+
+    local count = 0
+    for index, match in ipairs(matches) do
+        if inspectInstance(label .. " [match " .. tostring(index) .. "]", match, lines) then
+            count += 1
+        end
+    end
+    return count
 end
 
 function Inspector.new()
@@ -90,50 +129,71 @@ end
 function Inspector:Inspect(onUpdate)
     local lines = {
         "SHORTNAME HUB - FIGHT ON A BASEPLATE SYSTEM INSPECTION",
-        "Mode: READ-ONLY INSTANCE METADATA",
+        "Mode: READ-ONLY RECURSIVE INSTANCE DISCOVERY",
         "----------------------------------------",
     }
     local inspected = 0
 
-    for _, target in ipairs(TARGETS) do
-        if target.eachChild then
-            local parent = resolve(target.root, target.path)
-            if not parent then
-                inspectInstance(target.label, nil, lines)
-            else
-                local ok, models = pcall(function() return parent:GetChildren() end)
-                local found = 0
-                if ok then
-                    for _, model in ipairs(models) do
-                        local targetInstance = resolve(model, target.childPath)
-                        if targetInstance then
-                            found += 1
-                            inspected += 1
-                            inspectInstance(target.label .. " [" .. model.Name .. "]", targetInstance, lines)
+    local targets = {
+        { "RaycastHitboxV4", ReplicatedStorage, {"RaycastHitboxV4"}, "RaycastHitboxV4" },
+        { "ArmAimRemote", ReplicatedStorage, {"ArmAimRemote"}, "ArmAimRemote" },
+        { "Replicate", ReplicatedStorage, {"Replicate"}, "Replicate" },
+        { "Packet RemoteEvent", ReplicatedStorage, {"Packet", "RemoteEvent"}, "RemoteEvent" },
+        { "FlyFX", ReplicatedStorage, {"FlyFX"}, "FlyFX" },
+        { "BindFly", ReplicatedStorage, {"BindFly"}, "BindFly" },
+        { "Flying BindFly", ReplicatedStorage, {"Flying", "Events", "BindFly"}, "BindFly" },
+    }
+
+    for _, target in ipairs(targets) do
+        inspected += inspectTarget(target[1], target[2], target[3], target[4], lines)
+        if type(onUpdate) == "function" then
+            pcall(onUpdate, "SEARCHING " .. target[1], inspected)
+        end
+    end
+
+    local live = findNamedInstances({Workspace}, "Live", 1)
+    if #live > 0 then
+        local liveRoot = live[1]
+        local ok, models = pcall(function() return liveRoot:GetChildren() end)
+        local found = 0
+        if ok and models then
+            for _, model in ipairs(models) do
+                local combat = findChild(model, "Combat")
+                local modules = findChild(combat, "Modules")
+                if modules then
+                    for _, moduleName in ipairs({"LockOn", "CameraShake"}) do
+                        local moduleInstance = findChild(modules, moduleName)
+                        if moduleInstance then
+                            found += inspectInstance("Combat " .. moduleName .. " [" .. model.Name .. "]", moduleInstance, lines) and 1 or 0
                         end
                     end
                 end
-                if found == 0 then
-                    inspectInstance(target.label, nil, lines)
+            end
+        end
+        if found == 0 then
+            for _, moduleName in ipairs({"LockOn", "CameraShake"}) do
+                local matches = findNamedInstances({liveRoot}, moduleName, 20)
+                for index, match in ipairs(matches) do
+                    found += inspectInstance("Combat " .. moduleName .. " [recursive match " .. tostring(index) .. "]", match, lines) and 1 or 0
                 end
             end
-        else
-            local instance = resolve(target.root, target.path)
-            if instance then inspected += 1 end
-            inspectInstance(target.label, instance, lines)
         end
-        if type(onUpdate) == "function" then
-            pcall(onUpdate, "INSPECTING " .. target.label, inspected)
+        inspected += found
+        if found == 0 then
+            table.insert(lines, "Combat LockOn / CameraShake: NOT FOUND UNDER Workspace.Live")
         end
+    else
+        table.insert(lines, "Workspace.Live: NOT FOUND IN CLIENT REPLICATED DATA")
     end
 
     table.insert(lines, "----------------------------------------")
     table.insert(lines, "Objects inspected: " .. tostring(inspected))
     table.insert(lines, "Notes:")
-    table.insert(lines, "- Only instance names, classes, paths, and child counts are inspected.")
+    table.insert(lines, "- Searches exact paths first, then recursively searches by instance name.")
+    table.insert(lines, "- Only names, classes, paths, and child counts are inspected.")
     table.insert(lines, "- Script source is not read or executed.")
     table.insert(lines, "- RemoteEvents and RemoteFunctions are never invoked.")
-    table.insert(lines, "- Missing objects may be server-only or not replicated to this client.")
+    table.insert(lines, "- Objects not replicated to this client cannot be inspected.")
 
     self._count = inspected
     self._report = table.concat(lines, "\n")
