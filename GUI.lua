@@ -1626,6 +1626,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(45, 115, 75))
 
+    ScreenGui.Destroying:Connect(function()
+        RemoveCombatHud()
+        HitboxEnabled = false
+        ClearHitboxVisuals()
+    end)
+
     -- COMING SOON PAGE
     Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey); local
     SoonCard = Instance.new("Frame")
