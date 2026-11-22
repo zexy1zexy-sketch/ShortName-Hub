@@ -101,8 +101,16 @@ function Scanner:Start(onUpdate)
                     local className = safe(instance, "ClassName", "Unknown")
                     local path = pathOf(instance)
                     local key = className .. "|" .. path
-                    local parentName = safe(safe(instance, "Parent", nil), "Name", "")
-                    local deepTarget = DEEP_TARGETS[name] or DEEP_TARGETS[parentName]
+                    local deepTarget = DEEP_TARGETS[name] == true
+                    if not deepTarget then
+                        for target in pairs(DEEP_TARGETS) do
+                            if string.find(path, "." .. target .. ".", 1, true)
+                                or string.sub(path, -#target - 1) == "." .. target then
+                                deepTarget = true
+                                break
+                            end
+                        end
+                    end
                     if deepTarget and #deep < MAX_DEEP then
                         local detail = {
                             className = className, name = name, path = path
