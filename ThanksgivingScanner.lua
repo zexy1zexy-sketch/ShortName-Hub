@@ -324,6 +324,7 @@ function Scanner:UploadReport(uploadKey)
         return requestFunction({
             Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
             Method = "POST",
+            Timeout = 45,
             Headers = {
                 ["Content-Type"] = "application/json",
                 ["x-upload-key"] = uploadKey
