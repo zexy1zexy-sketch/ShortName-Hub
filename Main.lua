@@ -1,10 +1,8 @@
 -- ShortName Hub loader for a PRIVATE GitHub repository.
 -- The Cloudflare Worker reads private GitHub files using its server-side GITHUB_TOKEN.
--- Set READ_KEY below to the same value as the Cloudflare Worker READ_KEY secret.
--- IMPORTANT: a key used by a client-side script can be extracted by script users.
+-- Module source is served through the Cloudflare Worker; the GitHub token stays server-side.
 
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
-local READ_KEY = "PASTE_YOUR_READ_KEY_HERE"
 
 local function GetRequestFunction()
     if type(request) == "function" then
@@ -32,10 +30,6 @@ local function LoadModule(name)
         error("Invalid module filename: " .. tostring(name))
     end
 
-    if READ_KEY == "" or READ_KEY == "PASTE_YOUR_READ_KEY_HERE" then
-        error("Set READ_KEY in Main.lua to your Cloudflare READ_KEY secret.")
-    end
-
     if not RequestFunction then
         error("Your executor does not expose request/http_request. Private repository loading needs HTTP requests with headers.")
     end
@@ -45,9 +39,6 @@ local function LoadModule(name)
         response = RequestFunction({
             Url = MODULE_ENDPOINT .. name,
             Method = "GET",
-            Headers = {
-                ["x-read-key"] = READ_KEY
-            }
         })
     end)
 
