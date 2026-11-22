@@ -467,6 +467,40 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner)
         end
     end
 
+    local UploadKey = ""
+    MakeBox(ThanksgivingFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
+        UploadKey = value
+    end)
+
+    MakeButton(ThanksgivingFolder, "UPLOAD REPORT", function()
+        if not ThanksgivingScanner or type(ThanksgivingScanner.UploadReport) ~= "function" then
+            UpdateScannerDisplay("UPLOAD MODULE NOT LOADED", nil)
+            return
+        end
+
+        if UploadKey == "" then
+            UpdateScannerDisplay("ENTER UPLOAD KEY FIRST", nil)
+            return
+        end
+
+        UpdateScannerDisplay("UPLOADING REPORT...", nil)
+
+        task.spawn(function()
+            local ok, success, message = pcall(function()
+                return ThanksgivingScanner:UploadReport(UploadKey)
+            end)
+
+            if not ok then
+                UpdateScannerDisplay("UPLOAD ERROR: " .. tostring(success), nil)
+            elseif success then
+                UpdateScannerDisplay(message or "UPLOADED TO GITHUB", nil)
+                LogAction("Thanksgiving Scanner Report Uploaded")
+            else
+                UpdateScannerDisplay("UPLOAD FAILED: " .. tostring(message), nil)
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 145))
+
     MakeButton(ThanksgivingFolder, "START SCAN", function()
         if not ThanksgivingScanner then
             UpdateScannerDisplay("MODULE NOT LOADED", 0)
