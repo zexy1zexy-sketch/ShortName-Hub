@@ -237,14 +237,24 @@ function Scanner:Start(onUpdate)
                     local shouldRecord = remote or (keyword ~= nil)
                     if shouldRecord and not self._seen[path] then
                         self._seen[path] = true
-                        if #self._results < MAX_RESULTS then
-                            table.insert(self._results, {
-                                keyword = keyword or (remote and "remote"),
-                                className = getRecordType(className),
-                                path = path,
-                                text = visibleText,
-                            })
-                            notify(remote and "REMOTE FOUND" or "EVENT MATCH FOUND")
+                        local record = {
+                            keyword = keyword or (remote and "remote"),
+                            className = getRecordType(className),
+                            path = path,
+                            text = visibleText,
+                        }
+
+                        if remote then
+                            -- Keep every discovered remote visible even when
+                            -- ordinary keyword matches have filled the result cap.
+                            table.insert(self._results, 1, record)
+                            if #self._results > MAX_RESULTS then
+                                table.remove(self._results)
+                            end
+                            notify("REMOTE FOUND")
+                        elseif #self._results < MAX_RESULTS then
+                            table.insert(self._results, record)
+                            notify("EVENT MATCH FOUND")
                         end
                     end
 
