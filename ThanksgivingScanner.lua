@@ -242,4 +242,73 @@ function Scanner:Start(onUpdate)
     return "SCANNING"
 end
 
+
+-- Upload the current report to the ShortName Hub Cloudflare receiver.
+-- The upload key is supplied at runtime through the GUI and is not stored in this file.
+function Scanner:UploadReport(uploadKey)
+    if type(uploadKey) ~= "string" or uploadKey == "" then
+        return false, "UPLOAD KEY REQUIRED"
+    end
+
+    local requestFunction
+
+    if type(request) == "function" then
+        requestFunction = request
+    elseif type(http_request) == "function" then
+        requestFunction = http_request
+    elseif syn and type(syn.request) == "function" then
+        requestFunction = syn.request
+    elseif http and type(http.request) == "function" then
+        requestFunction = http.request
+    elseif fluxus and type(fluxus.request) == "function" then
+        requestFunction = fluxus.request
+    end
+
+    if not requestFunction then
+        return false, "HTTP REQUEST API UNAVAILABLE"
+    end
+
+    local HttpService = game:GetService("HttpService")
+    local payload = HttpService:JSONEncode({
+        report = self:GetReport()
+    })
+
+    local ok, response = pcall(function()
+        return requestFunction({
+            Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json",
+                ["x-upload-key"] = uploadKey
+            },
+            Body = payload
+        })
+    end)
+
+    if not ok then
+        return false, "REQUEST FAILED: " .. tostring(response)
+    end
+
+    if type(response) ~= "table" then
+        return false, "INVALID RESPONSE FROM UPLOAD SERVER"
+    end
+
+    local statusCode = response.StatusCode or response.Status or response.status_code
+    local responseBody = response.Body or response.body or ""
+
+    if statusCode ~= 200 then
+        return false, "HTTP " .. tostring(statusCode) .. ": " .. tostring(responseBody)
+    end
+
+    local decodeOk, decoded = pcall(function()
+        return HttpService:JSONDecode(responseBody)
+    end)
+
+    if not decodeOk or type(decoded) ~= "table" or decoded.ok ~= true or decoded.github ~= "saved" then
+        return false, "SERVER DID NOT CONFIRM GITHUB SAVE: " .. tostring(responseBody)
+    end
+
+    return true, "UPLOADED TO GITHUB"
+end
+
 return Scanner
