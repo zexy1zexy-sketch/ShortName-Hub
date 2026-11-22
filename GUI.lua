@@ -621,6 +621,175 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end
     end, Color3.fromRGB(85, 75, 105))
 
+    -- UTILITY FEATURES
+    local UtilityFolder = MakeFolder("UTILITY")
+
+    Label(UtilityFolder, "PLAYER UTILITIES", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(UtilityFolder, "Convenience tools for your current session.", 10, 22, Grey)
+
+    local LocalPlayer = Players.LocalPlayer
+    local TeleportService = game:GetService("TeleportService")
+    local AntiAfkConnection = nil
+
+    local AntiAfkButton
+    AntiAfkButton = MakeButton(UtilityFolder, "ANTI-AFK: OFF", function()
+        if AntiAfkConnection then
+            AntiAfkConnection:Disconnect()
+            AntiAfkConnection = nil
+            AntiAfkButton.Text = "ANTI-AFK: OFF"
+            SetStatus("ANTI-AFK DISABLED")
+            return
+        end
+
+        if not LocalPlayer then
+            SetStatus("PLAYER NOT AVAILABLE")
+            return
+        end
+
+        AntiAfkConnection = LocalPlayer.Idled:Connect(function()
+            local VirtualUser = game:GetService("VirtualUser")
+            pcall(function()
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton2(Vector2.new(0, 0))
+            end)
+        end)
+        AntiAfkButton.Text = "ANTI-AFK: ON"
+        SetStatus("ANTI-AFK ENABLED")
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(UtilityFolder, "REJOIN CURRENT SERVER", function()
+        SetStatus("REJOINING SERVER...")
+        task.spawn(function()
+            local ok, err = pcall(function()
+                TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+            end)
+            if not ok then
+                SetStatus("REJOIN FAILED: " .. tostring(err))
+            end
+        end)
+    end)
+
+    MakeButton(UtilityFolder, "SERVER HOP", function()
+        SetStatus("REQUESTING ANOTHER SERVER...")
+        task.spawn(function()
+            local ok, err = pcall(function()
+                TeleportService:Teleport(game.PlaceId, LocalPlayer)
+            end)
+            if not ok then
+                SetStatus("SERVER HOP FAILED: " .. tostring(err))
+            end
+        end)
+    end, Color3.fromRGB(75, 85, 145))
+
+    local FPSBoostEnabled = false
+    local FPSOriginals = {}
+    local function SaveProperty(object, property)
+        local ok, value = pcall(function()
+            return object[property]
+        end)
+        if ok then
+            FPSOriginals[object] = FPSOriginals[object] or {}
+            if FPSOriginals[object][property] == nil then
+                FPSOriginals[object][property] = value
+            end
+        end
+    end
+
+    local function ApplyFPSBoost()
+        table.clear(FPSOriginals)
+        for _, object in ipairs(game:GetDescendants()) do
+            if object:IsA("BasePart") then
+                SaveProperty(object, "Material")
+                SaveProperty(object, "Reflectance")
+                SaveProperty(object, "CastShadow")
+                pcall(function()
+                    object.Material = Enum.Material.Plastic
+                    object.Reflectance = 0
+                    object.CastShadow = false
+                end)
+            elseif object:IsA("Decal") or object:IsA("Texture") then
+                SaveProperty(object, "Transparency")
+                pcall(function()
+                    object.Transparency = 1
+                end)
+            elseif object:IsA("ParticleEmitter") or object:IsA("Trail") or object:IsA("Beam") then
+                SaveProperty(object, "Enabled")
+                pcall(function()
+                    object.Enabled = false
+                end)
+            elseif object:IsA("PostEffect") then
+                SaveProperty(object, "Enabled")
+                pcall(function()
+                    object.Enabled = false
+                end)
+            end
+        end
+        local Lighting = game:GetService("Lighting")
+        for _, effect in ipairs(Lighting:GetChildren()) do
+            if effect:IsA("PostEffect") then
+                SaveProperty(effect, "Enabled")
+                pcall(function()
+                    effect.Enabled = false
+                end)
+            end
+        end
+    end
+
+    local function RestoreFPSSettings()
+        for object, properties in pairs(FPSOriginals) do
+            if object and object.Parent then
+                for property, value in pairs(properties) do
+                    pcall(function()
+                        object[property] = value
+                    end)
+                end
+            end
+        end
+        table.clear(FPSOriginals)
+    end
+
+    local FPSButton
+    FPSButton = MakeButton(UtilityFolder, "FPS BOOST: OFF", function()
+        FPSBoostEnabled = not FPSBoostEnabled
+        if FPSBoostEnabled then
+            ApplyFPSBoost()
+            FPSButton.Text = "FPS BOOST: ON"
+            SetStatus("LOW GRAPHICS ENABLED")
+        else
+            RestoreFPSSettings()
+            FPSButton.Text = "FPS BOOST: OFF"
+            SetStatus("GRAPHICS RESTORED")
+        end
+    end, Color3.fromRGB(100, 85, 145))
+
+    Label(UtilityFolder, "LIVE PLAYER INFO", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local PlayerInfoLabel = Label(UtilityFolder, "Loading player information...", 10, 76, White)
+    PlayerInfoLabel.TextWrapped = true
+    PlayerInfoLabel.TextYAlignment = Enum.TextYAlignment.Top
+
+    task.spawn(function()
+        while ScreenGui.Parent and PlayerInfoLabel.Parent do
+            local Character = LocalPlayer and LocalPlayer.Character
+            local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+            local Root = Character and Character:FindFirstChild("HumanoidRootPart")
+            local PositionText = "Unavailable"
+            if Root then
+                local p = Root.Position
+                PositionText = string.format("%.1f, %.1f, %.1f", p.X, p.Y, p.Z)
+            end
+            local HealthText = Humanoid and string.format("%.0f / %.0f", Humanoid.Health, Humanoid.MaxHealth) or "Unavailable"
+            local SpeedText = Humanoid and string.format("%.1f", Humanoid.WalkSpeed) or "Unavailable"
+            PlayerInfoLabel.Text = string.format(
+                "NAME: %s\nHEALTH: %s\nWALK SPEED: %s\nPOSITION: %s",
+                LocalPlayer and LocalPlayer.Name or "Unavailable",
+                HealthText,
+                SpeedText,
+                PositionText
+            )
+            task.wait(0.5)
+        end
+    end)
+
     -- NPC & TELEPORT FOLDER
     local TeleportFolder = MakeFolder("NPC & TELEPORT", HalloweenFolder)
 
