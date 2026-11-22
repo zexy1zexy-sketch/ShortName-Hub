@@ -1591,8 +1591,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local HitboxEnabled = false
     local HitboxAdornments = {}
     local HitboxTemplatePreview
+    local HitboxPreviewConnection
     local HitboxStatus = Label(CombatToolsFolder, "VISUALIZER: READY", 10, 22, Color3.fromRGB(170, 210, 255))
     local function ClearHitboxVisuals()
+        if HitboxPreviewConnection then
+            HitboxPreviewConnection:Disconnect()
+            HitboxPreviewConnection = nil
+        end
         for object, adornment in pairs(HitboxAdornments) do
             pcall(function() adornment:Destroy() end)
             HitboxAdornments[object] = nil
@@ -1695,6 +1700,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     preview.CFrame = playerRoot.CFrame * CFrame.new(0, 0, -3)
                     preview.Parent = workspace
                     HitboxTemplatePreview = preview
+                    -- Keep the local template preview attached to the character's current
+                    -- position, including after respawns or movement while the toggle is on.
+                    HitboxPreviewConnection = RunService.RenderStepped:Connect(function()
+                        if not HitboxEnabled or not HitboxTemplatePreview or not HitboxTemplatePreview.Parent then
+                            return
+                        end
+                        local currentCharacter = player.Character
+                        local currentRoot = currentCharacter and currentCharacter:FindFirstChild("HumanoidRootPart")
+                        if currentRoot then
+                            HitboxTemplatePreview.CFrame = currentRoot.CFrame * CFrame.new(0, 0, -3)
+                        end
+                    end)
                     count = 1
                     HitboxStatus.Text = "TEMPLATE PREVIEW ONLY — NOT A LIVE HITBOX"
                 else
