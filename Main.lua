@@ -176,6 +176,7 @@ StartHub = function(skipKey)
     local ScytheModule = LoadModule("Scythe.lua")
     local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
     local FightScannerModule = LoadModule("FightOnABaseplateScanner.lua")
+    local FightInspectorModule = LoadModule("FightOnABaseplateInspector.lua")
 
     local Interface
     local Controller = Teleport.new(Config, NPC, function(status)
@@ -186,6 +187,7 @@ StartHub = function(skipKey)
     local Scythe = ScytheModule.new()
     local Scanner = ThanksgivingScanner.new()
     local FightScanner = FightScannerModule.new()
+    local FightInspector = FightInspectorModule.new()
 
     local success, result = pcall(function()
         return GUI.Create(
@@ -194,6 +196,7 @@ StartHub = function(skipKey)
             Scythe,
             Scanner,
             FightScanner,
+            FightInspector,
             RefreshHub
         )
     end)
@@ -203,7 +206,8 @@ StartHub = function(skipKey)
             Controller = Controller,
             Scythe = Scythe,
             Scanner = Scanner,
-            FightScanner = FightScanner
+            FightScanner = FightScanner,
+            FightInspector = FightInspector
         })
         error("GUI creation failed: " .. tostring(result))
     end
@@ -215,6 +219,7 @@ StartHub = function(skipKey)
         Scythe = Scythe,
         Scanner = Scanner,
         FightScanner = FightScanner,
+        FightInspector = FightInspector,
         Interface = Interface
     }
 
