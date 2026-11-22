@@ -640,6 +640,8 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     local LocalPlayer = Players.LocalPlayer
     local TeleportService = game:GetService("TeleportService")
     local AntiAfkConnection = nil
+    local HubToggleConnection = nil
+    local PerformanceConnection = nil
 
     local AntiAfkButton
     AntiAfkButton = MakeButton(UtilityFolder, "ANTI-AFK: OFF", function()
@@ -767,6 +769,14 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             RestoreFPSSettings()
             FPSBoostEnabled = false
         end
+        if HubToggleConnection then
+            HubToggleConnection:Disconnect()
+            HubToggleConnection = nil
+        end
+        if PerformanceConnection then
+            PerformanceConnection:Disconnect()
+            PerformanceConnection = nil
+        end
     end)
 
     local FPSButton
@@ -808,6 +818,96 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
                 PositionText
             )
             task.wait(0.5)
+        end
+    end)
+
+    -- SESSION TOOLS: live diagnostics and copy helpers
+    Label(UtilityFolder, "SESSION TOOLS", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local PerformanceLabel = Label(UtilityFolder, "FPS: --  |  PING: --  |  MEMORY: -- MB", 10, 24, White)
+    PerformanceLabel.TextWrapped = true
+
+    local RunService = game:GetService("RunService")
+    local StatsService = game:GetService("Stats")
+    local frameCount = 0
+    local lastFps = 0
+    PerformanceConnection = RunService.RenderStepped:Connect(function()
+        frameCount += 1
+    end)
+
+    task.spawn(function()
+        while ScreenGui.Parent and PerformanceLabel.Parent do
+            task.wait(1)
+            lastFps = frameCount
+            frameCount = 0
+            local pingText = "--"
+            local memoryText = "--"
+            pcall(function()
+                local network = StatsService.Network
+                local serverStats = network and network.ServerStatsItem
+                local ping = serverStats and serverStats["Data Ping"]
+                if ping then
+                    pingText = ping:GetValueString()
+                end
+            end)
+            pcall(function()
+                memoryText = string.format("%.0f", StatsService:GetTotalMemoryUsageMb())
+            end)
+            if PerformanceLabel.Parent then
+                PerformanceLabel.Text = string.format(
+                    "FPS: %d  |  PING: %s  |  MEMORY: %s MB",
+                    lastFps,
+                    tostring(pingText),
+                    tostring(memoryText)
+                )
+            end
+        end
+    end)
+
+    local function CopyText(value)
+        if type(setclipboard) == "function" then
+            return pcall(setclipboard, value)
+        elseif type(toclipboard) == "function" then
+            return pcall(toclipboard, value)
+        end
+        return false
+    end
+
+    MakeButton(UtilityFolder, "COPY PLAYER POSITION", function()
+        local Character = LocalPlayer and LocalPlayer.Character
+        local Root = Character and Character:FindFirstChild("HumanoidRootPart")
+        if not Root then
+            SetStatus("CHARACTER POSITION UNAVAILABLE")
+            return
+        end
+        local p = Root.Position
+        local value = string.format("%.3f, %.3f, %.3f", p.X, p.Y, p.Z)
+        if CopyText(value) then
+            SetStatus("POSITION COPIED")
+        else
+            SetStatus("CLIPBOARD API UNAVAILABLE")
+        end
+    end)
+
+    MakeButton(UtilityFolder, "COPY SESSION INFO", function()
+        local Character = LocalPlayer and LocalPlayer.Character
+        local Root = Character and Character:FindFirstChild("HumanoidRootPart")
+        local position = "Unavailable"
+        if Root then
+            local p = Root.Position
+            position = string.format("%.3f, %.3f, %.3f", p.X, p.Y, p.Z)
+        end
+        local value = string.format(
+            "ShortName Hub Session Info\\nPlayer: %s\\nUserId: %s\\nPlaceId: %s\\nJobId: %s\\nPosition: %s",
+            LocalPlayer and LocalPlayer.Name or "Unavailable",
+            LocalPlayer and tostring(LocalPlayer.UserId) or "Unavailable",
+            tostring(game.PlaceId),
+            tostring(game.JobId),
+            position
+        )
+        if CopyText(value) then
+            SetStatus("SESSION INFO COPIED")
+        else
+            SetStatus("CLIPBOARD API UNAVAILABLE")
         end
     end)
 
@@ -1340,6 +1440,26 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
                 Enum.EasingDirection.Out
             )
         )
+    end)
+
+    -- RightControl quickly minimizes/restores the hub without stealing
+    -- keyboard input while a text field is focused.
+    HubToggleConnection = UIS.InputBegan:Connect(function(input, processed)
+        if processed or UIS:GetFocusedTextBox() then
+            return
+        end
+        if input.KeyCode == Enum.KeyCode.RightControl then
+            if Minimized then
+                Minimized = false
+                Bubble.Visible = false
+                Frame.Visible = true
+                WindowScale.Scale = 1
+            else
+                Minimized = true
+                Frame.Visible = false
+                Bubble.Visible = true
+            end
+        end
     end)
 
     -- WINDOW DRAGGING
