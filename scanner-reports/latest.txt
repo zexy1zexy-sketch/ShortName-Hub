@@ -1,512 +1,505 @@
-SHORTNAME HUB - FIGHT ON A BASEPLATE SCAN REPORT
-Results: 500
-Objects inspected: 45801
-Remote objects found: 122
-Script/module objects found: 263
+SHORTNAME HUB - FIGHT ON A BASEPLATE STRUCTURE SCAN
+Mode: PASSIVE / READ-ONLY
+Objects inspected: 39976
+RemoteEvents/RemoteFunctions found: 89
+Combat-related name/path matches: 400
 Scan limit: 50000
 ----------------------------------------
-1. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ViewPlayer
-2. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdatePageBoostStatus
-3. [block] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdateIceBlock
-4. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdateBanland
-5. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UndoCommand
-6. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SystemMessage
-7. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowWarning
-8. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowPage
-9. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowCommands
-10. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowBannedUser
-11. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SetResetButtonCallbackEnabled
-12. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SetCoreGuiEnabled
-13. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SetCameraSubject
-14. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveServerRanks
-15. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveRanksInfo
-16. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrievePollData
-17. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveOfferStartTime
-18. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveGamepasses
-19. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveData
-20. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBroadcastData
-21. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBanland
-22. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveAlertData
-23. [store] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RestoreDefaultSettings
-24. [quest] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandSilent
-25. [quest] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandModification
-26. [quest] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RequestCommand
-27. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ReplyToPrivateMessage
-28. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ReplicationEffectClientCommand
-29. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ReplicateEffect
-30. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.RemoveStat
-31. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RemovePermRank
-32. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.RankChanged
-33. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PurchaseAccessory
-34. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PromptGamepass
-35. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PlayerChattedIgnoreCommands
-36. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PlayerChatted
-37. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PlaySoundInstance
-38. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Notice
-39. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Message
-40. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.JoinGroup
-41. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.InsertStat
-42. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Initialized
-43. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Hint
-44. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.GlobalAnnouncement
-45. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetPing
-46. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetLocalDate
-47. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetEmotes
-48. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetAnimationId
-49. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ForceChat
-50. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ForceBubbleChat
-51. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.FavoriteUGC
-52. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.FadeInIcon
-53. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ExecutePoll
-54. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ExecuteClientCommand
-55. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ExecuteBroadcast
-56. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ExecuteAlert
-57. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Error
-58. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.EndDisco
-59. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.DeactivateClientCommand
-60. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreatePollMenu
-61. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateMenu
-62. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateLog
-63. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateEmotesMenu
-64. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateCommandMenu
-65. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateBanMenu
-66. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateAlert
-67. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Clear
-68. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CheckOffer
-69. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ChartsHttpNotice
-70. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ChangeStat
-71. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ChangeSetting
-72. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ChangeMainVariable
-73. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.BulkPurchaseFinished
-74. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.BindAudioEmitter
-75. [roll] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.BecomeControlled
-76. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.AddEmoteDetail
-77. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ActivateClientCommand
-78. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdateSavedVersion
-79. [remote] (REMOTE EVENT) ReplicatedStorage.UpdateClanInfo
-80. [remote] (REMOTE EVENT) ReplicatedStorage.Replicate
-81. [remote] (BINDABLE EVENT) ReplicatedStorage.Laser
-82. [remote] (REMOTE EVENT) ReplicatedStorage.FlyFX
-83. [remote] (REMOTE EVENT) ReplicatedStorage.BindFly
-84. [remote] (REMOTE EVENT) ReplicatedStorage.ArmAimRemote
-85. [remote] (BINDABLE FUNCTION) ReplicatedStorage.GetUI
-86. [remote] (REMOTE EVENT) ReplicatedStorage.Flying.Events.BindFly
-87. [remote] (REMOTE EVENT) ReplicatedStorage.Packet.RemoteEvent
-88. [remote] (BINDABLE FUNCTION) Workspace.Live.BigV_2000.Animate.PlayEmote
-89. [remote] (REMOTE FUNCTION) Workspace.Live.BigV_2000.AimScript.RemoteFunction
-90. [remote] (BINDABLE FUNCTION) Workspace.Live.N10pr1.Animate.PlayEmote
-91. [remote] (REMOTE FUNCTION) Workspace.Live.N10pr1.AimScript.RemoteFunction
-92. [remote] (BINDABLE FUNCTION) Workspace.Live.jb53014.Animate.PlayEmote
-93. [remote] (REMOTE FUNCTION) Workspace.Live.jb53014.AimScript.RemoteFunction
-94. [remote] (BINDABLE FUNCTION) Workspace.Live.Bentley09792.Animate.PlayEmote
-95. [remote] (REMOTE FUNCTION) Workspace.Live.Bentley09792.AimScript.RemoteFunction
-96. [remote] (BINDABLE FUNCTION) Workspace.Live.shortname_zen.Animate.PlayEmote
-97. [remote] (REMOTE FUNCTION) Workspace.Live.shortname_zen.AimScript.RemoteFunction
-98. [remote] (BINDABLE EVENT) Workspace.Live.shortname_zen.Humanoid.Event
-99. [remote] (REMOTE FUNCTION) Workspace.Live.Ederava1.AimScript.RemoteFunction
-100. [remote] (BINDABLE FUNCTION) Workspace.Live.Ederava1.Animate.PlayEmote
-101. [remote] (REMOTE FUNCTION) Workspace.Live.imaginepoopyay.AimScript.RemoteFunction
-102. [remote] (BINDABLE FUNCTION) Workspace.Live.imaginepoopyay.Animate.PlayEmote
-103. [remote] (REMOTE FUNCTION) Workspace.Live.miguel_123y10.AimScript.RemoteFunction
-104. [remote] (BINDABLE FUNCTION) Workspace.Live.miguel_123y10.Animate.PlayEmote
-105. [remote] (BINDABLE FUNCTION) Workspace.Live.Nephewramo.Animate.PlayEmote
-106. [remote] (REMOTE FUNCTION) Workspace.Live.Nephewramo.AimScript.RemoteFunction
-107. [remote] (REMOTE FUNCTION) Workspace.Live.JahsehOnfroy028.AimScript.RemoteFunction
-108. [remote] (BINDABLE FUNCTION) Workspace.Live.JahsehOnfroy028.Animate.PlayEmote
-109. [remote] (REMOTE FUNCTION) Workspace.Live.Dino_LOWE2324.AimScript.RemoteFunction
-110. [remote] (BINDABLE FUNCTION) Workspace.Live.Dino_LOWE2324.Animate.PlayEmote
-111. [remote] (BINDABLE FUNCTION) Workspace.Live.yesncca.Animate.PlayEmote
-112. [remote] (REMOTE FUNCTION) Workspace.Live.yesncca.AimScript.RemoteFunction
-113. [remote] (BINDABLE FUNCTION) Workspace.Live.Aotua6wkw.Animate.PlayEmote
-114. [remote] (REMOTE FUNCTION) Workspace.Live.Aotua6wkw.AimScript.RemoteFunction
-115. [remote] (REMOTE FUNCTION) Workspace.Live.Leonchiliyuyu.AimScript.RemoteFunction
-116. [remote] (BINDABLE FUNCTION) Workspace.Live.Leonchiliyuyu.Animate.PlayEmote
-117. [remote] (REMOTE FUNCTION) Workspace.Live.Skippychappy.AimScript.RemoteFunction
-118. [remote] (BINDABLE FUNCTION) Workspace.Live.Skippychappy.Animate.PlayEmote
-119. [remote] (REMOTE FUNCTION) Workspace.Live.thebadeseee.AimScript.RemoteFunction
-120. [remote] (BINDABLE FUNCTION) Workspace.Live.thebadeseee.Animate.PlayEmote
-121. [remote] (REMOTE FUNCTION) Workspace.Live.Pawz_ForLife1.AimScript.RemoteFunction
-122. [remote] (BINDABLE FUNCTION) Workspace.Live.Pawz_ForLife1.Animate.PlayEmote
-123. [admin] (LOCAL SCRIPT) Players.shortname_zen.PlayerGui.HDAdminInterface.MainFrame.Pages.Boost.Buy.Banner.Buttons.Unlock.UIStroke.UIGradient.LocalScript
-124. [admin] (LOCAL SCRIPT) Players.shortname_zen.PlayerGui.HDAdminInterface.LocalScripts.HideGUIs
-125. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminInterface.MainFrame.Pages.Boost.Buy.Banner.Buttons.Unlock.UIStroke.UIGradient.LocalScript
-126. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminInterface.MainFrame.Pages.About.Soon.Info.LinkFrame.TextBox.LocalScript
-127. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminInterface.LocalScripts.HideGUIs
-128. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminStarterCharacter
-129. [admin] (SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminStartup
-130. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.VerifyUtil
-131. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.VERSION
-132. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.TextChatUtility
-133. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Signal
-134. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.SharedCoreFunctions
-135. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.SharedAPI
-136. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework.Warnings
-137. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework.Reference
-138. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework.MainVariables
-139. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework
-140. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Events
-141. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Emotes
-142. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Demojify
-143. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.CoreNotices
-144. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.BundleUtility
-145. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.CustomClientCommands
-146. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.Notices
-147. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.Messages
-148. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.InputHandler
-149. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.TopbarIcons
-150. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.ScreenAdapter
-151. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.RedNotices
-152. [settings] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageSettings
-153. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageModeration
-154. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageCommands
-155. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageBooster
-156. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageAbout.Updates
-157. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageAbout.Credits
-158. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageAbout
-159. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs
-160. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.FlyCommand
-161. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.CmdBar
-162. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientNetwork
-163. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientCoreFunctions
-164. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientCommands
-165. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientAPI
-166. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ChatHandler
-167. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Packages.Janitor
-168. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Packages.GoodSignal
-169. [ult] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Themes.Default
-170. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Themes.Classic
-171. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Themes
-172. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Overflow
-173. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Gamepad
-174. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Widget
-175. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Selection
-176. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Notice
-177. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Menu
-178. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Indicator
-179. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Dropdown
-180. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Container
-181. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Caption
-182. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.VERSION
-183. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Utility
-184. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Types
-185. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Reference
-186. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Attribute
-187. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon
-188. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminSetup
-189. [zone] (MODULE SCRIPT) ReplicatedStorage.Zone
-190. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.Bone
-191. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.Vector3
-192. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.LinkAttachments
-193. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.Attachment
-194. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.GoodSignal
-195. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.VisualizerCache
-196. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.HitboxCaster
-197. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4
-198. [health] (SCRIPT) Workspace.Live.BigV_2000.Health
-199. [admin] (LOCAL SCRIPT) Workspace.Live.BigV_2000.HDAdminStarterCharacter
-200. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.LockOn
-201. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.CameraShake
-202. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-203. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-204. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-205. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.SmoothShiftLock.Constants
-206. [combat] (MODULE SCRIPT) Workspace.Live.BigV_2000.Combat.Modules.SmoothShiftLock
-207. [combat] (LOCAL SCRIPT) Workspace.Live.BigV_2000.Combat
-208. [ragdoll] (SCRIPT) Workspace.Live.BigV_2000.Ragdoll
-209. [health] (SCRIPT) Workspace.Live.N10pr1.Health
-210. [admin] (LOCAL SCRIPT) Workspace.Live.N10pr1.HDAdminStarterCharacter
-211. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.LockOn
-212. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.CameraShake
-213. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-214. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-215. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-216. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.SmoothShiftLock.Constants
-217. [combat] (MODULE SCRIPT) Workspace.Live.N10pr1.Combat.Modules.SmoothShiftLock
-218. [combat] (LOCAL SCRIPT) Workspace.Live.N10pr1.Combat
-219. [ragdoll] (SCRIPT) Workspace.Live.N10pr1.Ragdoll
-220. [health] (SCRIPT) Workspace.Live.jb53014.Health
-221. [admin] (LOCAL SCRIPT) Workspace.Live.jb53014.HDAdminStarterCharacter
-222. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.LockOn
-223. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.CameraShake
-224. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-225. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-226. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-227. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.SmoothShiftLock.Constants
-228. [combat] (MODULE SCRIPT) Workspace.Live.jb53014.Combat.Modules.SmoothShiftLock
-229. [combat] (LOCAL SCRIPT) Workspace.Live.jb53014.Combat
-230. [ragdoll] (SCRIPT) Workspace.Live.jb53014.Ragdoll
-231. [health] (SCRIPT) Workspace.Live.Bentley09792.Health
-232. [admin] (LOCAL SCRIPT) Workspace.Live.Bentley09792.HDAdminStarterCharacter
-233. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.LockOn
-234. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.CameraShake
-235. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-236. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-237. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-238. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.SmoothShiftLock.Constants
-239. [combat] (MODULE SCRIPT) Workspace.Live.Bentley09792.Combat.Modules.SmoothShiftLock
-240. [combat] (LOCAL SCRIPT) Workspace.Live.Bentley09792.Combat
-241. [ragdoll] (SCRIPT) Workspace.Live.Bentley09792.Ragdoll
-242. [health] (SCRIPT) Workspace.Live.shortname_zen.Health
-243. [admin] (LOCAL SCRIPT) Workspace.Live.shortname_zen.HDAdminStarterCharacter
-244. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.LockOn
-245. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.CameraShake
-246. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-247. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-248. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-249. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Constants
-250. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock
-251. [combat] (LOCAL SCRIPT) Workspace.Live.shortname_zen.Combat
-252. [ragdoll] (SCRIPT) Workspace.Live.shortname_zen.Ragdoll
-253. [ragdoll] (SCRIPT) Workspace.Live.Ederava1.Ragdoll
-254. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-255. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-256. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-257. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.SmoothShiftLock.Constants
-258. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.SmoothShiftLock
-259. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.CameraShake
-260. [combat] (MODULE SCRIPT) Workspace.Live.Ederava1.Combat.Modules.LockOn
-261. [combat] (LOCAL SCRIPT) Workspace.Live.Ederava1.Combat
-262. [admin] (LOCAL SCRIPT) Workspace.Live.Ederava1.HDAdminStarterCharacter
-263. [health] (SCRIPT) Workspace.Live.Ederava1.Health
-264. [ragdoll] (SCRIPT) Workspace.Live.imaginepoopyay.Ragdoll
-265. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-266. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-267. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-268. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.SmoothShiftLock.Constants
-269. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.SmoothShiftLock
-270. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.CameraShake
-271. [combat] (MODULE SCRIPT) Workspace.Live.imaginepoopyay.Combat.Modules.LockOn
-272. [combat] (LOCAL SCRIPT) Workspace.Live.imaginepoopyay.Combat
-273. [admin] (LOCAL SCRIPT) Workspace.Live.imaginepoopyay.HDAdminStarterCharacter
-274. [health] (SCRIPT) Workspace.Live.imaginepoopyay.Health
-275. [ragdoll] (SCRIPT) Workspace.Live.miguel_123y10.Ragdoll
-276. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-277. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-278. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-279. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.SmoothShiftLock.Constants
-280. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.SmoothShiftLock
-281. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.CameraShake
-282. [combat] (MODULE SCRIPT) Workspace.Live.miguel_123y10.Combat.Modules.LockOn
-283. [combat] (LOCAL SCRIPT) Workspace.Live.miguel_123y10.Combat
-284. [admin] (LOCAL SCRIPT) Workspace.Live.miguel_123y10.HDAdminStarterCharacter
-285. [health] (SCRIPT) Workspace.Live.miguel_123y10.Health
-286. [health] (SCRIPT) Workspace.Live.Nephewramo.Health
-287. [admin] (LOCAL SCRIPT) Workspace.Live.Nephewramo.HDAdminStarterCharacter
-288. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.LockOn
-289. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.CameraShake
-290. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-291. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-292. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-293. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.SmoothShiftLock.Constants
-294. [combat] (MODULE SCRIPT) Workspace.Live.Nephewramo.Combat.Modules.SmoothShiftLock
-295. [combat] (LOCAL SCRIPT) Workspace.Live.Nephewramo.Combat
-296. [ragdoll] (SCRIPT) Workspace.Live.Nephewramo.Ragdoll
-297. [ragdoll] (SCRIPT) Workspace.Live.JahsehOnfroy028.Ragdoll
-298. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-299. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-300. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-301. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.SmoothShiftLock.Constants
-302. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.SmoothShiftLock
-303. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.CameraShake
-304. [combat] (MODULE SCRIPT) Workspace.Live.JahsehOnfroy028.Combat.Modules.LockOn
-305. [combat] (LOCAL SCRIPT) Workspace.Live.JahsehOnfroy028.Combat
-306. [admin] (LOCAL SCRIPT) Workspace.Live.JahsehOnfroy028.HDAdminStarterCharacter
-307. [health] (SCRIPT) Workspace.Live.JahsehOnfroy028.Health
-308. [ragdoll] (SCRIPT) Workspace.Live.Dino_LOWE2324.Ragdoll
-309. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-310. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-311. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-312. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.SmoothShiftLock.Constants
-313. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.SmoothShiftLock
-314. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.CameraShake
-315. [combat] (MODULE SCRIPT) Workspace.Live.Dino_LOWE2324.Combat.Modules.LockOn
-316. [combat] (LOCAL SCRIPT) Workspace.Live.Dino_LOWE2324.Combat
-317. [admin] (LOCAL SCRIPT) Workspace.Live.Dino_LOWE2324.HDAdminStarterCharacter
-318. [health] (SCRIPT) Workspace.Live.Dino_LOWE2324.Health
-319. [health] (SCRIPT) Workspace.Live.yesncca.Health
-320. [admin] (LOCAL SCRIPT) Workspace.Live.yesncca.HDAdminStarterCharacter
-321. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.LockOn
-322. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.CameraShake
-323. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-324. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-325. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-326. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.SmoothShiftLock.Constants
-327. [combat] (MODULE SCRIPT) Workspace.Live.yesncca.Combat.Modules.SmoothShiftLock
-328. [combat] (LOCAL SCRIPT) Workspace.Live.yesncca.Combat
-329. [ragdoll] (SCRIPT) Workspace.Live.yesncca.Ragdoll
-330. [health] (SCRIPT) Workspace.Live.Aotua6wkw.Health
-331. [admin] (LOCAL SCRIPT) Workspace.Live.Aotua6wkw.HDAdminStarterCharacter
-332. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.LockOn
-333. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.CameraShake
-334. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-335. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-336. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-337. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.SmoothShiftLock.Constants
-338. [combat] (MODULE SCRIPT) Workspace.Live.Aotua6wkw.Combat.Modules.SmoothShiftLock
-339. [combat] (LOCAL SCRIPT) Workspace.Live.Aotua6wkw.Combat
-340. [ragdoll] (SCRIPT) Workspace.Live.Aotua6wkw.Ragdoll
-341. [ragdoll] (SCRIPT) Workspace.Live.Leonchiliyuyu.Ragdoll
-342. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-343. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-344. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-345. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.SmoothShiftLock.Constants
-346. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.SmoothShiftLock
-347. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.CameraShake
-348. [combat] (MODULE SCRIPT) Workspace.Live.Leonchiliyuyu.Combat.Modules.LockOn
-349. [combat] (LOCAL SCRIPT) Workspace.Live.Leonchiliyuyu.Combat
-350. [admin] (LOCAL SCRIPT) Workspace.Live.Leonchiliyuyu.HDAdminStarterCharacter
-351. [health] (SCRIPT) Workspace.Live.Leonchiliyuyu.Health
-352. [ragdoll] (SCRIPT) Workspace.Live.Skippychappy.Ragdoll
-353. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-354. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-355. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-356. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.SmoothShiftLock.Constants
-357. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.SmoothShiftLock
-358. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.CameraShake
-359. [combat] (MODULE SCRIPT) Workspace.Live.Skippychappy.Combat.Modules.LockOn
-360. [combat] (LOCAL SCRIPT) Workspace.Live.Skippychappy.Combat
-361. [admin] (LOCAL SCRIPT) Workspace.Live.Skippychappy.HDAdminStarterCharacter
-362. [health] (SCRIPT) Workspace.Live.Skippychappy.Health
-363. [ragdoll] (SCRIPT) Workspace.Live.thebadeseee.Ragdoll
-364. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-365. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-366. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-367. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.SmoothShiftLock.Constants
-368. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.SmoothShiftLock
-369. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.CameraShake
-370. [combat] (MODULE SCRIPT) Workspace.Live.thebadeseee.Combat.Modules.LockOn
-371. [combat] (LOCAL SCRIPT) Workspace.Live.thebadeseee.Combat
-372. [admin] (LOCAL SCRIPT) Workspace.Live.thebadeseee.HDAdminStarterCharacter
-373. [health] (SCRIPT) Workspace.Live.thebadeseee.Health
-374. [ragdoll] (SCRIPT) Workspace.Live.Pawz_ForLife1.Ragdoll
-375. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.SmoothShiftLock.Dependencies.Maid
-376. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.SmoothShiftLock.Dependencies.Spring
-377. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.SmoothShiftLock.Dependencies.Signal
-378. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.SmoothShiftLock.Constants
-379. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.SmoothShiftLock
-380. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.CameraShake
-381. [combat] (MODULE SCRIPT) Workspace.Live.Pawz_ForLife1.Combat.Modules.LockOn
-382. [combat] (LOCAL SCRIPT) Workspace.Live.Pawz_ForLife1.Combat
-383. [admin] (LOCAL SCRIPT) Workspace.Live.Pawz_ForLife1.HDAdminStarterCharacter
-384. [health] (SCRIPT) Workspace.Live.Pawz_ForLife1.Health
-385. [ragdoll] (SCRIPT) Workspace.Live.R6_Animations.Ragdoll
-386. [map] (Folder) Workspace.Map
-387. [map] (Part) Workspace.Map.Gradient Part
-388. [safezone] (Decal) Workspace.Map.Gradient Part.SAFEZONEGRADIENT
-389. [map] (Weld) Workspace.Map.Gradient Part.Weld
-390. [spawn] (SpawnLocation) Workspace.Map.SpawnLocation
-391. [spawn] (Weld) Workspace.Map.SpawnLocation.Weld
-392. [spawn] (Decal) Workspace.Map.SpawnLocation.Decal
-393. [baseplate] (Part) Workspace.Map.Baseplate
-394. [baseplate] (Texture) Workspace.Map.Baseplate.Texture
-395. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle_Idle
-396. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe
-397. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart
-398. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Null
-399. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso
-400. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Null
-401. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Right Arm
-402. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-403. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Left Arm
-404. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle_Shoot
-405. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe
-406. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart
-407. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Null
-408. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso
-409. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Null
-410. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm
-411. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-412. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Left Arm
-413. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Head
-414. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle_Hold
-415. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe
-416. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart
-417. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Null
-418. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso
-419. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Null
-420. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm
-421. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-422. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Left Arm
-423. [gun] (KeyframeSequence) Workspace.Rig1.AnimSaves.Shotgun_Shoot
-424. [gun] (Keyframe) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe
-425. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart
-426. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Null
-427. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso
-428. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Left Arm
-429. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm
-430. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-431. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Head
-432. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Null
-433. [gun] (KeyframeSequence) Workspace.Rig1.AnimSaves.Shotgun_Hold
-434. [gun] (Keyframe) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe
-435. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart
-436. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Null
-437. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso
-438. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Null
-439. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Left Arm
-440. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm
-441. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-442. [gun] (KeyframeSequence) Workspace.Rig1.AnimSaves.Shotgun_Reload
-443. [gun] (Keyframe) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe
-444. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart
-445. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Null
-446. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso
-447. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Left Arm
-448. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Right Arm
-449. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-450. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand.Forestock
-451. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Null
-452. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand.Null
-453. [gun] (KeyframeMarker) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.Reload
-454. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Reload.Keyframe.HumanoidRootPart.Torso.Right Arm.Null
-455. [gun] (KeyframeSequence) Workspace.Rig1.AnimSaves.Shotgun_Idle
-456. [gun] (Keyframe) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe
-457. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe.HumanoidRootPart
-458. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe.HumanoidRootPart.Null
-459. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe.HumanoidRootPart.Torso
-460. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe.HumanoidRootPart.Torso.Null
-461. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe.HumanoidRootPart.Torso.Left Arm
-462. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Idle.Keyframe.HumanoidRootPart.Torso.Right Arm
-463. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle2_Idle
-464. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe
-465. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe.HumanoidRootPart
-466. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe.HumanoidRootPart.Null
-467. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe.HumanoidRootPart.Torso
-468. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe.HumanoidRootPart.Torso.Null
-469. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe.HumanoidRootPart.Torso.Left Arm
-470. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Idle.Keyframe.HumanoidRootPart.Torso.Right Arm
-471. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle2_Shoot
-472. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe
-473. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart
-474. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Null
-475. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Torso
-476. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Torso.Null
-477. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Torso.Left Arm
-478. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm
-479. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-480. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Shoot.Keyframe.HumanoidRootPart.Torso.Head
-481. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle2_Hold
-482. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe
-483. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart
-484. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart.Null
-485. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart.Torso
-486. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart.Torso.Null
-487. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart.Torso.Left Arm
-488. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm
-489. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle2_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-490. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle3_Hold
-491. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe
-492. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart
-493. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart.Null
-494. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart.Torso
-495. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart.Torso.Null
-496. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart.Torso.Left Arm
-497. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm
-498. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle3_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
-499. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle3_Idle
-500. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle3_Idle.Keyframe
+REMOTE INVENTORY (NAMES AND PATHS ONLY)
+1. [RemoteEvent] ReplicatedStorage.Packet.RemoteEvent
+2. [RemoteEvent] ReplicatedStorage.Flying.Events.BindFly
+3. [RemoteEvent] ReplicatedStorage.ArmAimRemote
+4. [RemoteEvent] ReplicatedStorage.BindFly
+5. [RemoteEvent] ReplicatedStorage.FlyFX
+6. [RemoteEvent] ReplicatedStorage.Replicate
+7. [RemoteEvent] ReplicatedStorage.UpdateClanInfo
+8. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdateSavedVersion
+9. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ActivateClientCommand
+10. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.AddEmoteDetail
+11. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.BecomeControlled
+12. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.BindAudioEmitter
+13. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.BulkPurchaseFinished
+14. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ChangeMainVariable
+15. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ChangeSetting
+16. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ChangeStat
+17. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ChartsHttpNotice
+18. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CheckOffer
+19. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Clear
+20. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateAlert
+21. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateBanMenu
+22. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateCommandMenu
+23. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateEmotesMenu
+24. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateLog
+25. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateMenu
+26. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreatePollMenu
+27. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.DeactivateClientCommand
+28. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Error
+29. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ExecuteAlert
+30. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ExecuteBroadcast
+31. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ExecuteClientCommand
+32. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ExecutePoll
+33. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.FadeInIcon
+34. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.FavoriteUGC
+35. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ForceBubbleChat
+36. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ForceChat
+37. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetAnimationId
+38. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetEmotes
+39. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetLocalDate
+40. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetPing
+41. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.GlobalAnnouncement
+42. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Hint
+43. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.InsertStat
+44. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.JoinGroup
+45. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Message
+46. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Notice
+47. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.PlaySoundInstance
+48. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.PromptGamepass
+49. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.PurchaseAccessory
+50. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.RankChanged
+51. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RemovePermRank
+52. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.RemoveStat
+53. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ReplicateEffect
+54. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ReplicationEffectClientCommand
+55. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ReplyToPrivateMessage
+56. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RequestCommand
+57. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandModification
+58. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandSilent
+59. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RestoreDefaultSettings
+60. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveAlertData
+61. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBanland
+62. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBroadcastData
+63. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveData
+64. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveGamepasses
+65. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveOfferStartTime
+66. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrievePollData
+67. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveRanksInfo
+68. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveServerRanks
+69. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.SetCameraSubject
+70. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.SetCoreGuiEnabled
+71. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.SetResetButtonCallbackEnabled
+72. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ShowBannedUser
+73. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ShowCommands
+74. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ShowPage
+75. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ShowWarning
+76. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.SystemMessage
+77. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UndoCommand
+78. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdateBanland
+79. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdateIceBlock
+80. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdatePageBoostStatus
+81. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ViewPlayer
+82. [RemoteFunction] Workspace.Live.Chuki12345678983.AimScript.RemoteFunction
+83. [RemoteFunction] fandezui.AimScript.RemoteFunction
+84. [RemoteFunction] Workspace.Live.abx_goatt.AimScript.RemoteFunction
+85. [RemoteFunction] Workspace.Live.shortname_zen.AimScript.RemoteFunction
+86. [RemoteFunction] Workspace.Live.Nyx_mc09.AimScript.RemoteFunction
+87. [RemoteFunction] Workspace.Live.Matthewdantdmfan3.AimScript.RemoteFunction
+88. [RemoteFunction] Workspace.Live.Whitslar19.AimScript.RemoteFunction
+89. [RemoteFunction] Workspace.Live.JEICOl_LAC.AimScript.RemoteFunction
+
+COMBAT-RELATED INSTANCE MATCHES
+1. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Grabs
+2. [ModuleScript] term=packet children=4 | ReplicatedStorage.Packet
+3. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Signal
+4. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Task
+5. [ModuleScript] term=replicate children=5 | ReplicatedStorage.Packet.Types
+6. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Types.Characters
+7. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Types.Static1
+8. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Types.Static2
+9. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Types.Static3
+10. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Packet.Types.Enums
+11. [ModuleScript] term=replicate children=0 | ReplicatedStorage.ProfileService
+12. [ModuleScript] term=hitbox children=4 | ReplicatedStorage.RaycastHitboxV4
+13. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.HitboxCaster
+14. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.VisualizerCache
+15. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.GoodSignal
+16. [Folder] term=hitbox children=4 | ReplicatedStorage.RaycastHitboxV4.Solvers
+17. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.Solvers.Attachment
+18. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.Solvers.LinkAttachments
+19. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.Solvers.Vector3
+20. [ModuleScript] term=hitbox children=0 | ReplicatedStorage.RaycastHitboxV4.Solvers.Bone
+21. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Styles
+22. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Zone
+23. [ModuleScript] term=replicate children=0 | ReplicatedStorage.HDAdminSetup
+24. [Folder] term=replicate children=2 | ReplicatedStorage.BLOOD
+25. [Part] term=replicate children=9 | ReplicatedStorage.BLOOD.Blood_Drip
+26. [Trail] term=replicate children=0 | ReplicatedStorage.BLOOD.Blood_Drip.Trail
+27. [Attachment] term=replicate children=0 | ReplicatedStorage.BLOOD.Blood_Drip.A1
+28. [Attachment] term=replicate children=0 | ReplicatedStorage.BLOOD.Blood_Drip.A0
+29. [Decal] term=replicate children=0 | ReplicatedStorage.BLOOD.Blood_Drip.Decal
+30. [Part] term=replicate children=6 | ReplicatedStorage.BLOOD.Blood_Pool
+31. [Decal] term=replicate children=0 | ReplicatedStorage.BLOOD.Blood_Pool.Decal
+32. [Folder] term=replicate children=3 | ReplicatedStorage.Flying
+33. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Flying.Config
+34. [Folder] term=replicate children=4 | ReplicatedStorage.Flying.Assets
+35. [Folder] term=replicate children=3 | ReplicatedStorage.Flying.Assets.Sounds
+36. [Sound] term=replicate children=0 | ReplicatedStorage.Flying.Assets.Sounds.Land
+37. [Sound] term=replicate children=0 | ReplicatedStorage.Flying.Assets.Sounds.Launch
+38. [Sound] term=replicate children=0 | ReplicatedStorage.Flying.Assets.Sounds.Whiz
+39. [Folder] term=replicate children=3 | ReplicatedStorage.Flying.Assets.VFX
+40. [Part] term=replicate children=1 | ReplicatedStorage.Flying.Assets.VFX.Land
+41. [Attachment] term=replicate children=3 | ReplicatedStorage.Flying.Assets.VFX.Land.Attachment
+42. [ParticleEmitter] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Land.Attachment.Smoke1
+43. [ParticleEmitter] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Land.Attachment.Smoke2
+44. [ParticleEmitter] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Land.Attachment.Wind1
+45. [Part] term=replicate children=1 | ReplicatedStorage.Flying.Assets.VFX.Launch
+46. [Attachment] term=replicate children=3 | ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment
+47. [ParticleEmitter] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment.Smoke1
+48. [ParticleEmitter] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment.Smoke2
+49. [ParticleEmitter] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment.Wind1
+50. [Part] term=replicate children=0 | ReplicatedStorage.Flying.Assets.VFX.Whiz
+51. [Folder] term=anim children=6 | ReplicatedStorage.Flying.Assets.Anims
+52. [Animation] term=anim children=0 | ReplicatedStorage.Flying.Assets.Anims.Fly
+53. [Animation] term=anim children=0 | ReplicatedStorage.Flying.Assets.Anims.Idle
+54. [Animation] term=anim children=0 | ReplicatedStorage.Flying.Assets.Anims.Land
+55. [Animation] term=anim children=0 | ReplicatedStorage.Flying.Assets.Anims.Launch
+56. [Animation] term=anim children=0 | ReplicatedStorage.Flying.Assets.Anims.FlyBoostIdle
+57. [Animation] term=anim children=0 | ReplicatedStorage.Flying.Assets.Anims.FlyBoost
+58. [Part] term=hitbox children=1 | ReplicatedStorage.Flying.Assets.Hitbox
+59. [Motor6D] term=hitbox children=0 | ReplicatedStorage.Flying.Assets.Hitbox.Motor6D
+60. [Folder] term=replicate children=3 | ReplicatedStorage.Flying.Events
+61. [UnreliableRemoteEvent] term=replicate children=0 | ReplicatedStorage.Flying.Events.SpawnVFX
+62. [UnreliableRemoteEvent] term=replicate children=0 | ReplicatedStorage.Flying.Events.Whiz
+63. [Folder] term=replicate children=39 | ReplicatedStorage.SFX
+64. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Weave
+65. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Weaved
+66. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grunt
+67. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.SnoreMeme
+68. [Sound] term=hit children=0 | ReplicatedStorage.SFX.Blood_Hit
+69. [Sound] term=punch children=0 | ReplicatedStorage.SFX.HardPunch
+70. [Sound] term=hit children=0 | ReplicatedStorage.SFX.ThraggHit
+71. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.ThraggHmph
+72. [Sound] term=punch children=0 | ReplicatedStorage.SFX.ThraggPunch
+73. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.ThraggWhoosh
+74. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.ThraggWind
+75. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.ThraggYell
+76. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.SaitamaTalk
+77. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.SaitamaTalk2
+78. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.SaitamaWhoosh
+79. [Sound] term=punch children=0 | ReplicatedStorage.SFX.NPCPunch
+80. [Sound] term=punch children=0 | ReplicatedStorage.SFX.SaitamaPunchWhoosh
+81. [Sound] term=punch children=0 | ReplicatedStorage.SFX.SaitamaPunch
+82. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.LoudFootstep
+83. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.SaitamaWindBack
+84. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Pushed
+85. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.SaitamaShove
+86. [Sound] term=swing children=0 | ReplicatedStorage.SFX.Katana Swing
+87. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.FlyByBoom
+88. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.wind
+89. [Sound] term=parry children=0 | ReplicatedStorage.SFX.Parry
+90. [Folder] term=swing children=5 | ReplicatedStorage.SFX.Swings
+91. [Sound] term=swing children=0 | ReplicatedStorage.SFX.Swings.1
+92. [Sound] term=swing children=0 | ReplicatedStorage.SFX.Swings.2
+93. [Sound] term=swing children=0 | ReplicatedStorage.SFX.Swings.3
+94. [Sound] term=swing children=0 | ReplicatedStorage.SFX.Swings.4
+95. [Sound] term=swing children=0 | ReplicatedStorage.SFX.Swings.5
+96. [Folder] term=punch children=4 | ReplicatedStorage.SFX.Punched
+97. [Sound] term=punch children=0 | ReplicatedStorage.SFX.Punched.1
+98. [Sound] term=punch children=0 | ReplicatedStorage.SFX.Punched.2
+99. [Sound] term=punch children=0 | ReplicatedStorage.SFX.Punched.3
+100. [Sound] term=punch children=0 | ReplicatedStorage.SFX.Punched.4
+101. [Folder] term=replicate children=6 | ReplicatedStorage.SFX.Slams
+102. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Slams.1
+103. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Slams.2
+104. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Slams.3
+105. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Slams.4
+106. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Slams.5
+107. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Slams.6
+108. [Folder] term=replicate children=3 | ReplicatedStorage.SFX.Grabs
+109. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grabs.1
+110. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grabs.2
+111. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grabs.3
+112. [Folder] term=replicate children=3 | ReplicatedStorage.SFX.Bone
+113. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Bone.2
+114. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Bone.1
+115. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Bone.3
+116. [Folder] term=replicate children=3 | ReplicatedStorage.SFX.Snore
+117. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Snore.1
+118. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Snore.2
+119. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Snore.3
+120. [Folder] term=hit children=4 | ReplicatedStorage.SFX.HardHit
+121. [Sound] term=hit children=0 | ReplicatedStorage.SFX.HardHit.1
+122. [Sound] term=hit children=0 | ReplicatedStorage.SFX.HardHit.2
+123. [Sound] term=hit children=0 | ReplicatedStorage.SFX.HardHit.3
+124. [Sound] term=hit children=0 | ReplicatedStorage.SFX.HardHit.4
+125. [Folder] term=replicate children=3 | ReplicatedStorage.SFX.Grunts
+126. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grunts.1
+127. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grunts.2
+128. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Grunts.3
+129. [Folder] term=swing children=5 | ReplicatedStorage.SFX.HardSwings
+130. [Sound] term=swing children=0 | ReplicatedStorage.SFX.HardSwings.1
+131. [Sound] term=swing children=0 | ReplicatedStorage.SFX.HardSwings.5
+132. [Sound] term=swing children=0 | ReplicatedStorage.SFX.HardSwings.4
+133. [Sound] term=swing children=0 | ReplicatedStorage.SFX.HardSwings.3
+134. [Sound] term=swing children=0 | ReplicatedStorage.SFX.HardSwings.2
+135. [Folder] term=hit children=4 | ReplicatedStorage.SFX.KatanaHit
+136. [Sound] term=hit children=0 | ReplicatedStorage.SFX.KatanaHit.1
+137. [Sound] term=hit children=0 | ReplicatedStorage.SFX.KatanaHit.2
+138. [Sound] term=hit children=0 | ReplicatedStorage.SFX.KatanaHit.3
+139. [Sound] term=hit children=0 | ReplicatedStorage.SFX.KatanaHit.4
+140. [Folder] term=replicate children=4 | ReplicatedStorage.SFX.Crater
+141. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Crater.3
+142. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Crater.2
+143. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Crater.1
+144. [Sound] term=replicate children=0 | ReplicatedStorage.SFX.Crater.4
+145. [Folder] term=swing children=2 | ReplicatedStorage.SFX.BatSwings
+146. [Sound] term=swing children=0 | ReplicatedStorage.SFX.BatSwings.2
+147. [Sound] term=swing children=0 | ReplicatedStorage.SFX.BatSwings.1
+148. [Folder] term=hit children=3 | ReplicatedStorage.SFX.BatHits
+149. [Sound] term=hit children=0 | ReplicatedStorage.SFX.BatHits.1
+150. [Sound] term=hit children=0 | ReplicatedStorage.SFX.BatHits.2
+151. [Sound] term=hit children=0 | ReplicatedStorage.SFX.BatHits.3
+152. [Folder] term=weapon children=2 | ReplicatedStorage.StyleWeapons
+153. [MeshPart] term=weapon children=4 | ReplicatedStorage.StyleWeapons.Bat
+154. [SurfaceAppearance] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Bat.SurfaceAppearance
+155. [Attachment] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Bat.T1
+156. [Attachment] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Bat.T2
+157. [Trail] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Bat.WeaponTrail
+158. [MeshPart] term=weapon children=5 | ReplicatedStorage.StyleWeapons.Katana
+159. [SurfaceAppearance] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Katana.SurfaceAppearance
+160. [Attachment] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Katana.T1
+161. [Attachment] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Katana.T2
+162. [Trail] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Katana.WeaponTrail
+163. [Attachment] term=weapon children=1 | ReplicatedStorage.StyleWeapons.Katana.Spark
+164. [ParticleEmitter] term=weapon children=0 | ReplicatedStorage.StyleWeapons.Katana.Spark.Spark
+165. [Folder] term=replicate children=16 | ReplicatedStorage.UI
+166. [Frame] term=replicate children=5 | ReplicatedStorage.UI.GPCell
+167. [Frame] term=replicate children=4 | ReplicatedStorage.UI.GPCell.Buy
+168. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Buy.Price
+169. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Buy.TextButton
+170. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Buy.CorePrice
+171. [Frame] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Buy.Frame
+172. [ImageLabel] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Icon
+173. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GPCell.TextLabel
+174. [Frame] term=replicate children=3 | ReplicatedStorage.UI.GPCell.Gift
+175. [ImageButton] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Gift.ImageButton
+176. [UIGradient] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Gift.UIGradient
+177. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GPCell.Gift.UICorner
+178. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GPCell.UICorner
+179. [Frame] term=replicate children=4 | ReplicatedStorage.UI.MessageCell
+180. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.MessageCell.title
+181. [Frame] term=replicate children=2 | ReplicatedStorage.UI.MessageCell.Close
+182. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.MessageCell.Close.TextLabel
+183. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.MessageCell.Close.TextButton
+184. [Frame] term=replicate children=1 | ReplicatedStorage.UI.MessageCell.Frame
+185. [UIGradient] term=replicate children=0 | ReplicatedStorage.UI.MessageCell.Frame.UIGradient
+186. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.MessageCell.msg
+187. [Frame] term=replicate children=2 | ReplicatedStorage.UI.GiftCell
+188. [Frame] term=replicate children=4 | ReplicatedStorage.UI.GiftCell.Core
+189. [ImageLabel] term=replicate children=1 | ReplicatedStorage.UI.GiftCell.Core.Icon
+190. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GiftCell.Core.Icon.UICorner
+191. [ImageLabel] term=replicate children=0 | ReplicatedStorage.UI.GiftCell.Core.Verified
+192. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GiftCell.Core.Title
+193. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GiftCell.Core.UICorner
+194. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.GiftCell.TextButton
+195. [Frame] term=replicate children=2 | ReplicatedStorage.UI.MemberCell
+196. [Frame] term=replicate children=7 | ReplicatedStorage.UI.MemberCell.Core
+197. [ImageLabel] term=replicate children=1 | ReplicatedStorage.UI.MemberCell.Core.Icon
+198. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Icon.UICorner
+199. [ImageLabel] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Verified
+200. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Title
+201. [TextLabel] term=replicate children=2 | ReplicatedStorage.UI.MemberCell.Core.Mod
+202. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Mod.UICorner
+203. [UIStroke] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Mod.UIStroke
+204. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.UICorner
+205. [Frame] term=replicate children=3 | ReplicatedStorage.UI.MemberCell.Core.Leader
+206. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Leader.Owner
+207. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Leader.UICorner
+208. [UIStroke] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Leader.UIStroke
+209. [ImageLabel] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.Core.Star
+210. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.MemberCell.TextButton
+211. [Frame] term=replicate children=6 | ReplicatedStorage.UI.GrabCell
+212. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.TextLabel
+213. [ViewportFrame] term=replicate children=1 | ReplicatedStorage.UI.GrabCell.ViewportFrame
+214. [WorldModel] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel
+215. [Model] term=replicate children=8 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1
+216. [Humanoid] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Humanoid
+217. [HumanoidDescription] term=replicate children=6 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Humanoid.HumanoidDescription
+218. [BodyPartDescription] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Humanoid.HumanoidDescription.BodyPartDescription
+219. [Animator] term=anim children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Humanoid.Animator
+220. [Part] term=arm children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Left Arm
+221. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Left Arm.LeftShoulderAttachment
+222. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Left Arm.LeftGripAttachment
+223. [Part] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Right Leg
+224. [Snap] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Right Leg.Snap
+225. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Right Leg.RightFootAttachment
+226. [Part] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Left Leg
+227. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Left Leg.LeftFootAttachment
+228. [Snap] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Left Leg.Snap
+229. [Part] term=replicate children=3 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.HumanoidRootPart
+230. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.HumanoidRootPart.RootJoint
+231. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.HumanoidRootPart.RootAttachment
+232. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.HumanoidRootPart.Weld
+233. [Part] term=replicate children=16 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso
+234. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.WaistFrontAttachment
+235. [Weld] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.Weld
+236. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.Right Shoulder
+237. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.BodyBackAttachment
+238. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.Right Hip
+239. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.Neck
+240. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.LeftCollarAttachment
+241. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.NeckAttachment
+242. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.BodyFrontAttachment
+243. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.Left Shoulder
+244. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.WaistCenterAttachment
+245. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.Left Hip
+246. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.WaistBackAttachment
+247. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Torso.RightCollarAttachment
+248. [Part] term=replicate children=6 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head
+249. [SpecialMesh] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head.Mesh
+250. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head.HatAttachment
+251. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head.HairAttachment
+252. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head.FaceFrontAttachment
+253. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head.FaceCenterAttachment
+254. [Decal] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Head.face
+255. [Part] term=arm children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Right Arm
+256. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Right Arm.RightGripAttachment
+257. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc1.Right Arm.RightShoulderAttachment
+258. [Model] term=replicate children=8 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2
+259. [Humanoid] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Humanoid
+260. [HumanoidDescription] term=replicate children=6 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Humanoid.HumanoidDescription
+261. [BodyPartDescription] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Humanoid.HumanoidDescription.BodyPartDescription
+262. [Animator] term=anim children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Humanoid.Animator
+263. [Part] term=arm children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Left Arm
+264. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Left Arm.LeftShoulderAttachment
+265. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Left Arm.LeftGripAttachment
+266. [Part] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Right Leg
+267. [Snap] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Right Leg.Snap
+268. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Right Leg.RightFootAttachment
+269. [Part] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Left Leg
+270. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Left Leg.LeftFootAttachment
+271. [Snap] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Left Leg.Snap
+272. [Part] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.HumanoidRootPart
+273. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.HumanoidRootPart.RootJoint
+274. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.HumanoidRootPart.RootAttachment
+275. [Part] term=replicate children=16 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso
+276. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.WaistFrontAttachment
+277. [Weld] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.Weld
+278. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.Right Shoulder
+279. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.BodyBackAttachment
+280. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.Right Hip
+281. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.Neck
+282. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.LeftCollarAttachment
+283. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.NeckAttachment
+284. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.BodyFrontAttachment
+285. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.Left Shoulder
+286. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.WaistCenterAttachment
+287. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.Left Hip
+288. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.WaistBackAttachment
+289. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Torso.RightCollarAttachment
+290. [Part] term=replicate children=6 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head
+291. [SpecialMesh] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head.Mesh
+292. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head.HatAttachment
+293. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head.HairAttachment
+294. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head.FaceFrontAttachment
+295. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head.FaceCenterAttachment
+296. [Decal] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Head.face
+297. [Part] term=arm children=2 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Right Arm
+298. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Right Arm.RightGripAttachment
+299. [Attachment] term=arm children=0 | ReplicatedStorage.UI.GrabCell.ViewportFrame.WorldModel.Npc2.Right Arm.RightShoulderAttachment
+300. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.UICorner
+301. [Frame] term=replicate children=3 | ReplicatedStorage.UI.GrabCell.Equip
+302. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Equip.Price
+303. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Equip.TextButton
+304. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Equip.UICorner
+305. [Frame] term=replicate children=3 | ReplicatedStorage.UI.GrabCell.Equipped
+306. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Equipped.Price
+307. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Equipped.TextButton
+308. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Equipped.UICorner
+309. [Frame] term=replicate children=2 | ReplicatedStorage.UI.GrabCell.Msg
+310. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Msg.UICorner
+311. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.GrabCell.Msg.Txt
+312. [Frame] term=replicate children=1 | ReplicatedStorage.UI.SettingCell
+313. [Frame] term=replicate children=5 | ReplicatedStorage.UI.SettingCell.Main
+314. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.UICorner
+315. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.SettingName
+316. [Frame] term=replicate children=2 | ReplicatedStorage.UI.SettingCell.Main.Toggle
+317. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.Toggle.UICorner
+318. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.Toggle.Txt
+319. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.TextButton
+320. [Frame] term=replicate children=2 | ReplicatedStorage.UI.SettingCell.Main.Msg
+321. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.Msg.UICorner
+322. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.SettingCell.Main.Msg.Txt
+323. [Frame] term=replicate children=1 | ReplicatedStorage.UI.BindCell
+324. [Frame] term=replicate children=5 | ReplicatedStorage.UI.BindCell.Main
+325. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.UICorner
+326. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.BindName
+327. [Frame] term=replicate children=2 | ReplicatedStorage.UI.BindCell.Main.Bind
+328. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.Bind.UICorner
+329. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.Bind.Txt
+330. [TextButton] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.TextButton
+331. [Frame] term=replicate children=2 | ReplicatedStorage.UI.BindCell.Main.Msg
+332. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.Msg.UICorner
+333. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.BindCell.Main.Msg.Txt
+334. [Frame] term=replicate children=2 | ReplicatedStorage.UI.RewardCell
+335. [Frame] term=replicate children=4 | ReplicatedStorage.UI.RewardCell.CoreCell
+336. [ImageLabel] term=replicate children=1 | ReplicatedStorage.UI.RewardCell.CoreCell.Icon
+337. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.RewardCell.CoreCell.Icon.UICorner
+338. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.RewardCell.CoreCell.Title
+339. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.RewardCell.CoreCell.Reward
+340. [Frame] term=aim children=2 | ReplicatedStorage.UI.RewardCell.CoreCell.Claim
+341. [TextLabel] term=aim children=0 | ReplicatedStorage.UI.RewardCell.CoreCell.Claim.Price
+342. [TextButton] term=aim children=0 | ReplicatedStorage.UI.RewardCell.CoreCell.Claim.TextButton
+343. [Frame] term=aim children=1 | ReplicatedStorage.UI.RewardCell.Claimed
+344. [TextLabel] term=aim children=0 | ReplicatedStorage.UI.RewardCell.Claimed.TextLabel
+345. [Frame] term=replicate children=2 | ReplicatedStorage.UI.CDCell
+346. [Frame] term=replicate children=2 | ReplicatedStorage.UI.CDCell.Progress
+347. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.CDCell.Progress.SkilName
+348. [UIGradient] term=replicate children=0 | ReplicatedStorage.UI.CDCell.Progress.UIGradient
+349. [Frame] term=replicate children=0 | ReplicatedStorage.UI.CDCell.BG
+350. [Frame] term=replicate children=6 | ReplicatedStorage.UI.LeaderboardCell
+351. [TextLabel] term=replicate children=4 | ReplicatedStorage.UI.LeaderboardCell.Rank
+352. [UIGradient] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Rank.UIGradient
+353. [UIStroke] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Rank.UIStroke
+354. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Rank.UICorner
+355. [TextLabel] term=replicate children=2 | ReplicatedStorage.UI.LeaderboardCell.Username
+356. [UIGradient] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Username.UIGradient
+357. [UIStroke] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Username.UIStroke
+358. [ImageLabel] term=replicate children=2 | ReplicatedStorage.UI.LeaderboardCell.PFP
+359. [UIStroke] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.PFP.UIStroke
+360. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.PFP.UICorner
+361. [TextLabel] term=replicate children=2 | ReplicatedStorage.UI.LeaderboardCell.Amount
+362. [UIGradient] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Amount.UIGradient
+363. [UIStroke] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Amount.UIStroke
+364. [ImageLabel] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.Verified
+365. [UICorner] term=replicate children=0 | ReplicatedStorage.UI.LeaderboardCell.UICorner
+366. [Frame] term=replicate children=6 | ReplicatedStorage.UI.StyleCell
+367. [TextLabel] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.TextLabel
+368. [ViewportFrame] term=replicate children=1 | ReplicatedStorage.UI.StyleCell.ViewportFrame
+369. [WorldModel] term=replicate children=1 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel
+370. [Model] term=replicate children=9 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol
+371. [Humanoid] term=replicate children=2 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Humanoid
+372. [HumanoidDescription] term=replicate children=6 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Humanoid.HumanoidDescription
+373. [BodyPartDescription] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Humanoid.HumanoidDescription.BodyPartDescription
+374. [Animator] term=anim children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Humanoid.Animator
+375. [Part] term=arm children=2 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Left Arm
+376. [Attachment] term=arm children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Left Arm.LeftShoulderAttachment
+377. [Attachment] term=arm children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Left Arm.LeftGripAttachment
+378. [Part] term=replicate children=2 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Right Leg
+379. [Snap] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Right Leg.Snap
+380. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Right Leg.RightFootAttachment
+381. [Part] term=replicate children=2 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Left Leg
+382. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Left Leg.LeftFootAttachment
+383. [Snap] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Left Leg.Snap
+384. [Part] term=replicate children=2 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.HumanoidRootPart
+385. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.HumanoidRootPart.RootJoint
+386. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.HumanoidRootPart.RootAttachment
+387. [Part] term=replicate children=16 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso
+388. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.WaistFrontAttachment
+389. [Weld] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Weld
+390. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Right Shoulder
+391. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.BodyBackAttachment
+392. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Right Hip
+393. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Neck
+394. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.LeftCollarAttachment
+395. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.NeckAttachment
+396. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.BodyFrontAttachment
+397. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Left Shoulder
+398. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.WaistCenterAttachment
+399. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Left Hip
+400. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.WaistBackAttachment
 ----------------------------------------
-Notes:
-- Remote objects are listed by name and path only; they are not called.
+Safety notes:
+- No RemoteEvent, RemoteFunction, BindableEvent, or BindableFunction is invoked.
 - Script source is not read or executed.
-- Only client-visible/locally replicated content can be found.
+- Only names, classes, paths, and direct-child counts are inspected.
+- Results are limited to objects replicated to this client.
