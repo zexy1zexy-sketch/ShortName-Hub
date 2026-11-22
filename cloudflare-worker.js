@@ -15,8 +15,7 @@ async function saveReport(report,env){
  if(!put.ok)throw new Error("GitHub save failed ("+put.status+"): "+await put.text());return await put.json();
 }
 async function serveModule(request,env){
- if(!env.READ_KEY)return reply({ok:false,error:"READ_KEY secret is missing"},500);
- if(request.headers.get("x-read-key")!==env.READ_KEY)return reply({ok:false,error:"Unauthorized"},401);
+ // Public, allowlisted module delivery. The GitHub token remains server-side.
  const name=new URL(request.url).searchParams.get("name")||"";
  if(!ALLOWED_MODULES.has(name))return reply({ok:false,error:"Module is not allowlisted"},400);
  if(!env.GITHUB_TOKEN)return reply({ok:false,error:"GITHUB_TOKEN secret is missing"},500);
