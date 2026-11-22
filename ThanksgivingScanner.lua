@@ -244,14 +244,21 @@ function Scanner:Start(onUpdate)
                             text = visibleText,
                         }
 
-                        if remote then
-                            -- Keep every discovered remote visible even when
-                            -- ordinary keyword matches have filled the result cap.
-                            table.insert(self._results, 1, record)
+                        if remote or scriptObject then
+                            -- Prioritize remotes and event-related scripts/modules
+                            -- so ordinary keyword matches cannot hide useful entries.
+                            if remote then
+                                table.insert(self._results, 1, record)
+                                notify("REMOTE FOUND")
+                            else
+                                local insertAt = math.min(self._remoteCount + 1, #self._results + 1)
+                                table.insert(self._results, insertAt, record)
+                                notify("SCRIPT/MODULE FOUND")
+                            end
+
                             if #self._results > MAX_RESULTS then
                                 table.remove(self._results)
                             end
-                            notify("REMOTE FOUND")
                         elseif #self._results < MAX_RESULTS then
                             table.insert(self._results, record)
                             notify("EVENT MATCH FOUND")
