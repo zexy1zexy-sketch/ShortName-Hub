@@ -145,10 +145,6 @@ StartHub = function(skipKey)
     local GUI = LoadModule("GUI.lua")
     local ScytheModule = LoadModule("Scythe.lua")
     local Logger = LoadModule("Logger.lua")
-    local SpyAdapter = (skipKey and CurrentRuntime and CurrentRuntime.SpyAdapter) or LoadModule("SpyAdapter.lua")
-    if SpyAdapter and type(SpyAdapter.SetLogger) == "function" then
-        SpyAdapter.SetLogger(Logger)
-    end
     local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
 
     local Interface
@@ -166,7 +162,6 @@ StartHub = function(skipKey)
             Controller,
             Scythe,
             Logger,
-            SpyAdapter,
             Scanner,
             RefreshHub
         )
@@ -187,7 +182,6 @@ StartHub = function(skipKey)
         Controller = Controller,
         Scythe = Scythe,
         Scanner = Scanner,
-        SpyAdapter = SpyAdapter,
         Interface = Interface
     }
 
