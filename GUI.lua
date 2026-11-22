@@ -1513,7 +1513,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    MakeButton(CombatToolsFolder, "TOGGLE COMBAT HUD: OFF", function(button)
+    local CombatHudButton
+    CombatHudButton = MakeButton(CombatToolsFolder, "TOGGLE COMBAT HUD: OFF", function()
         CombatHudEnabled = not CombatHudEnabled
         CombatHudToken += 1
         local token = CombatHudToken
@@ -1535,7 +1536,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 Corner(CombatHudLabel, 9)
                 Stroke(CombatHudLabel, CurrentAccent.Light, 1.2)
             end
-            button.Text = "TOGGLE COMBAT HUD: ON"
+            CombatHudButton.Text = "TOGGLE COMBAT HUD: ON"
             task.spawn(function()
                 while CombatHudEnabled and CombatHudToken == token and ScreenGui.Parent do
                     local player = Players.LocalPlayer
@@ -1560,7 +1561,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end)
         else
             RemoveCombatHud()
-            button.Text = "TOGGLE COMBAT HUD: OFF"
+            CombatHudButton.Text = "TOGGLE COMBAT HUD: OFF"
         end
     end, Color3.fromRGB(45, 115, 75))
 
