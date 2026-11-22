@@ -1180,6 +1180,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
             task.wait(1)
             if LoggerPage.Visible then
                 RefreshLogs()
+                UpdateSpyStatus()
             end
         end
     end)
@@ -1199,6 +1200,19 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
     end
 
     local SpyButton
+    local function UpdateSpyStatus()
+        if not SpyAdapter then return end
+        local diagnostics = SpyAdapter.GetDiagnostics and SpyAdapter.GetDiagnostics()
+        if diagnostics then
+            if diagnostics.Enabled then
+                SpyButton.Text = "SPY: ON"
+                LoggerStatus.Text = string.format("SPY: ON - %d remote calls captured", diagnostics.Captures or 0)
+            else
+                SpyButton.Text = "SPY: OFF"
+                LoggerStatus.Text = diagnostics.LastError and ("SPY ERROR: " .. diagnostics.LastError) or "SPY: OFF - press START to capture remote calls"
+            end
+        end
+    end
     SpyButton = MakeLoggerButton("SPY: OFF", function()
         if not SpyAdapter or type(SpyAdapter.Start) ~= "function" then
             LoggerStatus.Text = "SPY UNAVAILABLE - adapter not loaded"
@@ -1214,7 +1228,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
             end)
             if ok and started then
                 SpyButton.Text = "SPY: ON"
-                LoggerStatus.Text = "SPY: ON - capturing outgoing and incoming remotes"
+                LoggerStatus.Text = "SPY: ON - 0 remote calls captured"
             else
                 SpyButton.Text = "SPY: OFF"
                 LoggerStatus.Text = "SPY FAILED - executor hook support unavailable"
@@ -1222,6 +1236,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
         end
     end)
 
+    UpdateSpyStatus()
     MakeLoggerButton("REFRESH", RefreshLogs)
 
     MakeLoggerButton("TEST", function()
