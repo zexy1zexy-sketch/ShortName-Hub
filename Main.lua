@@ -169,7 +169,6 @@ StartHub = function(skipKey)
     local Teleport = LoadModule("Teleport.lua")
     local GUI = LoadModule("GUI.lua")
     local ScytheModule = LoadModule("Scythe.lua")
-    local Logger = LoadModule("Logger.lua")
     local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
 
     local Interface
@@ -186,7 +185,6 @@ StartHub = function(skipKey)
             Config,
             Controller,
             Scythe,
-            Logger,
             Scanner,
             RefreshHub
         )
