@@ -1,6 +1,6 @@
 const OWNER="zexy1zexy-sketch", REPO="ShortName-Hub", BRANCH="main";
 const REPORT_PATH="scanner-reports/latest.txt", MAX_REPORT_CHARS=100000;
-const ALLOWED_MODULES=new Set(["Main.lua","Config.lua","GUI.lua","KeySystem.lua","LoadingScreen.lua","Logger.lua","NPC.lua","Scythe.lua","SpyAdapter.lua","Teleport.lua","ThanksgivingScanner.lua"]);
+const ALLOWED_MODULES=new Set(["Main.lua","Config.lua","GUI.lua","KeySystem.lua","LoadingScreen.lua","Logger.lua","NPC.lua","Scythe.lua","SpyAdapter.lua","Teleport.lua","ThanksgivingScanner.lua","FightOnABaseplateScanner.lua"]);
 function cors(){return {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET, POST, OPTIONS","Access-Control-Allow-Headers":"Content-Type, x-upload-key, x-read-key","Access-Control-Max-Age":"86400"};}
 function reply(body,status=200,headers={}){return new Response(typeof body==="string"?body:JSON.stringify(body),{status,headers:{...cors(),"Content-Type":"application/json; charset=utf-8",...headers}});}
 function b64utf8(s){const b=new TextEncoder().encode(s);let v="";for(let i=0;i<b.length;i++)v+=String.fromCharCode(b[i]);return btoa(v);}
@@ -10,7 +10,7 @@ async function saveReport(report,env){
  const p="/repos/"+OWNER+"/"+REPO+"/contents/"+REPORT_PATH;
  const old=await gh(p+"?ref="+BRANCH,env.GITHUB_TOKEN);let sha;
  if(old.ok)sha=(await old.json()).sha;else if(old.status!==404)throw new Error("GitHub read failed ("+old.status+"): "+await old.text());
- const body={message:"Update latest Thanksgiving scanner report",content:b64utf8(report),branch:BRANCH};if(sha)body.sha=sha;
+ const body={message:"Update latest ShortName Hub scanner report",content:b64utf8(report),branch:BRANCH};if(sha)body.sha=sha;
  const put=await gh(p,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
  if(!put.ok)throw new Error("GitHub save failed ("+put.status+"): "+await put.text());return await put.json();
 }
