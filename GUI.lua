@@ -1590,11 +1590,16 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(CombatToolsFolder, "Shows named hitbox parts in Workspace and attachment points on your equipped weapon. Attachment markers show origins, not the full raycast hitbox volume.", 10, 48, Grey)
     local HitboxEnabled = false
     local HitboxAdornments = {}
+    local HitboxTemplatePreview
     local HitboxStatus = Label(CombatToolsFolder, "VISUALIZER: READY", 10, 22, Color3.fromRGB(170, 210, 255))
     local function ClearHitboxVisuals()
         for object, adornment in pairs(HitboxAdornments) do
             pcall(function() adornment:Destroy() end)
             HitboxAdornments[object] = nil
+        end
+        if HitboxTemplatePreview then
+            pcall(function() HitboxTemplatePreview:Destroy() end)
+            HitboxTemplatePreview = nil
         end
     end
     local HitboxButton
@@ -1666,12 +1671,39 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 end
             end
 
-            HitboxButton.Text = "HITBOX VISUALIZER: ON (" .. tostring(count) .. ")"
+            -- The scan report found the game's hitbox template in ReplicatedStorage,
+            -- not Workspace. Show a clearly-labeled local preview when no live parts exist.
             if count == 0 then
-                HitboxStatus.Text = "NO VISIBLE HITBOX PARTS OR EQUIPPED-WEAPON ATTACHMENTS FOUND"
+                local storage = game:GetService("ReplicatedStorage")
+                local flying = storage:FindFirstChild("Flying")
+                local assets = flying and flying:FindFirstChild("Assets")
+                local template = assets and assets:FindFirstChild("Hitbox")
+                local playerRoot = character and character:FindFirstChild("HumanoidRootPart")
+                if template and template:IsA("BasePart") and playerRoot then
+                    local preview = template:Clone()
+                    preview.Name = "ShortNameHitboxTemplatePreview"
+                    for _, child in ipairs(preview:GetChildren()) do
+                        child:Destroy()
+                    end
+                    preview.Anchored = true
+                    preview.CanCollide = false
+                    preview.CanTouch = false
+                    preview.CanQuery = false
+                    preview.Material = Enum.Material.Neon
+                    preview.Color = Color3.fromRGB(255, 75, 95)
+                    preview.Transparency = 0.55
+                    preview.CFrame = playerRoot.CFrame * CFrame.new(0, 0, -3)
+                    preview.Parent = workspace
+                    HitboxTemplatePreview = preview
+                    count = 1
+                    HitboxStatus.Text = "TEMPLATE PREVIEW ONLY — NOT A LIVE HITBOX"
+                else
+                    HitboxStatus.Text = "NO LIVE HITBOX PARTS OR AVAILABLE TEMPLATE PREVIEW"
+                end
             else
                 HitboxStatus.Text = tostring(count) .. " LOCAL VISUAL MARKERS SHOWN"
             end
+            HitboxButton.Text = "HITBOX VISUALIZER: ON (" .. tostring(count) .. ")"
         else
             HitboxButton.Text = "HITBOX VISUALIZER: OFF"
             HitboxStatus.Text = "VISUALIZER: READY"
