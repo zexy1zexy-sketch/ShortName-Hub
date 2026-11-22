@@ -369,16 +369,25 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
         if RefreshBusy then
             return
         end
-        if type(RefreshCallback) ~= "function" then
-            RefreshHubButton.Text = "REFRESH UNAVAILABLE"
-            return
+        local refreshAction = RefreshCallback
+        if type(refreshAction) ~= "function" then
+            -- Fallback for older Main.lua loaders that did not pass the callback.
+            refreshAction = function()
+                local source = game:HttpGet("https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua")
+                local chunk = loadstring(source)
+                if type(chunk) ~= "function" then
+                    return false, "Could not compile the latest Main.lua."
+                end
+                chunk()
+                return true
+            end
         end
 
         RefreshBusy = true
         RefreshHubButton.Text = "↻  DOWNLOADING LATEST HUB..."
         RefreshHubButton.Active = false
         task.spawn(function()
-            local ok, result, detail = pcall(RefreshCallback)
+            local ok, result, detail = pcall(refreshAction)
             if not ok or result == false then
                 RefreshBusy = false
                 RefreshHubButton.Active = true
