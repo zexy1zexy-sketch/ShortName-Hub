@@ -135,6 +135,10 @@ function SpyAdapter.Start(LoggerModule)
     return true
 end
 
+function SpyAdapter.IsRunning()
+    return Enabled
+end
+
 function SpyAdapter.Stop()
     Enabled = false
 
