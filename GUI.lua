@@ -1137,8 +1137,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             else
                 ScytheButton.Text = "SCYTHE ENCHANT AUTO ROLL: OFF"
                 SetStatus(message or "SCYTHE ERROR")
-
-                })
             end
         end
     end, Color3.fromRGB(100, 65, 160))
