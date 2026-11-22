@@ -1,8 +1,9 @@
 SHORTNAME HUB - FIGHT ON A BASEPLATE STRUCTURE SCAN
 Mode: PASSIVE / READ-ONLY
-Objects inspected: 39976
-RemoteEvents/RemoteFunctions found: 89
+Objects inspected: 43141
+RemoteEvents/RemoteFunctions found: 96
 Combat-related name/path matches: 400
+Targeted structure entries: 244
 Scan limit: 50000
 ----------------------------------------
 REMOTE INVENTORY (NAMES AND PATHS ONLY)
@@ -87,14 +88,21 @@ REMOTE INVENTORY (NAMES AND PATHS ONLY)
 79. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdateIceBlock
 80. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdatePageBoostStatus
 81. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ViewPlayer
-82. [RemoteFunction] Workspace.Live.Chuki12345678983.AimScript.RemoteFunction
-83. [RemoteFunction] fandezui.AimScript.RemoteFunction
-84. [RemoteFunction] Workspace.Live.abx_goatt.AimScript.RemoteFunction
-85. [RemoteFunction] Workspace.Live.shortname_zen.AimScript.RemoteFunction
-86. [RemoteFunction] Workspace.Live.Nyx_mc09.AimScript.RemoteFunction
-87. [RemoteFunction] Workspace.Live.Matthewdantdmfan3.AimScript.RemoteFunction
-88. [RemoteFunction] Workspace.Live.Whitslar19.AimScript.RemoteFunction
-89. [RemoteFunction] Workspace.Live.JEICOl_LAC.AimScript.RemoteFunction
+82. [RemoteFunction] Workspace.Live.JYYDES6639.AimScript.RemoteFunction
+83. [RemoteFunction] Workspace.Live.Ywyuwhiiwh.AimScript.RemoteFunction
+84. [RemoteFunction] Workspace.Live.Blueivy_27331.AimScript.RemoteFunction
+85. [RemoteFunction] Workspace.Live.yourANi991.AimScript.RemoteFunction
+86. [RemoteFunction] Workspace.Live.PonyBoyPop.AimScript.RemoteFunction
+87. [RemoteFunction] Workspace.Live.Zacherysuiii.AimScript.RemoteFunction
+88. [RemoteFunction] Workspace.Live.hagatonko.AimScript.RemoteFunction
+89. [RemoteFunction] Workspace.Live.thebadeseee.AimScript.RemoteFunction
+90. [RemoteFunction] Workspace.Live.roblox_user_6184229402.AimScript.RemoteFunction
+91. [RemoteFunction] Workspace.Live.ilove_kittins7.AimScript.RemoteFunction
+92. [RemoteFunction] Workspace.Live.shortname_zen.AimScript.RemoteFunction
+93. [RemoteFunction] waffle_elite.AimScript.RemoteFunction
+94. [RemoteFunction] Workspace.Live.whybebe190.AimScript.RemoteFunction
+95. [RemoteFunction] Workspace.Live.Chuki12345678983.AimScript.RemoteFunction
+96. [RemoteFunction] Workspace.Live.mydyingbody.AimScript.RemoteFunction
 
 COMBAT-RELATED INSTANCE MATCHES
 1. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Grabs
@@ -497,9 +505,257 @@ COMBAT-RELATED INSTANCE MATCHES
 398. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.WaistCenterAttachment
 399. [Motor6D] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.Left Hip
 400. [Attachment] term=replicate children=0 | ReplicatedStorage.UI.StyleCell.ViewportFrame.WorldModel.VisualizerNpcLol.Torso.WaistBackAttachment
+
+TARGETED COMBAT MODULE / ASSET STRUCTURE
+Targets: RaycastHitboxV4, Packet, StyleWeapons, Flying, SFX, AimScript, LockOn, CameraShake
+1. [ModuleScript] ReplicatedStorage.Packet
+2. [ModuleScript] ReplicatedStorage.Packet.Signal
+3. [ModuleScript] ReplicatedStorage.Packet.Task
+4. [ModuleScript] ReplicatedStorage.Packet.Types
+5. [ModuleScript] ReplicatedStorage.Packet.Types.Characters
+6. [ModuleScript] ReplicatedStorage.Packet.Types.Static1
+7. [ModuleScript] ReplicatedStorage.Packet.Types.Static2
+8. [ModuleScript] ReplicatedStorage.Packet.Types.Static3
+9. [ModuleScript] ReplicatedStorage.Packet.Types.Enums
+10. [RemoteEvent] ReplicatedStorage.Packet.RemoteEvent
+11. [ModuleScript] ReplicatedStorage.RaycastHitboxV4
+12. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.HitboxCaster
+13. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.VisualizerCache
+14. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.GoodSignal
+15. [Folder] ReplicatedStorage.RaycastHitboxV4.Solvers
+16. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.Solvers.Attachment
+17. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.Solvers.LinkAttachments
+18. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.Solvers.Vector3
+19. [ModuleScript] ReplicatedStorage.RaycastHitboxV4.Solvers.Bone
+20. [Folder] ReplicatedStorage.Flying
+21. [ModuleScript] ReplicatedStorage.Flying.Config
+22. [Folder] ReplicatedStorage.Flying.Assets
+23. [Folder] ReplicatedStorage.Flying.Assets.Sounds
+24. [Sound] ReplicatedStorage.Flying.Assets.Sounds.Land | AssetId=rbxassetid://97522871949213
+25. [Sound] ReplicatedStorage.Flying.Assets.Sounds.Launch | AssetId=rbxassetid://138533090376585
+26. [Sound] ReplicatedStorage.Flying.Assets.Sounds.Whiz | AssetId=rbxassetid://110536638811166
+27. [Folder] ReplicatedStorage.Flying.Assets.VFX
+28. [Part] ReplicatedStorage.Flying.Assets.VFX.Land
+29. [Attachment] ReplicatedStorage.Flying.Assets.VFX.Land.Attachment
+30. [ParticleEmitter] ReplicatedStorage.Flying.Assets.VFX.Land.Attachment.Smoke1
+31. [ParticleEmitter] ReplicatedStorage.Flying.Assets.VFX.Land.Attachment.Smoke2
+32. [ParticleEmitter] ReplicatedStorage.Flying.Assets.VFX.Land.Attachment.Wind1
+33. [Part] ReplicatedStorage.Flying.Assets.VFX.Launch
+34. [Attachment] ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment
+35. [ParticleEmitter] ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment.Smoke1
+36. [ParticleEmitter] ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment.Smoke2
+37. [ParticleEmitter] ReplicatedStorage.Flying.Assets.VFX.Launch.Attachment.Wind1
+38. [Part] ReplicatedStorage.Flying.Assets.VFX.Whiz
+39. [Folder] ReplicatedStorage.Flying.Assets.Anims
+40. [Animation] ReplicatedStorage.Flying.Assets.Anims.Fly | AssetId=rbxassetid://113582329468412
+41. [Animation] ReplicatedStorage.Flying.Assets.Anims.Idle | AssetId=rbxassetid://127423873293232
+42. [Animation] ReplicatedStorage.Flying.Assets.Anims.Land | AssetId=rbxassetid://91882510582036
+43. [Animation] ReplicatedStorage.Flying.Assets.Anims.Launch | AssetId=rbxassetid://84500764083621
+44. [Animation] ReplicatedStorage.Flying.Assets.Anims.FlyBoostIdle | AssetId=rbxassetid://113712503988904
+45. [Animation] ReplicatedStorage.Flying.Assets.Anims.FlyBoost | AssetId=rbxassetid://123685076508293
+46. [Part] ReplicatedStorage.Flying.Assets.Hitbox
+47. [Motor6D] ReplicatedStorage.Flying.Assets.Hitbox.Motor6D
+48. [Folder] ReplicatedStorage.Flying.Events
+49. [RemoteEvent] ReplicatedStorage.Flying.Events.BindFly
+50. [UnreliableRemoteEvent] ReplicatedStorage.Flying.Events.SpawnVFX
+51. [UnreliableRemoteEvent] ReplicatedStorage.Flying.Events.Whiz
+52. [Folder] ReplicatedStorage.SFX
+53. [Sound] ReplicatedStorage.SFX.Weave | AssetId=rbxassetid://87014293016959
+54. [Sound] ReplicatedStorage.SFX.Weaved | AssetId=rbxassetid://123796710194563
+55. [Sound] ReplicatedStorage.SFX.Grunt | AssetId=rbxassetid://135788905076159
+56. [Sound] ReplicatedStorage.SFX.SnoreMeme | AssetId=rbxassetid://110110344375165
+57. [Sound] ReplicatedStorage.SFX.Blood_Hit | AssetId=rbxassetid://180083286
+58. [Sound] ReplicatedStorage.SFX.HardPunch | AssetId=rbxassetid://100970228713833
+59. [Sound] ReplicatedStorage.SFX.ThraggHit | AssetId=rbxassetid://114630608456947
+60. [Sound] ReplicatedStorage.SFX.ThraggHmph | AssetId=rbxassetid://105732515723655
+61. [Sound] ReplicatedStorage.SFX.ThraggPunch | AssetId=rbxassetid://115023588700035
+62. [Sound] ReplicatedStorage.SFX.ThraggWhoosh | AssetId=rbxassetid://9113077473
+63. [Sound] ReplicatedStorage.SFX.ThraggWind | AssetId=rbxassetid://76152098299930
+64. [Sound] ReplicatedStorage.SFX.ThraggYell | AssetId=rbxassetid://110303025016482
+65. [Sound] ReplicatedStorage.SFX.SaitamaTalk | AssetId=rbxassetid://93290018993549
+66. [Sound] ReplicatedStorage.SFX.SaitamaTalk2 | AssetId=rbxassetid://90569315569695
+67. [Sound] ReplicatedStorage.SFX.SaitamaWhoosh | AssetId=rbxassetid://133215732722481
+68. [Sound] ReplicatedStorage.SFX.NPCPunch | AssetId=rbxassetid://127747416982963
+69. [Sound] ReplicatedStorage.SFX.SaitamaPunchWhoosh | AssetId=rbxassetid://138890894929151
+70. [Sound] ReplicatedStorage.SFX.SaitamaPunch | AssetId=rbxassetid://111773037816073
+71. [Sound] ReplicatedStorage.SFX.LoudFootstep | AssetId=rbxassetid://86328160903034
+72. [Sound] ReplicatedStorage.SFX.SaitamaWindBack | AssetId=rbxassetid://96735851329083
+73. [Sound] ReplicatedStorage.SFX.Pushed | AssetId=rbxassetid://124217526033242
+74. [Sound] ReplicatedStorage.SFX.SaitamaShove | AssetId=rbxassetid://102767586222853
+75. [Sound] ReplicatedStorage.SFX.Katana Swing | AssetId=rbxassetid://83608346371642
+76. [Sound] ReplicatedStorage.SFX.FlyByBoom | AssetId=rbxassetid://9120769331
+77. [Sound] ReplicatedStorage.SFX.wind | AssetId=rbxassetid://5813077875
+78. [Sound] ReplicatedStorage.SFX.Parry | AssetId=rbxassetid://137580087669661
+79. [Folder] ReplicatedStorage.SFX.Swings
+80. [Sound] ReplicatedStorage.SFX.Swings.1 | AssetId=rbxassetid://124791970551382
+81. [Sound] ReplicatedStorage.SFX.Swings.2 | AssetId=rbxassetid://124791970551382
+82. [Sound] ReplicatedStorage.SFX.Swings.3 | AssetId=rbxassetid://124791970551382
+83. [Sound] ReplicatedStorage.SFX.Swings.4 | AssetId=rbxassetid://124791970551382
+84. [Sound] ReplicatedStorage.SFX.Swings.5 | AssetId=rbxassetid://133954158040433
+85. [Folder] ReplicatedStorage.SFX.Punched
+86. [Sound] ReplicatedStorage.SFX.Punched.1 | AssetId=rbxassetid://132504023010884
+87. [Sound] ReplicatedStorage.SFX.Punched.2 | AssetId=rbxassetid://137163256711828
+88. [Sound] ReplicatedStorage.SFX.Punched.3 | AssetId=rbxassetid://109316755832781
+89. [Sound] ReplicatedStorage.SFX.Punched.4 | AssetId=rbxassetid://135175485527318
+90. [Folder] ReplicatedStorage.SFX.Slams
+91. [Sound] ReplicatedStorage.SFX.Slams.1 | AssetId=rbxassetid://95049226188395
+92. [Sound] ReplicatedStorage.SFX.Slams.2 | AssetId=rbxassetid://106990816709696
+93. [Sound] ReplicatedStorage.SFX.Slams.3 | AssetId=rbxassetid://95049226188395
+94. [Sound] ReplicatedStorage.SFX.Slams.4 | AssetId=rbxassetid://95049226188395
+95. [Sound] ReplicatedStorage.SFX.Slams.5 | AssetId=rbxassetid://106990816709696
+96. [Sound] ReplicatedStorage.SFX.Slams.6 | AssetId=rbxassetid://106990816709696
+97. [Folder] ReplicatedStorage.SFX.Grabs
+98. [Sound] ReplicatedStorage.SFX.Grabs.1 | AssetId=rbxassetid://118332456315246
+99. [Sound] ReplicatedStorage.SFX.Grabs.2 | AssetId=rbxassetid://139548232423621
+100. [Sound] ReplicatedStorage.SFX.Grabs.3 | AssetId=rbxassetid://138580733622165
+101. [Folder] ReplicatedStorage.SFX.Bone
+102. [Sound] ReplicatedStorage.SFX.Bone.2 | AssetId=rbxassetid://135076986499326
+103. [Sound] ReplicatedStorage.SFX.Bone.1 | AssetId=rbxassetid://114246831702122
+104. [Sound] ReplicatedStorage.SFX.Bone.3 | AssetId=rbxassetid://121666760679562
+105. [Folder] ReplicatedStorage.SFX.Snore
+106. [Sound] ReplicatedStorage.SFX.Snore.1 | AssetId=rbxassetid://96385085955455
+107. [Sound] ReplicatedStorage.SFX.Snore.2 | AssetId=rbxassetid://101716239089600
+108. [Sound] ReplicatedStorage.SFX.Snore.3 | AssetId=rbxassetid://135148954440171
+109. [Folder] ReplicatedStorage.SFX.HardHit
+110. [Sound] ReplicatedStorage.SFX.HardHit.1 | AssetId=rbxassetid://124469494822166
+111. [Sound] ReplicatedStorage.SFX.HardHit.2 | AssetId=rbxassetid://124469494822166
+112. [Sound] ReplicatedStorage.SFX.HardHit.3 | AssetId=rbxassetid://124469494822166
+113. [Sound] ReplicatedStorage.SFX.HardHit.4 | AssetId=rbxassetid://124469494822166
+114. [Folder] ReplicatedStorage.SFX.Grunts
+115. [Sound] ReplicatedStorage.SFX.Grunts.1 | AssetId=rbxassetid://136527206567132
+116. [Sound] ReplicatedStorage.SFX.Grunts.2 | AssetId=rbxassetid://139688511838985
+117. [Sound] ReplicatedStorage.SFX.Grunts.3 | AssetId=rbxassetid://79325669008079
+118. [Folder] ReplicatedStorage.SFX.HardSwings
+119. [Sound] ReplicatedStorage.SFX.HardSwings.1 | AssetId=rbxassetid://85130024212752
+120. [Sound] ReplicatedStorage.SFX.HardSwings.5 | AssetId=rbxassetid://127686818808126
+121. [Sound] ReplicatedStorage.SFX.HardSwings.4 | AssetId=rbxassetid://81848405511283
+122. [Sound] ReplicatedStorage.SFX.HardSwings.3 | AssetId=rbxassetid://91935272803895
+123. [Sound] ReplicatedStorage.SFX.HardSwings.2 | AssetId=rbxassetid://121576550366188
+124. [Folder] ReplicatedStorage.SFX.KatanaHit
+125. [Sound] ReplicatedStorage.SFX.KatanaHit.1 | AssetId=rbxassetid://131827079767703
+126. [Sound] ReplicatedStorage.SFX.KatanaHit.2 | AssetId=rbxassetid://126421203319100
+127. [Sound] ReplicatedStorage.SFX.KatanaHit.3 | AssetId=rbxassetid://88916475042033
+128. [Sound] ReplicatedStorage.SFX.KatanaHit.4 | AssetId=rbxassetid://128411836132792
+129. [Folder] ReplicatedStorage.SFX.Crater
+130. [Sound] ReplicatedStorage.SFX.Crater.3 | AssetId=rbxassetid://129097985795008
+131. [Sound] ReplicatedStorage.SFX.Crater.2 | AssetId=rbxassetid://111299970649226
+132. [Sound] ReplicatedStorage.SFX.Crater.1 | AssetId=rbxassetid://126556827742991
+133. [Sound] ReplicatedStorage.SFX.Crater.4 | AssetId=rbxassetid://119463433897925
+134. [Folder] ReplicatedStorage.SFX.BatSwings
+135. [Sound] ReplicatedStorage.SFX.BatSwings.2 | AssetId=rbxassetid://9113305631
+136. [Sound] ReplicatedStorage.SFX.BatSwings.1 | AssetId=rbxassetid://9113305619
+137. [Folder] ReplicatedStorage.SFX.BatHits
+138. [Sound] ReplicatedStorage.SFX.BatHits.1 | AssetId=rbxassetid://83740975910780
+139. [Sound] ReplicatedStorage.SFX.BatHits.2 | AssetId=rbxassetid://115569575216445
+140. [Sound] ReplicatedStorage.SFX.BatHits.3 | AssetId=rbxassetid://114303603199822
+141. [Folder] ReplicatedStorage.StyleWeapons
+142. [MeshPart] ReplicatedStorage.StyleWeapons.Bat | MeshId=rbxassetid://134879570661284
+143. [SurfaceAppearance] ReplicatedStorage.StyleWeapons.Bat.SurfaceAppearance
+144. [Attachment] ReplicatedStorage.StyleWeapons.Bat.T1
+145. [Attachment] ReplicatedStorage.StyleWeapons.Bat.T2
+146. [Trail] ReplicatedStorage.StyleWeapons.Bat.WeaponTrail
+147. [MeshPart] ReplicatedStorage.StyleWeapons.Katana | MeshId=rbxassetid://96300686211578
+148. [SurfaceAppearance] ReplicatedStorage.StyleWeapons.Katana.SurfaceAppearance
+149. [Attachment] ReplicatedStorage.StyleWeapons.Katana.T1
+150. [Attachment] ReplicatedStorage.StyleWeapons.Katana.T2
+151. [Trail] ReplicatedStorage.StyleWeapons.Katana.WeaponTrail
+152. [Attachment] ReplicatedStorage.StyleWeapons.Katana.Spark
+153. [ParticleEmitter] ReplicatedStorage.StyleWeapons.Katana.Spark.Spark
+154. [KeyframeMarker] Workspace.Rig1.AnimSaves.ThraggUppercut.Keyframe.SFX
+155. [KeyframeMarker] Workspace.Rig1.AnimSaves.ThraggUppercut.Keyframe.SFX
+156. [KeyframeMarker] Workspace.Rig1.AnimSaves.ThraggUppercut.Keyframe.SFX
+157. [KeyframeMarker] Workspace.Rig1.AnimSaves.ThraggUppercut.Keyframe.SFX
+158. [KeyframeMarker] Workspace.Rig1.AnimSaves.ThraggUppercut.Keyframe.SFX
+159. [KeyframeMarker] Workspace.Rig1.AnimSaves.ThraggUppercut.Keyframe.SFX
+160. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+161. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+162. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+163. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+164. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+165. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+166. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+167. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+168. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+169. [KeyframeMarker] Workspace.Rig1.AnimSaves.OnePunch.Keyframe.SFX
+170. [ModuleScript] Workspace.Live.JYYDES6639.Combat.Modules.LockOn
+171. [ModuleScript] Workspace.Live.JYYDES6639.Combat.Modules.CameraShake
+172. [Script] Workspace.Live.JYYDES6639.AimScript
+173. [LocalScript] Workspace.Live.JYYDES6639.AimScript.LocalScript
+174. [RemoteFunction] Workspace.Live.JYYDES6639.AimScript.RemoteFunction
+175. [ModuleScript] Workspace.Live.Ywyuwhiiwh.Combat.Modules.LockOn
+176. [ModuleScript] Workspace.Live.Ywyuwhiiwh.Combat.Modules.CameraShake
+177. [Script] Workspace.Live.Ywyuwhiiwh.AimScript
+178. [LocalScript] Workspace.Live.Ywyuwhiiwh.AimScript.LocalScript
+179. [RemoteFunction] Workspace.Live.Ywyuwhiiwh.AimScript.RemoteFunction
+180. [ModuleScript] Workspace.Live.Blueivy_27331.Combat.Modules.LockOn
+181. [ModuleScript] Workspace.Live.Blueivy_27331.Combat.Modules.CameraShake
+182. [Script] Workspace.Live.Blueivy_27331.AimScript
+183. [LocalScript] Workspace.Live.Blueivy_27331.AimScript.LocalScript
+184. [RemoteFunction] Workspace.Live.Blueivy_27331.AimScript.RemoteFunction
+185. [Script] Workspace.Live.yourANi991.AimScript
+186. [LocalScript] Workspace.Live.yourANi991.AimScript.LocalScript
+187. [RemoteFunction] Workspace.Live.yourANi991.AimScript.RemoteFunction
+188. [ModuleScript] Workspace.Live.yourANi991.Combat.Modules.CameraShake
+189. [ModuleScript] Workspace.Live.yourANi991.Combat.Modules.LockOn
+190. [Script] Workspace.Live.PonyBoyPop.AimScript
+191. [LocalScript] Workspace.Live.PonyBoyPop.AimScript.LocalScript
+192. [RemoteFunction] Workspace.Live.PonyBoyPop.AimScript.RemoteFunction
+193. [ModuleScript] Workspace.Live.PonyBoyPop.Combat.Modules.CameraShake
+194. [ModuleScript] Workspace.Live.PonyBoyPop.Combat.Modules.LockOn
+195. [ModuleScript] Workspace.Live.Zacherysuiii.Combat.Modules.LockOn
+196. [ModuleScript] Workspace.Live.Zacherysuiii.Combat.Modules.CameraShake
+197. [Script] Workspace.Live.Zacherysuiii.AimScript
+198. [LocalScript] Workspace.Live.Zacherysuiii.AimScript.LocalScript
+199. [RemoteFunction] Workspace.Live.Zacherysuiii.AimScript.RemoteFunction
+200. [Script] Workspace.Live.hagatonko.AimScript
+201. [LocalScript] Workspace.Live.hagatonko.AimScript.LocalScript
+202. [RemoteFunction] Workspace.Live.hagatonko.AimScript.RemoteFunction
+203. [ModuleScript] Workspace.Live.hagatonko.Combat.Modules.CameraShake
+204. [ModuleScript] Workspace.Live.hagatonko.Combat.Modules.LockOn
+205. [ModuleScript] Workspace.Live.thebadeseee.Combat.Modules.LockOn
+206. [ModuleScript] Workspace.Live.thebadeseee.Combat.Modules.CameraShake
+207. [Script] Workspace.Live.thebadeseee.AimScript
+208. [LocalScript] Workspace.Live.thebadeseee.AimScript.LocalScript
+209. [RemoteFunction] Workspace.Live.thebadeseee.AimScript.RemoteFunction
+210. [ModuleScript] Workspace.Live.roblox_user_6184229402.Combat.Modules.LockOn
+211. [ModuleScript] Workspace.Live.roblox_user_6184229402.Combat.Modules.CameraShake
+212. [Script] Workspace.Live.roblox_user_6184229402.AimScript
+213. [LocalScript] Workspace.Live.roblox_user_6184229402.AimScript.LocalScript
+214. [RemoteFunction] Workspace.Live.roblox_user_6184229402.AimScript.RemoteFunction
+215. [Script] Workspace.Live.ilove_kittins7.AimScript
+216. [LocalScript] Workspace.Live.ilove_kittins7.AimScript.LocalScript
+217. [RemoteFunction] Workspace.Live.ilove_kittins7.AimScript.RemoteFunction
+218. [ModuleScript] Workspace.Live.ilove_kittins7.Combat.Modules.CameraShake
+219. [ModuleScript] Workspace.Live.ilove_kittins7.Combat.Modules.LockOn
+220. [Script] Workspace.Live.shortname_zen.AimScript
+221. [LocalScript] Workspace.Live.shortname_zen.AimScript.LocalScript
+222. [RemoteFunction] Workspace.Live.shortname_zen.AimScript.RemoteFunction
+223. [ModuleScript] Workspace.Live.shortname_zen.Combat.Modules.CameraShake
+224. [ModuleScript] Workspace.Live.shortname_zen.Combat.Modules.LockOn
+225. [Script] waffle_elite.AimScript
+226. [LocalScript] waffle_elite.AimScript.LocalScript
+227. [RemoteFunction] waffle_elite.AimScript.RemoteFunction
+228. [ModuleScript] waffle_elite.Combat.Modules.CameraShake
+229. [ModuleScript] waffle_elite.Combat.Modules.LockOn
+230. [Script] Workspace.Live.whybebe190.AimScript
+231. [LocalScript] Workspace.Live.whybebe190.AimScript.LocalScript
+232. [RemoteFunction] Workspace.Live.whybebe190.AimScript.RemoteFunction
+233. [ModuleScript] Workspace.Live.whybebe190.Combat.Modules.CameraShake
+234. [ModuleScript] Workspace.Live.whybebe190.Combat.Modules.LockOn
+235. [Script] Workspace.Live.Chuki12345678983.AimScript
+236. [LocalScript] Workspace.Live.Chuki12345678983.AimScript.LocalScript
+237. [RemoteFunction] Workspace.Live.Chuki12345678983.AimScript.RemoteFunction
+238. [ModuleScript] Workspace.Live.Chuki12345678983.Combat.Modules.CameraShake
+239. [ModuleScript] Workspace.Live.Chuki12345678983.Combat.Modules.LockOn
+240. [Script] Workspace.Live.mydyingbody.AimScript
+241. [LocalScript] Workspace.Live.mydyingbody.AimScript.LocalScript
+242. [RemoteFunction] Workspace.Live.mydyingbody.AimScript.RemoteFunction
+243. [ModuleScript] Workspace.Live.mydyingbody.Combat.Modules.CameraShake
+244. [ModuleScript] Workspace.Live.mydyingbody.Combat.Modules.LockOn
 ----------------------------------------
 Safety notes:
 - No RemoteEvent, RemoteFunction, BindableEvent, or BindableFunction is invoked.
 - Script source is not read or executed.
-- Only names, classes, paths, and direct-child counts are inspected.
+- Targeted asset IDs are read as metadata only; assets are not downloaded or executed.
+- Only names, classes, paths, direct-child counts, and selected asset ID properties are inspected.
 - Results are limited to objects replicated to this client.
