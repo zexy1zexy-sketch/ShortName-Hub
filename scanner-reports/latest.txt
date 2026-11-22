@@ -9,600 +9,599 @@ Scan limit: 50000
 2. [remote] (REMOTE FUNCTION) ReplicatedStorage.CmdrClient.CmdrFunction
 3. [remote] (REMOTE EVENT) ReplicatedStorage.CmdrClient.CmdrEvent
 4. [remote] (BINDABLE FUNCTION) Workspace.shortname_zen.Animate.PlayEmote
-5. [turkey] (Model) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof
-6. [turkey] (Part) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Upgrades
-7. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Upgrades.shards
-8. [turkey] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Design
-9. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Design.Spcs2
-10. [turkey] (Part) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display
-11. [turkey] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display
-12. [turkey] (Frame) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount
-13. [turkey] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Icon
-14. [turkey] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Text
-   Text: 9.84M
-15. [turkey] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Design
-16. [pumpkin] (Model) Workspace.__GAME_CONTENT.Upgrades.Pumpkin
-17. [pumpkin] (Part) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display
-18. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Design
-19. [pumpkin] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display
-20. [pumpkin] (Frame) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount
-21. [pumpkin] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Icon
-22. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Text
-   Text: 1.7e150
-23. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Design
-24. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Design.Spcs2
-25. [pumpkin] (Part) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Upgrades
-26. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Upgrades.shards
-27. [pumpkin] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed
-28. [pumpkin] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Main
-29. [pumpkin] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.ClickDetector
-30. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Light
-31. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Meshes/runesg_Cube.017 (1)
-32. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.VFX_Color
-33. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Meshes/runesg_Cube.020
-34. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Meshes/runesg_Cube.016 (1)
-35. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Light1
-36. [corn] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti
-37. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Meshes/runesg_Cube.016 (1)
-38. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.VFX_Color
-39. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Light
-40. [corn] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Main
-41. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Meshes/runesg_Cube.020
-42. [corn] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.ClickDetector
-43. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Meshes/runesg_Cube.017 (1)
-44. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Light1
-45. [pumpkin] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti
-46. [pumpkin] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.ClickDetector
-47. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Meshes/runesg_Cube.016 (1)
-48. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Light1
-49. [pumpkin] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Main
-50. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Meshes/runesg_Cube.017 (1)
-51. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Light
-52. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.VFX_Color
-53. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Meshes/runesg_Cube.020
-54. [corn] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti
-55. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Meshes/runesg_Cube.016 (1)
-56. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Meshes/runesg_Cube.020
-57. [corn] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.ClickDetector
-58. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.VFX_Color
-59. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Meshes/runesg_Cube.017 (1)
-60. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Light
-61. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Light1
-62. [corn] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Main
-63. [pumpkin] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti
-64. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Meshes/runesg_Cube.017 (1)
-65. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Meshes/runesg_Cube.016 (1)
-66. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Light
-67. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.VFX_Color
-68. [pumpkin] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.ClickDetector
-69. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Meshes/runesg_Cube.020
-70. [pumpkin] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Main
-71. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Light1
-72. [thanksgiving] (Folder) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree
-73. [turkey] (Model) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1
-74. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Main
-75. [thanksgiving] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.ClickDetector
-76. [thanksgiving] (ObjectValue) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.UNLOCK
-77. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Light
-78. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Meshes/runesg_Cube.016 (1)
-79. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Meshes/runesg_Cube.020
-80. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Meshes/runesg_Cube.017 (1)
-81. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.VFX_Color
-82. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard
-83. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part
-84. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui
-85. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame
-86. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes
-87. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Title
-88. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Title.Icon
-89. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Title.Text
+5. [turkey] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetTurkeyBossLevel
+6. [milestone] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetFeathersMilestone
+7. [turkey] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetHiddenTurkey
+8. [turkey] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetTurkeyOofMilestone
+9. [thanksgiving] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetThanksgivingNoobEnchant
+10. [thanksgiving] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetThanksgivingNoob
+11. [harvest] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetHarvestRank
+12. [pumpkin] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ResetPumpkins
+13. [pumpkin] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetPumpkinRank
+14. [pumpkin] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetPumpkinLevel
+15. [milestone] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetStarlightMilestones
+16. [milestone] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetBurdenMilestones
+17. [milestone] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetBoneMilestone
+18. [milestone] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetOofMilestone
+19. [turkey] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.HiddenTurkeyName
+20. [thanksgiving] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.ThanksgivingNoobEnchantName
+21. [thanksgiving] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.ThanksgivingNoobName
+22. [turkey] (Model) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof
+23. [turkey] (Part) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Upgrades
+24. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Upgrades.shards
+25. [turkey] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Design
+26. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Design.Spcs2
+27. [turkey] (Part) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display
+28. [turkey] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display
+29. [turkey] (Frame) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount
+30. [turkey] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Icon
+31. [turkey] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Text
+   Text: 9.91M
+32. [turkey] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Design
+33. [pumpkin] (Model) Workspace.__GAME_CONTENT.Upgrades.Pumpkin
+34. [pumpkin] (Part) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display
+35. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Design
+36. [pumpkin] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display
+37. [pumpkin] (Frame) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount
+38. [pumpkin] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Icon
+39. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Text
+   Text: 2.2e150
+40. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Design
+41. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Design.Spcs2
+42. [pumpkin] (Part) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Upgrades
+43. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Upgrades.shards
+44. [pumpkin] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed
+45. [pumpkin] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Main
+46. [pumpkin] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.ClickDetector
+47. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Light
+48. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Meshes/runesg_Cube.017 (1)
+49. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.VFX_Color
+50. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Meshes/runesg_Cube.020
+51. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Meshes/runesg_Cube.016 (1)
+52. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed.Light1
+53. [corn] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti
+54. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Meshes/runesg_Cube.016 (1)
+55. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.VFX_Color
+56. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Light
+57. [corn] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Main
+58. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Meshes/runesg_Cube.020
+59. [corn] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.ClickDetector
+60. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Meshes/runesg_Cube.017 (1)
+61. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti.Light1
+62. [pumpkin] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti
+63. [pumpkin] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.ClickDetector
+64. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Meshes/runesg_Cube.016 (1)
+65. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Light1
+66. [pumpkin] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Main
+67. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Meshes/runesg_Cube.017 (1)
+68. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Light
+69. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.VFX_Color
+70. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti.Meshes/runesg_Cube.020
+71. [corn] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti
+72. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Meshes/runesg_Cube.016 (1)
+73. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Meshes/runesg_Cube.020
+74. [corn] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.ClickDetector
+75. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.VFX_Color
+76. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Meshes/runesg_Cube.017 (1)
+77. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Light
+78. [corn] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Light1
+79. [corn] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti.Main
+80. [pumpkin] (Model) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti
+81. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Meshes/runesg_Cube.017 (1)
+82. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Meshes/runesg_Cube.016 (1)
+83. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Light
+84. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.VFX_Color
+85. [pumpkin] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.ClickDetector
+86. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Meshes/runesg_Cube.020
+87. [pumpkin] (Part) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Main
+88. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti.Light1
+89. [thanksgiving] (Folder) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree
+90. [turkey] (Model) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1
+91. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Main
+92. [thanksgiving] (ClickDetector) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.ClickDetector
+93. [thanksgiving] (ObjectValue) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.UNLOCK
+94. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Light
+95. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Meshes/runesg_Cube.016 (1)
+96. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Meshes/runesg_Cube.020
+97. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.Meshes/runesg_Cube.017 (1)
+98. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1.VFX_Color
+99. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard
+100. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part
+101. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui
+102. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame
+103. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes
+104. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Title
+105. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Title.Icon
+106. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Title.Text
    Text: Game Likes
-90. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Current
-91. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Current.Amount
+107. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Current
+108. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Current.Amount
    Text: 76.7k
-92. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Current.Text
+109. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Current.Text
    Text: Likes
-93. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Boost
-94. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Boost.Amount
+110. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Boost
+111. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Boost.Amount
    Text: x2.52
-95. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Boost.Text
+112. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Likes.Boost.Text
    Text: Rune Bulk
-96. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.__Seperator
-97. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs
-98. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Title
-99. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Title.Icon
-100. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Title.Text
+113. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.__Seperator
+114. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs
+115. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Title
+116. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Title.Icon
+117. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Title.Text
    Text: Game Favorites
-101. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Current
-102. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Current.Amount
+118. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Current
+119. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Current.Amount
    Text: 80k
-103. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Current.Text
+120. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Current.Text
    Text: Favs
-104. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Boost
-105. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Boost.Amount
+121. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Boost
+122. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Boost.Amount
    Text: x3.39
-106. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Boost.Text
+123. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Favs.Boost.Text
    Text: Rune Luck
-107. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu
-108. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Title
-109. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Title.Icon
-110. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Title.Text
+124. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu
+125. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Title
+126. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Title.Icon
+127. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Title.Text
    Text: Game CCU
-111. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Current
-112. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Current.Amount
+128. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Current
+129. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Current.Amount
    Text: 18.3k
-113. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Current.Text
+130. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Current.Text
    Text: CCU
-114. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Boost
-115. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Boost.Amount
+131. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Boost
+132. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Boost.Amount
    Text: x2.83
-116. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Boost.Text
+133. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Ccu.Boost.Text
    Text: Stats
-117. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group
-118. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Title
-119. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Title.Icon
-120. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Title.Text
+134. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group
+135. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Title
+136. [milestone] (ImageLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Title.Icon
+137. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Title.Text
    Text: Group Join 
-121. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost
-122. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost.Value
+138. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost
+139. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost.Value
    Text: +10%
-123. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost.Text
+140. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost.Text
    Text: Rune Speed
-124. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost.Statues
+141. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Boost.Statues
    Text: (Inactive)
-125. [milestone] (TextButton) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Verify
-126. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Verify.Title
+142. [milestone] (TextButton) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Verify
+143. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Verify.Title
    Text: Verify
-127. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Title
-128. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Title.Text
+144. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Title
+145. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Title.Text
    Text: Game
-129. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Title.Title
+146. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Title.Title
    Text: Milestones
-130. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model
-131. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.021
-132. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.004
-133. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.006
-134. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.005
-135. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.017
-136. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.023
-137. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.007
-138. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.016
-139. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.018
-140. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.019
-141. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.022
-142. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.020
-143. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel
-144. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.Design
-145. [milestone] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.Design.Spcs2
-146. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.MainPart
-147. [milestone] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.MainPart.shards
-148. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard
-149. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part
-150. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED
-151. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED.Text
-152. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED.Text..
+147. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model
+148. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.021
+149. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.004
+150. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.006
+151. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.005
+152. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.017
+153. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.023
+154. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Sphere.007
+155. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.016
+156. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.018
+157. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.019
+158. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.022
+159. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Model.Meshes/rdgdrg_Cube.020
+160. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel
+161. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.Design
+162. [milestone] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.Design.Spcs2
+163. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.MainPart
+164. [milestone] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.WORLD - 1.CoinMilestoneModel.MainPart.shards
+165. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard
+166. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part
+167. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED
+168. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED.Text
+169. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED.Text..
    Text: Unlock at
-153. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED.Text.Text
+170. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.DepthMilestonesBoard.LOCKED_Part.LOCKED.Text.Text
    Text: Prestige 14
-154. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.BoneMilestonesBoard
-155. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.EasyTrialMilestoneBoard
-156. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.EasyTrialMilestoneBoard.MainPart
-157. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 3.EasyTrialMilestoneBoard.Design
-158. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard
-159. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part
-160. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED
-161. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED.Text
-162. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED.Text..
+171. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.BoneMilestonesBoard
+172. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.EasyTrialMilestoneBoard
+173. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.EasyTrialMilestoneBoard.MainPart
+174. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 3.EasyTrialMilestoneBoard.Design
+175. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard
+176. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part
+177. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED
+178. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED.Text
+179. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED.Text..
    Text: Unlock at
-163. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED.Text.Text
+180. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 3.OofMilestonesBoard.LOCKED_Part.LOCKED.Text.Text
    Text: Prestige 12
-164. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.HardTrialMilestoneBoard
-165. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.HardTrialMilestoneBoard.MainPart
-166. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 3.HardTrialMilestoneBoard.Design
-167. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.MediumTrialMilestoneBoard
-168. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.MediumTrialMilestoneBoard.MainPart
-169. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 3.MediumTrialMilestoneBoard.Design
-170. [corn] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel
-171. [corn] (MeshPart) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.Design
-172. [corn] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.Design.Spcs2
-173. [corn] (Part) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.MainPart
-174. [corn] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.MainPart.shards
-175. [pumpkin] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades
-176. [pumpkin] (Part) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades.MainPart
-177. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades.Design
-178. [thanksgiving] (Folder) Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving
-179. [turkey] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving.AutoTurkeyOofUpgrades
-180. [thanksgiving] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving.AutoFeaturesUpgrades
-181. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 4.SpaceLevelMilestonesBoard
-182. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 4.SpaceLevelMilestonesBoard.Design
-183. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 4.SpaceLevelMilestonesBoard.MainPart
-184. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel
-185. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part
-186. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED
-187. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED.Text
-188. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED.Text..
+181. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.HardTrialMilestoneBoard
+182. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.HardTrialMilestoneBoard.MainPart
+183. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 3.HardTrialMilestoneBoard.Design
+184. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 3.MediumTrialMilestoneBoard
+185. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 3.MediumTrialMilestoneBoard.MainPart
+186. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 3.MediumTrialMilestoneBoard.Design
+187. [corn] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel
+188. [corn] (MeshPart) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.Design
+189. [corn] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.Design.Spcs2
+190. [corn] (Part) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.MainPart
+191. [corn] (ParticleEmitter) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel.MainPart.shards
+192. [pumpkin] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades
+193. [pumpkin] (Part) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades.MainPart
+194. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades.Design
+195. [thanksgiving] (Folder) Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving
+196. [turkey] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving.AutoTurkeyOofUpgrades
+197. [thanksgiving] (Model) Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving.AutoFeaturesUpgrades
+198. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 4.SpaceLevelMilestonesBoard
+199. [milestone] (MeshPart) Workspace.__GAME_CONTENT.Contents.WORLD - 4.SpaceLevelMilestonesBoard.Design
+200. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 4.SpaceLevelMilestonesBoard.MainPart
+201. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel
+202. [milestone] (Part) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part
+203. [milestone] (SurfaceGui) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED
+204. [milestone] (Frame) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED.Text
+205. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED.Text..
    Text: Unlock at
-189. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED.Text.Text
+206. [milestone] (TextLabel) Workspace.__GAME_CONTENT.Contents.WORLD - 4.PrismMilestoneModel.LOCKED_Part.LOCKED.Text.Text
    Text: Prestige 17
-190. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.ColosseumWaveMilestonesBoard
-191. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.StarlightMilestonesBoard
-192. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.ColosseumKillsMilestonesBoard
-193. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.BurdenMilestonesBoard
-194. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.ChariotDIstanceMilestonesBoard
-195. [pumpkin] (Model) Workspace.__GAME_CONTENT.RuneZones.Pumpkin
-196. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin._Zone_Rune_Roll
-197. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder
-198. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder.002
-199. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Sphere.005
-200. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI
-201. [pumpkin] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui
-202. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain
-203. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.RuneName
+207. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.ColosseumWaveMilestonesBoard
+208. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.StarlightMilestonesBoard
+209. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.ColosseumKillsMilestonesBoard
+210. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.BurdenMilestonesBoard
+211. [milestone] (Model) Workspace.__GAME_CONTENT.Contents.WORLD-6.ChariotDIstanceMilestonesBoard
+212. [pumpkin] (Model) Workspace.__GAME_CONTENT.RuneZones.Pumpkin
+213. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin._Zone_Rune_Roll
+214. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder
+215. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder.002
+216. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Sphere.005
+217. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI
+218. [pumpkin] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui
+219. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain
+220. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.RuneName
    Text: Rune Content
-204. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities
-205. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Nightfall
+221. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities
+222. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Nightfall
    Text: RARITYNAME -- 1/LOADING
-206. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Black Cat
+223. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Black Cat
    Text: RARITYNAME -- 1/LOADING
-207. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Raven
+224. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Raven
    Text: RARITYNAME -- 1/LOADING
-208. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Pumpkin
+225. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Pumpkin
    Text: RARITYNAME -- 1/LOADING
-209. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Tombstone
+226. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Tombstone
    Text: RARITYNAME -- 1/LOADING
-210. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Graveyard
+227. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Graveyard
    Text: RARITYNAME -- 1/LOADING
-211. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Coven
+228. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Coven
    Text: RARITYNAME -- 1/LOADING
-212. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Cobweb
+229. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Cobweb
    Text: RARITYNAME -- 1/LOADING
-213. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Scarecrow
+230. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Scarecrow
    Text: RARITYNAME -- 1/LOADING
-214. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Coffin
-215. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Witch Fire
-216. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Ghost Rider
-217. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Headless Horseman
-218. [pumpkin] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Pattern
-219. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.UIScale
-220. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled
-221. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities
-222. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Nightfall
-223. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Black Cat
-224. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Raven
-225. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Pumpkin
-226. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Tombstone
-227. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Graveyard
-228. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Coven
-229. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Cobweb
-230. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Scarecrow
-231. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Coffin
-232. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Witch Fire
-233. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Ghost Rider
-234. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Headless Horseman
-235. [pumpkin] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Pattern
-236. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.RuneOpened
+231. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Coffin
+232. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Witch Fire
+233. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Ghost Rider
+234. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Headless Horseman
+235. [pumpkin] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Pattern
+236. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.UIScale
+237. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled
+238. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities
+239. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Nightfall
+240. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Black Cat
+241. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Raven
+242. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Pumpkin
+243. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Tombstone
+244. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Graveyard
+245. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Coven
+246. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Cobweb
+247. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Scarecrow
+248. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Coffin
+249. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Witch Fire
+250. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Ghost Rider
+251. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Headless Horseman
+252. [pumpkin] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Pattern
+253. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.RuneOpened
    Text: 999.99M Opened
-237. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.TimeLeft
+254. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.TimeLeft
    Text: LOADING Left
-238. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.RuneName
+255. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.RuneName
    Text: Rune Info
-239. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.UIScale
-240. [pumpkin] (Model) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets
-241. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats
-242. [pumpkin] (SurfaceGui) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui
-243. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneLuck
-244. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneLuck.Boost
+256. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.UIScale
+257. [pumpkin] (Model) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets
+258. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats
+259. [pumpkin] (SurfaceGui) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui
+260. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneLuck
+261. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneLuck.Boost
    Text: x2.48M
-245. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneLuck.Type
+262. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneLuck.Type
    Text: H.Rune Luck
-246. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneBulk
-247. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneBulk.Boost
+263. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneBulk
+264. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneBulk.Boost
    Text: x8.24Qd
-248. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneBulk.Type
+265. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneBulk.Type
    Text: H.Rune Bulk
-249. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeed
-250. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeed.Type
+266. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeed
+267. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeed.Type
    Text: H.Rune Speed
-251. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeed.Boost
+268. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeed.Boost
    Text: 0.15s
-252. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeedPerSecond
-253. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeedPerSecond.Type
+269. [pumpkin] (Frame) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeedPerSecond
+270. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeedPerSecond.Type
    Text: H.RPS
-254. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeedPerSecond.Boost
+271. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Assets.HalloweenRuneStats.SurfaceGui.HalloweenRuneSpeedPerSecond.Boost
    Text: 54.9Qd
-255. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle
-256. [pumpkin] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui
-257. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Title
+272. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle
+273. [pumpkin] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui
+274. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Title
    Text: Pumpkin Rune
-258. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Title.UIScale
-259. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Price
+275. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Title.UIScale
+276. [pumpkin] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Price
    Text: LOADING Pumpkin
-260. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Price.UIScale
-261. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder.003
-262. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007
-263. [pumpkin] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment
-264. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.dotsB
-265. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.debris
-266. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.hlow
-267. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.chromaticfloor
-268. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.wavering
-269. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.ray
-270. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.lines
-271. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Simple Pixelated Star
-272. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.EffectSpecs1
-273. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.EffectSpecs2
-274. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder.001
-275. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.VFX_Part
-276. [thanksgiving] (Model) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving
-277. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.FloatingPart
-278. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI
-279. [thanksgiving] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui
-280. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain
-281. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.RuneName
+277. [pumpkin] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Price.UIScale
+278. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder.003
+279. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007
+280. [pumpkin] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment
+281. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.dotsB
+282. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.debris
+283. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.hlow
+284. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.chromaticfloor
+285. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.wavering
+286. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.ray
+287. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Attachment.lines
+288. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.Simple Pixelated Star
+289. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.EffectSpecs1
+290. [pumpkin] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cube.007.EffectSpecs2
+291. [pumpkin] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.Cylinder.001
+292. [pumpkin] (Part) Workspace.__GAME_CONTENT.RuneZones.Pumpkin.VFX_Part
+293. [thanksgiving] (Model) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving
+294. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.FloatingPart
+295. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI
+296. [thanksgiving] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui
+297. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain
+298. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.RuneName
    Text: Rune Content
-282. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities
-283. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest
+299. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities
+300. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest
    Text: RARITYNAME -- 1/LOADING
-284. [cranberry] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Cranberry
+301. [cranberry] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Cranberry
    Text: RARITYNAME -- 1/LOADING
-285. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Cornucopia
+302. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Cornucopia
    Text: RARITYNAME -- 1/LOADING
-286. [gravy] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Gravy
+303. [gravy] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Gravy
    Text: RARITYNAME -- 1/LOADING
-287. [pilgrim] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Pilgrim
+304. [pilgrim] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Pilgrim
    Text: RARITYNAME -- 1/LOADING
-288. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Maple
+305. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Maple
    Text: RARITYNAME -- 1/LOADING
-289. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest King
-290. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest Lord
-291. [thanksgiving] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Pattern
-292. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.UIScale
-293. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled
-294. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities
-295. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest
-296. [cranberry] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Cranberry
-297. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Cornucopia
-298. [gravy] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Gravy
-299. [pilgrim] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Pilgrim
-300. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Maple
-301. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest King
-302. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest Lord
-303. [thanksgiving] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Pattern
-304. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.RuneOpened
+306. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest King
+307. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest Lord
+308. [thanksgiving] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Pattern
+309. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.UIScale
+310. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled
+311. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities
+312. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest
+313. [cranberry] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Cranberry
+314. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Cornucopia
+315. [gravy] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Gravy
+316. [pilgrim] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Pilgrim
+317. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Maple
+318. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest King
+319. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest Lord
+320. [thanksgiving] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Pattern
+321. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.RuneOpened
    Text: 999.99M Opened
-305. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.TimeLeft
+322. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.TimeLeft
    Text: LOADING Left
-306. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.RuneName
+323. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.RuneName
    Text: Rune Info
-307. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.UIScale
-308. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving._Zone_Rune_Roll
-309. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle
-310. [thanksgiving] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui
-311. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Title
+324. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.UIScale
+325. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving._Zone_Rune_Roll
+326. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle
+327. [thanksgiving] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui
+328. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Title
    Text: Thanksgiving Rune
-312. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Title.UIScale
-313. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Price
+329. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Title.UIScale
+330. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Price
    Text: LOADING Turkey Oof
-314. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Price.UIScale
-315. [thanksgiving] (Model) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets
-316. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment
-317. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment.Beam
-318. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment.Wiggle
-319. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment.Beam1
-320. [thanksgiving] (Model) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model
-321. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.013
-322. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.012
-323. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.015
-324. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.017
-325. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.017.FloatingWeld
-326. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.011
-327. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.007
-328. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.016
-329. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.016.FloatingWeld
-330. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040
-331. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.FloatingWeld
-332. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.EffectSpecs2
-333. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Simple Pixelated Star
-334. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.EffectSpecs1
-335. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment
-336. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.chromaticfloor
-337. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.lines
-338. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.ray
-339. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.wavering
-340. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.debris
-341. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.hlow
-342. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.dotsB
-343. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Main
-344. [thanksgiving] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Main.PointLight
-345. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.014
-346. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.010
-347. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.008
-348. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.009
-349. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.018
-350. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.018.FloatingWeld
-351. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment
-352. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment.Beam
-353. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment.Beam1
-354. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment.Wiggle
-355. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.041
-356. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.041.FloatingWeld
-357. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Main
-358. [thanksgiving] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Main.PointLight
-359. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats
-360. [thanksgiving] (SurfaceGui) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui
-361. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck
-362. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Boost
+331. [thanksgiving] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Price.UIScale
+332. [thanksgiving] (Model) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets
+333. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment
+334. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment.Beam
+335. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment.Wiggle
+336. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Attachment.Beam1
+337. [thanksgiving] (Model) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model
+338. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.013
+339. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.012
+340. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.015
+341. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.017
+342. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.017.FloatingWeld
+343. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.011
+344. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.007
+345. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.016
+346. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.016.FloatingWeld
+347. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040
+348. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.FloatingWeld
+349. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.EffectSpecs2
+350. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Simple Pixelated Star
+351. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.EffectSpecs1
+352. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment
+353. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.chromaticfloor
+354. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.lines
+355. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.ray
+356. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.wavering
+357. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.debris
+358. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.hlow
+359. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.040.Attachment.dotsB
+360. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Main
+361. [thanksgiving] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Main.PointLight
+362. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.014
+363. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.010
+364. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.008
+365. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.009
+366. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.018
+367. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cylinder.018.FloatingWeld
+368. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment
+369. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment.Beam
+370. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment.Beam1
+371. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Attachment.Wiggle
+372. [thanksgiving] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.041
+373. [thanksgiving] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Model.Cube.041.FloatingWeld
+374. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Main
+375. [thanksgiving] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.Main.PointLight
+376. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats
+377. [thanksgiving] (SurfaceGui) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui
+378. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck
+379. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Boost
    Text: x1
-363. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Type
+380. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Type
    Text: Thanksgiving Rune Luck
-364. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk
-365. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Boost
+381. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk
+382. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Boost
    Text: x1
-366. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Type
+383. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Type
    Text: Thanksgiving Rune Bulk
-367. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed
-368. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Type
+384. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed
+385. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Type
    Text: Thanksgiving Rune Speed
-369. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Boost
+386. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Boost
    Text: 1s
-370. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond
-371. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Type
+387. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond
+388. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Type
    Text: Thanksgiving RPS
-372. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Boost
+389. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Boost
    Text: 1
-373. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.VFX_Part
-374. [turkey] (Model) Workspace.__GAME_CONTENT.RuneZones.Turkey
-375. [turkey] (Model) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets
-376. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment
-377. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment.Beam
-378. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment.Beam1
-379. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment.Wiggle
-380. [turkey] (Model) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model
-381. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.013
-382. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.014
-383. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.008
-384. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.018
-385. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.018.FloatingWeld
-386. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.012
-387. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.016
-388. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.016.FloatingWeld
-389. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment
-390. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment.Beam
-391. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment.Beam1
-392. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment.Wiggle
-393. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.041
-394. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.041.FloatingWeld
-395. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.015
-396. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Main
-397. [turkey] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Main.PointLight
-398. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040
-399. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.EffectSpecs2
-400. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.FloatingWeld
-401. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.EffectSpecs1
-402. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment
-403. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.lines
-404. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.dotsB
-405. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.debris
-406. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.ray
-407. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.chromaticfloor
-408. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.wavering
-409. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.hlow
-410. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Simple Pixelated Star
-411. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.009
-412. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.011
-413. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.017
-414. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.017.FloatingWeld
-415. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.010
-416. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.007
-417. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats
-418. [turkey] (SurfaceGui) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui
-419. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck
-420. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Boost
+390. [thanksgiving] (Part) Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.VFX_Part
+391. [turkey] (Model) Workspace.__GAME_CONTENT.RuneZones.Turkey
+392. [turkey] (Model) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets
+393. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment
+394. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment.Beam
+395. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment.Beam1
+396. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Attachment.Wiggle
+397. [turkey] (Model) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model
+398. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.013
+399. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.014
+400. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.008
+401. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.018
+402. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.018.FloatingWeld
+403. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.012
+404. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.016
+405. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.016.FloatingWeld
+406. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment
+407. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment.Beam
+408. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment.Beam1
+409. [turkey] (Beam) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Attachment.Wiggle
+410. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.041
+411. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.041.FloatingWeld
+412. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.015
+413. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Main
+414. [turkey] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Main.PointLight
+415. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040
+416. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.EffectSpecs2
+417. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.FloatingWeld
+418. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.EffectSpecs1
+419. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment
+420. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.lines
+421. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.dotsB
+422. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.debris
+423. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.ray
+424. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.chromaticfloor
+425. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.wavering
+426. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Attachment.hlow
+427. [turkey] (ParticleEmitter) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cube.040.Simple Pixelated Star
+428. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.009
+429. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.011
+430. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.017
+431. [turkey] (WeldConstraint) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.017.FloatingWeld
+432. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.010
+433. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Model.Cylinder.007
+434. [turkey] (MeshPart) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats
+435. [turkey] (SurfaceGui) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui
+436. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck
+437. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Boost
    Text: x1
-421. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Type
+438. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Type
    Text: Thanksgiving Rune Luck
-422. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk
-423. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Boost
+439. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk
+440. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Boost
    Text: x1
-424. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Type
+441. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Type
    Text: Thanksgiving Rune Bulk
-425. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed
-426. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Type
+442. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed
+443. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Type
    Text: Thanksgiving Rune Speed
-427. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Boost
+444. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Boost
    Text: 1s
-428. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond
-429. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Type
+445. [thanksgiving] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond
+446. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Type
    Text: Thanksgiving RPS
-430. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Boost
+447. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Boost
    Text: 1
-431. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Main
-432. [turkey] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Main.PointLight
-433. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey._Zone_Rune_Roll
-434. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.VFX_Part
-435. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.FloatingPart
-436. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI
-437. [turkey] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui
-438. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain
-439. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.RuneName
+448. [turkey] (Attachment) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Main
+449. [turkey] (PointLight) Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.Main.PointLight
+450. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey._Zone_Rune_Roll
+451. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.VFX_Part
+452. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.FloatingPart
+453. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI
+454. [turkey] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui
+455. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain
+456. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.RuneName
    Text: Rune Content
-440. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities
-441. [gobble] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Gobbler
+457. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities
+458. [gobble] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Gobbler
    Text: RARITYNAME -- 1/LOADING
-442. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Drumstick
+459. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Drumstick
    Text: RARITYNAME -- 1/LOADING
-443. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Wishbone
+460. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Wishbone
    Text: RARITYNAME -- 1/LOADING
-444. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Roasted
+461. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Roasted
    Text: RARITYNAME -- 1/LOADING
-445. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Turkey
+462. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Turkey
    Text: RARITYNAME -- 1/LOADING
-446. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Turkey Lord
+463. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Turkey Lord
    Text: RARITYNAME -- 1/LOADING
-447. [feast] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Eternal Feast
+464. [feast] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Eternal Feast
    Text: RARITYNAME -- 1/LOADING
-448. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Harvest Crown
+465. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Harvest Crown
    Text: RARITYNAME -- 1/LOADING
-449. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Thanksgiving
-450. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Gratitude
-451. [turkey] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Pattern
-452. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.UIScale
-453. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled
-454. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities
-455. [gobble] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Gobbler
-456. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Drumstick
-457. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Wishbone
-458. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Roasted
-459. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Turkey
-460. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Turkey Lord
-461. [feast] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Eternal Feast
-462. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest Crown
-463. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Thanksgiving
-464. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Gratitude
-465. [turkey] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Pattern
-466. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.RuneOpened
+466. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Thanksgiving
+467. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Gratitude
+468. [turkey] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Pattern
+469. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.UIScale
+470. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled
+471. [turkey] (Frame) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities
+472. [gobble] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Gobbler
+473. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Drumstick
+474. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Wishbone
+475. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Roasted
+476. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Turkey
+477. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Turkey Lord
+478. [feast] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Eternal Feast
+479. [harvest] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest Crown
+480. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Thanksgiving
+481. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Gratitude
+482. [turkey] (ImageLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Pattern
+483. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.RuneOpened
    Text: 999.99M Opened
-467. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.TimeLeft
+484. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.TimeLeft
    Text: LOADING Left
-468. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.RuneName
+485. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.RuneName
    Text: Rune Info
-469. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.UIScale
-470. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle
-471. [turkey] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui
-472. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Title
+486. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.UIScale
+487. [turkey] (Part) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle
+488. [turkey] (BillboardGui) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui
+489. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Title
    Text: Turkey Rune
-473. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Title.UIScale
-474. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Price
+490. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Title.UIScale
+491. [turkey] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Price
    Text: LOADING Pies
-475. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Price.UIScale
-476. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Football.RuneUI.BillboardGui.RuneMain.Rarities.Corner
+492. [turkey] (UIScale) Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Price.UIScale
+493. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Football.RuneUI.BillboardGui.RuneMain.Rarities.Corner
    Text: RARITYNAME -- 1/LOADING
-477. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Football.RuneUI.BillboardGui.RuneRolled.Rarities.Corner
-478. [thanksgiving] (Model) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingTeleport
-479. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingTeleport.TouchPart
-480. [thanksgiving] (Model) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting
-481. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle
-482. [thanksgiving] (BillboardGui) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.BillboardGui
-483. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.BillboardGui.Description
+494. [corn] (TextLabel) Workspace.__GAME_CONTENT.RuneZones.Football.RuneUI.BillboardGui.RuneRolled.Rarities.Corner
+495. [thanksgiving] (Model) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingTeleport
+496. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingTeleport.TouchPart
+497. [thanksgiving] (Model) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting
+498. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle
+499. [thanksgiving] (BillboardGui) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.BillboardGui
+500. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.BillboardGui.Description
    Text: Challenge yourself!
-484. [thanksgiving] (TextLabel) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.BillboardGui.Title
-   Text: Fasting Challenges
-485. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.AttachmentB1
-486. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.AttachmentB2
-487. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.Beam109
-488. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.Attachment
-489. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.Attachment.Thin FX
-490. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.Beam1
-491. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.Drawn Star
-492. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.AttachmentA1
-493. [thanksgiving] (Beam) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.Beam2
-494. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.AttachmentA2
-495. [thanksgiving] (ParticleEmitter) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.LightBeams
-496. [thanksgiving] (Attachment) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.AttachmentCenter
-497. [thanksgiving] (PointLight) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Circle.AttachmentCenter.PointLight
-498. [thanksgiving] (Part) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.TouchPart
-499. [thanksgiving] (Model) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Assets
-500. [thanksgiving] (Model) Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting.Assets.PointPath
 ----------------------------------------
 Notes:
 - Remote objects are listed by name and path only; they are not called.
