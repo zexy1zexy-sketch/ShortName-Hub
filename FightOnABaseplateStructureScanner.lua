@@ -22,7 +22,13 @@ local TERMS = {
 local MAX_SCAN = 50000
 local MAX_REMOTE = 300
 local MAX_MATCH = 400
+local MAX_DEEP = 250
 local YIELD_EVERY = 300
+local DEEP_TARGETS = {
+    RaycastHitboxV4 = true, Packet = true, StyleWeapons = true,
+    Flying = true, SFX = true, AimScript = true, LockOn = true,
+    CameraShake = true
+}
 
 local function safe(instance, property, fallback)
     local ok, value = pcall(function() return instance[property] end)
@@ -75,7 +81,7 @@ function Scanner:Start(onUpdate)
     local scanId = self._scanId
 
     task.spawn(function()
-        local remotes, matches, seen = {}, {}, {}
+        local remotes, matches, deep, seen = {}, {}, {}, {}
         local scanned = 0
         local function notify(status)
             if type(onUpdate) == "function" then
@@ -95,6 +101,22 @@ function Scanner:Start(onUpdate)
                     local className = safe(instance, "ClassName", "Unknown")
                     local path = pathOf(instance)
                     local key = className .. "|" .. path
+                    local parentName = safe(safe(instance, "Parent", nil), "Name", "")
+                    local deepTarget = DEEP_TARGETS[name] or DEEP_TARGETS[parentName]
+                    if deepTarget and #deep < MAX_DEEP then
+                        local detail = {
+                            className = className, name = name, path = path
+                        }
+                        if className == "MeshPart" or className == "SpecialMesh" then
+                            detail.meshId = safe(instance, "MeshId", safe(instance, "MeshId", ""))
+                            detail.textureId = safe(instance, "TextureID", safe(instance, "TextureId", ""))
+                        elseif className == "Animation" then
+                            detail.assetId = safe(instance, "AnimationId", "")
+                        elseif className == "Sound" then
+                            detail.assetId = safe(instance, "SoundId", "")
+                        end
+                        table.insert(deep, detail)
+                    end
                     if not seen[key] then
                         seen[key] = true
                         if isRemote(className) and #remotes < MAX_REMOTE then
@@ -136,6 +158,7 @@ function Scanner:Start(onUpdate)
             "Objects inspected: " .. tostring(scanned),
             "RemoteEvents/RemoteFunctions found: " .. tostring(#remotes),
             "Combat-related name/path matches: " .. tostring(#matches),
+            "Targeted structure entries: " .. tostring(#deep),
             "Scan limit: " .. tostring(MAX_SCAN),
             "----------------------------------------",
             "REMOTE INVENTORY (NAMES AND PATHS ONLY)"
@@ -153,11 +176,29 @@ function Scanner:Start(onUpdate)
             ))
         end
         if #matches == 0 then table.insert(lines, "No combat-related name/path matches found.") end
+        table.insert(lines, "")
+        table.insert(lines, "TARGETED COMBAT MODULE / ASSET STRUCTURE")
+        table.insert(lines, "Targets: RaycastHitboxV4, Packet, StyleWeapons, Flying, SFX, AimScript, LockOn, CameraShake")
+        for i, item in ipairs(deep) do
+            local detail = string.format("%d. [%s] %s", i, item.className, item.path)
+            if item.assetId and item.assetId ~= "" then
+                detail = detail .. " | AssetId=" .. tostring(item.assetId)
+            end
+            if item.meshId and item.meshId ~= "" then
+                detail = detail .. " | MeshId=" .. tostring(item.meshId)
+            end
+            if item.textureId and item.textureId ~= "" then
+                detail = detail .. " | TextureId=" .. tostring(item.textureId)
+            end
+            table.insert(lines, detail)
+        end
+        if #deep == 0 then table.insert(lines, "No targeted structure entries found.") end
         table.insert(lines, "----------------------------------------")
         table.insert(lines, "Safety notes:")
         table.insert(lines, "- No RemoteEvent, RemoteFunction, BindableEvent, or BindableFunction is invoked.")
         table.insert(lines, "- Script source is not read or executed.")
-        table.insert(lines, "- Only names, classes, paths, and direct-child counts are inspected.")
+        table.insert(lines, "- Targeted asset IDs are read as metadata only; assets are not downloaded or executed.")
+        table.insert(lines, "- Only names, classes, paths, direct-child counts, and selected asset ID properties are inspected.")
         table.insert(lines, "- Results are limited to objects replicated to this client.")
         self._scanned = scanned
         self._count = #remotes + #matches
