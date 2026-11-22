@@ -145,7 +145,7 @@ StartHub = function(skipKey)
     local GUI = LoadModule("GUI.lua")
     local ScytheModule = LoadModule("Scythe.lua")
     local Logger = LoadModule("Logger.lua")
-    local SpyAdapter = LoadModule("SpyAdapter.lua")
+    local SpyAdapter = (skipKey and CurrentRuntime and CurrentRuntime.SpyAdapter) or LoadModule("SpyAdapter.lua")
     local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
 
     local Interface
@@ -157,14 +157,13 @@ StartHub = function(skipKey)
     local Scythe = ScytheModule.new()
     local Scanner = ThanksgivingScanner.new()
 
-    warn("ShortName Hub: Remote Spy temporarily disabled.")
-
     local success, result = pcall(function()
         return GUI.Create(
             Config,
             Controller,
             Scythe,
             Logger,
+            SpyAdapter,
             Scanner,
             RefreshHub
         )
@@ -185,6 +184,7 @@ StartHub = function(skipKey)
         Controller = Controller,
         Scythe = Scythe,
         Scanner = Scanner,
+        SpyAdapter = SpyAdapter,
         Interface = Interface
     }
 
