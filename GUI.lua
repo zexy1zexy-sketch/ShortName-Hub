@@ -1727,10 +1727,122 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(45, 115, 75))
 
+    -- PASSIVE ATTACK OBSERVER: records newly replicated combat-named
+    -- Workspace instances only. It never calls remotes or changes game objects.
+    local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage)
+    Label(ObserverFolder, "PASSIVE ATTACK OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(ObserverFolder, "Start this before a fight. It records newly appearing client-visible combat objects and their basic metadata. No remotes are called.", 10, 42, Grey)
+    local ObserverRunning = false
+    local ObserverConnection
+    local ObserverRecords = {}
+    local ObserverSeen = {}
+    local ObserverStatus = Label(ObserverFolder, "OBSERVER: OFF — NO DATA", 10, 24, Color3.fromRGB(170, 210, 255))
+    local ObserverOutput = Label(ObserverFolder, "Start the observer, exchange a few attacks, then stop and copy the report.", 9, 48, Grey)
+    ObserverOutput.TextWrapped = true
+    ObserverOutput.TextYAlignment = Enum.TextYAlignment.Top
+    local function StopAttackObserver()
+        ObserverRunning = false
+        if ObserverConnection then
+            ObserverConnection:Disconnect()
+            ObserverConnection = nil
+        end
+    end
+    local function BuildObserverReport()
+        local report = {
+            "SHORTNAME HUB - PASSIVE ATTACK OBSERVER",
+            "Mode: Workspace DescendantAdded only; no remotes invoked; no game objects modified.",
+            "Captured objects: " .. tostring(#ObserverRecords),
+            "----------------------------------------"
+        }
+        for index, entry in ipairs(ObserverRecords) do
+            table.insert(report, string.format(
+                "%d. [%s] %s | %s",
+                index, entry.className, entry.name, entry.details
+            ))
+        end
+        if #ObserverRecords == 0 then
+            table.insert(report, "No matching newly-added Workspace objects were observed.")
+        end
+        return table.concat(report, "\n")
+    end
+    local ObserverButton
+    ObserverButton = MakeButton(ObserverFolder, "START ATTACK OBSERVER", function()
+        if ObserverRunning then
+            StopAttackObserver()
+            ObserverButton.Text = "START ATTACK OBSERVER"
+            ObserverStatus.Text = "OBSERVER: STOPPED — " .. tostring(#ObserverRecords) .. " OBJECTS"
+            ObserverOutput.Text = #ObserverRecords > 0 and ("Captured " .. tostring(#ObserverRecords) .. " objects. Copy the report below.") or "No matching objects captured. Try while an opponent is actively attacking."
+            return
+        end
+        ObserverRecords = {}
+        ObserverSeen = {}
+        ObserverRunning = true
+        ObserverButton.Text = "STOP ATTACK OBSERVER"
+        ObserverStatus.Text = "OBSERVER: LISTENING — FIGHT NOW"
+        ObserverOutput.Text = "Listening for newly appearing combat-related Workspace objects..."
+        local terms = {"hitbox", "hurtbox", "damage", "attack", "swing", "slash", "projectile", "bullet", "strike", "hit", "weapon", "trail"}
+        ObserverConnection = workspace.DescendantAdded:Connect(function(object)
+            if not ObserverRunning or #ObserverRecords >= 120 then return end
+            local ok, name, className = pcall(function()
+                return object.Name, object.ClassName
+            end)
+            if not ok then return end
+            local lowerName = string.lower(tostring(name))
+            local matched
+            for _, term in ipairs(terms) do
+                if string.find(lowerName, term, 1, true) then
+                    matched = term
+                    break
+                end
+            end
+            if not matched then return end
+            local allowedClass = object:IsA("BasePart") or object:IsA("Attachment")
+                or object:IsA("Trail") or object:IsA("Beam")
+                or object:IsA("ParticleEmitter") or object:IsA("Model")
+            if not allowedClass then return end
+            local path = ""
+            local details = "match=" .. matched
+            pcall(function()
+                path = object:GetFullName()
+                if object:IsA("BasePart") then
+                    details = details .. string.format(
+                        " | size=%.2f,%.2f,%.2f | position=%.1f,%.1f,%.1f",
+                        object.Size.X, object.Size.Y, object.Size.Z,
+                        object.Position.X, object.Position.Y, object.Position.Z
+                    )
+                elseif object:IsA("Attachment") then
+                    local parent = object.Parent
+                    details = details .. " | parent=" .. (parent and parent.Name or "none")
+                end
+            end)
+            local key = tostring(className) .. "|" .. path
+            if ObserverSeen[key] then return end
+            ObserverSeen[key] = true
+            table.insert(ObserverRecords, {
+                name = tostring(name), className = tostring(className),
+                details = details .. " | path=" .. path
+            })
+            ObserverStatus.Text = "OBSERVER: CAPTURED " .. tostring(#ObserverRecords) .. " OBJECTS"
+        end)
+    end, Color3.fromRGB(45, 105, 145))
+    MakeButton(ObserverFolder, "COPY ATTACK OBSERVER REPORT", function()
+        local report = BuildObserverReport()
+        local copied = false
+        if type(setclipboard) == "function" then
+            copied = pcall(function() setclipboard(report) end)
+        end
+        if not copied and type(toclipboard) == "function" then
+            copied = pcall(function() toclipboard(report) end)
+        end
+        ObserverStatus.Text = copied and "OBSERVER REPORT COPIED" or "CLIPBOARD UNAVAILABLE"
+        ObserverOutput.Text = copied and "Report copied. Paste it into this chat." or "Clipboard API unavailable in this executor."
+    end, Color3.fromRGB(45, 105, 145))
+
     ScreenGui.Destroying:Connect(function()
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
+        StopAttackObserver()
     end)
 
     -- COMING SOON PAGE
