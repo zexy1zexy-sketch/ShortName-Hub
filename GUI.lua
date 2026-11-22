@@ -1495,6 +1495,136 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         HouseFallHeight = math.floor(value + 0.5)
     end)
 
+
+    -- COMBAT HUD, ASSET RECOGNITION, AND SAFE HITBOX VISUALIZER
+    local CombatToolsFolder = MakeFolder("COMBAT HUD & ASSET TOOLS", FightPage)
+    Label(CombatToolsFolder, "COMBAT HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(CombatToolsFolder, "Shows your own live health, movement speed, and equipped tool. Local display only.", 10, 36, Grey)
+
+    local CombatHudEnabled = false
+    local CombatHudToken = 0
+    local CombatHudLabel
+    local function RemoveCombatHud()
+        CombatHudEnabled = false
+        CombatHudToken += 1
+        if CombatHudLabel then
+            CombatHudLabel:Destroy()
+            CombatHudLabel = nil
+        end
+    end
+
+    MakeButton(CombatToolsFolder, "TOGGLE COMBAT HUD: OFF", function(button)
+        CombatHudEnabled = not CombatHudEnabled
+        CombatHudToken += 1
+        local token = CombatHudToken
+        if CombatHudEnabled then
+            if not CombatHudLabel then
+                CombatHudLabel = Instance.new("TextLabel")
+                CombatHudLabel.Name = "ShortNameCombatHUD"
+                CombatHudLabel.AnchorPoint = Vector2.new(0.5, 0)
+                CombatHudLabel.Position = UDim2.new(0.5, 0, 0, 12)
+                CombatHudLabel.Size = UDim2.fromOffset(280, 42)
+                CombatHudLabel.BackgroundColor3 = Color3.fromRGB(12, 12, 17)
+                CombatHudLabel.BackgroundTransparency = 0.16
+                CombatHudLabel.BorderSizePixel = 0
+                CombatHudLabel.TextColor3 = White
+                CombatHudLabel.TextSize = 12
+                CombatHudLabel.Font = Enum.Font.GothamBold
+                CombatHudLabel.TextWrapped = true
+                CombatHudLabel.Parent = ScreenGui
+                Corner(CombatHudLabel, 9)
+                Stroke(CombatHudLabel, CurrentAccent.Light, 1.2)
+            end
+            button.Text = "TOGGLE COMBAT HUD: ON"
+            task.spawn(function()
+                while CombatHudEnabled and CombatHudToken == token and ScreenGui.Parent do
+                    local player = Players.LocalPlayer
+                    local character = player and player.Character
+                    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+                    local healthText = "Health: N/A"
+                    local speedText = "Speed: N/A"
+                    if humanoid then
+                        healthText = string.format("HP: %d/%d", math.floor(humanoid.Health + 0.5), math.floor(humanoid.MaxHealth + 0.5))
+                        speedText = string.format("Speed: %.1f", humanoid.MoveDirection.Magnitude * humanoid.WalkSpeed)
+                    end
+                    local toolName = "None"
+                    if character then
+                        local tool = character:FindFirstChildOfClass("Tool")
+                        if tool then toolName = tool.Name end
+                    end
+                    if CombatHudLabel and CombatHudLabel.Parent then
+                        CombatHudLabel.Text = healthText .. "   |   " .. speedText .. "\nEquipped: " .. toolName
+                    end
+                    task.wait(0.25)
+                end
+            end)
+        else
+            RemoveCombatHud()
+            button.Text = "TOGGLE COMBAT HUD: OFF"
+        end
+    end, Color3.fromRGB(45, 115, 75))
+
+    Label(CombatToolsFolder, "WEAPON / ASSET RECOGNITION", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(CombatToolsFolder, "Lists known replicated weapon and combat asset folders. Does not load or execute assets.", 10, 36, Grey)
+    local AssetStatus = Label(CombatToolsFolder, "ASSET CHECK: NOT RUN", 10, 22, Color3.fromRGB(170, 210, 255))
+    local AssetResults = Label(CombatToolsFolder, "Known paths: StyleWeapons, SFX, RaycastHitboxV4, Flying, Packet", 10, 58, Grey)
+    AssetResults.TextWrapped = true
+    MakeButton(CombatToolsFolder, "SCAN COMBAT ASSETS", function()
+        local storage = game:GetService("ReplicatedStorage")
+        local names = {"StyleWeapons", "SFX", "RaycastHitboxV4", "Flying", "Packet"}
+        local found = {}
+        for _, name in ipairs(names) do
+            local object = storage:FindFirstChild(name)
+            if object then
+                local count = 0
+                pcall(function() count = #object:GetDescendants() end)
+                table.insert(found, name .. " (" .. tostring(count) .. ")")
+            end
+        end
+        AssetStatus.Text = "ASSET CHECK: " .. tostring(#found) .. "/" .. tostring(#names) .. " SYSTEMS FOUND"
+        AssetResults.Text = #found > 0 and table.concat(found, "  •  ") or "No known combat asset folders found."
+    end, Color3.fromRGB(45, 105, 145))
+
+    Label(CombatToolsFolder, "HITBOX VISUALIZER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(CombatToolsFolder, "Highlights only existing Workspace BaseParts named Hitbox or Hurtbox. It does not create or change hitboxes.", 10, 42, Grey)
+    local HitboxEnabled = false
+    local HitboxAdornments = {}
+    local function ClearHitboxVisuals()
+        for part, adornment in pairs(HitboxAdornments) do
+            pcall(function() adornment:Destroy() end)
+            HitboxAdornments[part] = nil
+        end
+    end
+    local HitboxButton
+    HitboxButton = MakeButton(CombatToolsFolder, "HITBOX VISUALIZER: OFF", function()
+        HitboxEnabled = not HitboxEnabled
+        ClearHitboxVisuals()
+        if HitboxEnabled then
+            local count = 0
+            for _, object in ipairs(workspace:GetDescendants()) do
+                if object:IsA("BasePart") then
+                    local lowerName = string.lower(object.Name)
+                    if string.find(lowerName, "hitbox", 1, true) or string.find(lowerName, "hurtbox", 1, true) then
+                        local adornment = Instance.new("BoxHandleAdornment")
+                        adornment.Name = "ShortNameHitboxVisual"
+                        adornment.Adornee = object
+                        adornment.Size = object.Size
+                        adornment.Color3 = Color3.fromRGB(255, 75, 95)
+                        adornment.Transparency = 0.68
+                        adornment.AlwaysOnTop = true
+                        adornment.ZIndex = 5
+                        adornment.Parent = workspace
+                        HitboxAdornments[object] = adornment
+                        count += 1
+                    end
+                end
+            end
+            HitboxButton.Text = "HITBOX VISUALIZER: ON (" .. tostring(count) .. ")"
+        else
+            HitboxButton.Text = "HITBOX VISUALIZER: OFF"
+        end
+    end, Color3.fromRGB(45, 115, 75))
+
     -- COMING SOON PAGE
     Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey); local
     SoonCard = Instance.new("Frame")
@@ -1693,6 +1823,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 FightStructureScanner:Stop()
             end
         end)
+        RemoveCombatHud()
+        HitboxEnabled = false
+        ClearHitboxVisuals()
         HouseAutoEnabled = false
         HouseLoopToken = HouseLoopToken + 1
         ScreenGui:Destroy()
