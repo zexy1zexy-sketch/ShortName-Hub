@@ -117,7 +117,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local SettingsNav = MakeNav("⚙  Settings", 1); local GameNav = MakeNav("◆  Noob Incremental", 2)
-    local SoonNav = MakeNav("＋  Coming Soon", 3)
+    local FightNav = MakeNav("⚔  Fight on a Baseplate", 3); local SoonNav = MakeNav("＋  Coming Soon", 4)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -143,11 +143,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local SettingsPage = MakePage("Settings"); local GamePage = MakePage("NoobIncremental")
-    local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
+    local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Settings = SettingsPage, Game = GamePage, Soon = SoonPage }
+        local pages = { Settings = SettingsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true; pageObject.Position = UDim2.fromOffset(15, 8)
@@ -170,7 +170,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
 
         StyleNav(SettingsNav, page == "Settings"); StyleNav(GameNav, page == "Game")
-        StyleNav(SoonNav, page == "Soon")
+        StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
 
     SettingsNav.Activated:Connect(function()
@@ -178,6 +178,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
     GameNav.Activated:Connect(function()
         SelectPage("Game")
+    end)
+    FightNav.Activated:Connect(function()
+        SelectPage("Fight")
     end)
     SoonNav.Activated:Connect(function()
         SelectPage("Soon")
@@ -620,7 +623,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- FIGHT ON A BASEPLATE FOLDER
     -- Kept separate from the other game folders.
-    local FightFolder = MakeFolder("FIGHT ON A BASEPLATE")
+    local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
     local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder)
 
     Label(FightScannerFolder, "FIGHT ON A BASEPLATE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
