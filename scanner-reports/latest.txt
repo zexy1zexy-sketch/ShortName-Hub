@@ -1,7 +1,122 @@
 SHORTNAME HUB - THANKSGIVING SCAN REPORT
-Results: 0
-Objects inspected: 0
+Results: 91
+Objects inspected: 12000
 ----------------------------------------
-No matching objects or visible UI text were found.
+1. [turkey] Workspace.__GAME_CONTENT.Upgrades.TurkeyOof
+2. [turkey] Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Text.TurkeyOof
+3. [pumpkin] Workspace.__GAME_CONTENT.Upgrades.Pumpkin
+4. [pumpkin] Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Text.Pumpkin
+5. [pumpkin] Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinXPMulti
+6. [corn] Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.SweetsCandyCornMulti
+7. [pumpkin] Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinMulti
+8. [corn] Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.CandyCornMulti
+9. [pumpkin] Workspace.__GAME_CONTENT.UpgradeTree.HalloweenTree.PumpkinGrowSpeed
+10. [thanksgiving] Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree
+11. [turkey] Workspace.__GAME_CONTENT.UpgradeTree.ThanksgivingTree.TurkeyOofMulti1
+12. [corn] Workspace.__GAME_CONTENT.Contents.WORLD - 1.GameMilestoneBoard.Part.SurfaceGui.Frame.Group.Verify.UICorner
+13. [corn] Workspace.__GAME_CONTENT.Contents.WORLD - 3.RitualChamberModel.MainPart.SurfaceGui.Start.UICorner
+14. [corn] Workspace.__GAME_CONTENT.Contents.WORLD - 3.AncientBossModel.MainPart.SurfaceGui.Spawn.UICorner
+15. [corn] Workspace.__GAME_CONTENT.Contents.WORLD - 3.AncientBossModel.MainPart.SurfaceGui.Auto.UICorner
+16. [corn] Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.CandyCornMilestoneModel
+17. [pumpkin] Workspace.__GAME_CONTENT.Contents.EXTRA.Halloween.AutoPumpkinUpgrades
+18. [thanksgiving] Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving
+19. [turkey] Workspace.__GAME_CONTENT.Contents.EXTRA.Thanksgiving.AutoTurkeyOofUpgrades
+20. [pumpkin] Workspace.__GAME_CONTENT.RuneZones.Pumpkin
+21. [pumpkin] Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneMain.Rarities.Pumpkin
+   Text: RARITYNAME -- 1/LOADING
+22. [pumpkin] Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneUI.BillboardGui.RuneRolled.Rarities.Pumpkin
+23. [pumpkin] Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Title
+   Text: Pumpkin Rune
+24. [pumpkin] Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Price
+   Text: LOADING Pumpkin
+25. [pumpkin] Workspace.__GAME_CONTENT.RuneZones.Pumpkin.RuneTitle.BillboardGui.Price.Pumpkin
+26. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving
+27. [harvest] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest
+   Text: RARITYNAME -- 1/LOADING
+28. [cranberry] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Cranberry
+   Text: RARITYNAME -- 1/LOADING
+29. [corn] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Cornucopia
+   Text: RARITYNAME -- 1/LOADING
+30. [gravy] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Gravy
+   Text: RARITYNAME -- 1/LOADING
+31. [pilgrim] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Pilgrim
+   Text: RARITYNAME -- 1/LOADING
+32. [harvest] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest King
+33. [harvest] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneMain.Rarities.Harvest Lord
+34. [harvest] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest
+35. [cranberry] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Cranberry
+36. [corn] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Cornucopia
+37. [gravy] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Gravy
+38. [pilgrim] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Pilgrim
+39. [harvest] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest King
+40. [harvest] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest Lord
+41. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Title
+   Text: Thanksgiving Rune
+42. [turkey] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Price
+   Text: LOADING Turkey Oof
+43. [turkey] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.RuneTitle.BillboardGui.Price.TurkeyOof
+44. [turkey] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats
+45. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck
+46. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Type
+   Text: Thanksgiving Rune Luck
+47. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk
+48. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Type
+   Text: Thanksgiving Rune Bulk
+49. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed
+50. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Type
+   Text: Thanksgiving Rune Speed
+51. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond
+52. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Thanksgiving.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Type
+   Text: Thanksgiving RPS
+53. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey
+54. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats
+55. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck
+56. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneLuck.Type
+   Text: Thanksgiving Rune Luck
+57. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk
+58. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneBulk.Type
+   Text: Thanksgiving Rune Bulk
+59. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed
+60. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeed.Type
+   Text: Thanksgiving Rune Speed
+61. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond
+62. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.Assets.TurkeyRuneStats.SurfaceGui.ThanksgivingRuneSpeedPerSecond.Type
+   Text: Thanksgiving RPS
+63. [gobble] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Gobbler
+   Text: RARITYNAME -- 1/LOADING
+64. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Turkey
+   Text: RARITYNAME -- 1/LOADING
+65. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Turkey Lord
+   Text: RARITYNAME -- 1/LOADING
+66. [feast] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Eternal Feast
+   Text: RARITYNAME -- 1/LOADING
+67. [harvest] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Harvest Crown
+   Text: RARITYNAME -- 1/LOADING
+68. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneMain.Rarities.Thanksgiving
+69. [gobble] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Gobbler
+70. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Turkey
+71. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Turkey Lord
+72. [feast] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Eternal Feast
+73. [harvest] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Harvest Crown
+74. [thanksgiving] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneUI.BillboardGui.RuneRolled.Rarities.Thanksgiving
+75. [turkey] Workspace.__GAME_CONTENT.RuneZones.Turkey.RuneTitle.BillboardGui.Title
+   Text: Turkey Rune
+76. [corn] Workspace.__GAME_CONTENT.RuneZones.Football.RuneUI.BillboardGui.RuneMain.Rarities.Corner
+   Text: RARITYNAME -- 1/LOADING
+77. [corn] Workspace.__GAME_CONTENT.RuneZones.Football.RuneUI.BillboardGui.RuneRolled.Rarities.Corner
+78. [corn] Workspace.__GAME_CONTENT.UIZones.__CapsuleHalloween.Super.MinionContainerTitle.BillboardGui.Cost.Cost.CandyCorn
+79. [thanksgiving] Workspace.__GAME_CONTENT.UIZones.__ThanksgivingFasting
+80. [thanksgiving] Workspace.__GAME_CONTENT.UIZones.__ThanksgivingExitTeleport
+81. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.Tehleat.ImageLabel.UICorner
+82. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.Tehleat.UICorner
+83. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.Zyfley.ImageLabel.UICorner
+84. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.Zyfley.UICorner
+85. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.Ghoulax.ImageLabel.UICorner
+86. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.Ghoulax.UICorner
+87. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.0hxsn.ImageLabel.UICorner
+88. [corn] Workspace.__GAME_CONTENT.UIZones.__Expedition.Assets.Model.Icons.SurfaceGui.0hxsn.UICorner
+89. [thanksgiving] Workspace.__GAME_CONTENT.UIZones.__ThanksgivingTeleport
+90. [pumpkin] Workspace.MAPS.HALLOWEEN MAP GHOULAX NOOB.Assets.Pumpkins
+91. [thanksgiving] Workspace.MAPS.HALLOWEEN MAP GHOULAX NOOB.ThanksgivingTP
 ----------------------------------------
 Note: Only client-visible/locally replicated content can be found.
