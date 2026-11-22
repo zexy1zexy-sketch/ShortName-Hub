@@ -78,6 +78,31 @@ local CurrentRuntime
 local Refreshing = false
 local StartHub
 
+local function GetSharedEnvironment()
+    if type(getgenv) == "function" then
+        local ok, env = pcall(getgenv)
+        if ok and type(env) == "table" then
+            return env
+        end
+    end
+    return _G
+end
+
+local SharedEnvironment = GetSharedEnvironment()
+local RUNTIME_KEY = "__SHORTNAME_HUB_RUNTIME"
+
+-- A fresh execution of the loader must retire the previous execution's GUI
+-- and loops. Refreshes within this execution are handled by RefreshHub below.
+pcall(function()
+    local previous = SharedEnvironment[RUNTIME_KEY]
+    if type(previous) == "table" and type(previous.Shutdown) == "function" then
+        previous.Shutdown()
+    elseif type(previous) == "table" and previous.ScreenGui then
+        previous.ScreenGui:Destroy()
+    end
+end)
+SharedEnvironment[RUNTIME_KEY] = nil
+
 local function StopRuntime(runtime)
     if not runtime then
         return
@@ -183,6 +208,17 @@ StartHub = function(skipKey)
         Scythe = Scythe,
         Scanner = Scanner,
         Interface = Interface
+    }
+
+    -- Publish a cleanup handle so another execution of the loader can
+    -- replace this instance instead of leaving duplicate GUIs behind.
+    SharedEnvironment[RUNTIME_KEY] = {
+        ScreenGui = Interface.ScreenGui,
+        Shutdown = function()
+            local active = CurrentRuntime
+            CurrentRuntime = nil
+            StopRuntime(active)
+        end
     }
 
     -- Only retire the previous hub after the replacement GUI was created.
