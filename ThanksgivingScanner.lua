@@ -1,90 +1,114 @@
 -- ThanksgivingScanner.lua
--- Read-only scanner for locally replicated Thanksgiving-related objects and UI text.
--- This does not fire remotes, purchase items, or modify game state.
+-- Read-only event scanner. It inspects client-visible instances only.
+-- It does not fire remotes, purchase items, or modify game state.
 
 local Scanner = {}
 Scanner.__index = Scanner
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Workspace = game:GetService("Workspace")
 
 local KEYWORDS = {
-    "thanksgiving",
-    "turkey",
-    "harvest",
-    "feast",
-    "corn",
-    "pumpkin",
-    "cranberry",
-    "stuffing",
-    "autumn",
-    "pilgrim",
-    "gravy",
-    "gobble",
-    "thankful",
-    "fall event",
-    "thanksgiving event",
+    "thanksgiving", "turkey", "harvest", "feast", "corn", "pumpkin",
+    "cranberry", "stuffing", "autumn", "pilgrim", "gravy", "gobble",
+    "thankful", "fall event", "thanksgiving event", "hidden turkey",
+    "milestone", "event quest", "event shop", "event reward"
 }
 
-local MAX_RESULTS = 300
-local MAX_SCANNED_OBJECTS = 12000
+local MAX_RESULTS = 500
+local MAX_SCANNED_OBJECTS = 50000
 local YIELD_EVERY = 250
+
+-- These UI helper classes often contain keyword-like names but are not
+-- useful game objects (for example, UICorner accidentally matching "corn").
+local IGNORED_CLASSES = {
+    UICorner = true,
+    UIStroke = true,
+    UIPadding = true,
+    UIListLayout = true,
+    UIGridLayout = true,
+    UIPageLayout = true,
+    UIAspectRatioConstraint = true,
+    UISizeConstraint = true,
+    UIGradient = true,
+    UIFlexItem = true,
+    UITextSizeConstraint = true,
+}
+
+local function safeGet(instance, property, fallback)
+    local ok, value = pcall(function()
+        return instance[property]
+    end)
+    if ok then
+        return value
+    end
+    return fallback
+end
 
 local function safeFullName(instance)
     local ok, result = pcall(function()
         return instance:GetFullName()
     end)
-
-    if ok then
-        return result
-    end
-
-    return instance.Name
+    return ok and result or safeGet(instance, "Name", "Unknown")
 end
 
 local function safeText(instance)
-    local ok, result = pcall(function()
-        if instance:IsA("TextLabel")
-            or instance:IsA("TextButton")
-            or instance:IsA("TextBox") then
-            return instance.Text
-        end
-        return nil
-    end)
-
-    if ok then
-        return result
+    local className = safeGet(instance, "ClassName", "")
+    if className == "TextLabel" or className == "TextButton" or className == "TextBox" then
+        local value = safeGet(instance, "Text", "")
+        return type(value) == "string" and value or ""
     end
-
-    return nil
+    return ""
 end
 
 local function findKeyword(value)
     if type(value) ~= "string" or value == "" then
         return nil
     end
-
     local lowered = string.lower(value)
-
     for _, keyword in ipairs(KEYWORDS) do
         if string.find(lowered, keyword, 1, true) then
             return keyword
         end
     end
-
     return nil
+end
+
+local function getRecordType(className)
+    if className == "RemoteEvent" then return "REMOTE EVENT" end
+    if className == "RemoteFunction" then return "REMOTE FUNCTION" end
+    if className == "BindableEvent" then return "BINDABLE EVENT" end
+    if className == "BindableFunction" then return "BINDABLE FUNCTION" end
+    if className == "ModuleScript" then return "MODULE SCRIPT" end
+    if className == "LocalScript" then return "LOCAL SCRIPT" end
+    if className == "Script" then return "SCRIPT" end
+    return className
+end
+
+local function isRemote(className)
+    return className == "RemoteEvent"
+        or className == "RemoteFunction"
+        or className == "BindableEvent"
+        or className == "BindableFunction"
+end
+
+local function isScript(className)
+    return className == "ModuleScript"
+        or className == "LocalScript"
+        or className == "Script"
 end
 
 function Scanner.new()
     local self = setmetatable({}, Scanner)
-
     self._running = false
     self._results = {}
     self._seen = {}
     self._scanned = 0
+    self._remoteCount = 0
+    self._scriptCount = 0
     self._scanId = 0
-
     return self
 end
 
@@ -97,29 +121,34 @@ function Scanner:GetReport()
         "SHORTNAME HUB - THANKSGIVING SCAN REPORT",
         "Results: " .. tostring(#self._results),
         "Objects inspected: " .. tostring(self._scanned),
+        "Remote objects found: " .. tostring(self._remoteCount),
+        "Script/module objects found: " .. tostring(self._scriptCount),
+        "Scan limit: " .. tostring(MAX_SCANNED_OBJECTS),
         "----------------------------------------",
     }
 
     for index, result in ipairs(self._results) do
         table.insert(lines, string.format(
-            "%d. [%s] %s",
+            "%d. [%s] (%s) %s",
             index,
-            result.keyword,
+            result.keyword or "event object",
+            result.className,
             result.path
         ))
-
         if result.text and result.text ~= "" then
             table.insert(lines, "   Text: " .. result.text)
         end
     end
 
     if #self._results == 0 then
-        table.insert(lines, "No matching objects or visible UI text were found.")
+        table.insert(lines, "No matching event objects or remote objects were found.")
     end
 
     table.insert(lines, "----------------------------------------")
-    table.insert(lines, "Note: Only client-visible/locally replicated content can be found.")
-
+    table.insert(lines, "Notes:")
+    table.insert(lines, "- Remote objects are listed by name and path only; they are not called.")
+    table.insert(lines, "- Script source is not read or executed.")
+    table.insert(lines, "- Only client-visible/locally replicated content can be found.")
     return table.concat(lines, "\n")
 end
 
@@ -127,7 +156,8 @@ function Scanner:Clear()
     self._results = {}
     self._seen = {}
     self._scanned = 0
-
+    self._remoteCount = 0
+    self._scriptCount = 0
     return true
 end
 
@@ -145,7 +175,6 @@ function Scanner:Start(onUpdate)
     self:Clear()
     self._running = true
     self._scanId += 1
-
     local thisScan = self._scanId
 
     local function notify(status)
@@ -154,25 +183,17 @@ function Scanner:Start(onUpdate)
         end
     end
 
-    local roots = {
-        Workspace,
-        ReplicatedStorage,
-    }
-
+    local roots = { Workspace, ReplicatedStorage, ReplicatedFirst }
     local player = Players.LocalPlayer
     if player then
-        local ok, playerGui = pcall(function()
-            return player:FindFirstChildOfClass("PlayerGui")
-        end)
-
-        if ok and playerGui then
+        local playerGui = safeGet(player, "PlayerGui")
+        if playerGui then
             table.insert(roots, playerGui)
         end
     end
 
     task.spawn(function()
         notify("SCANNING")
-
         for _, root in ipairs(roots) do
             if not self._running or self._scanId ~= thisScan then
                 return
@@ -189,33 +210,47 @@ function Scanner:Start(onUpdate)
                     end
 
                     self._scanned += 1
-
-                    local name = ""
-                    pcall(function()
-                        name = instance.Name
-                    end)
-
+                    local name = safeGet(instance, "Name", "")
+                    local className = safeGet(instance, "ClassName", "Unknown")
                     local path = safeFullName(instance)
                     local visibleText = safeText(instance)
-                    local keyword = findKeyword(name) or findKeyword(visibleText)
+                    local ignored = IGNORED_CLASSES[className] == true
+                    local keyword
 
-                    if keyword and not self._seen[path] then
+                    if not ignored then
+                        keyword = findKeyword(name)
+                            or findKeyword(visibleText)
+                            or findKeyword(path)
+                    end
+
+                    local remote = isRemote(className)
+                    local scriptObject = isScript(className)
+
+                    if remote then
+                        self._remoteCount += 1
+                    elseif scriptObject and keyword then
+                        self._scriptCount += 1
+                    end
+
+                    -- Include all discovered remote/bindable objects so their
+                    -- exact names can be reviewed, plus event-related objects.
+                    local shouldRecord = remote or (keyword ~= nil)
+                    if shouldRecord and not self._seen[path] then
                         self._seen[path] = true
-
                         if #self._results < MAX_RESULTS then
                             table.insert(self._results, {
-                                keyword = keyword,
+                                keyword = keyword or (remote and "remote"),
+                                className = getRecordType(className),
                                 path = path,
                                 text = visibleText,
                             })
-
-                            notify("FOUND MATCH")
+                            notify(remote and "REMOTE FOUND" or "EVENT MATCH FOUND")
                         end
                     end
 
                     if self._scanned >= MAX_SCANNED_OBJECTS then
-                        notify("SCAN LIMIT REACHED")
                         self._running = false
+                        notify("SCAN LIMIT REACHED")
                         return
                     end
 
@@ -225,8 +260,8 @@ function Scanner:Start(onUpdate)
                     end
 
                     if #self._results >= MAX_RESULTS then
-                        notify("RESULT LIMIT REACHED")
                         self._running = false
+                        notify("RESULT LIMIT REACHED")
                         return
                     end
                 end
