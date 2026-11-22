@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -846,6 +846,88 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(85, 75, 105))
 
+    -- PASSIVE COMBAT STRUCTURE SCANNER
+    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE SCANNER", FightFolder)
+    Label(FightStructureFolder, "COMBAT STRUCTURE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(
+        FightStructureFolder,
+        "Inventories client-visible combat-related objects and RemoteEvent/RemoteFunction names and paths. It never invokes them or reads script source.",
+        10,
+        50,
+        Grey
+    )
+    local StructureStatus = Label(FightStructureFolder, "STRUCTURE SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+    StructureStatus.Font = Enum.Font.GothamBold
+    local StructureCount = Label(FightStructureFolder, "DISCOVERIES: 0", 10, 22, Grey)
+
+    local function UpdateStructureDisplay(status, count)
+        if status ~= nil then
+            StructureStatus.Text = "STRUCTURE SCANNER: " .. tostring(status)
+        end
+        if count ~= nil then
+            StructureCount.Text = "DISCOVERIES: " .. tostring(count)
+        elseif FightStructureScanner and type(FightStructureScanner.GetCount) == "function" then
+            local ok, result = pcall(function() return FightStructureScanner:GetCount() end)
+            if ok then StructureCount.Text = "DISCOVERIES: " .. tostring(result) end
+        end
+    end
+
+    MakeButton(FightStructureFolder, "START STRUCTURE SCAN", function()
+        if not FightStructureScanner or type(FightStructureScanner.Start) ~= "function" then
+            UpdateStructureDisplay("MODULE NOT LOADED", nil)
+            return
+        end
+        UpdateStructureDisplay("STARTING...", 0)
+        local ok, result = pcall(function()
+            return FightStructureScanner:Start(function(status, count)
+                UpdateStructureDisplay(status, count)
+            end)
+        end)
+        if not ok then
+            UpdateStructureDisplay("ERROR: " .. tostring(result), nil)
+        else
+            UpdateStructureDisplay(type(result) == "string" and result or "SCANNING", nil)
+        end
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(FightStructureFolder, "STOP STRUCTURE SCAN", function()
+        if FightStructureScanner and type(FightStructureScanner.Stop) == "function" then
+            local ok = pcall(function() FightStructureScanner:Stop() end)
+            UpdateStructureDisplay(ok and "STOPPED" or "STOP FAILED", nil)
+        else
+            UpdateStructureDisplay("MODULE NOT LOADED", nil)
+        end
+    end, Color3.fromRGB(125, 75, 55))
+
+    MakeButton(FightStructureFolder, "COPY STRUCTURE REPORT", function()
+        if not FightStructureScanner or type(FightStructureScanner.GetReport) ~= "function" then
+            UpdateStructureDisplay("MODULE NOT LOADED", nil)
+            return
+        end
+        local ok, report = pcall(function() return FightStructureScanner:GetReport() end)
+        if not ok then
+            UpdateStructureDisplay("REPORT ERROR", nil)
+            return
+        end
+        local copied = false
+        if type(setclipboard) == "function" then
+            copied = pcall(function() setclipboard(report) end)
+        end
+        if not copied and type(toclipboard) == "function" then
+            copied = pcall(function() toclipboard(report) end)
+        end
+        UpdateStructureDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
+    end)
+
+    MakeButton(FightStructureFolder, "CLEAR STRUCTURE REPORT", function()
+        if FightStructureScanner and type(FightStructureScanner.Clear) == "function" then
+            local ok = pcall(function() FightStructureScanner:Clear() end)
+            UpdateStructureDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
+        else
+            UpdateStructureDisplay("MODULE NOT LOADED", nil)
+        end
+    end, Color3.fromRGB(85, 75, 105))
+
     -- PLAYER UTILITIES (SETTINGS TAB)
     local UtilityFolder = SettingsPage
 
@@ -1575,6 +1657,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         pcall(function()
             if FightInspector and type(FightInspector.Clear) == "function" then
                 FightInspector:Clear()
+            end
+        end)
+        pcall(function()
+            if FightStructureScanner and type(FightStructureScanner.Stop) == "function" then
+                FightStructureScanner:Stop()
             end
         end)
         HouseAutoEnabled = false
