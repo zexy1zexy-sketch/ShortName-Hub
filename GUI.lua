@@ -487,20 +487,21 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     -- THANKSGIVING EVENT FOLDER
     -- Kept separate from Halloween so event features stay organized.
     local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT")
+    local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder)
 
-    Label(ThanksgivingFolder, "THANKSGIVING EVENT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(ThanksgivingScannerFolder, "THANKSGIVING EVENT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
-        ThanksgivingFolder,
+        ThanksgivingScannerFolder,
         "Scans locally replicated game objects and visible UI for Thanksgiving-related names and text.",
         10,
         38,
         Grey
     )
 
-    local ScannerStatus = Label(ThanksgivingFolder, "SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+    local ScannerStatus = Label(ThanksgivingScannerFolder, "SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
     ScannerStatus.Font = Enum.Font.GothamBold
 
-    local ScannerCount = Label(ThanksgivingFolder, "DISCOVERIES: 0", 10, 22, Grey)
+    local ScannerCount = Label(ThanksgivingScannerFolder, "DISCOVERIES: 0", 10, 22, Grey)
 
     local function UpdateScannerDisplay(status, count)
         if status ~= nil then
@@ -520,11 +521,11 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     end
 
     local UploadKey = ""
-    MakeBox(ThanksgivingFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
+    MakeBox(ThanksgivingScannerFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
         UploadKey = value
     end)
 
-    MakeButton(ThanksgivingFolder, "UPLOAD REPORT", function()
+    MakeButton(ThanksgivingScannerFolder, "UPLOAD REPORT", function()
         if not ThanksgivingScanner or type(ThanksgivingScanner.UploadReport) ~= "function" then
             UpdateScannerDisplay("UPLOAD MODULE NOT LOADED", nil)
             return
@@ -553,7 +554,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end)
     end, Color3.fromRGB(45, 105, 145))
 
-    MakeButton(ThanksgivingFolder, "START SCAN", function()
+    MakeButton(ThanksgivingScannerFolder, "START SCAN", function()
         if not ThanksgivingScanner then
             UpdateScannerDisplay("MODULE NOT LOADED", 0)
             return
@@ -573,7 +574,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end
     end, Color3.fromRGB(45, 115, 75))
 
-    MakeButton(ThanksgivingFolder, "STOP SCAN", function()
+    MakeButton(ThanksgivingScannerFolder, "STOP SCAN", function()
         if ThanksgivingScanner and type(ThanksgivingScanner.Stop) == "function" then
             local ok, err = pcall(function()
                 ThanksgivingScanner:Stop()
@@ -585,7 +586,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end
     end, Color3.fromRGB(125, 75, 55))
 
-    MakeButton(ThanksgivingFolder, "COPY REPORT", function()
+    MakeButton(ThanksgivingScannerFolder, "COPY REPORT", function()
         if not ThanksgivingScanner or type(ThanksgivingScanner.GetReport) ~= "function" then
             UpdateScannerDisplay("MODULE NOT LOADED", nil)
             return
@@ -615,7 +616,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         UpdateScannerDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
     end)
 
-    MakeButton(ThanksgivingFolder, "CLEAR REPORT", function()
+    MakeButton(ThanksgivingScannerFolder, "CLEAR REPORT", function()
         if ThanksgivingScanner and type(ThanksgivingScanner.Clear) == "function" then
             local ok, err = pcall(function()
                 ThanksgivingScanner:Clear()
