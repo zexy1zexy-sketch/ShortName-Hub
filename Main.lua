@@ -51,6 +51,7 @@ local GUI = LoadModule("GUI.lua")
 local ScytheModule = LoadModule("Scythe.lua")
 local Logger = LoadModule("Logger.lua")
 local SpyAdapter = LoadModule("SpyAdapter.lua")
+local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
 
 -- CREATE CONTROLLERS
 local Controller
@@ -65,6 +66,8 @@ end)
 
 Scythe = ScytheModule.new()
 
+local Scanner = ThanksgivingScanner.new()
+
 -- TEMPORARILY DISABLED FOR CRASH TEST
 local SpyStarted = false
 warn("ShortName Hub: Remote Spy temporarily disabled.")
@@ -75,7 +78,8 @@ local Success, Result = pcall(function()
         Config,
         Controller,
         Scythe,
-        Logger
+        Logger,
+        Scanner
     )
 end)
 
