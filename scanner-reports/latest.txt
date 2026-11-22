@@ -1,1 +1,7 @@
-SHORTNAME HUB CONNECTION TEST - GitHub upload successful.
+SHORTNAME HUB - THANKSGIVING SCAN REPORT
+Results: 0
+Objects inspected: 0
+----------------------------------------
+No matching objects or visible UI text were found.
+----------------------------------------
+Note: Only client-visible/locally replicated content can be found.
