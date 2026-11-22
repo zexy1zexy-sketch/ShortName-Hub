@@ -146,6 +146,9 @@ StartHub = function(skipKey)
     local ScytheModule = LoadModule("Scythe.lua")
     local Logger = LoadModule("Logger.lua")
     local SpyAdapter = (skipKey and CurrentRuntime and CurrentRuntime.SpyAdapter) or LoadModule("SpyAdapter.lua")
+    if SpyAdapter and type(SpyAdapter.SetLogger) == "function" then
+        SpyAdapter.SetLogger(Logger)
+    end
     local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
 
     local Interface
