@@ -23,7 +23,7 @@ async function serveModule(request,env){
  const r=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+name+"?ref="+BRANCH,env.GITHUB_TOKEN);
  if(!r.ok)return reply({ok:false,error:"GitHub module fetch failed",status:r.status,details:await r.text()},502);
  const data=await r.json();if(!data.content||data.encoding!=="base64")return reply({ok:false,error:"GitHub returned no base64 content"},502);
- const bin=atob(data.content.replace(/\\s/g,"")),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+ const bin=atob(data.content.replace(/\s/g,"")),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
  return new Response(new TextDecoder().decode(bytes),{status:200,headers:{...cors(),"Content-Type":"text/plain; charset=utf-8","Cache-Control":"no-store","X-Module-Name":name}});
 }
 export default {async fetch(request,env){
