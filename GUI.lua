@@ -748,6 +748,17 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         table.clear(FPSOriginals)
     end
 
+    ScreenGui.Destroying:Connect(function()
+        if AntiAfkConnection then
+            AntiAfkConnection:Disconnect()
+            AntiAfkConnection = nil
+        end
+        if FPSBoostEnabled then
+            RestoreFPSSettings()
+            FPSBoostEnabled = false
+        end
+    end)
+
     local FPSButton
     FPSButton = MakeButton(UtilityFolder, "FPS BOOST: OFF", function()
         FPSBoostEnabled = not FPSBoostEnabled
