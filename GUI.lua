@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner)
+function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -348,6 +348,49 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner)
     end)
 
     Label(SettingsPage, "When OFF, Roblox's gameplay-paused notification is disabled.", 11, 42, Grey)
+
+
+    Label(SettingsPage, "UPDATES", 13, 25, PurpleLight).Font = Enum.Font.GothamBold
+
+    local RefreshHubButton = Instance.new("TextButton")
+    RefreshHubButton.Size = UDim2.new(1, 0, 0, 48)
+    RefreshHubButton.BackgroundColor3 = ButtonDark
+    RefreshHubButton.TextColor3 = White
+    RefreshHubButton.TextSize = 12
+    RefreshHubButton.Font = Enum.Font.GothamBold
+    RefreshHubButton.Text = "↻  REFRESH ENTIRE HUB"
+    RefreshHubButton.Parent = SettingsPage
+    Corner(RefreshHubButton, 9)
+    Stroke(RefreshHubButton, CurrentAccent.Light, 1.2)
+    AddHover(RefreshHubButton, ButtonDark, Color3.fromRGB(55, 48, 69))
+
+    local RefreshBusy = false
+    RefreshHubButton.Activated:Connect(function()
+        if RefreshBusy then
+            return
+        end
+        if type(RefreshCallback) ~= "function" then
+            RefreshHubButton.Text = "REFRESH UNAVAILABLE"
+            return
+        end
+
+        RefreshBusy = true
+        RefreshHubButton.Text = "↻  DOWNLOADING LATEST HUB..."
+        RefreshHubButton.Active = false
+        task.spawn(function()
+            local ok, result, detail = pcall(RefreshCallback)
+            if not ok or result == false then
+                RefreshBusy = false
+                RefreshHubButton.Active = true
+                RefreshHubButton.Text = "REFRESH FAILED - TRY AGAIN"
+                warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
+                task.wait(2)
+                if RefreshHubButton.Parent then
+                    RefreshHubButton.Text = "↻  REFRESH ENTIRE HUB"
+                end
+            end
+        end)
+    end)
 
     -- NOOB INCREMENTAL
     Label(GamePage, "NOOB INCREMENTAL", 17, 30).Font = Enum.Font.GothamBold; Label(GamePage, "Tap a folder to show or hide its features.", 12, 22,
