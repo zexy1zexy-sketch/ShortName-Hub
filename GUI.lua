@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, ThanksgivingScanner, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -1074,7 +1074,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     end)
 
     -- REMOTE LOGGER PAGE
-    Label(LoggerPage, "REMOTE LOGGER", 17, 30).Font = Enum.Font.GothamBold; Label(LoggerPage, "LOCAL TEST MODE - no game remotes captured", 10, 22,
+    Label(LoggerPage, "REMOTE LOGGER", 17, 30).Font = Enum.Font.GothamBold; local LoggerStatus = Label(LoggerPage, "SPY: OFF - press START to capture remote calls", 10, 22,
     Grey)
     local StatsLabel = Label(LoggerPage, "TOTAL: 0  |  FIRE: 0  |  INVOKE: 0", 10, 25, Grey); local SearchBox = Instance.new("TextBox");
     SearchBox.Size = UDim2.new(1, 0, 0, 36)
@@ -1191,12 +1191,36 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     ControlsLayout.Padding = UDim.new(0, 5); ControlsLayout.Parent = LoggerControls
 
     local function MakeLoggerButton(text, callback)
-        local button = Instance.new("TextButton"); button.Size = UDim2.new(0.2, -4, 1, 0); button.BackgroundColor3 = ButtonDark
+        local button = Instance.new("TextButton"); button.Size = UDim2.new(1/6, -5, 1, 0); button.BackgroundColor3 = ButtonDark
         button.TextColor3 = White; button.Text = text; button.TextSize = 10
         button.Font = Enum.Font.GothamBold; button.Parent = LoggerControls; Corner(button, 7)
         Stroke(button, Border, 1); AddHover(button, ButtonDark, Color3.fromRGB(48, 40, 63)); button.Activated:Connect(callback)
         return button
     end
+
+    local SpyButton
+    SpyButton = MakeLoggerButton("SPY: OFF", function()
+        if not SpyAdapter or type(SpyAdapter.Start) ~= "function" then
+            LoggerStatus.Text = "SPY UNAVAILABLE - adapter not loaded"
+            return
+        end
+        if SpyAdapter.IsRunning and SpyAdapter.IsRunning() then
+            SpyAdapter.Stop()
+            SpyButton.Text = "SPY: OFF"
+            LoggerStatus.Text = "SPY: OFF - remote capture paused"
+        else
+            local ok, started = pcall(function()
+                return SpyAdapter.Start(Logger)
+            end)
+            if ok and started then
+                SpyButton.Text = "SPY: ON"
+                LoggerStatus.Text = "SPY: ON - capturing outgoing and incoming remotes"
+            else
+                SpyButton.Text = "SPY: OFF"
+                LoggerStatus.Text = "SPY FAILED - executor hook support unavailable"
+            end
+        end
+    end)
 
     MakeLoggerButton("REFRESH", RefreshLogs)
 
@@ -1418,6 +1442,11 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end)
         pcall(function()
             Scythe.Stop()
+        end)
+        pcall(function()
+            if SpyAdapter and type(SpyAdapter.Stop) == "function" then
+                SpyAdapter.Stop()
+            end
         end)
         pcall(function()
             if ThanksgivingScanner and type(ThanksgivingScanner.Stop) == "function" then
