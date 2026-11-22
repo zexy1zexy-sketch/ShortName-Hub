@@ -1551,11 +1551,6 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             Scythe.Stop()
         end)
         pcall(function()
-            if SpyAdapter and type(SpyAdapter.Stop) == "function" then
-                SpyAdapter.Stop()
-            end
-        end)
-        pcall(function()
             if ThanksgivingScanner and type(ThanksgivingScanner.Stop) == "function" then
                 ThanksgivingScanner:Stop()
             end
