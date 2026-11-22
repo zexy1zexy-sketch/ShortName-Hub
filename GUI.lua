@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -617,6 +617,155 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, RefreshCall
             UpdateScannerDisplay("MODULE NOT LOADED", nil)
         end
     end, Color3.fromRGB(85, 75, 105))
+
+    -- FIGHT ON A BASEPLATE FOLDER
+    -- FIGHT ON A BASEPLATE FOLDER
+    -- Kept separate from Halloween so event features stay organized.
+    local ThanksgivingFolder = MakeFolder("FIGHT ON A BASEPLATE")
+    local FightScannerFolder = MakeFolder("GAME SCANNER", ThanksgivingFolder)
+
+    Label(FightScannerFolder, "FIGHT ON A BASEPLATE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(
+        FightScannerFolder,
+        "Scans locally replicated game objects and visible UI for combat-related names and text.",
+        10,
+        38,
+        Grey
+    )
+
+    local ScannerStatus = Label(FightScannerFolder, "SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+    ScannerStatus.Font = Enum.Font.GothamBold
+
+    local ScannerCount = Label(FightScannerFolder, "DISCOVERIES: 0", 10, 22, Grey)
+
+    local function UpdateScannerDisplay(status, count)
+        if status ~= nil then
+            ScannerStatus.Text = "SCANNER: " .. tostring(status)
+        end
+
+        if count ~= nil then
+            ScannerCount.Text = "DISCOVERIES: " .. tostring(count)
+        elseif FightScanner and type(FightScanner.GetCount) == "function" then
+            local ok, result = pcall(function()
+                return FightScanner:GetCount()
+            end)
+            if ok then
+                ScannerCount.Text = "DISCOVERIES: " .. tostring(result)
+            end
+        end
+    end
+
+    local UploadKey = ""
+    MakeBox(FightScannerFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
+        UploadKey = value
+    end)
+
+    MakeButton(FightScannerFolder, "UPLOAD REPORT", function()
+        if not FightScanner or type(FightScanner.UploadReport) ~= "function" then
+            UpdateScannerDisplay("UPLOAD MODULE NOT LOADED", nil)
+            return
+        end
+
+        if UploadKey == "" then
+            UpdateScannerDisplay("ENTER UPLOAD KEY FIRST", nil)
+            return
+        end
+
+        UpdateScannerDisplay("UPLOADING REPORT...", nil)
+
+        task.spawn(function()
+            local ok, success, message = pcall(function()
+                return FightScanner:UploadReport(UploadKey)
+            end)
+
+            if not ok then
+                UpdateScannerDisplay("UPLOAD ERROR: " .. tostring(success), nil)
+            elseif success then
+                UpdateScannerDisplay(message or "UPLOADED TO GITHUB", nil)
+
+            else
+                UpdateScannerDisplay("UPLOAD FAILED: " .. tostring(message), nil)
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 145))
+
+    MakeButton(FightScannerFolder, "START SCAN", function()
+        if not FightScanner then
+            UpdateScannerDisplay("MODULE NOT LOADED", 0)
+            return
+        end
+
+        local ok, result = pcall(function()
+            return FightScanner:Start(function(status, count)
+                UpdateScannerDisplay(status, count)
+            end)
+        end)
+
+        if ok then
+            UpdateScannerDisplay(type(result) == "string" and result or "SCANNING", nil)
+
+        else
+            UpdateScannerDisplay("ERROR: " .. tostring(result), nil)
+        end
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(FightScannerFolder, "STOP SCAN", function()
+        if FightScanner and type(FightScanner.Stop) == "function" then
+            local ok, err = pcall(function()
+                FightScanner:Stop()
+            end)
+            UpdateScannerDisplay(ok and "STOPPED" or ("ERROR: " .. tostring(err)), nil)
+
+        else
+            UpdateScannerDisplay("MODULE NOT LOADED", nil)
+        end
+    end, Color3.fromRGB(125, 75, 55))
+
+    MakeButton(FightScannerFolder, "COPY REPORT", function()
+        if not FightScanner or type(FightScanner.GetReport) ~= "function" then
+            UpdateScannerDisplay("MODULE NOT LOADED", nil)
+            return
+        end
+
+        local ok, report = pcall(function()
+            return FightScanner:GetReport()
+        end)
+
+        if not ok then
+            UpdateScannerDisplay("REPORT ERROR", nil)
+            return
+        end
+
+        local copied = false
+        if type(setclipboard) == "function" then
+            copied = pcall(function()
+                setclipboard(report)
+            end)
+        end
+        if not copied and type(toclipboard) == "function" then
+            copied = pcall(function()
+                toclipboard(report)
+            end)
+        end
+
+        UpdateScannerDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
+    end)
+
+    MakeButton(FightScannerFolder, "CLEAR REPORT", function()
+        if FightScanner and type(FightScanner.Clear) == "function" then
+            local ok, err = pcall(function()
+                FightScanner:Clear()
+            end)
+            if ok then
+                UpdateScannerDisplay("REPORT CLEARED", 0)
+            else
+                UpdateScannerDisplay("ERROR: " .. tostring(err), nil)
+            end
+        else
+            UpdateScannerDisplay("MODULE NOT LOADED", nil)
+        end
+    end, Color3.fromRGB(85, 75, 105))
+
 
     -- PLAYER UTILITIES (SETTINGS TAB)
     local UtilityFolder = SettingsPage
@@ -1339,6 +1488,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, RefreshCall
         pcall(function()
             if ThanksgivingScanner and type(ThanksgivingScanner.Stop) == "function" then
                 ThanksgivingScanner:Stop()
+            end
+        end)
+        pcall(function()
+            if FightScanner and type(FightScanner.Stop) == "function" then
+                FightScanner:Stop()
             end
         end)
         HouseAutoEnabled = false
