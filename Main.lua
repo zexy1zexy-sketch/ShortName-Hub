@@ -229,6 +229,7 @@ StartHub = function(skipKey)
         Scanner = Scanner,
         FightScanner = FightScanner,
         FightInspector = FightInspector,
+        FightStructureScanner = FightStructureScanner,
         Interface = Interface
     }
 
