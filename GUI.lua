@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, ThanksgivingScanner, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -1083,7 +1083,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
     end)
 
     -- REMOTE LOGGER PAGE
-    Label(LoggerPage, "REMOTE LOGGER", 17, 30).Font = Enum.Font.GothamBold; local LoggerStatus = Label(LoggerPage, "SPY: OFF - press START to capture remote calls", 10, 22,
+    Label(LoggerPage, "REMOTE LOGGER", 17, 30).Font = Enum.Font.GothamBold; local LoggerStatus = Label(LoggerPage, "Logger ready - remote capture is currently disabled.", 10, 22,
     Grey)
     local StatsLabel = Label(LoggerPage, "TOTAL: 0  |  FIRE: 0  |  INVOKE: 0", 10, 25, Grey); local SearchBox = Instance.new("TextBox");
     SearchBox.Size = UDim2.new(1, 0, 0, 36)
@@ -1189,7 +1189,6 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
             task.wait(1)
             if LoggerPage.Visible then
                 RefreshLogs()
-                UpdateSpyStatus()
             end
         end
     end)
@@ -1201,51 +1200,13 @@ function GUI.Create(Config, Controller, Scythe, Logger, SpyAdapter, Thanksgiving
     ControlsLayout.Padding = UDim.new(0, 5); ControlsLayout.Parent = LoggerControls
 
     local function MakeLoggerButton(text, callback)
-        local button = Instance.new("TextButton"); button.Size = UDim2.new(1/6, -5, 1, 0); button.BackgroundColor3 = ButtonDark
+        local button = Instance.new("TextButton"); button.Size = UDim2.new(1/5, -5, 1, 0); button.BackgroundColor3 = ButtonDark
         button.TextColor3 = White; button.Text = text; button.TextSize = 10
         button.Font = Enum.Font.GothamBold; button.Parent = LoggerControls; Corner(button, 7)
         Stroke(button, Border, 1); AddHover(button, ButtonDark, Color3.fromRGB(48, 40, 63)); button.Activated:Connect(callback)
         return button
     end
 
-    local SpyButton
-    local function UpdateSpyStatus()
-        if not SpyAdapter then return end
-        local diagnostics = SpyAdapter.GetDiagnostics and SpyAdapter.GetDiagnostics()
-        if diagnostics then
-            if diagnostics.Enabled then
-                SpyButton.Text = "SPY: ON"
-                LoggerStatus.Text = string.format("SPY: ON - %d remote calls captured", diagnostics.Captures or 0)
-            else
-                SpyButton.Text = "SPY: OFF"
-                LoggerStatus.Text = diagnostics.LastError and ("SPY ERROR: " .. diagnostics.LastError) or "SPY: OFF - press START to capture remote calls"
-            end
-        end
-    end
-    SpyButton = MakeLoggerButton("SPY: OFF", function()
-        if not SpyAdapter or type(SpyAdapter.Start) ~= "function" then
-            LoggerStatus.Text = "SPY UNAVAILABLE - adapter not loaded"
-            return
-        end
-        if SpyAdapter.IsRunning and SpyAdapter.IsRunning() then
-            SpyAdapter.Stop()
-            SpyButton.Text = "SPY: OFF"
-            LoggerStatus.Text = "SPY: OFF - remote capture paused"
-        else
-            local ok, started = pcall(function()
-                return SpyAdapter.Start(Logger)
-            end)
-            if ok and started then
-                SpyButton.Text = "SPY: ON"
-                LoggerStatus.Text = "SPY: ON - 0 remote calls captured"
-            else
-                SpyButton.Text = "SPY: OFF"
-                LoggerStatus.Text = "SPY FAILED - executor hook support unavailable"
-            end
-        end
-    end)
-
-    UpdateSpyStatus()
     MakeLoggerButton("REFRESH", RefreshLogs)
 
     MakeLoggerButton("TEST", function()
