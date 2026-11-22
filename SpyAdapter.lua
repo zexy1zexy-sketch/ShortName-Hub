@@ -10,6 +10,9 @@ local HookInstalled = false
 local Hooked = {}
 local Connections = {}
 local OriginalNamecall
+local CaptureCount = 0
+local LastCapture = "No remote calls captured yet"
+local LastError = nil
 
 local function IsRemote(instance)
     if typeof(instance) ~= "Instance" then
@@ -25,9 +28,16 @@ local function Record(remote, method, args)
         return
     end
 
-    pcall(function()
+    local ok, err = pcall(function()
         Logger:Record(remote, method, args)
     end)
+    if ok then
+        CaptureCount = CaptureCount + 1
+        LastCapture = method .. " | " .. remote:GetFullName()
+    else
+        LastError = tostring(err)
+        warn("ShortName Hub logger record error: " .. LastError)
+    end
 end
 
 local function ConnectIncoming(remote)
@@ -66,15 +76,14 @@ local function InstallHook()
     end
 
     local function NamecallHook(self, ...)
-        local method = getnamecallmethod()
-
-        if Enabled and IsRemote(self) then
-            if method == "FireServer"
-                or method == "InvokeServer" then
-                Record(self, method, {...})
+        local args = {...}
+        pcall(function()
+            local method = getnamecallmethod()
+            if Enabled and IsRemote(self)
+                and (method == "FireServer" or method == "InvokeServer") then
+                Record(self, method, args)
             end
-        end
-
+        end)
         return OriginalNamecall(self, ...)
     end
 
@@ -95,15 +104,40 @@ local function InstallHook()
         return false
     end
 
+    if type(result) ~= "function" then
+        warn("ShortName Hub: Hook did not return the original namecall function")
+        return false
+    end
     OriginalNamecall = result
     HookInstalled = true
 
     return true
 end
 
+function SpyAdapter.SetLogger(LoggerModule)
+    if type(LoggerModule) ~= "table" or type(LoggerModule.Record) ~= "function" then
+        return false
+    end
+    Logger = LoggerModule
+    return true
+end
+
+function SpyAdapter.GetDiagnostics()
+    return {
+        Enabled = Enabled,
+        HookInstalled = HookInstalled,
+        Captures = CaptureCount,
+        LastCapture = LastCapture,
+        LastError = LastError
+    }
+end
+
 function SpyAdapter.Start(LoggerModule)
+    if type(LoggerModule) == "table" then
+        Logger = LoggerModule
+    end
     if Enabled then
-        return true
+        return Logger ~= nil
     end
 
     if type(LoggerModule) ~= "table"
