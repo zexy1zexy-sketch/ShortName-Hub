@@ -1838,6 +1838,72 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ObserverOutput.Text = copied and "Report copied. Paste it into this chat." or "Clipboard API unavailable in this executor."
     end, Color3.fromRGB(45, 105, 145))
 
+    local ObserverUploadKey = ""
+    MakeBox(ObserverFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
+        ObserverUploadKey = value
+    end)
+    MakeButton(ObserverFolder, "UPLOAD ATTACK OBSERVER REPORT", function()
+        if ObserverUploadKey == "" then
+            ObserverStatus.Text = "ENTER UPLOAD KEY FIRST"
+            return
+        end
+        ObserverStatus.Text = "UPLOADING OBSERVER REPORT..."
+        task.spawn(function()
+            local requestFunction
+            if type(request) == "function" then
+                requestFunction = request
+            elseif type(http_request) == "function" then
+                requestFunction = http_request
+            elseif syn and type(syn.request) == "function" then
+                requestFunction = syn.request
+            elseif http and type(http.request) == "function" then
+                requestFunction = http.request
+            elseif fluxus and type(fluxus.request) == "function" then
+                requestFunction = fluxus.request
+            end
+            if not requestFunction then
+                ObserverStatus.Text = "HTTP REQUEST API UNAVAILABLE"
+                return
+            end
+            local HttpService = game:GetService("HttpService")
+            local payload = HttpService:JSONEncode({ report = BuildObserverReport() })
+            local ok, response = pcall(function()
+                return requestFunction({
+                    Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
+                    Method = "POST",
+                    Timeout = 45,
+                    Headers = {
+                        ["Content-Type"] = "application/json",
+                        ["x-upload-key"] = ObserverUploadKey
+                    },
+                    Body = payload
+                })
+            end)
+            if not ok or type(response) ~= "table" then
+                ObserverStatus.Text = "UPLOAD REQUEST FAILED"
+                ObserverOutput.Text = tostring(response)
+                return
+            end
+            local statusCode = response.StatusCode or response.Status or response.status_code
+            local responseBody = response.Body or response.body or ""
+            if statusCode ~= 200 then
+                ObserverStatus.Text = "UPLOAD FAILED: HTTP " .. tostring(statusCode)
+                ObserverOutput.Text = tostring(responseBody)
+                return
+            end
+            local decodedOk, decoded = pcall(function()
+                return HttpService:JSONDecode(responseBody)
+            end)
+            if decodedOk and type(decoded) == "table" and decoded.ok == true and decoded.github == "saved" then
+                ObserverStatus.Text = "OBSERVER REPORT UPLOADED TO GITHUB"
+                ObserverOutput.Text = "Upload confirmed by the report receiver."
+            else
+                ObserverStatus.Text = "SERVER DID NOT CONFIRM GITHUB SAVE"
+                ObserverOutput.Text = tostring(responseBody)
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 145))
+
     ScreenGui.Destroying:Connect(function()
         RemoveCombatHud()
         HitboxEnabled = false
