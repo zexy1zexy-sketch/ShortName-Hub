@@ -1,7 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, RefreshCallback)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -116,8 +116,8 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         return b
     end
 
-    local SettingsNav = MakeNav("⚙  Settings", 1); local GameNav = MakeNav("◆  Noob Incremental", 2); local LoggerNav = MakeNav("◉  Remote Logger", 3)
-    local SoonNav = MakeNav("＋  Coming Soon", 4)
+    local SettingsNav = MakeNav("⚙  Settings", 1); local GameNav = MakeNav("◆  Noob Incremental", 2)
+    local SoonNav = MakeNav("＋  Coming Soon", 3)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -142,13 +142,12 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         return page
     end
 
-    local SettingsPage = MakePage("Settings"); local GamePage = MakePage("NoobIncremental"); local LoggerPage = MakePage("RemoteLogger")
+    local SettingsPage = MakePage("Settings"); local GamePage = MakePage("NoobIncremental")
     local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
-    local CategoryButtons = {}; local SelectedCategory = "All"
 
     local function SelectPage(page)
-        local pages = { Settings = SettingsPage, Game = GamePage, Logger = LoggerPage, Soon = SoonPage }
+        local pages = { Settings = SettingsPage, Game = GamePage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true; pageObject.Position = UDim2.fromOffset(15, 8)
@@ -170,7 +169,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             or Grey
         end
 
-        StyleNav(SettingsNav, page == "Settings"); StyleNav(GameNav, page == "Game"); StyleNav(LoggerNav, page == "Logger")
+        StyleNav(SettingsNav, page == "Settings"); StyleNav(GameNav, page == "Game")
         StyleNav(SoonNav, page == "Soon")
     end
 
@@ -179,9 +178,6 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     end)
     GameNav.Activated:Connect(function()
         SelectPage("Game")
-    end)
-    LoggerNav.Activated:Connect(function()
-        SelectPage("Logger")
     end)
     SoonNav.Activated:Connect(function()
         SelectPage("Soon")
@@ -237,11 +233,10 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end
 
         Purple = preset.Color; PurpleLight = preset.Light
-        for _, nav in ipairs({ SettingsNav, GameNav, LoggerNav, SoonNav }) do
+        for _, nav in ipairs({ SettingsNav, GameNav, SoonNav }) do
             local active =
             (CurrentPage == "Settings" and nav == SettingsNav)
             or (CurrentPage == "Game" and nav == GameNav)
-            or (CurrentPage == "Logger" and nav == LoggerNav)
             or (CurrentPage == "Soon" and nav == SoonNav)
             if active then
                 nav.BackgroundColor3 = preset.Active; local st = nav:FindFirstChildOfClass("UIStroke")
@@ -410,14 +405,6 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         Status.Text = "STATUS: " .. tostring(text)
     end
 
-    local function LogAction(name, details)
-        if Logger and type(Logger.RecordAction) == "function" then
-            pcall(function()
-                Logger:RecordAction(name, details or {})
-            end)
-        end
-    end
-
     -- FOLDER SYSTEM
     local function MakeFolder(name, parent)
         local Folder = Instance.new("Frame"); Folder.Name = name:gsub("%W", "") .. "Folder"; Folder.Size = UDim2.new(1, 0, 0, 38)
@@ -547,7 +534,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
                 UpdateScannerDisplay("UPLOAD ERROR: " .. tostring(success), nil)
             elseif success then
                 UpdateScannerDisplay(message or "UPLOADED TO GITHUB", nil)
-                LogAction("Thanksgiving Scanner Report Uploaded")
+
             else
                 UpdateScannerDisplay("UPLOAD FAILED: " .. tostring(message), nil)
             end
@@ -568,7 +555,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
 
         if ok then
             UpdateScannerDisplay(type(result) == "string" and result or "SCANNING", nil)
-            LogAction("Thanksgiving Scanner Started")
+
         else
             UpdateScannerDisplay("ERROR: " .. tostring(result), nil)
         end
@@ -580,7 +567,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
                 ThanksgivingScanner:Stop()
             end)
             UpdateScannerDisplay(ok and "STOPPED" or ("ERROR: " .. tostring(err)), nil)
-            LogAction("Thanksgiving Scanner Stopped")
+
         else
             UpdateScannerDisplay("MODULE NOT LOADED", nil)
         end
@@ -953,9 +940,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     end)
 
     MakeButton(TeleportFolder, "TELEPORT NOW", function()
-        LogAction("Manual Teleport", {
-            Target = Config.TargetName
-        })
+
         Controller.TeleportNow()
     end)
 
@@ -964,14 +949,11 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         if Controller.IsEnabled() then
             Controller.Stop()
             AutoButton.Text = "AUTO TP: OFF"
-            LogAction("Auto TP Stopped")
+
         else
             Controller.Start()
             AutoButton.Text = "AUTO TP: ON"
-            LogAction("Auto TP Started", {
-                Target = Config.TargetName,
-                Speed = Config.TeleportsPerSecond
-            })
+
         end
     end, Color3.fromRGB(45, 115, 75))
 
@@ -985,9 +967,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             100
         )
         Scythe.SetSpeed(Config.ScytheSpeed)
-        LogAction("Scythe Speed Changed", {
-            Speed = Config.ScytheSpeed
-        })
+
     end)
 
     Scythe.SetSpeed(Config.ScytheSpeed); local ScytheButton
@@ -996,20 +976,17 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             Scythe.Stop()
             ScytheButton.Text = "SCYTHE ENCHANT AUTO ROLL: OFF"
             SetStatus("SCYTHE ROLL STOPPED")
-            LogAction("Scythe Auto Roll Stopped")
+
         else
             local ok, message = Scythe.Start()
             if ok then
                 ScytheButton.Text = "SCYTHE ENCHANT AUTO ROLL: ON"
                 SetStatus("SCYTHE ROLL RUNNING")
-                LogAction("Scythe Auto Roll Started", {
-                    Speed = Config.ScytheSpeed
-                })
+
             else
                 ScytheButton.Text = "SCYTHE ENCHANT AUTO ROLL: OFF"
                 SetStatus(message or "SCYTHE ERROR")
-                LogAction("Scythe Auto Roll Failed", {
-                    Reason = tostring(message)
+
                 })
             end
         end
@@ -1050,7 +1027,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
         end
         Root.CFrame = CFrame.new(position.X, position.Y + HouseFallHeight, position.Z); Root.AssemblyLinearVelocity = Vector3.zero; SetStatus("TELEPORTED TO HOUSE "
         .. houseName)
-        LogAction("House Teleport", { House = houseName, FallHeight = HouseFallHeight })
+
         return true
     end
 
@@ -1143,17 +1120,14 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             HouseLoopToken = HouseLoopToken + 1
             HouseAutoButton.Text = "AUTO TELEPORT: OFF"
             SetStatus("HOUSE AUTO TELEPORT STOPPED")
-            LogAction("House Auto Teleport Stopped")
+
         else
             HouseAutoEnabled = true
             HouseLoopToken = HouseLoopToken + 1
             local thisToken = HouseLoopToken
             HouseAutoButton.Text = "AUTO TELEPORT: ON"
             SetStatus("HOUSE AUTO TELEPORT RUNNING")
-            LogAction("House Auto Teleport Started", {
-                Delay = HouseTeleportDelay,
-                FallHeight = HouseFallHeight
-            })
+
             task.spawn(function()
                 while HouseAutoEnabled
                     and HouseLoopToken == thisToken
@@ -1183,194 +1157,6 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     end, function(value)
         HouseFallHeight = math.floor(value + 0.5)
     end)
-
-    -- REMOTE LOGGER PAGE
-    Label(LoggerPage, "REMOTE LOGGER", 17, 30).Font = Enum.Font.GothamBold; local LoggerStatus = Label(LoggerPage, "Logger ready - remote capture is currently disabled.", 10, 22,
-    Grey)
-    local StatsLabel = Label(LoggerPage, "TOTAL: 0  |  FIRE: 0  |  INVOKE: 0", 10, 25, Grey); local SearchBox = Instance.new("TextBox");
-    SearchBox.Size = UDim2.new(1, 0, 0, 36)
-    SearchBox.BackgroundColor3 = ButtonDark; SearchBox.TextColor3 = White; SearchBox.PlaceholderColor3 = Grey
-    SearchBox.PlaceholderText = "Search remote name or path..."; SearchBox.Text = ""; SearchBox.TextSize = 11
-    SearchBox.Font = Enum.Font.Gotham; SearchBox.ClearTextOnFocus = false; SearchBox.Parent = LoggerPage
-    Corner(SearchBox, 7); Stroke(SearchBox, Purple, 1); local CategoryFrame = Instance.new("Frame")
-    CategoryFrame.Size = UDim2.new(1, 0, 0, 32); CategoryFrame.BackgroundTransparency = 1; CategoryFrame.Parent = LoggerPage
-    local CategoryLayout = Instance.new("UIListLayout"); CategoryLayout.FillDirection = Enum.FillDirection.Horizontal; CategoryLayout.Padding =
-    UDim.new(0, 4)
-    CategoryLayout.Parent = CategoryFrame; local Categories = {"All", "FireServer", "InvokeServer", "Other"}; local LogContainer =
-    Instance.new("ScrollingFrame")
-    LogContainer.Name = "LogContainer"; LogContainer.Size = UDim2.new(1, 0, 0, 170); LogContainer.BackgroundColor3 = Dark
-    LogContainer.BorderSizePixel = 0; LogContainer.ScrollBarThickness = 4; LogContainer.ScrollBarImageColor3 = Purple
-    LogContainer.CanvasSize = UDim2.fromOffset(0, 0); LogContainer.Parent = LoggerPage; Corner(LogContainer, 7)
-    local LogLayout = Instance.new("UIListLayout"); LogLayout.Padding = UDim.new(0, 5); LogLayout.Parent = LogContainer
-    local LogPadding = Instance.new("UIPadding"); LogPadding.PaddingTop = UDim.new(0, 6); LogPadding.PaddingLeft = UDim.new(0, 6)
-    LogPadding.PaddingRight = UDim.new(0, 6); LogPadding.Parent = LogContainer
-
-    LogLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-        LogContainer.CanvasSize = UDim2.fromOffset(
-            0,
-            LogLayout.AbsoluteContentSize.Y + 15
-        )
-    end)
-
-    local LastRenderKey = nil; local DisplayLimit = 30
-
-    local function RefreshLogs(force)
-        if not Logger then
-            StatsLabel.Text = "LOGGER MODULE NOT LOADED"
-            return
-        end
-        local version = Logger:GetVersion(); local renderKey = tostring(version)
-        .. "|"
-        .. SelectedCategory
-        .. "|"
-        .. SearchBox.Text
-        if not force and renderKey == LastRenderKey then
-            return
-        end
-        LastRenderKey = renderKey
-
-        for _, child in ipairs(LogContainer:GetChildren()) do
-            if child:IsA("Frame") or child:IsA("TextLabel") then
-                child:Destroy()
-            end
-        end
-
-        local stats = Logger:GetStats(); StatsLabel.Text = string.format("TOTAL: %d  |  FIRE: %d  |  INVOKE: %d", stats.Total, stats.FireServer,
-        stats.InvokeServer)
-        local entries = Logger:GetLogs(SelectedCategory, SearchBox.Text)
-
-        if #entries == 0 then
-            local Empty = Label(LogContainer, "No matching logs found.", 11, 35, Grey); Empty.TextXAlignment = Enum.TextXAlignment.Center
-            return
-        end
-
-        local shown = math.min(#entries, DisplayLimit)
-        for i = 1, shown do
-            local entry = entries[i]; local Card = Instance.new("Frame"); Card.Size = UDim2.new(1, -4, 0, 68)
-            Card.BackgroundColor3 = Panel; Card.BorderSizePixel = 0; Card.Parent = LogContainer
-            Corner(Card, 8); Stroke(Card, Border, 1); local Name = Label(Card, entry.Name .. "  [" .. entry.Method .. "]", 10, 24, White)
-            Name.Position = UDim2.fromOffset(7, 2); Name.Size = UDim2.new(1, -14, 0, 22); Name.Font = Enum.Font.GothamBold
-            local Path = Label(Card, entry.Path, 9, 18, Grey); Path.Position = UDim2.fromOffset(7, 25); Path.Size = UDim2.new(1, -14, 0, 18)
-            Path.TextTruncate = Enum.TextTruncate.AtEnd; local Time = Label(Card, entry.Timestamp, 9, 17, Purple); Time.Position =
-            UDim2.fromOffset(7, 45)
-        end
-    end
-
-    -- LOGGER CATEGORY BUTTONS
-    for _, category in ipairs(Categories) do
-        local button = Instance.new("TextButton"); button.Size = UDim2.new(0.25, -4, 1, 0); button.BackgroundColor3 = ButtonDark
-        button.TextColor3 = White; button.Text = category == "FireServer" and "Fire"
-        or category == "InvokeServer" and "Invoke"
-        or category
-        button.TextSize = 9; button.Font = Enum.Font.GothamBold; button.Parent = CategoryFrame
-        Corner(button, 7); Stroke(button, Border, 1); CategoryButtons[category] = button
-
-        button.Activated:Connect(function()
-            SelectedCategory = category
-            for name, categoryButton in pairs(CategoryButtons) do
-                categoryButton.BackgroundColor3 =
-                name == SelectedCategory
-                and Color3.fromRGB(75, 50, 115)
-                or ButtonDark
-                local outline = categoryButton:FindFirstChildOfClass("UIStroke")
-                if outline then
-                    outline.Color = name == SelectedCategory
-                    and PurpleLight
-                    or Border
-                end
-            end
-            RefreshLogs()
-        end)
-    end
-
-    CategoryButtons.All.BackgroundColor3 = Color3.fromRGB(75, 50, 115); SearchBox:GetPropertyChangedSignal("Text"):Connect(RefreshLogs)
-
-    -- AUTOMATIC LOGGER REFRESH
-    task.spawn(function()
-        while ScreenGui.Parent do
-            task.wait(1)
-            if LoggerPage.Visible then
-                RefreshLogs()
-            end
-        end
-    end)
-
-    -- LOGGER CONTROLS
-    local LoggerControls = Instance.new("Frame"); LoggerControls.Size = UDim2.new(1, 0, 0, 38); LoggerControls.BackgroundTransparency = 1
-    LoggerControls.Parent = LoggerPage; local ControlsLayout = Instance.new("UIListLayout"); ControlsLayout.FillDirection =
-    Enum.FillDirection.Horizontal
-    ControlsLayout.Padding = UDim.new(0, 5); ControlsLayout.Parent = LoggerControls
-
-    local function MakeLoggerButton(text, callback)
-        local button = Instance.new("TextButton"); button.Size = UDim2.new(1/5, -5, 1, 0); button.BackgroundColor3 = ButtonDark
-        button.TextColor3 = White; button.Text = text; button.TextSize = 10
-        button.Font = Enum.Font.GothamBold; button.Parent = LoggerControls; Corner(button, 7)
-        Stroke(button, Border, 1); AddHover(button, ButtonDark, Color3.fromRGB(48, 40, 63)); button.Activated:Connect(callback)
-        return button
-    end
-
-    MakeLoggerButton("REFRESH", RefreshLogs)
-
-    MakeLoggerButton("TEST", function()
-        if not Logger then
-            return
-        end
-        local testRemote = Instance.new("Folder")
-        testRemote.Name = "ShortNameLoggerTest"
-        Logger:Record(testRemote, "Test", {
-            Source = "Local test",
-            Value = 123
-        })
-        testRemote:Destroy()
-        RefreshLogs(true)
-    end)
-
-    MakeLoggerButton("CLEAR", function()
-        if Logger then
-            Logger:Clear()
-        end
-        RefreshLogs()
-    end)
-
-    local PauseButtonLogger
-    PauseButtonLogger = MakeLoggerButton("PAUSE: OFF", function()
-        if not Logger then
-            return
-        end
-        Logger:SetEnabled(not Logger.Enabled)
-        PauseButtonLogger.Text = Logger.Enabled
-        and "PAUSE: OFF"
-        or "PAUSE: ON"
-    end)
-
-    local CopyLogsButton
-    CopyLogsButton = MakeLoggerButton("COPY LOGS", function()
-        if not Logger then
-            return
-        end
-        local exported = Logger:Export()
-        local copied = false
-        if type(setclipboard) == "function" then
-            copied = pcall(function()
-                setclipboard(exported)
-            end)
-        end
-        if not copied and type(toclipboard) == "function" then
-            copied = pcall(function()
-                toclipboard(exported)
-            end)
-        end
-        CopyLogsButton.Text = copied
-        and "COPIED!"
-        or "COPY FAILED"
-        task.delay(1.5, function()
-            if CopyLogsButton and CopyLogsButton.Parent then
-                CopyLogsButton.Text = "COPY LOGS"
-            end
-        end)
-    end)
-
-    RefreshLogs()
 
     -- COMING SOON PAGE
     Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey); local
@@ -1561,7 +1347,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
     end)
 
     SelectPage("Settings"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
-    return { SetStatus = SetStatus, RefreshLogs = RefreshLogs, ScreenGui = ScreenGui }
+    return { SetStatus = SetStatus, ScreenGui = ScreenGui }
 end
 
 return GUI
