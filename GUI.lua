@@ -823,6 +823,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
 
     -- SESSION TOOLS: live diagnostics and copy helpers
     Label(UtilityFolder, "SESSION TOOLS", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(UtilityFolder, "RightControl hides or restores the hub.", 10, 20, Grey)
     local PerformanceLabel = Label(UtilityFolder, "FPS: --  |  PING: --  |  MEMORY: -- MB", 10, 24, White)
     PerformanceLabel.TextWrapped = true
 
@@ -897,7 +898,7 @@ function GUI.Create(Config, Controller, Scythe, Logger, ThanksgivingScanner, Ref
             position = string.format("%.3f, %.3f, %.3f", p.X, p.Y, p.Z)
         end
         local value = string.format(
-            "ShortName Hub Session Info\\nPlayer: %s\\nUserId: %s\\nPlaceId: %s\\nJobId: %s\\nPosition: %s",
+            "ShortName Hub Session Info\nPlayer: %s\nUserId: %s\nPlaceId: %s\nJobId: %s\nPosition: %s",
             LocalPlayer and LocalPlayer.Name or "Unavailable",
             LocalPlayer and tostring(LocalPlayer.UserId) or "Unavailable",
             tostring(game.PlaceId),
