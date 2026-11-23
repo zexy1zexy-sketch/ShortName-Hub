@@ -1676,7 +1676,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             detectorStatus.Text = "DETECTOR: STOPPED"
             detectorStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
         end
-        local detectorButton = MakeButton(GUI.GuessSlapperPage, "START SLAP DETECTOR", function()
+        local detectorButton
+        detectorButton = MakeButton(GUI.GuessSlapperPage, "START SLAP DETECTOR", function()
             if detectorRunning then
                 stopSlapDetector()
                 detectorButton.Text = "START SLAP DETECTOR"
@@ -4145,6 +4146,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     ScreenGui.Destroying:Connect(function()
+        if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
+        if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
