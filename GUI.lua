@@ -104,6 +104,7 @@ function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent,
 end
 
 function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback, PresenceModule, ThemeModule)
+    GUI.AnimationsEnabled = true
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -518,8 +519,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true
-                pageObject.Position = UDim2.fromOffset(18, 8)
-                Tween(pageObject, { Position = UDim2.fromOffset(8, 8) }, TweenInfo.new(0.22, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
+                if GUI.AnimationsEnabled then
+                    pageObject.Position = UDim2.fromOffset(18, 8)
+                    Tween(pageObject, { Position = UDim2.fromOffset(8, 8) }, TweenInfo.new(0.22, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
+                else
+                    pageObject.Position = UDim2.fromOffset(8, 8)
+                end
                 pageObject.CanvasPosition = Vector2.new(0, 0)
             else
                 pageObject.Visible = false
@@ -734,6 +739,47 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             ApplyAccent(preset)
         end)
     end
+    do
+        local customAccentBox = Instance.new("TextBox")
+        customAccentBox.Size = UDim2.new(1, 0, 0, 34)
+        customAccentBox.BackgroundColor3 = ButtonDark
+        customAccentBox.TextColor3 = White
+        customAccentBox.PlaceholderColor3 = Grey
+        customAccentBox.PlaceholderText = "Custom accent hex (example: #8B5CF6)"
+        customAccentBox.Text = ""
+        customAccentBox.TextSize = 11
+        customAccentBox.Font = Enum.Font.Gotham
+        customAccentBox.ClearTextOnFocus = false
+        customAccentBox.Parent = SettingsPage
+        Corner(customAccentBox, 8)
+        Stroke(customAccentBox, Border, 1)
+        local applyCustomAccent = Instance.new("TextButton")
+        applyCustomAccent.Size = UDim2.new(1, 0, 0, 32)
+        applyCustomAccent.BackgroundColor3 = ButtonDark
+        applyCustomAccent.TextColor3 = White
+        applyCustomAccent.Text = "APPLY CUSTOM ACCENT"
+        applyCustomAccent.TextSize = 10
+        applyCustomAccent.Font = Enum.Font.GothamBold
+        applyCustomAccent.Parent = SettingsPage
+        Corner(applyCustomAccent, 8)
+        Stroke(applyCustomAccent, Border, 1)
+        applyCustomAccent.Activated:Connect(function()
+            local hex = tostring(customAccentBox.Text or ""):gsub("#", ""):gsub("%s+", "")
+            local red, green, blue = hex:match("^(%x%x)(%x%x)(%x%x)$")
+            if not red then
+                applyCustomAccent.Text = "ENTER HEX LIKE #8B5CF6"
+                return
+            end
+            local color = Color3.fromRGB(tonumber(red, 16), tonumber(green, 16), tonumber(blue, 16))
+            ApplyAccent({
+                Name = "Custom",
+                Color = color,
+                Light = color:Lerp(Color3.new(1, 1, 1), 0.28),
+                Active = ButtonDark:Lerp(color, 0.62)
+            })
+            applyCustomAccent.Text = "CUSTOM ACCENT APPLIED"
+        end)
+    end
 
     Label(SettingsPage, "Background style", 11, 19, Grey)
     local SurfacePresets = {
@@ -856,6 +902,25 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GUI.BackgroundApply.Text = value == "" and "BACKGROUND CLEARED" or "BACKGROUND APPLIED"
     end)
 
+    do
+        GUI.AnimationsToggle = Instance.new("TextButton")
+        GUI.AnimationsToggle.Size = UDim2.new(1, 0, 0, 38)
+        GUI.AnimationsToggle.BackgroundColor3 = ButtonDark
+        GUI.AnimationsToggle.TextColor3 = White
+        GUI.AnimationsToggle.TextSize = 11
+        GUI.AnimationsToggle.Font = Enum.Font.GothamBold
+        GUI.AnimationsToggle.Parent = SettingsPage
+        Corner(GUI.AnimationsToggle, 9)
+        Stroke(GUI.AnimationsToggle, Border, 1)
+        local function updateAnimationText()
+            GUI.AnimationsToggle.Text = "PAGE ANIMATIONS: " .. (GUI.AnimationsEnabled and "ON" or "OFF")
+        end
+        updateAnimationText()
+        GUI.AnimationsToggle.Activated:Connect(function()
+            GUI.AnimationsEnabled = not GUI.AnimationsEnabled
+            updateAnimationText()
+        end)
+    end
     Label(SettingsPage, "Changes apply instantly and reset when the hub is reloaded.", 10, 30, Grey); Label(SettingsPage, "GENERAL", 13, 25,
     PurpleLight).Font = Enum.Font.GothamBold
     local PausedDisabled = true
@@ -2270,6 +2335,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             accent = CurrentAccent.Name or "Purple",
             surface = ActiveSurfacePreset and ActiveSurfacePreset.Name or "MIDNIGHT",
             scale = WindowScale.Scale,
+            transparency = Frame.BackgroundTransparency,
+            background = GUI.BackgroundImage.Image,
+            animations = GUI.AnimationsEnabled,
             toggleKey = HubExtras.HubToggleKey.Name,
             quickMenuKey = HubExtras.QuickMenuKey.Name
         }
@@ -2289,7 +2357,22 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         for _, preset in ipairs(SurfacePresets) do
             if preset.Name == data.surface then ApplySurfaceTheme(preset) ActiveSurfacePreset = preset break end
         end
-        if type(data.scale) == "number" then WindowScale.Scale = math.clamp(data.scale, 0.7, 1.25) end
+        if type(data.scale) == "number" then WindowScale.Scale = math.clamp(data.scale, 0.7, 1.1) end
+        if type(data.transparency) == "number" then
+            local amount = math.clamp(data.transparency, 0, 0.6)
+            Frame.BackgroundTransparency = amount
+            Header.BackgroundTransparency = math.min(0.7, amount * 0.55)
+            Content.BackgroundTransparency = math.min(0.72, 0.18 + amount * 0.55)
+            GUI.BackgroundImage.ImageTransparency = math.clamp(0.34 + amount * 0.45, 0, 0.88)
+        end
+        if type(data.background) == "string" then
+            GUI.BackgroundImage.Image = data.background
+            GUI.BackgroundUrlBox.Text = data.background
+        end
+        if type(data.animations) == "boolean" then
+            GUI.AnimationsEnabled = data.animations
+            GUI.AnimationsToggle.Text = "PAGE ANIMATIONS: " .. (GUI.AnimationsEnabled and "ON" or "OFF")
+        end
         if type(data.toggleKey) == "string" and Enum.KeyCode[data.toggleKey] then
             HubExtras.HubToggleKey = Enum.KeyCode[data.toggleKey]
             KeybindBox.Text = HubExtras.HubToggleKey.Name
