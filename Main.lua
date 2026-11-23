@@ -439,7 +439,7 @@ StartHub = function(skipKey)
     end
 
     local completed = 0
-    local total = 16
+    local total = 17
     local function Step(message)
         completed = completed + 1
         if Loading and type(Loading.SetProgress) == "function" then
@@ -460,6 +460,7 @@ StartHub = function(skipKey)
         local NPC = LoadTracked("NPC.lua", "Loaded NPC systems")
         local Teleport = LoadTracked("Teleport.lua", "Loaded movement systems")
         local GUI = LoadTracked("GUI.lua", "Loaded interface code")
+        local PresenceModule = LoadTracked("Presence.lua", "Loaded community presence")
         local ScytheModule = LoadTracked("Scythe.lua", "Loaded weapon systems")
         local ThanksgivingScanner = LoadTracked("ThanksgivingScanner.lua", "Loaded event scanner")
         local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded combat scanner")
@@ -497,7 +498,8 @@ StartHub = function(skipKey)
                 FightScanner,
                 FightInspector,
                 FightStructureScanner,
-                RefreshHub
+                RefreshHub,
+                PresenceModule
             )
         end)
 
