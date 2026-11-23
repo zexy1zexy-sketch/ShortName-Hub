@@ -2385,15 +2385,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             pcall(function() if type(getgenv) == "function" then sharedEnv = getgenv() end end)
             local OwnerSession = type(sharedEnv.__SHORTNAME_OWNER_SESSION) == "string" and sharedEnv.__SHORTNAME_OWNER_SESSION or ""
             local PairCode = ""
+            local RosterStatus = Label(PlayerAdminUI.Page, OwnerSession ~= "" and "OWNER SESSION: CACHED (MAY EXPIRE)" or "OWNER SESSION: NOT VERIFIED", 10, 24, Grey)
             Label(PlayerAdminUI.Page, "OWNER SIGN-IN: open the verification page in your browser, sign in with the approved email, then enter its one-time code below.", 10, 48, Grey).TextWrapped = true
-            MakeButton(PlayerAdminUI.Page, "OPEN OWNER VERIFICATION PAGE", function()
+            MakeButton(PlayerAdminUI.Page, "SHOW OWNER VERIFICATION URL", function()
                 RosterStatus.Text = "OPEN IN BROWSER: https://shortname-report-receive.ryft-amv.workers.dev/owner-pair"
             end, Color3.fromRGB(65, 58, 92))
             local KeyBox = MakeBox(PlayerAdminUI.Page, "ONE-TIME OWNER PAIRING CODE", "", function(value)
                 PairCode = tostring(value or ""):gsub("%D", ""):sub(1, 6)
             end)
             KeyBox.PlaceholderText = "6-digit code from Cloudflare Access"
-            local RosterStatus = Label(PlayerAdminUI.Page, OwnerSession ~= "" and "OWNER SESSION: CACHED (MAY EXPIRE)" or "OWNER SESSION: NOT VERIFIED", 10, 24, Grey)
             MakeButton(PlayerAdminUI.Page, "VERIFY OWNER SESSION", function()
                 if PairCode == "" then RosterStatus.Text = "ENTER THE 6-DIGIT CODE FIRST" return end
                 RosterStatus.Text = "VERIFYING OWNER ACCESS..."
