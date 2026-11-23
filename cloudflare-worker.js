@@ -50,43 +50,13 @@ async function saveFeedback(message,username,userId,env){
 }
 
 const PRESENCE_PREFIX="presence:";
-const ACCESS_JWKS_CACHE = new Map();
-function base64UrlBytes(value){
- const padded=value.replace(/-/g,"+").replace(/_/g,"/")+"===".slice((value.length+3)%4);
- const raw=atob(padded);return Uint8Array.from(raw,c=>c.charCodeAt(0));
-}
-async function verifyAccessIdentity(request,env){
- const jwt=request.headers.get("Cf-Access-Jwt-Assertion")||"";
- const parts=jwt.split(".");
- if(parts.length!==3||!env.ACCESS_TEAM_DOMAIN||!env.ACCESS_AUD||!env.OWNER_EMAIL)return null;
- let header,claims;
- try{header=JSON.parse(new TextDecoder().decode(base64UrlBytes(parts[0])));claims=JSON.parse(new TextDecoder().decode(base64UrlBytes(parts[1])));}catch{return null;}
- if(header.alg!=="RS256"||!header.kid)return null;
- const issuer="https://"+String(env.ACCESS_TEAM_DOMAIN).replace(/^https?:\/\//,"").replace(/\/$/,"");
- if(claims.iss!==issuer||!Array.isArray(claims.aud)||!claims.aud.includes(env.ACCESS_AUD))return null;
- if(String(claims.email||"").toLowerCase()!==String(env.OWNER_EMAIL).toLowerCase())return null;
- const now=Math.floor(Date.now()/1000);
- if(!Number.isFinite(claims.exp)||claims.exp<=now||!Number.isFinite(claims.iat)||claims.iat>now+60)return null;
- try{
-  let keys=ACCESS_JWKS_CACHE.get(issuer);
-  if(!keys||keys.expires<Date.now()){
-   const response=await fetch(issuer+"/cdn-cgi/access/certs");
-   if(!response.ok)return null;
-   keys={data:await response.json(),expires:Date.now()+300000};ACCESS_JWKS_CACHE.set(issuer,keys);
-  }
-  const jwk=keys.data.keys.find(k=>k.kid===header.kid&&k.kty==="RSA");
-  if(!jwk)return null;
-  const key=await crypto.subtle.importKey("jwk",jwk,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);
-  const valid=await crypto.subtle.verify("RSASSA-PKCS1-v1_5",key,base64UrlBytes(parts[2]),new TextEncoder().encode(parts[0]+"."+parts[1]));
-  return valid?{email:String(claims.email).toLowerCase()}:null;
- }catch{return null;}
-}
-async function createOwnerPair(request,env){
- const identity=await verifyAccessIdentity(request,env);
- if(!identity)return reply({ok:false,error:"Cloudflare Access owner verification failed"},401);
+async function createOwnerPair(request,env,ctx){
+ const identity=ctx?.access?await ctx.access.getIdentity():null;
+ const email=String(identity?.email||"").toLowerCase();
+ if(!email||email!==String(env.OWNER_EMAIL||"").toLowerCase())return reply({ok:false,error:"Cloudflare Access owner verification failed"},401);
  const bytes=crypto.getRandomValues(new Uint8Array(4));
  const code=String(((bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|bytes[3])>>>0).slice(-6).padStart(6,"0");
- await env.REPORTS.put("owner-pair:"+code,JSON.stringify({email:identity.email}),{expirationTtl:180});
+ await env.REPORTS.put("owner-pair:"+code,JSON.stringify({email}),{expirationTtl:180});
  return new Response(JSON.stringify({ok:true,code,expiresInSeconds:180,instructions:"Enter this one-time code in ShortName Hub. It expires in 3 minutes."}),{status:200,headers:{...cors(),"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"}});
 }
 async function exchangeOwnerPair(request,env){
@@ -219,12 +189,12 @@ async function serveModule(request,env){
  const bin=atob(data.content.replace(/\s/g,"")),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
  return new Response(new TextDecoder().decode(bytes),{status:200,headers:{...cors(),"Content-Type":"text/plain; charset=utf-8","Cache-Control":"no-store","X-Module-Name":name}});
 }
-export default {async fetch(request,env){
+export default {async fetch(request,env,ctx){
  if(request.method==="OPTIONS")return new Response(null,{status:204,headers:cors()});
  const url=new URL(request.url);
  try{
   if(request.method==="GET"&&url.pathname==="/module")return await serveModule(request,env);
-   if(request.method==="GET"&&url.pathname==="/owner-pair")return await createOwnerPair(request,env);
+   if(request.method==="GET"&&url.pathname==="/owner-pair")return await createOwnerPair(request,env,ctx);
    if(request.method==="POST"&&url.pathname==="/owner-session")return await exchangeOwnerPair(request,env);
    if(request.method==="POST"&&url.pathname==="/presence"){
     const body=await request.json().catch(()=>null);
