@@ -525,9 +525,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
     local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
-    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 6 or 5)
+    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 5 or 4)
+    local DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 6) or nil
+    local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 7 or 5)
 
-    local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }
+    local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, DetectionNav, SoonNav }
     local function FilterSidebar(query)
         query = tostring(query or ""):lower():gsub("^%s*(.-)%s*$", "%1")
         for _, nav in ipairs(SidebarNavButtons) do
@@ -603,11 +605,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
     local PlayerToolsPage = MakePage("PlayerTools")
     local GamePage = MakePage("NoobIncremental")
-    local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
+    local FightPage = MakePage("FightOnABaseplate"); local DetectionPage = IsCreator and MakePage("Detection") or nil; local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
+        local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true
@@ -642,7 +644,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
         StyleNav(PlayerToolsNav, page == "PlayerTools")
         StyleNav(GameNav, page == "Game")
-        StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
+        StyleNav(FightNav, page == "Fight"); if DetectionNav then StyleNav(DetectionNav, page == "Detection") end; StyleNav(SoonNav, page == "Soon")
     end
 
     do
@@ -819,6 +821,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FightNav.Activated:Connect(function()
         SelectPage("Fight")
     end)
+    if DetectionNav then
+        DetectionNav.Activated:Connect(function()
+            if OwnerViewEnabled then SelectPage("Detection") end
+        end)
+    end
     SoonNav.Activated:Connect(function()
         SelectPage("Soon")
     end)
@@ -1280,6 +1287,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             ["FIGHT ON A BASEPLATE"] = "⚔️",
             ["PLAYER TOOLS"] = "🛠️",
             ["DETECTORS"] = "🧭",
+            ["DETECTION & OBSERVATION"] = "🧭",
             ["GAME OBJECT SCANNER"] = "🎮",
             ["COMBAT SYSTEM FINDER"] = "🛡️",
             ["COMBAT STRUCTURE FINDER"] = "🏗️",
@@ -1338,11 +1346,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             if PlayerAdminUI.Nav and PlayerAdminUI.Nav.Parent then
                 PlayerAdminUI.Nav.Visible = OwnerViewEnabled
             end
+            if DetectionNav and DetectionNav.Parent then
+                DetectionNav.Visible = OwnerViewEnabled
+            end
             if PlayerAdminUI.Page and PlayerAdminUI.Page.Parent then
                 PlayerAdminUI.Page.Visible = OwnerViewEnabled and CurrentPage == "Players"
             end
+            if DetectionPage and DetectionPage.Parent then
+                DetectionPage.Visible = OwnerViewEnabled and CurrentPage == "Detection"
+            end
             if not OwnerViewEnabled then
-                if CurrentPage == "Players" then
+                if CurrentPage == "Players" or CurrentPage == "Detection" then
                     SelectPage("Updates")
                 end
                 CommunityPanel.Visible = false
@@ -1846,7 +1860,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
     end
 
-    local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
+    if DetectionPage then
+        Label(DetectionPage, "DETECTION & OBSERVATION", 17, 30).Font = Enum.Font.GothamBold
+        Label(DetectionPage, "Owner-only tools for scanning game objects, inspecting combat structures, and recording observations.", 11, 34, Grey)
+    end
+    local FightDetectorsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or FightPage, false)
+    if ThanksgivingScannerFolder and ThanksgivingScannerFolder.Parent then
+        ThanksgivingScannerFolder.Parent.Parent = FightDetectorsFolder
+    end
     local FightScannerFolder = MakeFolder("GAME OBJECT SCANNER", FightDetectorsFolder, false)
 
     Label(FightScannerFolder, "GAME OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
