@@ -839,7 +839,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local PresenceEnabled = false
         local PresenceToken = 0
         local PresenceStatus = Label(SettingsPage, "PRESENCE SHARING: OFF", 10, 22, Grey)
-        Label(SettingsPage, "Optional: share your Roblox username and current experience with the hub creator's player roster. You can turn this off at any time.", 10, 42, Grey).TextWrapped = true
+        Label(SettingsPage, "Optional: share your Roblox username and current experience with the hub creator's roster. Your last-seen record remains after you go offline; turning this off stops new updates.", 10, 42, Grey).TextWrapped = true
         local PresenceButton
         PresenceButton = MakeButton(SettingsPage, "ENABLE PRESENCE SHARING", function()
             PresenceEnabled = not PresenceEnabled
