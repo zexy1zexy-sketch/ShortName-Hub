@@ -2239,9 +2239,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end, Color3.fromRGB(75, 85, 115))
         MakeButton(inspectorContent, "EXPORT SNAPSHOT REPORT", function()
             if #snapshotLog == 0 then captureSnapshot("manual-snapshot", "Created during report export.") end
+            local experienceName = game.Name
+            pcall(function()
+                local info = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+                if info and type(info.Name) == "string" and info.Name ~= "" then
+                    experienceName = info.Name
+                end
+            end)
             local report = {
                 reportType = "SHORTNAME_HUB_OBSERVATION_SNAPSHOT",
-                game = game.Name,
+                game = experienceName,
+                dataModelName = game.Name,
                 placeId = game.PlaceId,
                 jobId = game.JobId,
                 generatedAt = os.date("!%Y-%m-%dT%H:%M:%SZ"),
