@@ -175,14 +175,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Frame.BackgroundColor3 = Dark; Frame.BorderSizePixel = 0; Frame.ClipsDescendants = true; Frame.Parent = ScreenGui
     local WindowScale = Instance.new("UIScale"); WindowScale.Scale = 1; WindowScale.Parent = Frame
     Corner(Frame, 16); AddGradient(Frame, Color3.fromRGB(19, 18, 27), Dark, 90); Stroke(Frame, Color3.fromRGB(105, 76, 150), 1.25)
-    local BackgroundImage = Instance.new("ImageLabel")
-    BackgroundImage.Name = "CustomBackground"
-    BackgroundImage.Size = UDim2.fromScale(1, 1)
-    BackgroundImage.BackgroundTransparency = 1
-    BackgroundImage.ImageTransparency = 0.34
-    BackgroundImage.ScaleType = Enum.ScaleType.Crop
-    BackgroundImage.ZIndex = 0
-    BackgroundImage.Parent = Frame
+    GUI.BackgroundImage = Instance.new("ImageLabel")
+    GUI.BackgroundImage.Name = "CustomBackground"
+    GUI.BackgroundImage.Size = UDim2.fromScale(1, 1)
+    GUI.BackgroundImage.BackgroundTransparency = 1
+    GUI.BackgroundImage.ImageTransparency = 0.34
+    GUI.BackgroundImage.ScaleType = Enum.ScaleType.Crop
+    GUI.BackgroundImage.ZIndex = 0
+    GUI.BackgroundImage.Parent = Frame
 
     local AccentLine = Instance.new("Frame"); AccentLine.Name = "AccentLine"; AccentLine.Size = UDim2.new(1, -28, 0, 2)
     AccentLine.Position = UDim2.fromOffset(14, 48); AccentLine.BackgroundColor3 = Purple; AccentLine.BorderSizePixel = 0
@@ -441,7 +441,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    local UpdatesNav = MakeNav("◷  Updates", 1)
+    GUI.GUI.UpdatesNav = MakeNav("◷  Updates", 1)
     if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
     local PlayerToolsNav = MakeNav("🧰  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 4 or 3)
@@ -453,34 +453,34 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Content.BackgroundColor3 = Panel; Content.BackgroundTransparency = 0.18; Content.BorderSizePixel = 0; Content.Parent = Frame
     Corner(Content, 13); AddGradient(Content, Color3.fromRGB(27, 26, 37), Panel, 90); Stroke(Content, Border, 1)
 
-    local SidebarCollapsed = false
-    local SidebarToggle = Instance.new("TextButton")
-    SidebarToggle.Name = "SidebarToggle"
-    SidebarToggle.Size = UDim2.fromOffset(26, 30)
-    SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
-    SidebarToggle.BackgroundColor3 = ButtonDark
-    SidebarToggle.Text = "☰"
-    SidebarToggle.TextColor3 = White
-    SidebarToggle.TextSize = 15
-    SidebarToggle.Font = Enum.Font.GothamBold
-    SidebarToggle.Parent = Header
-    SidebarToggle.ZIndex = 8
-    Corner(SidebarToggle, 8)
-    Stroke(SidebarToggle, Border, 1)
-    SidebarToggle.Activated:Connect(function()
-        SidebarCollapsed = not SidebarCollapsed
-        SidebarWidth = SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
+    GUI.GUI.SidebarCollapsed = false
+    GUI.GUI.SidebarToggle = Instance.new("TextButton")
+    GUI.SidebarToggle.Name = "GUI.SidebarToggle"
+    GUI.SidebarToggle.Size = UDim2.fromOffset(26, 30)
+    GUI.SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
+    GUI.SidebarToggle.BackgroundColor3 = ButtonDark
+    GUI.SidebarToggle.Text = "☰"
+    GUI.SidebarToggle.TextColor3 = White
+    GUI.SidebarToggle.TextSize = 15
+    GUI.SidebarToggle.Font = Enum.Font.GothamBold
+    GUI.SidebarToggle.Parent = Header
+    GUI.SidebarToggle.ZIndex = 8
+    Corner(GUI.SidebarToggle, 8)
+    Stroke(GUI.SidebarToggle, Border, 1)
+    GUI.SidebarToggle.Activated:Connect(function()
+        GUI.SidebarCollapsed = not GUI.SidebarCollapsed
+        SidebarWidth = GUI.SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
         Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
         Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
         Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
-        for _, nav in pairs({ UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
+        for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
             if nav then
-                nav.Text = SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "•") or (nav:GetAttribute("SNHFullText") or nav.Name)
-                nav.TextXAlignment = SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
-                nav.TextSize = SidebarCollapsed and 16 or (WindowWidth < 380 and 11 or 12)
+                nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "•") or (nav:GetAttribute("SNHFullText") or nav.Name)
+                nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
+                nav.TextSize = GUI.SidebarCollapsed and 16 or (WindowWidth < 380 and 11 or 12)
             end
         end
-        SidebarToggle.Text = SidebarCollapsed and "»" or "☰"
+        GUI.SidebarToggle.Text = GUI.SidebarCollapsed and "»" or "☰"
     end)
 
     local function MakePage(name)
@@ -501,14 +501,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return page
     end
 
-    local UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
+    GUI.GUI.UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
     local PlayerToolsPage = MakePage("PlayerTools")
     local GamePage = MakePage("NoobIncremental")
     local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Updates = UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
+        local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true
@@ -535,14 +535,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             or Grey
         end
 
-        StyleNav(UpdatesNav, page == "Updates")
+        StyleNav(GUI.UpdatesNav, page == "Updates")
         if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
         StyleNav(PlayerToolsNav, page == "PlayerTools")
         StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
 
-    UpdatesNav.Activated:Connect(function() SelectPage("Updates") end)
+    GUI.UpdatesNav.Activated:Connect(function() SelectPage("Updates") end)
     if PlayerAdminUI.Nav then
         PlayerAdminUI.Nav.Activated:Connect(function() SelectPage("Players") end)
     end
@@ -656,17 +656,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Purple = preset.Color
         PurpleLight = preset.Light
         CurrentAccent = preset
-        for _, nav in pairs({ UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
+        for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
             if nav then
-            local active = (CurrentPage == "Updates" and nav == UpdatesNav)
+            local active = (CurrentPage == "Updates" and nav == GUI.UpdatesNav)
                 or (CurrentPage == "Players" and nav == PlayerAdminUI.Nav)
                 or (CurrentPage == "PlayerTools" and nav == PlayerToolsNav)
                 or (CurrentPage == "Game" and nav == GameNav)
                 or (CurrentPage == "Fight" and nav == FightNav)
                 or (CurrentPage == "Soon" and nav == SoonNav)
             nav.BackgroundColor3 = active and preset.Active or nextButton
+            nav.BackgroundTransparency = active and 0.08 or 1
             local stroke = nav:FindFirstChildOfClass("UIStroke")
-            if stroke then stroke.Color = active and preset.Light or nextBorder end
+            if stroke then
+                stroke.Color = active and preset.Light or nextBorder
+                stroke.Transparency = active and 0.08 or 1
+            end
             end
         end
     end
@@ -756,7 +760,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     Label(SettingsPage, "WINDOW SCALE", 11, 19, Grey)
-    GUI.CreateSlider(SettingsPage, "Interface size", 0.72, 1.25, 1, Purple, function(value)
+    GUI.CreateSlider(SettingsPage, "Interface size", 0.72, 1.1, 1, Purple, function(value)
         WindowScale.Scale = value
     end, function(value) return string.format("%.0f%%", value * 100) end)
 
@@ -765,42 +769,42 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Frame.BackgroundTransparency = value
         Header.BackgroundTransparency = math.min(0.7, value * 0.55)
         Content.BackgroundTransparency = math.min(0.72, 0.18 + value * 0.55)
-        BackgroundImage.ImageTransparency = math.clamp(0.34 + value * 0.45, 0, 0.88)
+        GUI.BackgroundImage.ImageTransparency = math.clamp(0.34 + value * 0.45, 0, 0.88)
     end, function(value) return string.format("%.0f%%", value * 100) end)
 
     Label(SettingsPage, "CUSTOM BACKGROUND", 11, 19, Grey)
-    local BackgroundUrlBox = Instance.new("TextBox")
-    BackgroundUrlBox.Size = UDim2.new(1, 0, 0, 34)
-    BackgroundUrlBox.BackgroundColor3 = ButtonDark
-    BackgroundUrlBox.TextColor3 = White
-    BackgroundUrlBox.PlaceholderColor3 = Grey
-    BackgroundUrlBox.PlaceholderText = "Image asset ID or rbxassetid://..."
-    BackgroundUrlBox.Text = ""
-    BackgroundUrlBox.TextSize = 11
-    BackgroundUrlBox.Font = Enum.Font.Gotham
-    BackgroundUrlBox.ClearTextOnFocus = false
-    BackgroundUrlBox.Parent = SettingsPage
-    Corner(BackgroundUrlBox, 8)
-    Stroke(BackgroundUrlBox, Border, 1)
-    local BackgroundApply = Instance.new("TextButton")
-    BackgroundApply.Size = UDim2.new(1, 0, 0, 34)
-    BackgroundApply.BackgroundColor3 = ButtonDark
-    BackgroundApply.TextColor3 = White
-    BackgroundApply.Text = "APPLY BACKGROUND"
-    BackgroundApply.TextSize = 10
-    BackgroundApply.Font = Enum.Font.GothamBold
-    BackgroundApply.Parent = SettingsPage
-    Corner(BackgroundApply, 8)
-    Stroke(BackgroundApply, Border, 1)
-    BackgroundApply.Activated:Connect(function()
-        local value = tostring(BackgroundUrlBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
+    GUI.GUI.BackgroundUrlBox = Instance.new("TextBox")
+    GUI.BackgroundUrlBox.Size = UDim2.new(1, 0, 0, 34)
+    GUI.BackgroundUrlBox.BackgroundColor3 = ButtonDark
+    GUI.BackgroundUrlBox.TextColor3 = White
+    GUI.BackgroundUrlBox.PlaceholderColor3 = Grey
+    GUI.BackgroundUrlBox.PlaceholderText = "Image asset ID or rbxassetid://..."
+    GUI.BackgroundUrlBox.Text = ""
+    GUI.BackgroundUrlBox.TextSize = 11
+    GUI.BackgroundUrlBox.Font = Enum.Font.Gotham
+    GUI.BackgroundUrlBox.ClearTextOnFocus = false
+    GUI.BackgroundUrlBox.Parent = SettingsPage
+    Corner(GUI.BackgroundUrlBox, 8)
+    Stroke(GUI.BackgroundUrlBox, Border, 1)
+    GUI.GUI.BackgroundApply = Instance.new("TextButton")
+    GUI.BackgroundApply.Size = UDim2.new(1, 0, 0, 34)
+    GUI.BackgroundApply.BackgroundColor3 = ButtonDark
+    GUI.BackgroundApply.TextColor3 = White
+    GUI.BackgroundApply.Text = "APPLY BACKGROUND"
+    GUI.BackgroundApply.TextSize = 10
+    GUI.BackgroundApply.Font = Enum.Font.GothamBold
+    GUI.BackgroundApply.Parent = SettingsPage
+    Corner(GUI.BackgroundApply, 8)
+    Stroke(GUI.BackgroundApply, Border, 1)
+    GUI.BackgroundApply.Activated:Connect(function()
+        local value = tostring(GUI.BackgroundUrlBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
         if value:match("^%d+$") then value = "rbxassetid://" .. value end
         if value ~= "" and not value:match("^rbxassetid://%d+$") and not value:match("^https://") then
-            BackgroundApply.Text = "USE A VALID IMAGE URL"
+            GUI.BackgroundApply.Text = "USE A VALID IMAGE URL"
             return
         end
-        BackgroundImage.Image = value
-        BackgroundApply.Text = value == "" and "BACKGROUND CLEARED" or "BACKGROUND APPLIED"
+        GUI.BackgroundImage.Image = value
+        GUI.BackgroundApply.Text = value == "" and "BACKGROUND CLEARED" or "BACKGROUND APPLIED"
     end)
 
     Label(SettingsPage, "Changes apply instantly and reset when the hub is reloaded.", 10, 30, Grey); Label(SettingsPage, "GENERAL", 13, 25,
@@ -2283,6 +2287,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Corner(b, 6)
         b.Activated:Connect(callback)
     end
+    QuickAction("OPEN UPDATES", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Updates") end)
     QuickAction("OPEN SETTINGS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Settings") end)
     QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("PlayerTools") end)
     QuickAction("TOGGLE PERFORMANCE HUD", function()
@@ -3407,13 +3412,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     do
-        Label(UpdatesPage, "WELCOME BACK", 18, 32).Font = Enum.Font.GothamBold
-        Label(UpdatesPage, "Here's what's new in ShortName Hub.", 12, 24, Grey)
+        Label(GUI.UpdatesPage, "WELCOME BACK", 18, 32).Font = Enum.Font.GothamBold
+        Label(GUI.UpdatesPage, "Here's what's new in ShortName Hub.", 12, 24, Grey)
         local WelcomeCard = Instance.new("Frame")
         WelcomeCard.Size = UDim2.new(1, 0, 0, 104)
         WelcomeCard.BackgroundColor3 = ButtonDark
         WelcomeCard.BorderSizePixel = 0
-        WelcomeCard.Parent = UpdatesPage
+        WelcomeCard.Parent = GUI.UpdatesPage
         Corner(WelcomeCard, 12)
         Stroke(WelcomeCard, CurrentAccent.Light, 1.2)
         local WelcomeTitle = Label(WelcomeCard, "SHORTNAME HUB  •  CONTROL CENTER", 13, 25, CurrentAccent.Light)
@@ -3422,7 +3427,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local WelcomeDescription = Label(WelcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, White)
         WelcomeDescription.Position = UDim2.fromOffset(14, 42)
         WelcomeDescription.TextWrapped = true
-        Label(UpdatesPage, "LATEST CHANGES", 12, 25, CurrentAccent.Light).Font = Enum.Font.GothamBold
+        Label(GUI.UpdatesPage, "LATEST CHANGES", 12, 25, CurrentAccent.Light).Font = Enum.Font.GothamBold
         local UpdateItems = {
             { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
             { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
@@ -3434,7 +3439,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             card.Size = UDim2.new(1, 0, 0, 68)
             card.BackgroundColor3 = ButtonDark
             card.BorderSizePixel = 0
-            card.Parent = UpdatesPage
+            card.Parent = GUI.UpdatesPage
             Corner(card, 10)
             Stroke(card, Border, 1)
             local heading = Label(card, item[1], 11, 22, White)
@@ -3446,6 +3451,26 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
     SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
+    if Camera then
+        GUI.ViewportConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+            if not Frame.Parent then return end
+            local newViewport = Camera.ViewportSize
+            WindowWidth = math.max(280, math.min(900, newViewport.X - 24))
+            WindowHeight = math.max(340, math.min(650, newViewport.Y - 24))
+            Frame.Size = UDim2.fromOffset(WindowWidth, WindowHeight)
+            Frame.Position = UDim2.new(0.5, -WindowWidth / 2, 0.5, -WindowHeight / 2)
+            SidebarWidth = GUI.SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
+            Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
+            Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
+            Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
+        end)
+        ScreenGui.Destroying:Connect(function()
+            if GUI.ViewportConnection then
+                GUI.ViewportConnection:Disconnect()
+                GUI.ViewportConnection = nil
+            end
+        end)
+    end
     return { SetStatus = SetStatus, ScreenGui = ScreenGui }
 end
 
