@@ -3479,6 +3479,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(45, 115, 75))
 
+    -- Keep the observer's many working locals in their own function so they
+    -- do not consume the main GUI builder's 200-local register budget.
+    local StopAttackObserver
+    local function BuildObserverTools()
     -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
     -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
     local ObserverFolder = MakeFolder("WEAPON MOVEMENT OBSERVER", FightDetectorsFolder, false)
@@ -3547,7 +3551,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    local function StopAttackObserver()
+    StopAttackObserver = function()
         ObserverRunning = false
         if ObserverConnection then
             ObserverConnection:Disconnect()
@@ -3773,6 +3777,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end)
     end, Color3.fromRGB(45, 105, 145))
+
+    end
+    BuildObserverTools()
 
     ScreenGui.Destroying:Connect(function()
         RemoveCombatHud()
