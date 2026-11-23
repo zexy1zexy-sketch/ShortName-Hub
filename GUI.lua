@@ -336,8 +336,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local PlayerAdminUI = {}
     local SettingsNav = MakeNav("⚙  Settings", 1)
     if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
-    local GameNav = MakeNav("◆  Noob Incremental", 3)
-    local FightNav = MakeNav("⚔  Fight on a Baseplate", 4); local SoonNav = MakeNav("＋  Coming Soon", 5)
+    local PlayerToolsNav = MakeNav("♙  Player Tools", 3)
+    local GameNav = MakeNav("◆  Noob Incremental", 4)
+    local FightNav = MakeNav("⚔  Fight on a Baseplate", 5); local SoonNav = MakeNav("＋  Coming Soon", 6)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -364,12 +365,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
+    local PlayerToolsPage = MakePage("PlayerTools")
     local GamePage = MakePage("NoobIncremental")
     local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Settings = SettingsPage, Players = PlayerAdminUI.Page, Game = GamePage, Fight = FightPage, Soon = SoonPage }
+        local pages = { Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true; pageObject.Position = UDim2.fromOffset(15, 8)
@@ -393,6 +395,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
         StyleNav(SettingsNav, page == "Settings")
         if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
+        StyleNav(PlayerToolsNav, page == "PlayerTools")
         StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
@@ -414,6 +417,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             SelectPage("Settings")
         end)
     end
+    PlayerToolsNav.Activated:Connect(function()
+        SelectPage("PlayerTools")
+    end)
     GameNav.Activated:Connect(function()
         SelectPage("Game")
     end)
@@ -504,8 +510,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Purple = preset.Color
         PurpleLight = preset.Light
         CurrentAccent = preset
-        for _, nav in ipairs({ SettingsNav, GameNav, FightNav, SoonNav }) do
+        for _, nav in ipairs({ SettingsNav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
             local active = (CurrentPage == "Settings" and nav == SettingsNav)
+                or (CurrentPage == "PlayerTools" and nav == PlayerToolsNav)
                 or (CurrentPage == "Game" and nav == GameNav)
                 or (CurrentPage == "Fight" and nav == FightNav)
                 or (CurrentPage == "Soon" and nav == SoonNav)
@@ -1141,7 +1148,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     do
     -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
-    local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", GamePage)
+    local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", PlayerToolsPage)
     Label(PlayerToolsFolder, "PLAYER TRACKER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(PlayerToolsFolder, "Enter a player name to spectate their character. Your own character is not teleported or attached.", 10, 38, Grey)
 
@@ -2140,7 +2147,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         b.Activated:Connect(callback)
     end
     QuickAction("OPEN SETTINGS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Settings") end)
-    QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Game") end)
+    QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("PlayerTools") end)
     QuickAction("TOGGLE PERFORMANCE HUD", function()
         HubExtras.PerformanceHudEnabled = not HubExtras.PerformanceHudEnabled
         HubExtras.PerformanceHud.Visible = HubExtras.PerformanceHudEnabled
