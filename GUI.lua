@@ -2057,7 +2057,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local inspectorConnections = {}
         local watchedGui = {}
         local lastMovementCapture = 0
-        local lastPromptCapture = 0
         local lastGuiCapture = {}
         local function addInspectorConnection(connection)
             table.insert(inspectorConnections, connection)
@@ -4784,19 +4783,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     -- COMING SOON PAGE
-    Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey); local
-    SoonCard = Instance.new("Frame")
-    SoonCard.Size = UDim2.new(1, 0, 0, 75); SoonCard.BackgroundColor3 = ButtonDark; SoonCard.BorderSizePixel = 0
-    SoonCard.Parent = SoonPage; Corner(SoonCard, 10); Stroke(SoonCard, Border, 1)
-    AddGradient(SoonCard, Color3.fromRGB(36, 31, 49), ButtonDark, 90); local SoonText = Label(SoonCard, "Stay tuned for future updates!", 12, 75,
+    Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey)
+    GUI.SoonCard = Instance.new("Frame")
+    GUI.SoonCard.Size = UDim2.new(1, 0, 0, 75); GUI.SoonCard.BackgroundColor3 = ButtonDark; GUI.SoonCard.BorderSizePixel = 0
+    GUI.SoonCard.Parent = SoonPage; Corner(GUI.SoonCard, 10); Stroke(GUI.SoonCard, Border, 1)
+    AddGradient(GUI.SoonCard, Color3.fromRGB(36, 31, 49), ButtonDark, 90); GUI.SoonText = Label(GUI.SoonCard, "Stay tuned for future updates!", 12, 75,
     White)
-    SoonText.TextXAlignment = Enum.TextXAlignment.Center
+    GUI.SoonText.TextXAlignment = Enum.TextXAlignment.Center
 
     -- Put the working feedback form directly on the Coming Soon page.
     FeedbackPanel.Parent = SoonPage
     FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
     FeedbackPanel.Size = UDim2.new(1, 0, 0, 226)
-    SoonCard.LayoutOrder = 1
+    GUI.SoonCard.LayoutOrder = 1
     FeedbackPanel.LayoutOrder = 2
     FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
     FeedbackPanel.BackgroundColor3 = ButtonDark
