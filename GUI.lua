@@ -1541,6 +1541,78 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local recentActions = {}
         local detectorHistory = {}
         local lastRootVelocity = {}
+
+        -- Compact, detection-only floating panel. It does not alter the game's combat mechanics.
+        local miniPanel = Instance.new("Frame")
+        miniPanel.Name = "SlapDetectorMiniPanel"
+        miniPanel.Size = UDim2.fromOffset(248, 112)
+        miniPanel.Position = UDim2.new(1, -264, 0, 92)
+        miniPanel.BackgroundColor3 = Color3.fromRGB(22, 25, 34)
+        miniPanel.BackgroundTransparency = 0.08
+        miniPanel.BorderSizePixel = 0
+        miniPanel.Visible = false
+        miniPanel.ZIndex = 40
+        miniPanel.Parent = ScreenGui
+        local miniCorner = Instance.new("UICorner")
+        miniCorner.CornerRadius = UDim.new(0, 10)
+        miniCorner.Parent = miniPanel
+        local miniStroke = Instance.new("UIStroke")
+        miniStroke.Color = PurpleLight
+        miniStroke.Transparency = 0.25
+        miniStroke.Thickness = 1
+        miniStroke.Parent = miniPanel
+        local miniTitle = Instance.new("TextLabel")
+        miniTitle.BackgroundTransparency = 1
+        miniTitle.Position = UDim2.fromOffset(12, 7)
+        miniTitle.Size = UDim2.new(1, -48, 0, 22)
+        miniTitle.Font = Enum.Font.GothamBold
+        miniTitle.Text = "SLAP DETECTOR"
+        miniTitle.TextColor3 = White
+        miniTitle.TextSize = 12
+        miniTitle.TextXAlignment = Enum.TextXAlignment.Left
+        miniTitle.ZIndex = 41
+        miniTitle.Parent = miniPanel
+        local miniClose = Instance.new("TextButton")
+        miniClose.BackgroundTransparency = 1
+        miniClose.Position = UDim2.new(1, -32, 0, 4)
+        miniClose.Size = UDim2.fromOffset(26, 26)
+        miniClose.Font = Enum.Font.GothamBold
+        miniClose.Text = "×"
+        miniClose.TextColor3 = Grey
+        miniClose.TextSize = 20
+        miniClose.ZIndex = 42
+        miniClose.Parent = miniPanel
+        local miniStatus = Instance.new("TextLabel")
+        miniStatus.BackgroundTransparency = 1
+        miniStatus.Position = UDim2.fromOffset(12, 34)
+        miniStatus.Size = UDim2.new(1, -24, 0, 18)
+        miniStatus.Font = Enum.Font.GothamBold
+        miniStatus.Text = "STOPPED"
+        miniStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
+        miniStatus.TextSize = 10
+        miniStatus.TextXAlignment = Enum.TextXAlignment.Left
+        miniStatus.ZIndex = 41
+        miniStatus.Parent = miniPanel
+        local miniResult = Instance.new("TextLabel")
+        miniResult.BackgroundTransparency = 1
+        miniResult.Position = UDim2.fromOffset(12, 56)
+        miniResult.Size = UDim2.new(1, -24, 0, 42)
+        miniResult.Font = Enum.Font.Gotham
+        miniResult.Text = "Waiting for an impact."
+        miniResult.TextColor3 = Grey
+        miniResult.TextSize = 11
+        miniResult.TextWrapped = true
+        miniResult.TextXAlignment = Enum.TextXAlignment.Left
+        miniResult.TextYAlignment = Enum.TextYAlignment.Top
+        miniResult.ZIndex = 41
+        miniResult.Parent = miniPanel
+        miniClose.MouseButton1Click:Connect(function() miniPanel.Visible = false end)
+        local function setMiniDetectorState(running)
+            miniPanel.Visible = running
+            miniStatus.Text = running and "LISTENING FOR HITS ON YOU" or "STOPPED"
+            miniStatus.TextColor3 = running and Color3.fromRGB(130, 220, 165) or Color3.fromRGB(235, 175, 125)
+        end
+        local showMiniButton
         local detectorVictimCooldown = {}
         local function disconnectList(list)
             for _, connection in ipairs(list) do
@@ -1618,6 +1690,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             while #detectorHistory > 12 do table.remove(detectorHistory, 1) end
             lastDetection.Text = "SLAPPER: " .. entry.result
             lastDetection.TextColor3 = color
+            miniResult.Text = "LAST HIT: @" .. tostring(entry.result)
+            miniResult.TextColor3 = color
             detectorSummary.Text = "Hit detected"
             renderHistory()
         end
@@ -1669,6 +1743,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             table.clear(lastRootVelocity)
             detectorStatus.Text = "DETECTOR: STOPPED"
             detectorStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
+            setMiniDetectorState(false)
         end
         local detectorButton
         detectorButton = MakeButton(detectorContent, "START SLAP DETECTOR", function()
@@ -1678,6 +1753,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 return
             end
             detectorRunning = true
+            setMiniDetectorState(true)
             detectorStatus.Text = "DETECTOR: LISTENING"
             detectorStatus.TextColor3 = Color3.fromRGB(130, 220, 165)
             detectorSummary.Text = "Listening for hits on you..."
@@ -1700,6 +1776,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 lastRootVelocity[player.UserId] = nil
             end))
         end, Color3.fromRGB(65, 105, 145))
+        showMiniButton = MakeButton(detectorContent, "SHOW MINI DETECTOR", function()
+            miniPanel.Visible = not miniPanel.Visible
+        end, Color3.fromRGB(75, 85, 115))
         MakeButton(detectorContent, "CLEAR HISTORY", function()
             table.clear(detectorHistory)
             lastDetection.Text = "No hit detected yet."
