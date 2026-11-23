@@ -1984,31 +1984,86 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             inspectorStatus.Text = "INSPECTOR: " .. string.upper(tostring(eventType)) .. " CAPTURED (" .. #snapshotLog .. ")"
             return entry
         end
-        local function isDodgeGui(object)
+        local watchedGuiAncestors = {}
+        local function getGuiVisibilityContext(object)
+            local current = object
+            local screenGui = nil
+            local effectivelyVisible = true
+            while current and current ~= playerGui do
+                if current:IsA("GuiObject") and not current.Visible then
+                    effectivelyVisible = false
+                elseif current:IsA("ScreenGui") then
+                    screenGui = current
+                    if not current.Enabled then effectivelyVisible = false end
+                end
+                current = current.Parent
+            end
+            return effectivelyVisible, screenGui
+        end
+        local function recordGuiObservation(object, reason)
+            if not object or not object.Parent then return end
+            local effective, screenGui = getGuiVisibilityContext(object)
+            local now = os.clock()
+            if now - (lastGuiCapture[object] or 0) < 0.25 then return end
+            lastGuiCapture[object] = now
             local textValue = ""
             pcall(function()
-                if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then textValue = object.Text end
+                if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
+                    textValue = object.Text:sub(1, 100)
+                end
             end)
-            local haystack = (object.Name .. " " .. textValue):lower()
-            return haystack:find("dodge", 1, true) or haystack:find("perfect", 1, true) or haystack:find("avoid", 1, true)
+            local context = "GUI " .. reason ..
+                " | path=" .. safeFullName(object) ..
+                " | class=" .. object.ClassName ..
+                " | name=" .. object.Name ..
+                " | visible=" .. tostring(object.Visible) ..
+                " | effectiveVisible=" .. tostring(effective) ..
+                " | ScreenGui=" .. (screenGui and safeFullName(screenGui) or "none") ..
+                " | ScreenGui.Enabled=" .. (screenGui and tostring(screenGui.Enabled) or "n/a") ..
+                " | text=" .. textValue
+            captureSnapshot("gui-observation", context)
+        end
+        local function refreshGuiDescendants(ancestor)
+            if not ancestor or not ancestor.Parent then return end
+            for _, descendant in ipairs(ancestor:GetDescendants()) do
+                if descendant:IsA("GuiObject") then
+                    local effective = getGuiVisibilityContext(descendant)
+                    if effective then
+                        recordGuiObservation(descendant, "became effectively visible after ancestor change")
+                    end
+                end
+            end
         end
         local function watchGuiObject(object)
             if not object:IsA("GuiObject") or watchedGui[object] then return end
             watchedGui[object] = true
-            local function checkVisible()
-                if object.Parent and object.Visible and isDodgeGui(object) then
-                    local now = os.clock()
-                    if now - (lastGuiCapture[object] or 0) > 1 then
-                        lastGuiCapture[object] = now
-                        captureSnapshot("dodge-prompt-candidate", "Visible GUI matched dodge/perfect/avoid text: " .. safeFullName(object))
+            addInspectorConnection(object:GetPropertyChangedSignal("Visible"):Connect(function()
+                if object.Parent then
+                    recordGuiObservation(object, "Visible changed")
+                    refreshGuiDescendants(object)
+                end
+            end))
+            if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
+                addInspectorConnection(object:GetPropertyChangedSignal("Text"):Connect(function()
+                    if object.Parent then recordGuiObservation(object, "Text changed") end
+                end))
+            end
+            local ancestor = object.Parent
+            while ancestor and ancestor ~= playerGui do
+                if not watchedGuiAncestors[ancestor] then
+                    watchedGuiAncestors[ancestor] = true
+                    if ancestor:IsA("GuiObject") then
+                        addInspectorConnection(ancestor:GetPropertyChangedSignal("Visible"):Connect(function()
+                            refreshGuiDescendants(ancestor)
+                        end))
+                    elseif ancestor:IsA("ScreenGui") then
+                        addInspectorConnection(ancestor:GetPropertyChangedSignal("Enabled"):Connect(function()
+                            refreshGuiDescendants(ancestor)
+                        end))
                     end
                 end
+                ancestor = ancestor.Parent
             end
-            addInspectorConnection(object:GetPropertyChangedSignal("Visible"):Connect(checkVisible))
-            if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
-                addInspectorConnection(object:GetPropertyChangedSignal("Text"):Connect(checkVisible))
-            end
-            checkVisible()
         end
         local playerGui = LocalPlayer and LocalPlayer:FindFirstChildOfClass("PlayerGui")
         if playerGui then
