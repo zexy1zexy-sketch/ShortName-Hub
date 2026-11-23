@@ -851,6 +851,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(PlayerToolsFolder, "Enter a player name to spectate their character. Your own character is not teleported or attached.", 10, 38, Grey)
 
     local PlayerTrackerName = ""
+    local AutoTeleportSpeed = 16
+    local AutoTeleportSpeedStatus = Label(PlayerToolsFolder, "AUTO TP SPEED: 16 (NOT CONNECTED)", 10, 22, Grey)
+    MakeBox(PlayerToolsFolder, "AUTO TP SPEED (0.1-100)", "16", function(value)
+        local parsed = tonumber(value)
+        if not parsed or parsed ~= parsed then
+            AutoTeleportSpeedStatus.Text = "AUTO TP SPEED: ENTER A NUMBER"
+            return
+        end
+        AutoTeleportSpeed = math.clamp(parsed, 0.1, 100)
+        AutoTeleportSpeedStatus.Text = "SPEED SAVED: " .. string.format("%.1f", AutoTeleportSpeed) .. " (FOLLOW NOT CONNECTED)"
+    end)
     local PlayerTrackerTarget
     local PlayerTrackerCharacterConnection
     local PlayerTrackerRemovingConnection
