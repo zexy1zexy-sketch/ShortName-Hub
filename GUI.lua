@@ -123,14 +123,32 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AddHover(OwnerViewButton, Color3.fromRGB(55, 42, 77), Color3.fromRGB(75, 55, 105))
     end
 
+    -- OWNER SETTINGS SHORTCUT: sits immediately left of the owner/users switch.
+    local GearButton
+    if IsCreator then
+        GearButton = Instance.new("TextButton")
+        GearButton.Size = UDim2.fromOffset(28, 30)
+        GearButton.Position = UDim2.new(1, -240, 0, 8)
+        GearButton.BackgroundColor3 = ButtonDark
+        GearButton.Text = "⚙"
+        GearButton.TextColor3 = White
+        GearButton.TextSize = 17
+        GearButton.Font = Enum.Font.GothamBold
+        GearButton.Parent = Header
+        GearButton.ZIndex = 8
+        Corner(GearButton, 8)
+        Stroke(GearButton, Border, 1)
+        AddHover(GearButton, ButtonDark, Color3.fromRGB(55, 48, 69))
+    end
+
     -- COMMUNITY SHORTCUTS
     local CrownButton = Instance.new("TextButton")
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, -138, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "⚙"
+    CrownButton.Text = "♛"
     CrownButton.TextColor3 = White
-    CrownButton.TextSize = 17
+    CrownButton.TextSize = 19
     CrownButton.Font = Enum.Font.GothamBold
     CrownButton.Parent = Header
     CrownButton.ZIndex = 8
@@ -386,10 +404,16 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         PlayerAdminUI.Nav.Activated:Connect(function() SelectPage("Players") end)
     end
     CrownButton.Activated:Connect(function()
-        CommunityPanel.Visible = false
+        CommunityPanel.Visible = not CommunityPanel.Visible
         FeedbackPanel.Visible = false
-        SelectPage("Settings")
     end)
+    if GearButton then
+        GearButton.Activated:Connect(function()
+            CommunityPanel.Visible = false
+            FeedbackPanel.Visible = false
+            SelectPage("Settings")
+        end)
+    end
     GameNav.Activated:Connect(function()
         SelectPage("Game")
     end)
