@@ -199,13 +199,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     HeaderSubtitle.Size = UDim2.new(1, IsCreator and -382 or -274, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
-    MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "➖"; MinButton.TextColor3 = White
+    MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "−"; MinButton.TextColor3 = White
     MinButton.TextSize = 17; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Header
     MinButton.ZIndex = 5; Corner(MinButton, 8); Stroke(MinButton, Border, 1)
     AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
     local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
-    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "❌"
+    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "×"
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
@@ -217,7 +217,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         OwnerViewButton.Size = UDim2.fromOffset(62, 28)
         OwnerViewButton.Position = UDim2.new(1, -240, 0, 9)
         OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
-        OwnerViewButton.Text = "👑 OWNER"
+        OwnerViewButton.Text = "♛ OWNER"
         OwnerViewButton.TextColor3 = White
         OwnerViewButton.TextSize = 9
         OwnerViewButton.Font = Enum.Font.GothamBold
@@ -235,7 +235,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GearButton.Size = UDim2.fromOffset(28, 30)
         GearButton.Position = UDim2.new(1, IsCreator and -274 or -240, 0, 8)
         GearButton.BackgroundColor3 = ButtonDark
-        GearButton.Text = "⚙️"
+        GearButton.Text = "⚙"
         GearButton.TextColor3 = White
         GearButton.TextSize = 17
         GearButton.Font = Enum.Font.GothamBold
@@ -251,7 +251,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "👑"
+    CrownButton.Text = "♛"
     CrownButton.TextColor3 = White
     CrownButton.TextSize = 19
     CrownButton.Font = Enum.Font.GothamBold
@@ -265,7 +265,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackButton.Size = UDim2.fromOffset(28, 30)
     FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
-    FeedbackButton.Text = "💬"
+    FeedbackButton.Text = "✉"
     FeedbackButton.TextColor3 = White
     FeedbackButton.TextSize = 16
     FeedbackButton.Font = Enum.Font.GothamBold
@@ -443,7 +443,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local PlayerAdminUI = {}
     GUI.UpdatesNav = MakeNav("◷  Updates", 1)
     if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
-    local PlayerToolsNav = MakeNav("🧰  Player Tools", IsCreator and 3 or 2)
+    local PlayerToolsNav = MakeNav("⌘  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 4 or 3)
     local FightNav = MakeNav("⚔  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("＋  Coming Soon", IsCreator and 6 or 5)
 
@@ -817,7 +817,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.BackgroundUrlBox.BackgroundColor3 = ButtonDark
     GUI.BackgroundUrlBox.TextColor3 = White
     GUI.BackgroundUrlBox.PlaceholderColor3 = Grey
-    GUI.BackgroundUrlBox.PlaceholderText = "Image asset ID or rbxassetid://..."
+    GUI.BackgroundUrlBox.PlaceholderText = "Roblox image asset ID or asset URL"
     GUI.BackgroundUrlBox.Text = ""
     GUI.BackgroundUrlBox.TextSize = 11
     GUI.BackgroundUrlBox.Font = Enum.Font.Gotham
@@ -825,6 +825,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.BackgroundUrlBox.Parent = SettingsPage
     Corner(GUI.BackgroundUrlBox, 8)
     Stroke(GUI.BackgroundUrlBox, Border, 1)
+    Label(SettingsPage, "Roblox asset IDs and Roblox asset URLs work best.", 9, 18, Grey)
     GUI.BackgroundApply = Instance.new("TextButton")
     GUI.BackgroundApply.Size = UDim2.new(1, 0, 0, 34)
     GUI.BackgroundApply.BackgroundColor3 = ButtonDark
@@ -838,8 +839,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.BackgroundApply.Activated:Connect(function()
         local value = tostring(GUI.BackgroundUrlBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
         if value:match("^%d+$") then value = "rbxassetid://" .. value end
-        if value ~= "" and not value:match("^rbxassetid://%d+$") and not value:match("^https://") then
-            GUI.BackgroundApply.Text = "USE A VALID IMAGE URL"
+        local assetId = value:match("[?&]id=(%d+)")
+        if assetId then value = "rbxassetid://" .. assetId end
+        if value ~= "" and not value:match("^rbxassetid://%d+$") then
+            GUI.BackgroundApply.Text = "USE A ROBLOX IMAGE ASSET"
             return
         end
         GUI.BackgroundImage.Image = value
@@ -892,7 +895,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     RefreshHubButton.TextColor3 = White
     RefreshHubButton.TextSize = 18
     RefreshHubButton.Font = Enum.Font.GothamBold
-    RefreshHubButton.Text = "🔄"
+    RefreshHubButton.Text = "↻"
     RefreshHubButton.Parent = Header
     RefreshHubButton.ZIndex = 8
     RefreshHubButton.AutoButtonColor = false
@@ -932,7 +935,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
                 task.wait(2)
                 if RefreshHubButton.Parent then
-                    RefreshHubButton.Text = "🔄"
+                    RefreshHubButton.Text = "↻"
                 end
             end
         end)
@@ -957,20 +960,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AddGradient(Folder, Color3.fromRGB(34, 32, 46), ButtonDark, 90); local HeaderButton = Instance.new("TextButton"); HeaderButton.Size =
         UDim2.new(1, 0, 0, 38)
         local FolderIcons = {
-            ["HALLOWEEN EVENT"] = "🎃",
-            ["THANKSGIVING EVENT"] = "🦃",
-            ["EVENT SCANNER"] = "🔎",
-            ["FIGHT ON A BASEPLATE"] = "⚔️",
-            ["PLAYER TOOLS"] = "🧰",
-            ["DETECTORS"] = "🛰️",
-            ["GAME OBJECT SCANNER"] = "🔍",
-            ["COMBAT SYSTEM FINDER"] = "🥊",
-            ["COMBAT STRUCTURE FINDER"] = "🏗️",
-            ["NPC & TELEPORT"] = "🧭",
-            ["REMOTES"] = "📡",
-            ["HOUSE TELEPORT"] = "🏠",
-            ["COMBAT HUD & ASSET TOOLS"] = "🛠️",
-            ["WEAPON MOVEMENT OBSERVER"] = "👁️"
+            ["HALLOWEEN EVENT"] = "◈",
+            ["THANKSGIVING EVENT"] = "◉",
+            ["EVENT SCANNER"] = "⌕",
+            ["FIGHT ON A BASEPLATE"] = "⚔",
+            ["PLAYER TOOLS"] = "⌘",
+            ["DETECTORS"] = "⌖",
+            ["GAME OBJECT SCANNER"] = "⌕",
+            ["COMBAT SYSTEM FINDER"] = "✣",
+            ["COMBAT STRUCTURE FINDER"] = "▦",
+            ["NPC & TELEPORT"] = "⌖",
+            ["REMOTES"] = "⌁",
+            ["HOUSE TELEPORT"] = "⌂",
+            ["COMBAT HUD & ASSET TOOLS"] = "⚒",
+            ["WEAPON MOVEMENT OBSERVER"] = "◉"
         }
         local FolderIcon = FolderIcons[name] or "📁"
         HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = FolderIcon .. "  " .. name .. "     +"; HeaderButton.TextColor3 = White
@@ -2298,7 +2301,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     QuickMenuButton.Size = UDim2.fromOffset(30, 30)
     QuickMenuButton.Position = UDim2.new(1, IsCreator and -308 or -206, 0, 8)
     QuickMenuButton.BackgroundColor3 = ButtonDark
-    QuickMenuButton.Text = "🧰"
+    QuickMenuButton.Text = "▦"
     QuickMenuButton.TextColor3 = White
     QuickMenuButton.TextSize = 15
     QuickMenuButton.Font = Enum.Font.GothamBold
