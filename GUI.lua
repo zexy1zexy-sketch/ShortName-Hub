@@ -465,7 +465,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     Method = "POST",
                     Timeout = 30,
                     Headers = { ["Content-Type"] = "application/json" },
-                    Body = HttpService:JSONEncode({ message = message })
+                    Body = HttpService:JSONEncode({
+                        message = message,
+                        username = LocalPlayer and LocalPlayer.Name or "",
+                        userId = LocalPlayer and LocalPlayer.UserId or 0
+                    })
                 })
             end)
             local statusCode = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
