@@ -2383,13 +2383,34 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             Label(PlayerAdminUI.Page, "Registered hub users. Online status expires after 90 seconds without a heartbeat. Executor names are client-reported.", 10, 42, Grey).TextWrapped = true
             local sharedEnv = _G
             pcall(function() if type(getgenv) == "function" then sharedEnv = getgenv() end end)
-            local AdminKey = type(sharedEnv.__SHORTNAME_OWNER_ADMIN_KEY) == "string" and sharedEnv.__SHORTNAME_OWNER_ADMIN_KEY or ""
-            local KeyBox = MakeBox(PlayerAdminUI.Page, "OWNER ADMIN KEY (ENTER ONCE PER EXECUTOR SESSION)", AdminKey, function(value)
-                AdminKey = tostring(value or "")
-                sharedEnv.__SHORTNAME_OWNER_ADMIN_KEY = AdminKey
+            local OwnerSession = type(sharedEnv.__SHORTNAME_OWNER_SESSION) == "string" and sharedEnv.__SHORTNAME_OWNER_SESSION or ""
+            local PairCode = ""
+            Label(PlayerAdminUI.Page, "OWNER SIGN-IN: open the verification page in your browser, sign in with the approved email, then enter its one-time code below.", 10, 48, Grey).TextWrapped = true
+            MakeButton(PlayerAdminUI.Page, "OPEN OWNER VERIFICATION PAGE", function()
+                RosterStatus.Text = "OPEN IN BROWSER: https://shortname-report-receive.ryft-amv.workers.dev/owner-pair"
+            end, Color3.fromRGB(65, 58, 92))
+            local KeyBox = MakeBox(PlayerAdminUI.Page, "ONE-TIME OWNER PAIRING CODE", "", function(value)
+                PairCode = tostring(value or ""):gsub("%D", ""):sub(1, 6)
             end)
-            KeyBox.PlaceholderText = "Paste Cloudflare UPLOAD_KEY"
-            local RosterStatus = Label(PlayerAdminUI.Page, "ROSTER: " .. (AdminKey ~= "" and "READY TO LOAD" or "ENTER OWNER KEY ONCE"), 10, 24, Grey)
+            KeyBox.PlaceholderText = "6-digit code from Cloudflare Access"
+            local RosterStatus = Label(PlayerAdminUI.Page, OwnerSession ~= "" and "OWNER SESSION: CACHED (MAY EXPIRE)" or "OWNER SESSION: NOT VERIFIED", 10, 24, Grey)
+            MakeButton(PlayerAdminUI.Page, "VERIFY OWNER SESSION", function()
+                if PairCode == "" then RosterStatus.Text = "ENTER THE 6-DIGIT CODE FIRST" return end
+                RosterStatus.Text = "VERIFYING OWNER ACCESS..."
+                task.spawn(function()
+                    local ok, sent, result = pcall(function() return PresenceModule.ExchangeOwnerCode(PairCode) end)
+                    if ok and sent and type(result) == "table" and type(result.session) == "string" then
+                        OwnerSession = result.session
+                        sharedEnv.__SHORTNAME_OWNER_SESSION = OwnerSession
+                        PairCode = ""
+                        KeyBox.Text = ""
+                        RosterStatus.Text = "OWNER SESSION VERIFIED — EXPIRES IN 30 MINUTES"
+                        RefreshRoster()
+                    else
+                        RosterStatus.Text = "OWNER VERIFICATION FAILED: " .. tostring(ok and result or sent)
+                    end
+                end)
+            end, Color3.fromRGB(55, 100, 85))
             local SearchBox = MakeBox(PlayerAdminUI.Page, "SEARCH USERNAME OR USER ID", "", function() end)
             SearchBox.PlaceholderText = "Type a username or Roblox user ID..."
             local cachedPlayers = {}
@@ -2452,7 +2473,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                             button.Parent = row
                             Corner(button, 5)
                             button.Activated:Connect(function()
-                                local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, selectedRank) end)
+                                local saved, response, message = pcall(function() return PresenceModule.SetRank(OwnerSession, playerData.userId, selectedRank) end)
                                 if saved and response then
                                     playerData.rank = selectedRank
                                     RosterStatus.Text = "SAVED RANK: @" .. username .. " -> " .. selectedRank
@@ -2476,7 +2497,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                             button.Parent = row
                             Corner(button, 5)
                             button.Activated:Connect(function()
-                                local saved, response, message = pcall(function() return PresenceModule.SetBan(AdminKey, playerData.userId, duration) end)
+                                local saved, response, message = pcall(function() return PresenceModule.SetBan(OwnerSession, playerData.userId, duration) end)
                                 if saved and response then
                                     RosterStatus.Text = "HUB BAN APPLIED: @" .. username .. " (" .. option[1] .. ")"
                                 else
@@ -2495,19 +2516,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     RosterStatus.Text = "ROSTER: PRESENCE MODULE UNAVAILABLE"
                     return
                 end
-                if AdminKey == "" then
-                    RosterStatus.Text = "ROSTER: ENTER OWNER ADMIN KEY"
+                if OwnerSession == "" then
+                    RosterStatus.Text = "ROSTER: ENTER OWNER SESSION"
                     return
                 end
                 RosterStatus.Text = "ROSTER: LOADING..."
-                local ok, sent, result = pcall(function() return PresenceModule.GetPlayers(AdminKey) end)
+                local ok, sent, result = pcall(function() return PresenceModule.GetPlayers(OwnerSession) end)
                 if not ok or not sent then
                     RosterStatus.Text = "ROSTER: " .. tostring(ok and result or sent)
                     return
                 end
                 cachedPlayers = type(result) == "table" and result.players or {}
                 if PresenceModule and type(PresenceModule.GetBans) == "function" then
-                    local bansOk, bansSent, bansResult = pcall(function() return PresenceModule.GetBans(AdminKey) end)
+                    local bansOk, bansSent, bansResult = pcall(function() return PresenceModule.GetBans(OwnerSession) end)
                     if bansOk and bansSent and type(bansResult) == "table" then
                         cachedBans = bansResult.bans or {}
                     end
@@ -2536,7 +2557,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 end
                 SecurityReportStatus.Text = "SECURITY REPORTS: LOADING..."
                 task.spawn(function()
-                    local ok, sent, result = pcall(function() return PresenceModule.GetSecurityEvents(AdminKey) end)
+                    local ok, sent, result = pcall(function() return PresenceModule.GetSecurityEvents(OwnerSession) end)
                     if not ok or not sent or type(result) ~= "table" then
                         SecurityReportStatus.Text = "SECURITY REPORTS: " .. tostring(ok and result or sent)
                         return
@@ -2556,10 +2577,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             task.spawn(function()
                 while ScreenGui.Parent do
                     task.wait(60)
-                    if PlayerAdminUI.Page.Visible and AdminKey ~= "" then RefreshRoster() end
+                    if PlayerAdminUI.Page.Visible and OwnerSession ~= "" then RefreshRoster() end
                 end
             end)
-            if AdminKey ~= "" then task.defer(RefreshRoster) end
+            if OwnerSession ~= "" then task.defer(RefreshRoster) end
         end)
     end
 
