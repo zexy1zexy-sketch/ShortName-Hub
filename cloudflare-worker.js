@@ -26,7 +26,7 @@ async function saveFeedback(message,env){
 }
 
 const PRESENCE_PREFIX="presence:";
-function cleanText(value,max=80){return typeof value==="string"?value.replace(/[\\u0000-\\u001f]/g,"").trim().slice(0,max):"";}
+function cleanText(value,max=80){return typeof value==="string"?value.replace(/[\u0000-\u001f]/g,"").trim().slice(0,max):"";}
 function isAdmin(request,env){return !!env.UPLOAD_KEY&&request.headers.get("x-admin-key")===env.UPLOAD_KEY;}
 async function savePresence(body,env){
  const id=Number(body.userId);
