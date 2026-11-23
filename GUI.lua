@@ -844,6 +844,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- Kept separate from the other game folders.
     local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
 
+    do
     -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
     local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", FightFolder)
     Label(PlayerToolsFolder, "PLAYER TRACKER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
@@ -983,6 +984,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end)
     end, Color3.fromRGB(45, 105, 75))
+
+    ScreenGui.Destroying:Connect(function()
+        StopAutoReset()
+        StopPlayerTracker()
+    end)
+    end
+
     local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
     local FightScannerFolder = MakeFolder("GAME OBJECT SCANNER", FightDetectorsFolder, false)
 
@@ -2383,9 +2391,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(45, 105, 145))
 
     ScreenGui.Destroying:Connect(function()
-        StopAutoReset()
-        StopAutoReset()
-        StopPlayerTracker()
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
@@ -2590,7 +2595,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 FightStructureScanner:Stop()
             end
         end)
-        StopPlayerTracker()
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
