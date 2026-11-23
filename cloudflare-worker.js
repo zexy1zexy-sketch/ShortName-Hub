@@ -62,7 +62,7 @@ async function verifyAccessIdentity(request,env){
  let header,claims;
  try{header=JSON.parse(new TextDecoder().decode(base64UrlBytes(parts[0])));claims=JSON.parse(new TextDecoder().decode(base64UrlBytes(parts[1])));}catch{return null;}
  if(header.alg!=="RS256"||!header.kid)return null;
- const issuer="https://"+String(env.ACCESS_TEAM_DOMAIN).replace(/^https?:\\/\\//,"").replace(/\\/$/,"");
+ const issuer="https://"+String(env.ACCESS_TEAM_DOMAIN).replace(/^https?:\/\//,"").replace(/\/$/,"");
  if(claims.iss!==issuer||!Array.isArray(claims.aud)||!claims.aud.includes(env.ACCESS_AUD))return null;
  if(String(claims.email||"").toLowerCase()!==String(env.OWNER_EMAIL).toLowerCase())return null;
  const now=Math.floor(Date.now()/1000);
@@ -91,7 +91,7 @@ async function createOwnerPair(request,env){
 }
 async function exchangeOwnerPair(request,env){
  const body=await request.json().catch(()=>null);
- const code=String(body?.code||"").replace(/\\D/g,"");
+ const code=String(body?.code||"").replace(/\D/g,"");
  if(code.length!==6)return reply({ok:false,error:"Enter the six-digit pairing code"},400);
  const key="owner-pair:"+code;
  const pair=await env.REPORTS.get(key,"json");
@@ -117,7 +117,6 @@ async function secretMatches(provided,expected){
  const b=await crypto.subtle.digest("SHA-256",encoder.encode(expected));
  return crypto.subtle.timingSafeEqual(new Uint8Array(a),new Uint8Array(b));
 }
-async function isAdmin(request,env){return await secretMatches(request.headers.get("x-admin-key")||"",env.UPLOAD_KEY);}
 
 async function rejectAdminAttempt(request,env){
  const url=new URL(request.url);
