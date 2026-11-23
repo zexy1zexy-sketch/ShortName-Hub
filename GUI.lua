@@ -1664,6 +1664,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local HttpService = game:GetService("HttpService")
     local HubToggleKey = Enum.KeyCode.RightControl
     local QuickMenuKey = Enum.KeyCode.RightAlt
+    local SessionStartedAt = os.clock()
     local SelectedDirectoryPlayer = nil
 
     local Toast = Instance.new("TextLabel")
@@ -1765,8 +1766,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local PerformanceHudEnabled = false
     local PerformanceHud = Instance.new("TextLabel")
     PerformanceHud.Name = "ShortNamePerformanceHUD"
-    PerformanceHud.Size = UDim2.fromOffset(210, 28)
-    PerformanceHud.Position = UDim2.new(1, -220, 0, 12)
+    PerformanceHud.Size = UDim2.fromOffset(255, 28)
+    PerformanceHud.Position = UDim2.new(1, -265, 0, 12)
     PerformanceHud.BackgroundColor3 = Dark
     PerformanceHud.TextColor3 = White
     PerformanceHud.TextSize = 10
@@ -1790,7 +1791,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     KeybindBox = MakeBox(SettingsPage, "HUB TOGGLE KEY (EXAMPLE: F6, INSERT, RIGHTCONTROL)", "RightControl", function(value)
         local keyName = tostring(value or ""):gsub("%s+", "")
         local key = Enum.KeyCode[keyName]
-        if key and key ~= Enum.KeyCode.Unknown then
+        if key and key ~= Enum.KeyCode.Unknown and key ~= QuickMenuKey then
             HubToggleKey = key
             Notify("Toggle key: " .. key.Name)
         else
@@ -1967,7 +1968,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 )
             end
             if PerformanceHud and PerformanceHud.Parent and PerformanceHudEnabled then
-                PerformanceHud.Text = string.format("FPS %d  •  PING %s", lastFps, tostring(pingText))
+                local elapsed = math.max(0, math.floor(os.clock() - SessionStartedAt))
+                local sessionText = string.format("%02d:%02d:%02d", math.floor(elapsed / 3600), math.floor(elapsed / 60) % 60, elapsed % 60)
+                PerformanceHud.Text = string.format("FPS %d  •  PING %s  •  %s", lastFps, tostring(pingText), sessionText)
             end
         end
     end)
@@ -2882,7 +2885,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         )
     end)
 
-    -- RightControl quickly minimizes/restores the hub without stealing
+    -- The configured hub toggle key minimizes/restores the hub without stealing
     -- keyboard input while a text field is focused.
     HubToggleConnection = UIS.InputBegan:Connect(function(input, processed)
         if processed or UIS:GetFocusedTextBox() then
