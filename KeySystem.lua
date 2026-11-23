@@ -2,7 +2,7 @@
 -- SHORTNAME HUB KEY SYSTEM
 -- EDIT THESE TWO SETTINGS
 
-local HUB_KEY = "MyKey"
+local HUB_KEY = "Key123"
 local DISCORD_INVITE = "https://discord.gg/YOUR-INVITE"
 
 -- USERS WHO CAN SKIP KEY VERIFICATION (Roblox UserIds)
