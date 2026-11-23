@@ -4,6 +4,16 @@ local LocalPlayer = Players.LocalPlayer
 local IsCreator = LocalPlayer ~= nil and LocalPlayer.UserId == CREATOR_USER_ID
 local OwnerViewEnabled = IsCreator
 local OwnerOnlyFolders = {}
+local function GetUploadKeyCache()
+    local shared = _G
+    if type(getgenv) == "function" then
+        local ok, value = pcall(getgenv)
+        if ok and type(value) == "table" then shared = value end
+    end
+    if type(shared.__SHORTNAME_UPLOAD_KEY) ~= "string" then shared.__SHORTNAME_UPLOAD_KEY = "" end
+    return shared
+end
+local UploadKeyCache = GetUploadKeyCache()
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
 local function BuildUpdatesPage(page, config, accent, buttonDark, border, white, grey, label, corner, stroke, tween)
@@ -2240,9 +2250,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 inspectorStatus.Text = "INSPECTOR: REPORT READY — COPY VISIBLE JSON"
             end
         end, Color3.fromRGB(65, 105, 145))
-        local SnapshotUploadKey = ""
-        MakeBox(inspectorContent, "CLOUDFLARE UPLOAD KEY", "", function(value)
+        local SnapshotUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+        MakeBox(inspectorContent, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", SnapshotUploadKey, function(value)
             SnapshotUploadKey = tostring(value or "")
+            UploadKeyCache.__SHORTNAME_UPLOAD_KEY = SnapshotUploadKey
         end)
         MakeButton(inspectorContent, "UPLOAD SNAPSHOT REPORT TO ME", function()
             if #snapshotLog == 0 then captureSnapshot("manual-snapshot", "Created during report upload.") end
@@ -2513,9 +2524,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    local UploadKey = ""
-    MakeBox(ThanksgivingScannerFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
-        UploadKey = value
+    local UploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+    MakeBox(ThanksgivingScannerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", UploadKey, function(value)
+        UploadKey = tostring(value or "")
+        UploadKeyCache.__SHORTNAME_UPLOAD_KEY = UploadKey
     end)
 
     MakeButton(ThanksgivingScannerFolder, "UPLOAD REPORT", function()
@@ -2886,9 +2898,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GameDetectorUniverse.Text = "UNIVERSE ID: " .. tostring(details.universeId)
         GameDetectorStatus.Text = "DETECTOR: REPORT READY - NOT UPLOADED"
     end
-    local GameDetectorKey = ""
-    MakeBox(GameDetectorFolder, "CLOUDFLARE UPLOAD KEY (ONLY NEEDED TO UPLOAD)", "", function(value)
+    local GameDetectorKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+    MakeBox(GameDetectorFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", GameDetectorKey, function(value)
         GameDetectorKey = tostring(value or "")
+        UploadKeyCache.__SHORTNAME_UPLOAD_KEY = GameDetectorKey
     end)
     MakeButton(GameDetectorFolder, "DETECT CURRENT GAME", RefreshGameDetection, Color3.fromRGB(55, 95, 145))
     MakeButton(GameDetectorFolder, "COPY GAME REPORT", function()
@@ -4688,9 +4701,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ObserverOutput.Text = copied and "Report copied. Paste it into this chat." or "Clipboard API unavailable in this executor."
     end, Color3.fromRGB(45, 105, 145))
 
-    local ObserverUploadKey = ""
-    MakeBox(ObserverFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
-        ObserverUploadKey = value
+    local ObserverUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+    MakeBox(ObserverFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", ObserverUploadKey, function(value)
+        ObserverUploadKey = tostring(value or "")
+        UploadKeyCache.__SHORTNAME_UPLOAD_KEY = ObserverUploadKey
     end)
     MakeButton(ObserverFolder, "UPLOAD ATTACK OBSERVER REPORT", function()
         if ObserverUploadKey == "" then
