@@ -331,6 +331,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local page = Instance.new("ScrollingFrame"); page.Name = name; page.Size = UDim2.new(1, -16, 1, -16)
         page.Position = UDim2.fromOffset(8, 8); page.BackgroundTransparency = 1; page.BorderSizePixel = 0
         page.ScrollBarThickness = 3; page.ScrollBarImageColor3 = Purple; page.CanvasSize = UDim2.fromOffset(0, 0)
+        page.AutomaticCanvasSize = Enum.AutomaticSize.Y; page.ScrollingDirection = Enum.ScrollingDirection.Y
         page.Visible = false; page.Parent = Content; local layout = Instance.new("UIListLayout")
         layout.Padding = UDim.new(0, 8); layout.SortOrder = Enum.SortOrder.LayoutOrder; layout.Parent = page
         local padding = Instance.new("UIPadding"); padding.PaddingBottom = UDim.new(0, 10); padding.Parent = page
@@ -413,46 +414,58 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local function ApplyAccent(preset)
-        local old = CurrentAccent; CurrentAccent = preset
-        for _, o in ipairs(ScreenGui:GetDescendants()) do
-            if o:IsA("UIStroke") and IsAccentColor(o.Color) then
-                o.Color = preset.Light
-            elseif o:IsA("ScrollingFrame")
-                and (o.ScrollBarImageColor3 == Purple or o.ScrollBarImageColor3 == old.Color)
-            then
-                o.ScrollBarImageColor3 = preset.Color
-            elseif o:IsA("TextLabel") or o:IsA("TextButton") then
-                if o.TextColor3 == Purple
-                    or o.TextColor3 == PurpleLight
-                    or o.TextColor3 == old.Light
-                then
-                    o.TextColor3 = preset.Light
+        local oldAccent = CurrentAccent
+        local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
+        for _, obj in ipairs(ScreenGui:GetDescendants()) do
+            if obj:IsA("GuiObject") then
+                local bg = obj.BackgroundColor3
+                if bg == oldDark then
+                    obj.BackgroundColor3 = oldDark:Lerp(preset.Color, 0.14)
+                elseif bg == oldPanel then
+                    obj.BackgroundColor3 = oldPanel:Lerp(preset.Color, 0.19)
+                elseif bg == oldButton then
+                    obj.BackgroundColor3 = oldButton:Lerp(preset.Color, 0.24)
+                elseif bg == oldAccent.Active or bg == Color3.fromRGB(75, 50, 115) or bg == Color3.fromRGB(100, 65, 160) then
+                    obj.BackgroundColor3 = preset.Active
                 end
-                if o:IsA("TextButton")
-                    and (o.BackgroundColor3 == old.Active or o.BackgroundColor3 == Color3.fromRGB(75, 50, 115) or o.BackgroundColor3 ==
-                    Color3.fromRGB(100, 65, 160))
-                then
-                    o.BackgroundColor3 = preset.Active
+                if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+                    if obj.TextColor3 == Purple or obj.TextColor3 == PurpleLight or obj.TextColor3 == oldAccent.Light then
+                        obj.TextColor3 = preset.Light
+                    end
+                end
+                if obj:IsA("ScrollingFrame") and obj.ScrollBarImageColor3 == oldAccent.Color then
+                    obj.ScrollBarImageColor3 = preset.Color
+                end
+            elseif obj:IsA("UIStroke") then
+                if IsAccentColor(obj.Color) or obj.Color == oldBorder then
+                    obj.Color = preset.Light
+                end
+            elseif obj:IsA("UIGradient") then
+                if obj.Parent == AccentLine then
+                    obj.Color = ColorSequence.new(preset.Light, preset.Color)
+                elseif obj.Parent == Frame then
+                    obj.Color = ColorSequence.new(oldDark:Lerp(preset.Color, 0.12), oldDark:Lerp(preset.Color, 0.14))
+                elseif obj.Parent == Header or obj.Parent == Sidebar or obj.Parent == Content then
+                    obj.Color = ColorSequence.new(oldPanel:Lerp(preset.Color, 0.19), oldDark:Lerp(preset.Color, 0.14))
                 end
             end
         end
-
-        Purple = preset.Color; PurpleLight = preset.Light
-        for _, nav in ipairs({ SettingsNav, GameNav, SoonNav }) do
-            local active =
-            (CurrentPage == "Settings" and nav == SettingsNav)
-            or (CurrentPage == "Game" and nav == GameNav)
-            or (CurrentPage == "Soon" and nav == SoonNav)
-            if active then
-                nav.BackgroundColor3 = preset.Active; local st = nav:FindFirstChildOfClass("UIStroke")
-                if st then
-                    st.Color = preset.Light
-                end
-            end
+        Dark = oldDark:Lerp(preset.Color, 0.14)
+        Panel = oldPanel:Lerp(preset.Color, 0.19)
+        ButtonDark = oldButton:Lerp(preset.Color, 0.24)
+        Border = oldBorder:Lerp(preset.Color, 0.45)
+        Purple = preset.Color
+        PurpleLight = preset.Light
+        CurrentAccent = preset
+        for _, nav in ipairs({ SettingsNav, GameNav, FightNav, SoonNav }) do
+            local active = (CurrentPage == "Settings" and nav == SettingsNav)
+                or (CurrentPage == "Game" and nav == GameNav)
+                or (CurrentPage == "Fight" and nav == FightNav)
+                or (CurrentPage == "Soon" and nav == SoonNav)
+            nav.BackgroundColor3 = active and preset.Active or ButtonDark
+            local stroke = nav:FindFirstChildOfClass("UIStroke")
+            if stroke then stroke.Color = active and preset.Light or Border end
         end
-
-        -- CategoryButtons belonged to an older category layout and is not created
-        -- by this GUI. Navigation buttons are styled by SelectPage above.
     end
 
     local ColorRow = Instance.new("Frame"); ColorRow.Size = UDim2.new(1, 0, 0, 34); ColorRow.BackgroundTransparency = 1
@@ -569,6 +582,49 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                             Color = sib == b and CurrentAccent.Light or Border,
                             Thickness = sib == b and 1.5 or 1
                         })
+                    end
+                end
+            end
+        end)
+    end
+
+    Label(SettingsPage, "WINDOW TRANSPARENCY", 11, 19, Grey)
+    local TransparencyRow = Instance.new("Frame")
+    TransparencyRow.Size = UDim2.new(1, 0, 0, 32)
+    TransparencyRow.BackgroundTransparency = 1
+    TransparencyRow.Parent = SettingsPage
+    local TransparencyLayout = Instance.new("UIListLayout")
+    TransparencyLayout.FillDirection = Enum.FillDirection.Horizontal
+    TransparencyLayout.Padding = UDim.new(0, 6)
+    TransparencyLayout.Parent = TransparencyRow
+    for _, option in ipairs({ {Name = "SOLID", Amount = 0}, {Name = "LIGHT", Amount = 0.12}, {Name = "GLASS", Amount = 0.24}, {Name = "CLEAR", Amount = 0.36} }) do
+        local button = Instance.new("TextButton")
+        button.Size = UDim2.new(0.25, -5, 1, 0)
+        button.BackgroundColor3 = ButtonDark
+        button.Text = option.Name
+        button.TextColor3 = White
+        button.TextSize = 9
+        button.Font = Enum.Font.GothamBold
+        button.Parent = TransparencyRow
+        Corner(button, 7)
+        Stroke(button, Border, 1)
+        AddHover(button, ButtonDark, Color3.fromRGB(55, 48, 69))
+        button.Activated:Connect(function()
+            for _, obj in ipairs(ScreenGui:GetDescendants()) do
+                if obj:IsA("GuiObject") then
+                    if obj:GetAttribute("SNHBaseTransparency") == nil then
+                        obj:SetAttribute("SNHBaseTransparency", obj.BackgroundTransparency)
+                    end
+                    local base = obj:GetAttribute("SNHBaseTransparency")
+                    obj.BackgroundTransparency = math.min(1, base + option.Amount)
+                end
+            end
+            for _, sibling in ipairs(TransparencyRow:GetChildren()) do
+                if sibling:IsA("TextButton") then
+                    local outline = sibling:FindFirstChildOfClass("UIStroke")
+                    if outline then
+                        outline.Color = sibling == button and CurrentAccent.Light or Border
+                        outline.Thickness = sibling == button and 1.5 or 1
                     end
                 end
             end
@@ -1698,6 +1754,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     DirectoryList.BorderSizePixel = 0
     DirectoryList.ScrollBarThickness = 3
     DirectoryList.CanvasSize = UDim2.fromOffset(0, 0)
+    DirectoryList.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    DirectoryList.ScrollingDirection = Enum.ScrollingDirection.Y
     DirectoryList.Parent = SettingsPage
     Corner(DirectoryList, 8)
     local DirectoryLayout = Instance.new("UIListLayout")
