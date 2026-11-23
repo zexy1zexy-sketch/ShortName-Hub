@@ -3643,6 +3643,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 Frame.Visible = false
                 Bubble.Visible = true
             end
+        elseif input.KeyCode == Enum.KeyCode.K
+            and (UIS:IsKeyDown(Enum.KeyCode.LeftControl) or UIS:IsKeyDown(Enum.KeyCode.RightControl)) then
+            GUI.GlobalSearchPanel.Visible = not GUI.GlobalSearchPanel.Visible
         elseif input.KeyCode == HubExtras.QuickMenuKey then
             HubExtras.QuickMenuPanel.Visible = not HubExtras.QuickMenuPanel.Visible
         end
