@@ -3015,6 +3015,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     -- BUBBLE DRAGGING
+    do
     local BubbleDragging = false; local BubbleInput; local BubbleStart
     local BubblePosition
 
@@ -3053,6 +3054,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             )
         end
     end)
+    end
 
     -- EXIT
     ExitButton.Activated:Connect(function()
