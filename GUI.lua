@@ -2393,6 +2393,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             local SearchBox = MakeBox(PlayerAdminUI.Page, "SEARCH USERNAME OR USER ID", "", function() end)
             SearchBox.PlaceholderText = "Type a username or Roblox user ID..."
             local cachedPlayers = {}
+            local cachedBans = {}
+            local activeRosterFilter = "All Members"
             local function ClearRosterRows()
                 for _, child in ipairs(PlayerAdminUI.Page:GetChildren()) do
                     if child.Name == "PresencePlayerRow" then child:Destroy() end
@@ -2402,10 +2404,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 ClearRosterRows()
                 local query = tostring(SearchBox.Text or ""):lower():gsub("^%s*(.-)%s*$", "%1")
                 local shown = 0
+                local bannedIds = {}
+                for _, banData in ipairs(cachedBans) do bannedIds[tostring(banData.userId)] = true end
                 for _, playerData in ipairs(cachedPlayers) do
                     local username = tostring(playerData.username or "")
                     local userIdText = tostring(playerData.userId or "")
-                    if query == "" or username:lower():find(query, 1, true) or userIdText:find(query, 1, true) then
+                    local rank = tostring(playerData.rank or "Member")
+                    local categoryMatch = activeRosterFilter == "All Members"
+                        or (activeRosterFilter == "Premium Users" and rank == "Premium")
+                        or (activeRosterFilter == "Staff" and rank == "Staff")
+                        or (activeRosterFilter == "Banned Users" and bannedIds[userIdText] == true)
+                    if categoryMatch and (query == "" or username:lower():find(query, 1, true) or userIdText:find(query, 1, true)) then
                         shown += 1
                         local row = Instance.new("Frame")
                         row.Name = "PresencePlayerRow"
@@ -2497,7 +2506,26 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     return
                 end
                 cachedPlayers = type(result) == "table" and result.players or {}
+                if PresenceModule and type(PresenceModule.GetBans) == "function" then
+                    local bansOk, bansSent, bansResult = pcall(function() return PresenceModule.GetBans(AdminKey) end)
+                    if bansOk and bansSent and type(bansResult) == "table" then
+                        cachedBans = bansResult.bans or {}
+                    end
+                end
                 RenderRoster()
+            end
+            local filterButtons = {
+                { "ALL MEMBERS", "All Members" },
+                { "PREMIUM", "Premium Users" },
+                { "STAFF", "Staff" },
+                { "BANNED", "Banned Users" }
+            }
+            for _, filter in ipairs(filterButtons) do
+                local label, value = filter[1], filter[2]
+                MakeButton(PlayerAdminUI.Page, label, function()
+                    activeRosterFilter = value
+                    RenderRoster()
+                end, Color3.fromRGB(65, 58, 92))
             end
             MakeButton(PlayerAdminUI.Page, "LOAD / REFRESH ALL REGISTERED USERS", RefreshRoster, Color3.fromRGB(55, 85, 125))
             task.spawn(function()
