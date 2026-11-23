@@ -956,104 +956,35 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     MakeButton(PlayerToolsFolder, "STOP PLAYER TRACKER", StopPlayerTracker, Color3.fromRGB(85, 65, 95))
 
-    -- AUTO FOLLOW: pathfinds toward the selected player using Humanoid movement.
-    local PathfindingService = game:GetService("PathfindingService")
-    local AutoFollowEnabled = false
-    local AutoFollowToken = 0
-    local AutoFollowStatus = Label(PlayerToolsFolder, "AUTO FOLLOW: OFF", 10, 22, Grey)
-    local AutoFollowButton
+    -- AUTO TELEPORT TARGET DETECTOR: resolves a player by partial username/display name.
+    local TeleportTargetStatus = Label(PlayerToolsFolder, "AUTO TELEPORT: NO TARGET SELECTED", 10, 22, Grey)
+    local SelectedTeleportTarget = nil
 
-    local function StopAutoFollow()
-        AutoFollowEnabled = false
-        AutoFollowToken += 1
-        local character = LocalPlayer and LocalPlayer.Character
-        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            local originalSpeed = humanoid:GetAttribute("ShortNameHubOriginalWalkSpeed")
-            if typeof(originalSpeed) == "number" then
-                humanoid.WalkSpeed = originalSpeed
-                humanoid:SetAttribute("ShortNameHubOriginalWalkSpeed", nil)
-            end
-            humanoid:MoveTo((character:FindFirstChild("HumanoidRootPart") and character.HumanoidRootPart.Position) or Vector3.zero)
-        end
-        if AutoFollowButton and AutoFollowButton.Parent then
-            AutoFollowButton.Text = "START AUTO FOLLOW"
-        end
-        if AutoFollowStatus and AutoFollowStatus.Parent then
-            AutoFollowStatus.Text = "AUTO FOLLOW: OFF"
-        end
-    end
-
-    AutoFollowButton = MakeButton(PlayerToolsFolder, "START AUTO FOLLOW", function()
-        if AutoFollowEnabled then
-            StopAutoFollow()
-            return
-        end
-
+    local function DetectTeleportTarget()
         local target, findError = FindPlayerFromPartialName(PlayerTrackerName)
         if not target then
-            AutoFollowStatus.Text = "AUTO FOLLOW: " .. (findError or "PLAYER NOT FOUND")
-            return
+            SelectedTeleportTarget = nil
+            TeleportTargetStatus.Text = "AUTO TELEPORT: " .. (findError or "PLAYER NOT FOUND")
+            return nil
         end
 
-        AutoFollowEnabled = true
-        AutoFollowToken += 1
-        local token = AutoFollowToken
-        AutoFollowButton.Text = "STOP AUTO FOLLOW"
-        AutoFollowStatus.Text = "AUTO FOLLOW: FOLLOWING " .. target.Name
+        SelectedTeleportTarget = target
+        TeleportTargetStatus.Text = "TARGET DETECTED: " .. target.Name .. " (@" .. target.DisplayName .. ")"
+        return target
+    end
 
-        task.spawn(function()
-            while AutoFollowEnabled and AutoFollowToken == token and ScreenGui.Parent and target.Parent == Players do
-                local character = LocalPlayer and LocalPlayer.Character
-                local root = character and character:FindFirstChild("HumanoidRootPart")
-                local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-                local targetCharacter = target.Character
-                local targetRoot = targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart")
+    MakeButton(PlayerToolsFolder, "DETECT TELEPORT TARGET", DetectTeleportTarget, Color3.fromRGB(45, 105, 75))
+    MakeButton(PlayerToolsFolder, "CLEAR TELEPORT TARGET", function()
+        SelectedTeleportTarget = nil
+        TeleportTargetStatus.Text = "AUTO TELEPORT: TARGET CLEARED"
+    end, Color3.fromRGB(85, 65, 95))
 
-                if root and humanoid and targetRoot and humanoid.Health > 0 then
-                    if humanoid:GetAttribute("ShortNameHubOriginalWalkSpeed") == nil then
-                        humanoid:SetAttribute("ShortNameHubOriginalWalkSpeed", humanoid.WalkSpeed)
-                    end
-                    humanoid.WalkSpeed = AutoTeleportSpeed
-
-                    local path = PathfindingService:CreatePath({
-                        AgentCanJump = true,
-                        AgentRadius = 2,
-                        AgentHeight = 5,
-                        WaypointSpacing = 4
-                    })
-                    local destination = targetRoot.Position - (targetRoot.CFrame.LookVector * 3)
-                    local computed = pcall(function()
-                        path:ComputeAsync(root.Position, destination)
-                    end)
-
-                    if computed and path.Status == Enum.PathStatus.Success then
-                        local waypoints = path:GetWaypoints()
-                        local nextWaypoint = waypoints[2] or waypoints[1]
-                        if nextWaypoint then
-                            if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
-                                humanoid.Jump = true
-                            end
-                            humanoid:MoveTo(nextWaypoint.Position)
-                            AutoFollowStatus.Text = "AUTO FOLLOW: " .. target.Name .. " • " .. string.format("%.1f", AutoTeleportSpeed) .. " SPEED"
-                        end
-                    else
-                        AutoFollowStatus.Text = "AUTO FOLLOW: NO PATH — RETRYING"
-                    end
-                else
-                    AutoFollowStatus.Text = "AUTO FOLLOW: WAITING FOR CHARACTER"
-                end
-                task.wait(0.65)
-            end
-
-            if AutoFollowToken == token then
-                StopAutoFollow()
-                if target.Parent ~= Players then
-                    AutoFollowStatus.Text = "AUTO FOLLOW: TARGET LEFT"
-                end
-            end
-        end)
-    end, Color3.fromRGB(45, 105, 75))
+    local TeleportTargetRemovingConnection = Players.PlayerRemoving:Connect(function(leaving)
+        if SelectedTeleportTarget == leaving then
+            SelectedTeleportTarget = nil
+            TeleportTargetStatus.Text = "AUTO TELEPORT: TARGET LEFT"
+        end
+    end)
 
     -- AUTO RESET: affects only the local player's own character.
     Label(PlayerToolsFolder, "AUTO RESET", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
@@ -1110,9 +1041,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     ScreenGui.Destroying:Connect(function()
         StopAutoReset()
-        StopAutoFollow()
         StopPlayerTracker()
-    end)
+        if TeleportTargetRemovingConnection then\n            TeleportTargetRemovingConnection:Disconnect()\n            TeleportTargetRemovingConnection = nil\n        end\n    end)
     end
 
     local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
