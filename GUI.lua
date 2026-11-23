@@ -490,6 +490,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     SurfaceLayout.Padding = UDim.new(0, 5)
     SurfaceLayout.Parent = SurfaceRow
 
+    local ActiveSurfacePreset = SurfacePresets[1]
     local function ApplySurfaceTheme(preset)
         local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
         for _, obj in ipairs(ScreenGui:GetDescendants()) do
@@ -515,6 +516,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end
         Dark, Panel, ButtonDark, Border = preset.Dark, preset.Panel, preset.Button, preset.Border
+        ActiveSurfacePreset = preset
     end
 
     for _, preset in ipairs(SurfacePresets) do
@@ -1747,10 +1749,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
     DirectorySearch.FocusLost:Connect(RefreshDirectory)
     MakeButton(SettingsPage, "REFRESH PLAYER DIRECTORY", RefreshDirectory)
-    Players.PlayerAdded:Connect(RefreshDirectory)
-    Players.PlayerRemoving:Connect(function(player)
+    local DirectoryAddedConnection = Players.PlayerAdded:Connect(RefreshDirectory)
+    local DirectoryRemovingConnection = Players.PlayerRemoving:Connect(function(player)
         if SelectedDirectoryPlayer == player then SelectedDirectoryPlayer = nil end
         RefreshDirectory()
+    end)
+    ScreenGui.Destroying:Connect(function()
+        if DirectoryAddedConnection then DirectoryAddedConnection:Disconnect() end
+        if DirectoryRemovingConnection then DirectoryRemovingConnection:Disconnect() end
     end)
     RefreshDirectory()
 
@@ -1796,7 +1802,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(SettingsPage, "Save appearance and keybind settings locally if executor file APIs are supported.", 10, 32, Grey)
     local ProfileNameBox = MakeBox(SettingsPage, "PROFILE NAME", "Default", function() end)
     local ProfileStatus = Label(SettingsPage, "PROFILE: READY", 10, 20, Grey)
-    local ActiveSurfacePreset = SurfacePresets[1]
     local function ProfilePath(name)
         name = tostring(name or ""):gsub("[^%w_%-]", "")
         if name == "" then return nil end
