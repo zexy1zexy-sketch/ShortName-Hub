@@ -996,12 +996,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     Label(SettingsPage, "WINDOW SCALE", 11, 19, Grey)
-    GUI.CreateSlider(SettingsPage, "Interface size", 0.72, 1.1, 1, Purple, function(value)
+    GUI.ScaleSlider, GUI.SetScaleSlider = GUI.CreateSlider(SettingsPage, "Interface size", 0.72, 1.1, 1, Purple, function(value)
         WindowScale.Scale = value
     end, function(value) return string.format("%.0f%%", value * 100) end)
 
     Label(SettingsPage, "WINDOW TRANSPARENCY", 11, 19, Grey)
-    GUI.CreateSlider(SettingsPage, "Surface transparency", 0, 0.6, 0.12, Purple, function(value)
+    GUI.TransparencySlider, GUI.SetTransparencySlider = GUI.CreateSlider(SettingsPage, "Surface transparency", 0, 0.6, 0.12, Purple, function(value)
         Frame.BackgroundTransparency = value
         Header.BackgroundTransparency = math.min(0.7, value * 0.55)
         Content.BackgroundTransparency = math.min(0.72, 0.18 + value * 0.55)
@@ -2515,9 +2515,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         for _, preset in ipairs(SurfacePresets) do
             if preset.Name == data.surface then ApplySurfaceTheme(preset) ActiveSurfacePreset = preset break end
         end
-        if type(data.scale) == "number" then WindowScale.Scale = math.clamp(data.scale, 0.7, 1.1) end
+        if type(data.scale) == "number" then
+            WindowScale.Scale = math.clamp(data.scale, 0.72, 1.1)
+            GUI.SetScaleSlider(WindowScale.Scale)
+        end
         if type(data.transparency) == "number" then
             local amount = math.clamp(data.transparency, 0, 0.6)
+            GUI.SetTransparencySlider(amount)
             Frame.BackgroundTransparency = amount
             Header.BackgroundTransparency = math.min(0.7, amount * 0.55)
             Content.BackgroundTransparency = math.min(0.72, 0.18 + amount * 0.55)
