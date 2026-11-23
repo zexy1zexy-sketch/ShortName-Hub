@@ -612,7 +612,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- FOLDER SYSTEM
     local function MakeFolder(name, parent, visible)
         local Folder = Instance.new("Frame"); Folder.Name = name:gsub("%W", "") .. "Folder"; Folder.Size = UDim2.new(1, 0, 0, 38)
-        Folder.Visible = visible ~= false and (visible ~= false or OwnerViewEnabled)
+        Folder.Visible = visible ~= false or OwnerViewEnabled
         if visible == false then table.insert(OwnerOnlyFolders, Folder) end
         Folder.BackgroundColor3 = ButtonDark; Folder.BorderSizePixel = 0; Folder.ClipsDescendants = true
         Folder.Parent = parent or GamePage; Corner(Folder, 10); Stroke(Folder, Border, 1)
@@ -696,7 +696,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- THANKSGIVING EVENT FOLDER
     -- Kept separate from Halloween so event features stay organized.
     local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT")
-    local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder, IsCreator)
+    local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder, false)
 
     Label(ThanksgivingScannerFolder, "THANKSGIVING EVENT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
@@ -843,7 +843,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- FIGHT ON A BASEPLATE FOLDER
     -- Kept separate from the other game folders.
     local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
-    local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder, IsCreator)
+    local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder, false)
 
     Label(FightScannerFolder, "FIGHT ON A BASEPLATE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
@@ -989,7 +989,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
 
     -- READ-ONLY COMBAT SYSTEM INSPECTOR
-    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM INSPECTOR", FightFolder, IsCreator)
+    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM INSPECTOR", FightFolder, false)
     Label(FightInspectorFolder, "COMBAT SYSTEM INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightInspectorFolder,
@@ -1066,7 +1066,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(85, 75, 105))
 
     -- PASSIVE COMBAT STRUCTURE SCANNER
-    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE SCANNER", FightFolder, IsCreator)
+    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE INSPECTOR", FightFolder, false)
     Label(FightStructureFolder, "COMBAT STRUCTURE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightStructureFolder,
@@ -1948,7 +1948,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
     -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
-    local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage, IsCreator)
+    local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage, false)
     Label(ObserverFolder, "PASSIVE ATTACK OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(ObserverFolder, "Tracks new combat objects plus movement of existing weapon/hitbox parts. Start before a fight. Read-only; no remotes are called and no game objects are changed.", 10, 48, Grey)
     local ObserverRunning = false
