@@ -1,4 +1,4 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 04:28:43 UTC\n\n22:27:43  Diagnostic console initialized before loading modules.\n22:27:43  Executor HTTP request API: available\n22:27:46  Startup completed successfully.\n22:27:56  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 04:28:52 UTC\n\n22:27:43  Diagnostic console initialized before loading modules.\n22:27:43  Executor HTTP request API: available\n22:27:46  Startup completed successfully.\n22:27:56  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
     Stack Begin
     Script 'LocalScript', Line 454 - function ApplyAccent
     Script 'LocalScript', Line 474
@@ -11,6 +11,10 @@ SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 04:28:43 UTC\n\n22:27:43
     Script 'LocalScript', Line 454 - function ApplyAccent
     Script 'LocalScript', Line 474
     Stack End\n22:28:30  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
+    Stack Begin
+    Script 'LocalScript', Line 454 - function ApplyAccent
+    Script 'LocalScript', Line 474
+    Stack End\n22:28:50  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
     Stack Begin
     Script 'LocalScript', Line 454 - function ApplyAccent
     Script 'LocalScript', Line 474
