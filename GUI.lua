@@ -525,7 +525,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
     local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
-    GUI.GuessSlapperNav = IsCreator and game.PlaceId == 106683702021527 and MakeNav("🖐️  Guess the Slapper", 5) or nil
+    GUI.GuessSlapperNav = game.PlaceId == 106683702021527 and MakeNav("🖐️  Guess the Slapper", IsCreator and 5 or 4) or nil
     local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 6 or 5)
     DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 7) or nil
     local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 8 or 6)
