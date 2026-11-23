@@ -2,6 +2,8 @@ local Players = game:GetService("Players"); local UIS = game:GetService("UserInp
 local CREATOR_USER_ID = 7867608166
 local LocalPlayer = Players.LocalPlayer
 local IsCreator = LocalPlayer ~= nil and LocalPlayer.UserId == CREATOR_USER_ID
+local OwnerViewEnabled = IsCreator
+local OwnerOnlyFolders = {}
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
 function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback)
@@ -101,6 +103,24 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 23; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
+
+    -- CREATOR-ONLY VIEW SWITCH
+    local OwnerViewButton
+    if IsCreator then
+        OwnerViewButton = Instance.new("TextButton")
+        OwnerViewButton.Size = UDim2.fromOffset(82, 26)
+        OwnerViewButton.Position = UDim2.new(1, -132, 0, 128)
+        OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
+        OwnerViewButton.Text = "OWNER VIEW"
+        OwnerViewButton.TextColor3 = White
+        OwnerViewButton.TextSize = 9
+        OwnerViewButton.Font = Enum.Font.GothamBold
+        OwnerViewButton.Parent = Frame
+        OwnerViewButton.ZIndex = 8
+        Corner(OwnerViewButton, 7)
+        Stroke(OwnerViewButton, PurpleLight, 1)
+        AddHover(OwnerViewButton, Color3.fromRGB(55, 42, 77), Color3.fromRGB(75, 55, 105))
+    end
 
     -- COMMUNITY SHORTCUTS
     local CrownButton = Instance.new("TextButton")
@@ -592,7 +612,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- FOLDER SYSTEM
     local function MakeFolder(name, parent, visible)
         local Folder = Instance.new("Frame"); Folder.Name = name:gsub("%W", "") .. "Folder"; Folder.Size = UDim2.new(1, 0, 0, 38)
-        Folder.Visible = visible ~= false
+        Folder.Visible = visible ~= false and (visible ~= false or OwnerViewEnabled)
+        if visible == false then table.insert(OwnerOnlyFolders, Folder) end
         Folder.BackgroundColor3 = ButtonDark; Folder.BorderSizePixel = 0; Folder.ClipsDescendants = true
         Folder.Parent = parent or GamePage; Corner(Folder, 10); Stroke(Folder, Border, 1)
         AddGradient(Folder, Color3.fromRGB(34, 32, 46), ButtonDark, 90); local HeaderButton = Instance.new("TextButton"); HeaderButton.Size =
@@ -629,6 +650,22 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end)
         return FolderContent
+    end
+
+    if OwnerViewButton then
+        OwnerViewButton.Activated:Connect(function()
+            if not IsCreator then return end
+            OwnerViewEnabled = not OwnerViewEnabled
+            OwnerViewButton.Text = OwnerViewEnabled and "OWNER VIEW" or "USERS VIEW"
+            OwnerViewButton.BackgroundColor3 = OwnerViewEnabled and Color3.fromRGB(55, 42, 77) or ButtonDark
+            for _, folder in ipairs(OwnerOnlyFolders) do
+                if folder and folder.Parent then folder.Visible = OwnerViewEnabled end
+            end
+            if not OwnerViewEnabled then
+                CommunityPanel.Visible = false
+                FeedbackPanel.Visible = false
+            end
+        end)
     end
 
     -- INPUT BOXES
