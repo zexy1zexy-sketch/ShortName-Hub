@@ -1,5 +1,5 @@
 -- SHORTNAME HUB PRESENCE CLIENT
--- Presence is only sent after the user explicitly enables sharing in Settings.
+-- Presence reports automatically while ShortName Hub is running.
 local Presence = {}
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
