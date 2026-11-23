@@ -840,7 +840,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local PresenceToken = 0
         local PresenceStatus = Label(SettingsPage, "PRESENCE SHARING: OFF", 10, 22, Grey)
         Label(SettingsPage, "Optional: share your Roblox username and current experience with the hub creator's player roster. You can turn this off at any time.", 10, 42, Grey).TextWrapped = true
-        local PresenceButton = MakeButton(SettingsPage, "ENABLE PRESENCE SHARING", function()
+        local PresenceButton
+        PresenceButton = MakeButton(SettingsPage, "ENABLE PRESENCE SHARING", function()
             PresenceEnabled = not PresenceEnabled
             PresenceToken += 1
             local token = PresenceToken
@@ -927,10 +928,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     details.Parent = row
                     local rankOptions = { { "MEM", "Member", 0 }, { "PREM", "Premium", 1 }, { "STAFF", "Staff", 2 } }
                     for _, option in ipairs(rankOptions) do
+                        local selectedRank = option[2]
                         local button = Instance.new("TextButton")
                         button.Size = UDim2.fromOffset(52, 25)
                         button.Position = UDim2.new(1, -176 + option[3] * 58, 0, 25)
-                        button.BackgroundColor3 = playerData.rank == option[2] and CurrentAccent.Active or Color3.fromRGB(48, 45, 60)
+                        button.BackgroundColor3 = playerData.rank == selectedRank and CurrentAccent.Active or Color3.fromRGB(48, 45, 60)
                         button.Text = option[1]
                         button.TextColor3 = White
                         button.TextSize = 9
@@ -938,9 +940,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                         button.Parent = row
                         Corner(button, 6)
                         button.Activated:Connect(function()
-                            local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, option[2]) end)
+                            local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, selectedRank) end)
                             if saved and response then
-                                RosterStatus.Text = "UPDATED RANK: " .. tostring(playerData.username) .. " → " .. option[2]
+                                RosterStatus.Text = "UPDATED RANK: " .. tostring(playerData.username) .. " → " .. selectedRank
                                 RefreshRoster()
                             else
                                 RosterStatus.Text = "RANK UPDATE FAILED: " .. tostring(saved and message or response)
