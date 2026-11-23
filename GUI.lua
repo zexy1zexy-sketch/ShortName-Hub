@@ -201,9 +201,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  ◈  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
-    HeaderTitle.Size = UDim2.new(1, IsCreator and -382 or -274, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
+    HeaderTitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
     local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
-    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -382 or -274, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
+    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
     MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "−"; MinButton.TextColor3 = White
@@ -553,6 +553,149 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
 
+    do
+        GUI.GlobalSearchButton = Instance.new("TextButton")
+        GUI.GlobalSearchButton.Name = "GlobalSearchButton"
+        GUI.GlobalSearchButton.Size = UDim2.fromOffset(26, 30)
+        GUI.GlobalSearchButton.Position = UDim2.new(1, IsCreator and -376 or -308, 0, 8)
+        GUI.GlobalSearchButton.BackgroundColor3 = ButtonDark
+        GUI.GlobalSearchButton.Text = "⌕"
+        GUI.GlobalSearchButton.TextColor3 = White
+        GUI.GlobalSearchButton.TextSize = 19
+        GUI.GlobalSearchButton.Font = Enum.Font.GothamBold
+        GUI.GlobalSearchButton.Parent = Header
+        GUI.GlobalSearchButton.ZIndex = 8
+        Corner(GUI.GlobalSearchButton, 8)
+        Stroke(GUI.GlobalSearchButton, Border, 1)
+
+        local searchPanel = Instance.new("Frame")
+        searchPanel.Name = "GlobalSearchPanel"
+        searchPanel.AnchorPoint = Vector2.new(0.5, 0.5)
+        searchPanel.Position = UDim2.fromScale(0.5, 0.5)
+        searchPanel.Size = UDim2.fromOffset(380, 350)
+        searchPanel.BackgroundColor3 = Panel
+        searchPanel.Visible = false
+        searchPanel.ZIndex = 70
+        searchPanel.Parent = Frame
+        Corner(searchPanel, 12)
+        Stroke(searchPanel, CurrentAccent.Light, 1.3)
+
+        local searchTitle = Label(searchPanel, "GLOBAL SEARCH", 13, 28, CurrentAccent.Light)
+        searchTitle.Position = UDim2.fromOffset(12, 7)
+        searchTitle.Font = Enum.Font.GothamBold
+        local searchClose = Instance.new("TextButton")
+        searchClose.Size = UDim2.fromOffset(26, 26)
+        searchClose.Position = UDim2.new(1, -34, 0, 5)
+        searchClose.BackgroundColor3 = ButtonDark
+        searchClose.Text = "×"
+        searchClose.TextColor3 = White
+        searchClose.TextSize = 17
+        searchClose.Parent = searchPanel
+        searchClose.ZIndex = 71
+        Corner(searchClose, 7)
+        searchClose.Activated:Connect(function() searchPanel.Visible = false end)
+
+        local searchInput = Instance.new("TextBox")
+        searchInput.Size = UDim2.new(1, -20, 0, 36)
+        searchInput.Position = UDim2.fromOffset(10, 40)
+        searchInput.BackgroundColor3 = ButtonDark
+        searchInput.TextColor3 = White
+        searchInput.PlaceholderColor3 = Grey
+        searchInput.PlaceholderText = "Search pages, settings, features, tools..."
+        searchInput.Text = ""
+        searchInput.TextSize = 11
+        searchInput.Font = Enum.Font.Gotham
+        searchInput.ClearTextOnFocus = false
+        searchInput.Parent = searchPanel
+        searchInput.ZIndex = 71
+        Corner(searchInput, 8)
+        Stroke(searchInput, Border, 1)
+
+        local results = Instance.new("ScrollingFrame")
+        results.Size = UDim2.new(1, -20, 1, -88)
+        results.Position = UDim2.fromOffset(10, 82)
+        results.BackgroundColor3 = ButtonDark
+        results.BorderSizePixel = 0
+        results.ScrollBarThickness = 3
+        results.CanvasSize = UDim2.fromOffset(0, 0)
+        results.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        results.ZIndex = 71
+        results.Parent = searchPanel
+        Corner(results, 8)
+        local resultsLayout = Instance.new("UIListLayout")
+        resultsLayout.Padding = UDim.new(0, 4)
+        resultsLayout.Parent = results
+        local resultsPadding = Instance.new("UIPadding")
+        resultsPadding.PaddingTop = UDim.new(0, 5)
+        resultsPadding.PaddingLeft = UDim.new(0, 5)
+        resultsPadding.PaddingRight = UDim.new(0, 5)
+        resultsPadding.Parent = results
+
+        local function rebuildResults()
+            for _, child in ipairs(results:GetChildren()) do
+                if child:IsA("TextButton") or child:IsA("TextLabel") then child:Destroy() end
+            end
+            local query = tostring(searchInput.Text or ""):lower():gsub("^%s*(.-)%s*$", "%1")
+            if query == "" then
+                local hint = Label(results, "Type to search across the hub.", 10, 28, Grey)
+                hint.ZIndex = 72
+                return
+            end
+            local count = 0
+            for _, object in ipairs(Content:GetDescendants()) do
+                if count >= 18 then break end
+                if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
+                    local value = tostring(object.Text or "")
+                    if object:IsA("TextBox") then value = value .. " " .. tostring(object.PlaceholderText or "") end
+                    if value ~= "" and value:lower():find(query, 1, true) then
+                        local pageObject = object
+                        while pageObject and pageObject.Parent ~= Content do
+                            pageObject = pageObject.Parent
+                        end
+                        if pageObject then
+                            local pageKey = pageObject.Name
+                            local pageName = ({
+                                Updates = "Updates", Settings = "Settings", Players = "Players",
+                                PlayerTools = "PlayerTools", NoobIncremental = "Game",
+                                FightOnABaseplate = "Fight", ComingSoon = "Soon"
+                            })[pageKey]
+                            if pageName then
+                                count += 1
+                                local resultButton = Instance.new("TextButton")
+                                resultButton.Size = UDim2.new(1, 0, 0, 30)
+                                resultButton.BackgroundColor3 = Panel
+                                resultButton.TextColor3 = White
+                                resultButton.TextSize = 10
+                                resultButton.Font = Enum.Font.GothamMedium
+                                resultButton.TextXAlignment = Enum.TextXAlignment.Left
+                                resultButton.Text = "  " .. string.sub(value:gsub("%s+", " "), 1, 54) .. "   •   " .. pageKey
+                                resultButton.Parent = results
+                                resultButton.ZIndex = 72
+                                Corner(resultButton, 6)
+                                resultButton.Activated:Connect(function()
+                                    SelectPage(pageName)
+                                    searchPanel.Visible = false
+                                end)
+                            end
+                        end
+                    end
+                end
+            end
+            if count == 0 then
+                local empty = Label(results, "No matching pages or features found.", 10, 28, Grey)
+                empty.ZIndex = 72
+            end
+        end
+        searchInput:GetPropertyChangedSignal("Text"):Connect(rebuildResults)
+        GUI.GlobalSearchButton.Activated:Connect(function()
+            searchPanel.Visible = not searchPanel.Visible
+            if searchPanel.Visible then
+                searchInput:CaptureFocus()
+                rebuildResults()
+            end
+        end)
+        GUI.GlobalSearchPanel = searchPanel
+    end
     GUI.UpdatesNav.Activated:Connect(function() SelectPage("Updates") end)
     if PlayerAdminUI.Nav then
         PlayerAdminUI.Nav.Activated:Connect(function() SelectPage("Players") end)
@@ -2496,6 +2639,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Corner(b, 6)
         b.Activated:Connect(callback)
     end
+    QuickAction("GLOBAL SEARCH", function()
+        HubExtras.QuickMenuPanel.Visible = false
+        GUI.GlobalSearchPanel.Visible = true
+    end)
     QuickAction("OPEN UPDATES", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Updates") end)
     QuickAction("OPEN SETTINGS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Settings") end)
     QuickAction("NOTIFICATION HISTORY", function()
