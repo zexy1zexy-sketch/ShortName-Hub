@@ -1066,7 +1066,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(85, 75, 105))
 
     -- PASSIVE COMBAT STRUCTURE SCANNER
-    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE INSPECTOR", FightFolder, false)
+    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE SCANNER", FightFolder, false)
     Label(FightStructureFolder, "COMBAT STRUCTURE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightStructureFolder,
