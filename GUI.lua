@@ -1907,7 +1907,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             "UniverseId: " .. tostring(details.universeId),
             "Source: Roblox client game metadata",
             "Note: This report was manually approved for upload."
-        }, "\\n")
+        }, "\n")
         GameDetectorName.Text = "GAME: " .. details.name
         GameDetectorPlace.Text = "PLACE ID: " .. tostring(details.placeId)
         GameDetectorUniverse.Text = "UNIVERSE ID: " .. tostring(details.universeId)
