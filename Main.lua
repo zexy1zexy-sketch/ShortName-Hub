@@ -7,6 +7,19 @@ local RequestFunction
 local GetRequestFunction
 local DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
 local ShowDiagnosticConsole
+local function IsLocalOwner()
+    local player = game:GetService("Players").LocalPlayer
+    return player ~= nil and player.UserId == 7867608166
+end
+local function GetSessionUploadKey()
+    local shared = _G
+    if type(getgenv) == "function" then
+        local ok, value = pcall(getgenv)
+        if ok and type(value) == "table" then shared = value end
+    end
+    if type(shared.__SHORTNAME_UPLOAD_KEY) ~= "string" then shared.__SHORTNAME_UPLOAD_KEY = "" end
+    return shared
+end
 
 local function AddDiagnostic(message)
     local line = os.date("%H:%M:%S") .. "  " .. tostring(message)
@@ -21,6 +34,7 @@ local function AddDiagnostic(message)
 end
 
 local function BuildDiagnosticConsole()
+    if not IsLocalOwner() then return end
     local ok, err = pcall(function()
         local gui = Instance.new("ScreenGui")
         gui.Name = "ShortNameDiagnosticConsole"
@@ -105,8 +119,8 @@ local function BuildDiagnosticConsole()
         keyBox.Position = UDim2.new(0, 8, 1, -60)
         keyBox.BackgroundColor3 = Color3.fromRGB(34, 34, 44)
         keyBox.TextColor3 = Color3.fromRGB(240, 240, 248)
-        keyBox.PlaceholderText = "Upload key (required)"
-        keyBox.Text = ""
+        keyBox.PlaceholderText = "Upload key (cached for this session)"
+        keyBox.Text = tostring(GetSessionUploadKey().__SHORTNAME_UPLOAD_KEY or "")
         keyBox.TextSize = 11
         keyBox.Font = Enum.Font.Gotham
         keyBox.ClearTextOnFocus = false
@@ -135,6 +149,9 @@ local function BuildDiagnosticConsole()
 
         DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus = gui, frame, output, status
         UploadKeyBox, UploadButton = keyBox, upload
+        keyBox.FocusLost:Connect(function()
+            GetSessionUploadKey().__SHORTNAME_UPLOAD_KEY = tostring(keyBox.Text or "")
+        end)
 
         local minimized = false
         local fullSize = UDim2.fromOffset(440, 300)
@@ -189,6 +206,7 @@ local function BuildDiagnosticConsole()
 
         upload.Activated:Connect(function()
             local key = tostring(keyBox.Text or "")
+            GetSessionUploadKey().__SHORTNAME_UPLOAD_KEY = key
             if key == "" then
                 status.Text = "Enter the upload key first."
                 return
@@ -235,6 +253,7 @@ local function BuildDiagnosticConsole()
 end
 
 ShowDiagnosticConsole = function()
+    if not IsLocalOwner() then return end
     if DiagnosticGui and DiagnosticFrame then
         DiagnosticGui.Enabled = true
         DiagnosticFrame.Visible = true
