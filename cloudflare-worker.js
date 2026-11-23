@@ -59,6 +59,17 @@ async function secretMatches(provided,expected){
  return crypto.subtle.timingSafeEqual(new Uint8Array(a),new Uint8Array(b));
 }
 async function isAdmin(request,env){return await secretMatches(request.headers.get("x-admin-key")||"",env.UPLOAD_KEY);}
+
+async function rejectAdminAttempt(request,env){
+ const url=new URL(request.url);
+ const ip=request.headers.get("CF-Connecting-IP")||"unknown";
+ const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(ip));
+ const ipHash=Array.from(new Uint8Array(digest)).map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,24);
+ const event={eventType:"unauthorized-admin-request",source:"worker-verified-rejection",username:"Unknown",userId:null,details:"Rejected "+request.method+" "+url.pathname+"; caller identity is not verified; ipHash="+ipHash,placeId:0,createdAt:new Date().toISOString(),identitySource:"Unknown; request rejected before identity verification"};
+ await env.REPORTS.put("security:"+Date.now()+":"+crypto.randomUUID(),JSON.stringify(event),{expirationTtl:7776000});
+ return reply({ok:false,error:"Unauthorized"},401);
+}
+async function requireAdmin(request,env){return await isAdmin(request,env)?null:await rejectAdminAttempt(request,env);}
 async function savePresence(body,env){
  const id=Number(body.userId);
  if(!Number.isSafeInteger(id)||id<=0)throw new Error("Invalid Roblox user ID");
@@ -171,19 +182,19 @@ export default {async fetch(request,env){
     return reply({ok:true,github:"saved",path:saved.path});
    }
    if(request.method==="GET"&&url.pathname==="/security-events"){
-    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    {const denied=await requireAdmin(request,env);if(denied)return denied;}
     return reply({ok:true,events:await listSecurityEvents(env)});
    }
    if(request.method==="GET"&&url.pathname==="/bans"){
-    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    {const denied=await requireAdmin(request,env);if(denied)return denied;}
     return reply({ok:true,bans:await listBans(env)});
    }
    if(request.method==="GET"&&url.pathname==="/players"){
-    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    {const denied=await requireAdmin(request,env);if(denied)return denied;}
     return reply({ok:true,players:await listPlayers(env)});
    }
    if(request.method==="PATCH"&&url.pathname==="/ban"){
-    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    {const denied=await requireAdmin(request,env);if(denied)return denied;}
     const body=await request.json().catch(()=>null);
     const id=Number(body?.userId),duration=body?.duration;
     if(!Number.isSafeInteger(id)||id<=0||id===7867608166||!["1d","30d","permanent"].includes(duration))return reply({ok:false,error:"Invalid user ID or ban duration"},400);
@@ -193,7 +204,7 @@ export default {async fetch(request,env){
     return reply({ok:true,ban:record});
    }
    if(request.method==="DELETE"&&url.pathname==="/ban"){
-    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    {const denied=await requireAdmin(request,env);if(denied)return denied;}
     const id=Number(url.searchParams.get("userId"));
     if(!Number.isSafeInteger(id)||id<=0)return reply({ok:false,error:"Invalid user ID"},400);
     await env.REPORTS.delete("ban:"+id);
@@ -211,7 +222,7 @@ export default {async fetch(request,env){
     return reply({ok:true,banned:true,ban});
    }
    if(request.method==="PATCH"&&url.pathname==="/rank"){
-    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    {const denied=await requireAdmin(request,env);if(denied)return denied;}
     const body=await request.json().catch(()=>null);
     const id=Number(body?.userId),rank=body?.rank;
     if(!Number.isSafeInteger(id)||id<=0||!["Member","Premium","Staff"].includes(rank))return reply({ok:false,error:"Invalid user ID or rank"},400);
