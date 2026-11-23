@@ -3054,7 +3054,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             )
         end
     end)
-    end
+    end)
 
     -- EXIT
     ExitButton.Activated:Connect(function()
