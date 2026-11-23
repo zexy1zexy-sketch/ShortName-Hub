@@ -760,11 +760,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local value = tostring(BackgroundUrlBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
         if value:match("^%d+$") then value = "rbxassetid://" .. value end
         if value ~= "" and not value:match("^rbxassetid://%d+$") and not value:match("^https://") then
-            Notify("Use a Roblox image asset ID or HTTPS image URL")
+            BackgroundApply.Text = "USE A VALID IMAGE URL"
             return
         end
         BackgroundImage.Image = value
-        Notify(value == "" and "Custom background cleared" or "Background updated")
+        BackgroundApply.Text = value == "" and "BACKGROUND CLEARED" or "BACKGROUND APPLIED"
     end)
 
     Label(SettingsPage, "Changes apply instantly and reset when the hub is reloaded.", 10, 30, Grey); Label(SettingsPage, "GENERAL", 13, 25,
