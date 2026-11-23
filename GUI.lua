@@ -1422,6 +1422,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         rosterLayout.SortOrder = Enum.SortOrder.Name
         rosterLayout.Parent = rosterFrame
 
+        local refreshRoster
         local function clearCards()
             for _, card in pairs(playerCards) do
                 if card and card.Parent then card:Destroy() end
@@ -1506,7 +1507,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             playerCards[player.UserId] = card
         end
 
-        function refreshRoster()
+        refreshRoster = function()
             clearCards()
             local currentPlayers = PlayersService:GetPlayers()
             table.sort(currentPlayers, function(a, b)
@@ -1529,10 +1530,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         identificationInfo.Size = UDim2.new(1, 0, 0, 76)
 
         local observationContent = MakeFolder("ROUND OBSERVATIONS", GUI.GuessSlapperPage)
+        local observationBoxValue = ""
         local observationBox = MakeBox(observationContent, "WHAT HAPPENED THIS ROUND?", "", function(value)
             observationBoxValue = tostring(value or "")
         end)
-        local observationBoxValue = ""
         local observationLog = Label(observationContent, "No observations saved.", 10, 54, Grey)
         observationLog.TextWrapped = true
         MakeButton(observationContent, "SAVE OBSERVATION", function()
