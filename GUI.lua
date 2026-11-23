@@ -6,7 +6,7 @@ local OwnerViewEnabled = IsCreator
 local OwnerOnlyFolders = {}
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback, PresenceModule)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback, PresenceModule, ThemeModule)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
