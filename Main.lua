@@ -162,92 +162,143 @@ end
 
 StartHub = function(skipKey)
     if not skipKey then
-        pcall(function()
-            local LoadingScreen = LoadModule("LoadingScreen.lua")
-            LoadingScreen.Start()
-        end)
-
         local KeySystem = LoadModule("KeySystem.lua")
         if not KeySystem.Start() then
             return false
         end
     end
 
-    -- Fetch every module again so the refresh uses the newest GitHub versions.
-    local Config = LoadModule("Config.lua")
-    local NPC = LoadModule("NPC.lua")
-    local Teleport = LoadModule("Teleport.lua")
-    local GUI = LoadModule("GUI.lua")
-    local ScytheModule = LoadModule("Scythe.lua")
-    local ThanksgivingScanner = LoadModule("ThanksgivingScanner.lua")
-    local FightScannerModule = LoadModule("FightOnABaseplateScanner.lua")
-    local FightInspectorModule = LoadModule("FightOnABaseplateInspector.lua")
-    local FightStructureScannerModule = LoadModule("FightOnABaseplateStructureScanner.lua")
-
-    local Interface
-    local Controller = Teleport.new(Config, NPC, function(status)
-        if Interface then
-            Interface.SetStatus(status)
-        end
+    -- The loading screen is intentionally created only after key verification.
+    local Loading = nil
+    local loadingOk, loadingModule = pcall(function()
+        return LoadModule("LoadingScreen.lua")
     end)
-    local Scythe = ScytheModule.new()
-    local Scanner = ThanksgivingScanner.new()
-    local FightScanner = FightScannerModule.new()
-    local FightInspector = FightInspectorModule.new()
-    local FightStructureScanner = FightStructureScannerModule.new()
+    if loadingOk and loadingModule and type(loadingModule.Start) == "function" then
+        local screenOk, screen = pcall(loadingModule.Start)
+        if screenOk then
+            Loading = screen
+        else
+            warn("ShortName Hub loading screen error: " .. tostring(screen))
+        end
+    end
+
+    local completed = 0
+    local total = 16
+    local function Step(message)
+        completed = completed + 1
+        if Loading and type(Loading.SetProgress) == "function" then
+            Loading.SetProgress(completed, total, message)
+        end
+    end
+
+    local function LoadTracked(name, message)
+        local module = LoadModule(name)
+        Step(message or ("Loaded " .. name))
+        return module
+    end
 
     local success, result = pcall(function()
-        return GUI.Create(
-            Config,
-            Controller,
-            Scythe,
-            Scanner,
-            FightScanner,
-            FightInspector,
-            FightStructureScanner,
-            RefreshHub
-        )
-    end)
+        -- Each step completes only after the module has been fetched,
+        -- compiled, and executed successfully.
+        local Config = LoadTracked("Config.lua", "Loaded configuration")
+        local NPC = LoadTracked("NPC.lua", "Loaded NPC systems")
+        local Teleport = LoadTracked("Teleport.lua", "Loaded movement systems")
+        local GUI = LoadTracked("GUI.lua", "Loaded interface code")
+        local ScytheModule = LoadTracked("Scythe.lua", "Loaded weapon systems")
+        local ThanksgivingScanner = LoadTracked("ThanksgivingScanner.lua", "Loaded event scanner")
+        local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded combat scanner")
+        local FightInspectorModule = LoadTracked("FightOnABaseplateInspector.lua", "Loaded combat inspector")
+        local FightStructureScannerModule = LoadTracked("FightOnABaseplateStructureScanner.lua", "Loaded structure scanner")
 
-    if not success or not result then
-        StopRuntime({
+        if Loading and type(Loading.SetProgress) == "function" then
+            Loading.SetProgress(completed, total, "Initializing hub systems...")
+        end
+        local Interface
+        local Controller = Teleport.new(Config, NPC, function(status)
+            if Interface then
+                Interface.SetStatus(status)
+            end
+        end)
+        Step("Initialized movement controller")
+
+        local Scythe = ScytheModule.new()
+        Step("Initialized weapon systems")
+        local Scanner = ThanksgivingScanner.new()
+        Step("Initialized event scanner")
+        local FightScanner = FightScannerModule.new()
+        Step("Initialized combat scanner")
+        local FightInspector = FightInspectorModule.new()
+        Step("Initialized combat inspector")
+        local FightStructureScanner = FightStructureScannerModule.new()
+        Step("Initialized structure scanner")
+
+        local guiSuccess, guiResult = pcall(function()
+            return GUI.Create(
+                Config,
+                Controller,
+                Scythe,
+                Scanner,
+                FightScanner,
+                FightInspector,
+                FightStructureScanner,
+                RefreshHub
+            )
+        end)
+
+        if not guiSuccess or not guiResult then
+            StopRuntime({
+                Controller = Controller,
+                Scythe = Scythe,
+                Scanner = Scanner,
+                FightScanner = FightScanner,
+                FightInspector = FightInspector,
+                FightStructureScanner = FightStructureScanner
+            })
+            error("GUI creation failed: " .. tostring(guiResult))
+        end
+
+        Interface = guiResult
+        Step("Built main interface")
+
+        local previousRuntime = CurrentRuntime
+        CurrentRuntime = {
             Controller = Controller,
             Scythe = Scythe,
             Scanner = Scanner,
             FightScanner = FightScanner,
             FightInspector = FightInspector,
-            FightStructureScanner = FightStructureScanner
-        })
-        error("GUI creation failed: " .. tostring(result))
+            FightStructureScanner = FightStructureScanner,
+            Interface = Interface
+        }
+
+        SharedEnvironment[RUNTIME_KEY] = {
+            ScreenGui = Interface.ScreenGui,
+            Shutdown = function()
+                local active = CurrentRuntime
+                CurrentRuntime = nil
+                StopRuntime(active)
+            end
+        }
+
+        StopRuntime(previousRuntime)
+        print("ShortName Hub: " .. (skipKey and "refreshed successfully!" or "GUI loaded successfully!"))
+        return true
+    end)
+
+    if Loading then
+        if success and result == true then
+            Loading.Finish()
+        elseif type(Loading.Fail) == "function" then
+            Loading.Fail(tostring(result))
+        else
+            Loading.Finish()
+        end
     end
 
-    Interface = result
-    local previousRuntime = CurrentRuntime
-    CurrentRuntime = {
-        Controller = Controller,
-        Scythe = Scythe,
-        Scanner = Scanner,
-        FightScanner = FightScanner,
-        FightInspector = FightInspector,
-        FightStructureScanner = FightStructureScanner,
-        Interface = Interface
-    }
-
-    -- Publish a cleanup handle so another execution of the loader can
-    -- replace this instance instead of leaving duplicate GUIs behind.
-    SharedEnvironment[RUNTIME_KEY] = {
-        ScreenGui = Interface.ScreenGui,
-        Shutdown = function()
-            local active = CurrentRuntime
-            CurrentRuntime = nil
-            StopRuntime(active)
-        end
-    }
-
-    -- Only retire the previous hub after the replacement GUI was created.
-    StopRuntime(previousRuntime)
-    print("ShortName Hub: " .. (skipKey and "refreshed successfully!" or "GUI loaded successfully!"))
-    return true
+    if not success then
+        error(result)
+    end
+    return result
 end
 
 local success, result = pcall(function()
