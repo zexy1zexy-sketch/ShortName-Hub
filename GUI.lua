@@ -451,14 +451,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end
 
-        for name, b in pairs(CategoryButtons) do
-            if name == SelectedCategory then
-                b.BackgroundColor3 = preset.Active; local st = b:FindFirstChildOfClass("UIStroke")
-                if st then
-                    st.Color = preset.Light
-                end
-            end
-        end
+        -- CategoryButtons belonged to an older category layout and is not created
+        -- by this GUI. Navigation buttons are styled by SelectPage above.
     end
 
     local ColorRow = Instance.new("Frame"); ColorRow.Size = UDim2.new(1, 0, 0, 34); ColorRow.BackgroundTransparency = 1
