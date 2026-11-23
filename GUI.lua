@@ -6,6 +6,103 @@ local OwnerViewEnabled = IsCreator
 local OwnerOnlyFolders = {}
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
+function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent, callback, formatValue)
+    local holder = Instance.new("Frame")
+    holder.Name = "SNHSlider_" .. tostring(title):gsub("%W", "")
+    holder.Size = UDim2.new(1, 0, 0, 54)
+    holder.BackgroundTransparency = 1
+    holder.Parent = parent
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, -72, 0, 19)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Text = title
+    titleLabel.TextColor3 = Color3.fromRGB(155, 155, 175)
+    titleLabel.TextSize = 11
+    titleLabel.Font = Enum.Font.GothamMedium
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleLabel.Parent = holder
+
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Size = UDim2.fromOffset(70, 19)
+    valueLabel.Position = UDim2.new(1, -70, 0, 0)
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.TextColor3 = Color3.fromRGB(220, 210, 245)
+    valueLabel.TextSize = 11
+    valueLabel.Font = Enum.Font.GothamBold
+    valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    valueLabel.Parent = holder
+
+    local track = Instance.new("Frame")
+    track.Size = UDim2.new(1, -8, 0, 7)
+    track.Position = UDim2.fromOffset(0, 32)
+    track.BackgroundColor3 = Color3.fromRGB(47, 43, 58)
+    track.BorderSizePixel = 0
+    track.Parent = holder
+    Instance.new("UICorner", track).CornerRadius = UDim.new(1, 0)
+
+    local fill = Instance.new("Frame")
+    fill.Size = UDim2.new(0, 0, 1, 0)
+    fill.BackgroundColor3 = accent
+    fill.BorderSizePixel = 0
+    fill.Parent = track
+    Instance.new("UICorner", fill).CornerRadius = UDim.new(1, 0)
+
+    local knob = Instance.new("Frame")
+    knob.Size = UDim2.fromOffset(14, 14)
+    knob.AnchorPoint = Vector2.new(0.5, 0.5)
+    knob.BackgroundColor3 = accent:Lerp(Color3.new(1, 1, 1), 0.3)
+    knob.BorderSizePixel = 0
+    knob.Parent = track
+    Instance.new("UICorner", knob).CornerRadius = UDim.new(1, 0)
+
+    local dragging = false
+    local currentValue = initialValue
+    local inputConnection
+    local endedConnection
+
+    local function setValue(value, notify)
+        currentValue = math.clamp(value, minimum, maximum)
+        local alpha = (currentValue - minimum) / (maximum - minimum)
+        fill.Size = UDim2.new(alpha, 0, 1, 0)
+        knob.Position = UDim2.new(alpha, 0, 0.5, 0)
+        valueLabel.Text = formatValue and formatValue(currentValue) or tostring(math.floor(currentValue * 100 + 0.5) / 100)
+        if notify and callback then callback(currentValue) end
+    end
+
+    local function updateFromX(x)
+        local width = track.AbsoluteSize.X
+        if width <= 0 then return end
+        setValue(minimum + (maximum - minimum) * math.clamp((x - track.AbsolutePosition.X) / width, 0, 1), true)
+    end
+
+    local function beginDrag(input)
+        if input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch then return end
+        dragging = true
+        updateFromX(input.Position.X)
+    end
+
+    track.InputBegan:Connect(beginDrag)
+    knob.InputBegan:Connect(beginDrag)
+    inputConnection = UIS.InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            updateFromX(input.Position.X)
+        end
+    end)
+    endedConnection = UIS.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = false
+        end
+    end)
+    holder.Destroying:Connect(function()
+        if inputConnection then inputConnection:Disconnect() end
+        if endedConnection then endedConnection:Disconnect() end
+    end)
+
+    setValue(initialValue, false)
+    return holder, function(value) setValue(value, false) end
+end
+
 function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback, PresenceModule, ThemeModule)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -17,9 +114,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ScreenGui.Parent = game:GetService("CoreGui")
     end
 
-    local Camera = workspace.CurrentCamera; local Viewport = Camera and Camera.ViewportSize or Vector2.new(800, 600); local WindowWidth =
-    math.max(300, math.min(620, Viewport.X - 20))
-    local WindowHeight = math.max(300, math.min(430, Viewport.Y - 40)); local Purple = Color3.fromRGB(145, 75, 255); local Dark = Color3.fromRGB(12,
+    local Camera = workspace.CurrentCamera; local Viewport = Camera and Camera.ViewportSize or Vector2.new(1000, 720); local WindowWidth =
+    math.max(320, math.min(900, Viewport.X - 24))
+    local WindowHeight = math.max(380, math.min(650, Viewport.Y - 24)); local Purple = Color3.fromRGB(145, 75, 255); local Dark = Color3.fromRGB(12,
     12, 17)
     local Panel = Color3.fromRGB(23, 23, 31); local ButtonDark = Color3.fromRGB(31, 31, 42); local White = Color3.fromRGB(240, 240, 248)
     local Grey = Color3.fromRGB(155, 155, 175); local PurpleLight = Color3.fromRGB(185, 135, 255); local Border = Color3.fromRGB(54, 48, 70)
@@ -75,9 +172,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- MAIN WINDOW
     local Frame = Instance.new("Frame"); Frame.Size = UDim2.fromOffset(WindowWidth, WindowHeight); Frame.Position = UDim2.new(0.5, -WindowWidth / 2,
     0.5, -WindowHeight / 2)
-    Frame.BackgroundColor3 = Dark; Frame.BorderSizePixel = 0; Frame.Parent = ScreenGui
-    local WindowScale = Instance.new("UIScale"); WindowScale.Scale = 0.94; WindowScale.Parent = Frame
-    Corner(Frame, 14); AddGradient(Frame, Color3.fromRGB(19, 18, 27), Dark, 90); Stroke(Frame, Color3.fromRGB(105, 76, 150), 1.25)
+    Frame.BackgroundColor3 = Dark; Frame.BorderSizePixel = 0; Frame.ClipsDescendants = true; Frame.Parent = ScreenGui
+    local WindowScale = Instance.new("UIScale"); WindowScale.Scale = 1; WindowScale.Parent = Frame
+    Corner(Frame, 16); AddGradient(Frame, Color3.fromRGB(19, 18, 27), Dark, 90); Stroke(Frame, Color3.fromRGB(105, 76, 150), 1.25)
+    local BackgroundImage = Instance.new("ImageLabel")
+    BackgroundImage.Name = "CustomBackground"
+    BackgroundImage.Size = UDim2.fromScale(1, 1)
+    BackgroundImage.BackgroundTransparency = 1
+    BackgroundImage.ImageTransparency = 0.34
+    BackgroundImage.ScaleType = Enum.ScaleType.Crop
+    BackgroundImage.ZIndex = 0
+    BackgroundImage.Parent = Frame
 
     local AccentLine = Instance.new("Frame"); AccentLine.Name = "AccentLine"; AccentLine.Size = UDim2.new(1, -28, 0, 2)
     AccentLine.Position = UDim2.fromOffset(14, 48); AccentLine.BackgroundColor3 = Purple; AccentLine.BorderSizePixel = 0
@@ -317,19 +422,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     -- SIDEBAR
-    local SidebarWidth = math.min(155, WindowWidth * 0.34); local Sidebar = Instance.new("Frame"); Sidebar.Position = UDim2.fromOffset(10, 58)
-    Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -68); Sidebar.BackgroundColor3 = Panel; Sidebar.BorderSizePixel = 0
-    Sidebar.Parent = Frame; Corner(Sidebar, 11); AddGradient(Sidebar, Color3.fromRGB(27, 26, 37), Panel, 90)
-    Stroke(Sidebar, Border, 1); local SideLayout = Instance.new("UIListLayout"); SideLayout.Padding = UDim.new(0, 7)
+    local SidebarWidth = math.min(166, WindowWidth * 0.28); local Sidebar = Instance.new("Frame"); Sidebar.Position = UDim2.fromOffset(14, 62)
+    Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76); Sidebar.BackgroundColor3 = Panel; Sidebar.BackgroundTransparency = 1; Sidebar.BorderSizePixel = 0
+    Sidebar.Parent = Frame; local SideLayout = Instance.new("UIListLayout"); SideLayout.Padding = UDim.new(0, 7)
     SideLayout.SortOrder = Enum.SortOrder.LayoutOrder; SideLayout.Parent = Sidebar; local SidePadding = Instance.new("UIPadding")
     SidePadding.PaddingTop = UDim.new(0, 9); SidePadding.PaddingLeft = UDim.new(0, 8); SidePadding.PaddingRight = UDim.new(0, 8)
     SidePadding.Parent = Sidebar
 
     local function MakeNav(text, order)
         local b = Instance.new("TextButton"); b.Name = text; b.LayoutOrder = order
-        b.Size = UDim2.new(1, 0, 0, 43); b.BackgroundColor3 = ButtonDark; b.TextColor3 = White
-        b.Text = text; b.TextSize = WindowWidth < 380 and 11 or 13; b.Font = Enum.Font.GothamBold
-        b.Parent = Sidebar; Corner(b, 8); Stroke(b, Border, 1)
+        b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = ButtonDark; b.BackgroundTransparency = 1; b.TextColor3 = Grey
+        b.Text = text; b.TextSize = WindowWidth < 380 and 11 or 12; b.Font = Enum.Font.GothamMedium
+        b.TextXAlignment = Enum.TextXAlignment.Left
+        b.Parent = Sidebar; Corner(b, 9)
+        local navStroke = Stroke(b, Border, 1)
+        navStroke.Transparency = 1
         return b
     end
 
@@ -373,8 +480,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local pages = { Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
-                pageObject.Visible = true; pageObject.Position = UDim2.fromOffset(15, 8)
+                pageObject.Visible = true
+                pageObject.Position = UDim2.fromOffset(18, 8)
                 Tween(pageObject, { Position = UDim2.fromOffset(8, 8) }, TweenInfo.new(0.22, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
+                pageObject.CanvasPosition = Vector2.new(0, 0)
             else
                 pageObject.Visible = false
             end
@@ -383,9 +492,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         CurrentPage = page; local activeColor = CurrentAccent.Active
 
         local function StyleNav(button, active)
-            Tween(button, { BackgroundColor3 = active and activeColor or ButtonDark }); local outline = button:FindFirstChildOfClass("UIStroke")
+            Tween(button, { BackgroundColor3 = active and activeColor or ButtonDark, BackgroundTransparency = active and 0.08 or 1 }); local outline = button:FindFirstChildOfClass("UIStroke")
             if outline then
-                Tween(outline, { Color = active and PurpleLight or Border, Transparency = active and 0 or 0.18, Thickness = active and 1.35 or 1 })
+                Tween(outline, { Color = active and PurpleLight or Border, Transparency = active and 0.08 or 1, Thickness = active and 1.35 or 1 })
             end
             if ThemeModule and type(ThemeModule.ApplyGlow) == "function" then
                 ThemeModule.ApplyGlow(button, CurrentAccent.Color, active)
@@ -610,84 +719,53 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end
 
-    Label(SettingsPage, "Window size", 11, 19, Grey); local SizeRow = Instance.new("Frame"); SizeRow.Size = UDim2.new(1, 0, 0, 34)
-    SizeRow.BackgroundTransparency = 1; SizeRow.Parent = SettingsPage; local SizeLayout = Instance.new("UIListLayout")
-    SizeLayout.FillDirection = Enum.FillDirection.Horizontal; SizeLayout.Padding = UDim.new(0, 6); SizeLayout.Parent = SizeRow
-
-    for _, preset in ipairs({ {Name = "SMALL", Scale = 0.82}, {Name = "MEDIUM", Scale = 1}, {Name = "LARGE", Scale = 1.15} }) do
-        local b = Instance.new("TextButton"); b.Size = UDim2.new(1 / 3, -5, 1, 0); b.BackgroundColor3 = ButtonDark
-        b.Text = preset.Name; b.TextColor3 = White; b.TextSize = 10
-        b.Font = Enum.Font.GothamBold; b.Parent = SizeRow; Corner(b, 7)
-        Stroke(b, Border, 1); AddHover(b, ButtonDark, Color3.fromRGB(55, 48, 69))
-
-        b.Activated:Connect(function()
-            Tween(
-                WindowScale,
-                {
-                    Scale = preset.Scale
-                },
-                TweenInfo.new(
-                    0.28,
-                    Enum.EasingStyle.Quint,
-                    Enum.EasingDirection.Out
-                )
-            )
-            for _, sib in ipairs(SizeRow:GetChildren()) do
-                if sib:IsA("TextButton") then
-                    local st = sib:FindFirstChildOfClass("UIStroke")
-                    if st then
-                        Tween(st, {
-                            Color = sib == b and CurrentAccent.Light or Border,
-                            Thickness = sib == b and 1.5 or 1
-                        })
-                    end
-                end
-            end
-        end)
-    end
+    Label(SettingsPage, "WINDOW SCALE", 11, 19, Grey)
+    GUI.CreateSlider(SettingsPage, "Interface size", 0.72, 1.25, 1, Purple, function(value)
+        WindowScale.Scale = value
+    end, function(value) return string.format("%.0f%%", value * 100) end)
 
     Label(SettingsPage, "WINDOW TRANSPARENCY", 11, 19, Grey)
-    local TransparencyRow = Instance.new("Frame")
-    TransparencyRow.Size = UDim2.new(1, 0, 0, 32)
-    TransparencyRow.BackgroundTransparency = 1
-    TransparencyRow.Parent = SettingsPage
-    local TransparencyLayout = Instance.new("UIListLayout")
-    TransparencyLayout.FillDirection = Enum.FillDirection.Horizontal
-    TransparencyLayout.Padding = UDim.new(0, 6)
-    TransparencyLayout.Parent = TransparencyRow
-    for _, option in ipairs({ {Name = "SOLID", Amount = 0}, {Name = "LIGHT", Amount = 0.12}, {Name = "GLASS", Amount = 0.24}, {Name = "CLEAR", Amount = 0.36} }) do
-        local button = Instance.new("TextButton")
-        button.Size = UDim2.new(0.25, -5, 1, 0)
-        button.BackgroundColor3 = ButtonDark
-        button.Text = option.Name
-        button.TextColor3 = White
-        button.TextSize = 9
-        button.Font = Enum.Font.GothamBold
-        button.Parent = TransparencyRow
-        Corner(button, 7)
-        Stroke(button, Border, 1)
-        AddHover(button, ButtonDark, Color3.fromRGB(55, 48, 69))
-        button.Activated:Connect(function()
-            for _, obj in ipairs(ScreenGui:GetDescendants()) do
-                if obj:IsA("GuiObject") then
-                    if obj:GetAttribute("SNHBaseTransparency") == nil then
-                        obj:SetAttribute("SNHBaseTransparency", obj.BackgroundTransparency)
-                    end
-                    local base = obj:GetAttribute("SNHBaseTransparency")
-                    obj.BackgroundTransparency = math.min(1, base + option.Amount)
-                end
-            end
-            for _, sibling in ipairs(TransparencyRow:GetChildren()) do
-                if sibling:IsA("TextButton") then
-                    local outline = sibling:FindFirstChildOfClass("UIStroke")
-                    if outline then
-                        outline.Color = sibling == button and CurrentAccent.Light or Border
-                        outline.Thickness = sibling == button and 1.5 or 1
-                    end
-                end
-            end
-        end)
-    end
+    GUI.CreateSlider(SettingsPage, "Surface transparency", 0, 0.6, 0.12, Purple, function(value)
+        Frame.BackgroundTransparency = value
+        Header.BackgroundTransparency = math.min(0.7, value * 0.55)
+        Content.BackgroundTransparency = math.min(0.72, 0.18 + value * 0.55)
+        BackgroundImage.ImageTransparency = math.clamp(0.34 + value * 0.45, 0, 0.88)
+    end, function(value) return string.format("%.0f%%", value * 100) end)
+
+    Label(SettingsPage, "CUSTOM BACKGROUND", 11, 19, Grey)
+    local BackgroundUrlBox = Instance.new("TextBox")
+    BackgroundUrlBox.Size = UDim2.new(1, 0, 0, 34)
+    BackgroundUrlBox.BackgroundColor3 = ButtonDark
+    BackgroundUrlBox.TextColor3 = White
+    BackgroundUrlBox.PlaceholderColor3 = Grey
+    BackgroundUrlBox.PlaceholderText = "Image asset ID or rbxassetid://..."
+    BackgroundUrlBox.Text = ""
+    BackgroundUrlBox.TextSize = 11
+    BackgroundUrlBox.Font = Enum.Font.Gotham
+    BackgroundUrlBox.ClearTextOnFocus = false
+    BackgroundUrlBox.Parent = SettingsPage
+    Corner(BackgroundUrlBox, 8)
+    Stroke(BackgroundUrlBox, Border, 1)
+    local BackgroundApply = Instance.new("TextButton")
+    BackgroundApply.Size = UDim2.new(1, 0, 0, 34)
+    BackgroundApply.BackgroundColor3 = ButtonDark
+    BackgroundApply.TextColor3 = White
+    BackgroundApply.Text = "APPLY BACKGROUND"
+    BackgroundApply.TextSize = 10
+    BackgroundApply.Font = Enum.Font.GothamBold
+    BackgroundApply.Parent = SettingsPage
+    Corner(BackgroundApply, 8)
+    Stroke(BackgroundApply, Border, 1)
+    BackgroundApply.Activated:Connect(function()
+        local value = tostring(BackgroundUrlBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
+        if value:match("^%d+$") then value = "rbxassetid://" .. value end
+        if value ~= "" and not value:match("^rbxassetid://%d+$") and not value:match("^https://") then
+            Notify("Use a Roblox image asset ID or HTTPS image URL")
+            return
+        end
+        BackgroundImage.Image = value
+        Notify(value == "" and "Custom background cleared" or "Background updated")
+    end)
 
     Label(SettingsPage, "Changes apply instantly and reset when the hub is reloaded.", 10, 30, Grey); Label(SettingsPage, "GENERAL", 13, 25,
     PurpleLight).Font = Enum.Font.GothamBold
