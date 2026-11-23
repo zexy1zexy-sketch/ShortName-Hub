@@ -94,6 +94,52 @@ async function listPlayers(env){
  return players;
 }
 
+
+async function saveSecurityEvent(event,env){
+ if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
+ const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+ const safe={
+  eventType:cleanText(event.eventType,80)||"unspecified",
+  source:cleanText(event.source,40)||"client-reported",
+  userId:Number.isSafeInteger(Number(event.userId))&&Number(event.userId)>0?Number(event.userId):null,
+  username:cleanText(event.username,32)||"Unknown",
+  details:cleanText(event.details,1200),
+  placeId:Number.isSafeInteger(Number(event.placeId))?Number(event.placeId):0,
+  createdAt:new Date().toISOString(),
+  identitySource:"Client-reported; not independently verified"
+ };
+ const path="security-reports/inbox/"+stamp+"-"+crypto.randomUUID()+".json";
+ const body={message:"Add ShortName Hub security event",content:b64utf8(JSON.stringify(safe,null,2)+"\n"),branch:BRANCH};
+ const put=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+path,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+ if(!put.ok)throw new Error("GitHub security report save failed ("+put.status+")");
+ await env.REPORTS.put("security:"+Date.now()+":"+crypto.randomUUID(),JSON.stringify(safe),{expirationTtl:7776000});
+ return {path};
+}
+async function listSecurityEvents(env){
+ const events=[];let cursor;
+ do{
+  const page=await env.REPORTS.list({prefix:"security:",limit:500,...(cursor?{cursor}:{})});
+  for(const item of page.keys||[]){const value=await env.REPORTS.get(item.name,"json");if(value)events.push(value);if(events.length>=500)break;}
+  cursor=page.list_complete?undefined:page.cursor;
+ }while(cursor&&events.length<500);
+ events.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+ return events;
+}
+async function listBans(env){
+ const bans=[];let cursor;
+ do{
+  const page=await env.REPORTS.list({prefix:"ban:",limit:500,...(cursor?{cursor}:{})});
+  for(const item of page.keys||[]){
+   const value=await env.REPORTS.get(item.name,"json");
+   if(!value)continue;
+   if(value.expiresAt!==null&&Number(value.expiresAt)<=Date.now()){await env.REPORTS.delete(item.name);continue;}
+   bans.push(value);
+  }
+  cursor=page.list_complete?undefined:page.cursor;
+ }while(cursor&&bans.length<5000);
+ return bans;
+}
+
 async function serveModule(request,env){
  // Public, allowlisted module delivery. The GitHub token remains server-side.
  const name=new URL(request.url).searchParams.get("name")||"";
@@ -114,6 +160,23 @@ export default {async fetch(request,env){
     const body=await request.json().catch(()=>null);
     if(!body||typeof body!=="object")return reply({ok:false,error:"Expected presence JSON"},400);
     return reply(await savePresence(body,env));
+   }
+   if(request.method==="POST"&&url.pathname==="/security-report"){
+    if(!(await secretMatches(request.headers.get("x-upload-key")||"",env.UPLOAD_KEY)))return reply({ok:false,error:"Unauthorized"},401);
+    const body=await request.json().catch(()=>null);
+    if(!body||typeof body!=="object")return reply({ok:false,error:"Expected security event JSON"},400);
+    const allowed=["client-integrity-warning","unauthorized-local-action","protection-tamper-suspected"];
+    if(!allowed.includes(body.eventType))return reply({ok:false,error:"Unsupported security event type"},400);
+    const saved=await saveSecurityEvent({...body,source:"client-reported"},env);
+    return reply({ok:true,github:"saved",path:saved.path});
+   }
+   if(request.method==="GET"&&url.pathname==="/security-events"){
+    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    return reply({ok:true,events:await listSecurityEvents(env)});
+   }
+   if(request.method==="GET"&&url.pathname==="/bans"){
+    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
+    return reply({ok:true,bans:await listBans(env)});
    }
    if(request.method==="GET"&&url.pathname==="/players"){
     if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
@@ -200,6 +263,6 @@ export default {async fetch(request,env){
    await env.REPORTS.put(rateKey,"1",{expirationTtl:60});
    return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
-  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","PATCH /ban","DELETE /ban","GET /check-ban","GET /latest?key=...","POST /upload","POST /game-report","POST /snapshot-report","POST /feedback"]},404);
+  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","GET /bans","GET /security-events","POST /security-report","PATCH /rank","PATCH /ban","DELETE /ban","GET /check-ban","GET /latest?key=...","POST /upload","POST /game-report","POST /snapshot-report","POST /feedback"]},404);
  }catch(e){return reply({ok:false,error:"Worker error",details:String(e?.message||e)},500);}
 }};
