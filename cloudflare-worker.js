@@ -18,7 +18,7 @@ async function saveFeedback(message,env){
  if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
  const path="feedback/inbox/"+stamp+"-"+crypto.randomUUID()+".txt";
- const content="SHORTNAME HUB FEEDBACK\\nReceived: "+new Date().toISOString()+"\\n\\n"+message+"\\n";
+ const content="SHORTNAME HUB FEEDBACK\nReceived: "+new Date().toISOString()+"\n\n"+message+"\n";
  const body={message:"Add ShortName Hub feedback",content:b64utf8(content),branch:BRANCH};
  const put=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+path,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
  if(!put.ok)throw new Error("GitHub feedback save failed ("+put.status+"): "+await put.text());
