@@ -24,6 +24,18 @@ async function saveGameReport(report,env){
  if(!put.ok)throw new Error("GitHub game report save failed ("+put.status+"): "+await put.text());
  return {path,commit:(await put.json()).commit?.sha||null};
 }
+async function saveSnapshotReport(report,env){
+ if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
+ let parsed;try{parsed=JSON.parse(report);}catch{throw new Error("Snapshot report is not valid JSON");}
+ if(!parsed||parsed.reportType!=="SHORTNAME_HUB_OBSERVATION_SNAPSHOT"||!Array.isArray(parsed.snapshots)||parsed.snapshots.length>100)throw new Error("Invalid snapshot report format");
+ if(new TextEncoder().encode(report).length>150000)throw new Error("Snapshot report exceeds 150 KB");
+ const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+ const path="game-reports/snapshots/"+stamp+"-"+crypto.randomUUID()+".json";
+ const body={message:"Add observation snapshot report",content:b64utf8(report+"\n"),branch:BRANCH};
+ const put=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+path,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+ if(!put.ok)throw new Error("GitHub snapshot save failed ("+put.status+"): "+await put.text());
+ return {path,commit:(await put.json()).commit?.sha||null};
+}
 async function saveFeedback(message,env){
  if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
@@ -119,6 +131,13 @@ export default {async fetch(request,env){
    await env.REPORTS.put("latest-report",body.report);const saved=await saveReport(body.report,env);
    return reply({ok:true,characters:body.report.length,github:"saved",commit:saved.commit?.sha||null});
   }
+  if(request.method==="POST"&&url.pathname==="/snapshot-report"){
+   if(!env.UPLOAD_KEY||request.headers.get("x-upload-key")!==env.UPLOAD_KEY)return reply({ok:false,error:"Unauthorized"},401);
+   const body=await request.json().catch(()=>null);
+   if(!body||typeof body.report!=="string")return reply({ok:false,error:"Expected JSON body with report string"},400);
+   const saved=await saveSnapshotReport(body.report,env);
+   return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
+  }
   if(request.method==="POST"&&url.pathname==="/game-report"){
    if(!env.UPLOAD_KEY||request.headers.get("x-upload-key")!==env.UPLOAD_KEY)return reply({ok:false,error:"Unauthorized"},401);
    const body=await request.json().catch(()=>null);
@@ -140,6 +159,6 @@ export default {async fetch(request,env){
    await env.REPORTS.put(rateKey,"1",{expirationTtl:60});
    return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
-  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","GET /latest?key=...","POST /upload","POST /game-report","POST /feedback"]},404);
+  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","GET /latest?key=...","POST /upload","POST /game-report","POST /snapshot-report","POST /feedback"]},404);
  }catch(e){return reply({ok:false,error:"Worker error",details:String(e?.message||e)},500);}
 }};
