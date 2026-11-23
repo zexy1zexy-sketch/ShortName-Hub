@@ -895,25 +895,38 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    MakeBox(PlayerToolsFolder, "PLAYER USERNAME", "", function(value)
+    MakeBox(PlayerToolsFolder, "PLAYER NAME (PARTIAL IS OK)", "", function(value)
         PlayerTrackerName = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
     end)
 
-    MakeButton(PlayerToolsFolder, "START PLAYER TRACKER", function()
-        local query = PlayerTrackerName:lower()
-        if query == "" then
-            PlayerTrackerStatus.Text = "TRACKER: ENTER A USERNAME"
-            return
-        end
-        local target
+    local function FindPlayerFromPartialName(input)
+        local query = tostring(input or ""):lower():gsub("^%s*(.-)%s*$", "%1")
+        if query == "" then return nil, "ENTER PART OF A PLAYER NAME" end
+
+        local exactMatch, prefixMatch, containsMatch
         for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= LocalPlayer and (player.Name:lower() == query or player.Name:lower():sub(1, #query) == query) then
-                target = player
-                break
+            if player ~= LocalPlayer then
+                local username = player.Name:lower()
+                local displayName = player.DisplayName:lower()
+
+                if username == query or displayName == query then
+                    exactMatch = player
+                    break
+                elseif not prefixMatch and (username:sub(1, #query) == query or displayName:sub(1, #query) == query) then
+                    prefixMatch = player
+                elseif not containsMatch and (username:find(query, 1, true) or displayName:find(query, 1, true)) then
+                    containsMatch = player
+                end
             end
         end
+
+        return exactMatch or prefixMatch or containsMatch, nil
+    end
+
+    MakeButton(PlayerToolsFolder, "START PLAYER TRACKER", function()
+        local target, findError = FindPlayerFromPartialName(PlayerTrackerName)
         if not target then
-            PlayerTrackerStatus.Text = "TRACKER: PLAYER NOT FOUND"
+            PlayerTrackerStatus.Text = "TRACKER: " .. (findError or "PLAYER NOT FOUND")
             return
         end
 
@@ -977,21 +990,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             return
         end
 
-        local query = PlayerTrackerName:lower()
-        if query == "" then
-            AutoFollowStatus.Text = "AUTO FOLLOW: ENTER A USERNAME ABOVE"
-            return
-        end
-
-        local target
-        for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= LocalPlayer and (player.Name:lower() == query or player.Name:lower():sub(1, #query) == query) then
-                target = player
-                break
-            end
-        end
+        local target, findError = FindPlayerFromPartialName(PlayerTrackerName)
         if not target then
-            AutoFollowStatus.Text = "AUTO FOLLOW: PLAYER NOT FOUND"
+            AutoFollowStatus.Text = "AUTO FOLLOW: " .. (findError or "PLAYER NOT FOUND")
             return
         end
 
