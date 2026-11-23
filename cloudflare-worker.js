@@ -51,7 +51,14 @@ async function saveFeedback(message,username,userId,env){
 
 const PRESENCE_PREFIX="presence:";
 function cleanText(value,max=80){return typeof value==="string"?value.replace(/[\u0000-\u001f]/g,"").trim().slice(0,max):"";}
-function isAdmin(request,env){return !!env.UPLOAD_KEY&&request.headers.get("x-admin-key")===env.UPLOAD_KEY;}
+async function secretMatches(provided,expected){
+ if(typeof provided!=="string"||typeof expected!=="string"||!expected)return false;
+ const encoder=new TextEncoder();
+ const a=await crypto.subtle.digest("SHA-256",encoder.encode(provided));
+ const b=await crypto.subtle.digest("SHA-256",encoder.encode(expected));
+ return crypto.subtle.timingSafeEqual(new Uint8Array(a),new Uint8Array(b));
+}
+async function isAdmin(request,env){return await secretMatches(request.headers.get("x-admin-key")||"",env.UPLOAD_KEY);}
 async function savePresence(body,env){
  const id=Number(body.userId);
  if(!Number.isSafeInteger(id)||id<=0)throw new Error("Invalid Roblox user ID");
@@ -109,11 +116,11 @@ export default {async fetch(request,env){
     return reply(await savePresence(body,env));
    }
    if(request.method==="GET"&&url.pathname==="/players"){
-    if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
+    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
     return reply({ok:true,players:await listPlayers(env)});
    }
    if(request.method==="PATCH"&&url.pathname==="/ban"){
-    if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
+    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
     const body=await request.json().catch(()=>null);
     const id=Number(body?.userId),duration=body?.duration;
     if(!Number.isSafeInteger(id)||id<=0||id===7867608166||!["1d","30d","permanent"].includes(duration))return reply({ok:false,error:"Invalid user ID or ban duration"},400);
@@ -123,7 +130,7 @@ export default {async fetch(request,env){
     return reply({ok:true,ban:record});
    }
    if(request.method==="DELETE"&&url.pathname==="/ban"){
-    if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
+    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
     const id=Number(url.searchParams.get("userId"));
     if(!Number.isSafeInteger(id)||id<=0)return reply({ok:false,error:"Invalid user ID"},400);
     await env.REPORTS.delete("ban:"+id);
@@ -141,7 +148,7 @@ export default {async fetch(request,env){
     return reply({ok:true,banned:true,ban});
    }
    if(request.method==="PATCH"&&url.pathname==="/rank"){
-    if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
+    if(!(await isAdmin(request,env)))return reply({ok:false,error:"Unauthorized"},401);
     const body=await request.json().catch(()=>null);
     const id=Number(body?.userId),rank=body?.rank;
     if(!Number.isSafeInteger(id)||id<=0||!["Member","Premium","Staff"].includes(rank))return reply({ok:false,error:"Invalid user ID or rank"},400);
@@ -156,21 +163,21 @@ export default {async fetch(request,env){
    return new Response(report,{status:200,headers:{...cors(),"Content-Type":"text/plain; charset=utf-8","Cache-Control":"no-store"}});
   }
   if(request.method==="POST"&&url.pathname==="/upload"){
-   if(!env.UPLOAD_KEY||request.headers.get("x-upload-key")!==env.UPLOAD_KEY)return reply({ok:false,error:"Unauthorized"},401);
+   if(!(await secretMatches(request.headers.get("x-upload-key")||"",env.UPLOAD_KEY)))return reply({ok:false,error:"Unauthorized"},401);
    const body=await request.json().catch(()=>null);if(!body||typeof body.report!=="string")return reply({ok:false,error:"Expected JSON body with report string"},400);
    if(body.report.length>MAX_REPORT_CHARS)return reply({ok:false,error:"Report too large"},413);
    await env.REPORTS.put("latest-report",body.report);const saved=await saveReport(body.report,env);
    return reply({ok:true,characters:body.report.length,github:"saved",commit:saved.commit?.sha||null});
   }
   if(request.method==="POST"&&url.pathname==="/snapshot-report"){
-   if(!env.UPLOAD_KEY||request.headers.get("x-upload-key")!==env.UPLOAD_KEY)return reply({ok:false,error:"Unauthorized"},401);
+   if(!(await secretMatches(request.headers.get("x-upload-key")||"",env.UPLOAD_KEY)))return reply({ok:false,error:"Unauthorized"},401);
    const body=await request.json().catch(()=>null);
    if(!body||typeof body.report!=="string")return reply({ok:false,error:"Expected JSON body with report string"},400);
    const saved=await saveSnapshotReport(body.report,env);
    return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
   if(request.method==="POST"&&url.pathname==="/game-report"){
-   if(!env.UPLOAD_KEY||request.headers.get("x-upload-key")!==env.UPLOAD_KEY)return reply({ok:false,error:"Unauthorized"},401);
+   if(!(await secretMatches(request.headers.get("x-upload-key")||"",env.UPLOAD_KEY)))return reply({ok:false,error:"Unauthorized"},401);
    const body=await request.json().catch(()=>null);
    if(!body||typeof body.report!=="string")return reply({ok:false,error:"Expected JSON body with report string"},400);
    const report=body.report.trim();
