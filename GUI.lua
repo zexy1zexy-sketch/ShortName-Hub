@@ -525,7 +525,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
     local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
-    GUI.GuessSlapperNav = game.PlaceId == 106683702021527 and MakeNav("🖐️  Guess the Slapper", IsCreator and 5 or 4) or nil
+    GUI.GuessSlapperNav = IsCreator and game.PlaceId == 106683702021527 and MakeNav("🖐️  Guess the Slapper", 5) or nil
     local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 6 or 5)
     DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 7) or nil
     local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 8 or 6)
@@ -1352,6 +1352,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             if DetectionNav and DetectionNav.Parent then
                 DetectionNav.Visible = OwnerViewEnabled
             end
+            if GUI.GuessSlapperNav and GUI.GuessSlapperNav.Parent then
+                GUI.GuessSlapperNav.Visible = OwnerViewEnabled
+            end
             if PlayerAdminUI.Page and PlayerAdminUI.Page.Parent then
                 PlayerAdminUI.Page.Visible = OwnerViewEnabled and CurrentPage == "Players"
             end
@@ -1359,7 +1362,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 DetectionPage.Visible = OwnerViewEnabled and CurrentPage == "Detection"
             end
             if not OwnerViewEnabled then
-                if CurrentPage == "Players" or CurrentPage == "Detection" then
+                if CurrentPage == "Players" or CurrentPage == "Detection" or CurrentPage == "GuessSlapper" then
                     SelectPage("Updates")
                 end
                 CommunityPanel.Visible = false
@@ -1804,6 +1807,99 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             observationBoxValue = ""
             observationBox.Text = ""
         end, Color3.fromRGB(65, 90, 125))
+
+        -- GAME-SPECIFIC, OWNER-ONLY, READ-ONLY ARCHITECTURE INSPECTOR.
+        local inspectorContent = MakeFolder("SLAP SYSTEM INSPECTOR", GUI.GuessSlapperPage, false)
+        Label(inspectorContent, "READ-ONLY CLIENT INSPECTION", 12, 22, PurpleLight).Font = Enum.Font.GothamBold
+        local inspectorInfo = Label(inspectorContent, "Lists client-visible remotes, modules, relevant scripts, dodge prompt UI, and your local movement snapshot. Server scripts and server validation are not visible from this client.", 10, 58, Grey)
+        inspectorInfo.TextWrapped = true
+        inspectorInfo.Size = UDim2.new(1, 0, 0, 58)
+        local inspectorStatus = Label(inspectorContent, "INSPECTOR: READY", 10, 22, Color3.fromRGB(130, 210, 165))
+        local inspectorResults = Label(inspectorContent, "Run a scan to collect visible game-architecture clues.", 9, 190, Grey)
+        inspectorResults.TextWrapped = true
+        inspectorResults.TextYAlignment = Enum.TextYAlignment.Top
+        inspectorResults.TextXAlignment = Enum.TextXAlignment.Left
+        inspectorResults.Size = UDim2.new(1, 0, 0, 190)
+
+        local function safeFullName(instance)
+            local ok, value = pcall(function() return instance:GetFullName() end)
+            return ok and value or instance.Name
+        end
+        local function runSlapArchitectureScan()
+            inspectorStatus.Text = "INSPECTOR: SCANNING..."
+            local replicated = game:GetService("ReplicatedStorage")
+            local workspaceService = game:GetService("Workspace")
+            local playerGui = LocalPlayer and LocalPlayer:FindFirstChildOfClass("PlayerGui")
+            local starterPlayer = game:GetService("StarterPlayer")
+            local starterGui = game:GetService("StarterGui")
+            local roots = { replicated, workspaceService, starterPlayer, starterGui }
+            if playerGui then table.insert(roots, playerGui) end
+            local keywords = { "slap", "hit", "damage", "force", "knock", "combat", "dodge", "avoid", "attack", "ragdoll" }
+            local lines = {}
+            local counts = { remoteEvents = 0, remoteFunctions = 0, modules = 0, scripts = 0, dodgeUi = 0 }
+            local seen = {}
+            local function matches(text)
+                text = tostring(text or ""):lower()
+                for _, keyword in ipairs(keywords) do
+                    if text:find(keyword, 1, true) then return true end
+                end
+                return false
+            end
+            local function addLine(line)
+                if #lines < 34 then table.insert(lines, line) end
+            end
+            for _, root in ipairs(roots) do
+                local ok, descendants = pcall(function() return root:GetDescendants() end)
+                if ok then
+                    for _, object in ipairs(descendants) do
+                        local class = object.ClassName
+                        local isRemoteEvent = class == "RemoteEvent"
+                        local isRemoteFunction = class == "RemoteFunction"
+                        local isModule = class == "ModuleScript"
+                        local isClientScript = class == "LocalScript"
+                        if (isRemoteEvent or isRemoteFunction or isModule or isClientScript) and matches(object.Name) then
+                            local path = safeFullName(object)
+                            if not seen[path] then
+                                seen[path] = true
+                                if isRemoteEvent then counts.remoteEvents = counts.remoteEvents + 1 end
+                                if isRemoteFunction then counts.remoteFunctions = counts.remoteFunctions + 1 end
+                                if isModule then counts.modules = counts.modules + 1 end
+                                if isClientScript then counts.scripts = counts.scripts + 1 end
+                                addLine("[" .. class .. "] " .. path)
+                            end
+                        end
+                        if playerGui and object:IsDescendantOf(playerGui) and (class == "TextLabel" or class == "TextButton" or class == "TextBox") then
+                            local textValue = ""
+                            pcall(function() textValue = object.Text end)
+                            if matches(object.Name) or matches(textValue) then
+                                counts.dodgeUi = counts.dodgeUi + 1
+                                addLine("[PROMPT UI] " .. safeFullName(object) .. (textValue ~= "" and " — " .. tostring(textValue):sub(1, 70) or ""))
+                            end
+                        end
+                    end
+                end
+            end
+            table.insert(lines, 1, "VISIBLE OBJECT COUNTS — RemoteEvents: " .. counts.remoteEvents .. " | RemoteFunctions: " .. counts.remoteFunctions .. " | Modules: " .. counts.modules .. " | LocalScripts: " .. counts.scripts .. " | Prompt UI: " .. counts.dodgeUi)
+            table.insert(lines, 2, "Only name/path matches are listed; a remote's presence does not prove its arguments are trusted.")
+            if #lines <= 2 then addLine("No matching client-visible objects found in the scanned containers.") end
+            inspectorResults.Text = table.concat(lines, "\n")
+            inspectorStatus.Text = "INSPECTOR: SCAN COMPLETE"
+        end
+        MakeButton(inspectorContent, "SCAN VISIBLE SLAP SYSTEM OBJECTS", runSlapArchitectureScan, Color3.fromRGB(65, 90, 125))
+        MakeButton(inspectorContent, "SNAPSHOT MY MOVEMENT", function()
+            local character = LocalPlayer and LocalPlayer.Character
+            local root = character and character:FindFirstChild("HumanoidRootPart")
+            local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+            if not root then
+                inspectorStatus.Text = "INSPECTOR: CHARACTER ROOT NOT FOUND"
+                return
+            end
+            local velocity = root.AssemblyLinearVelocity
+            local state = humanoid and tostring(humanoid:GetState()) or "unknown"
+            inspectorResults.Text = "LOCAL PLAYER SNAPSHOT\nVelocity: " .. tostring(velocity) .. "\nSpeed: " .. string.format("%.2f", velocity.Magnitude) .. "\nHumanoid state: " .. state .. "\n\nThis is your client-visible character state, not proof of server-side hit force."
+            inspectorStatus.Text = "INSPECTOR: MOVEMENT SNAPSHOT SAVED"
+        end, Color3.fromRGB(75, 85, 115))
+        Label(inspectorContent, "LIMITATION: This tool does not decompile protected scripts, inspect server code, hook remotes, or modify combat traffic. Use the results as clues, not proof of exploitability.", 9, 48, Grey).TextWrapped = true
 
         refreshRoster()
         PlayersService.PlayerAdded:Connect(refreshRoster)
