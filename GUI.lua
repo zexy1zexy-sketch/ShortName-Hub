@@ -172,8 +172,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local Camera = workspace.CurrentCamera; local Viewport = Camera and Camera.ViewportSize or Vector2.new(1000, 720); local WindowWidth =
-    math.max(320, math.min(900, Viewport.X - 24))
-    local WindowHeight = math.max(380, math.min(650, Viewport.Y - 24)); local Purple = Color3.fromRGB(145, 75, 255); local Dark = Color3.fromRGB(12,
+    math.max(300, math.min(760, math.floor(Viewport.X * 0.88)))
+    local WindowHeight = math.max(340, math.min(560, math.floor(Viewport.Y * 0.68))); local Purple = Color3.fromRGB(145, 75, 255); local Dark = Color3.fromRGB(12,
     12, 17)
     local Panel = Color3.fromRGB(23, 23, 31); local ButtonDark = Color3.fromRGB(31, 31, 42); local White = Color3.fromRGB(240, 240, 248)
     local Grey = Color3.fromRGB(155, 155, 175); local PurpleLight = Color3.fromRGB(185, 135, 255); local Border = Color3.fromRGB(54, 48, 70)
@@ -588,18 +588,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local page = Instance.new("ScrollingFrame"); page.Name = name; page.Size = UDim2.new(1, -16, 1, -16)
         page.Position = UDim2.fromOffset(8, 8); page.BackgroundTransparency = 1; page.BorderSizePixel = 0
         page.ScrollBarThickness = 5; page.ScrollBarImageColor3 = Purple; page.CanvasSize = UDim2.fromOffset(0, 0)
-        page.AutomaticCanvasSize = Enum.AutomaticSize.None; page.ScrollingDirection = Enum.ScrollingDirection.Y
+        page.AutomaticCanvasSize = Enum.AutomaticSize.Y; page.ScrollingDirection = Enum.ScrollingDirection.Y
         page.ScrollingEnabled = true; page.Active = true; page.ClipsDescendants = true
         page.Visible = false; page.Parent = Content; local layout = Instance.new("UIListLayout")
         layout.Padding = UDim.new(0, 11); layout.SortOrder = Enum.SortOrder.LayoutOrder; layout.Parent = page
-        local padding = Instance.new("UIPadding"); padding.PaddingBottom = UDim.new(0, 10); padding.Parent = page
-
-        layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-            page.CanvasSize = UDim2.fromOffset(
-                0,
-                layout.AbsoluteContentSize.Y + 15
-            )
-        end)
+        local padding = Instance.new("UIPadding"); padding.PaddingBottom = UDim.new(0, 18); padding.Parent = page
+        page.CanvasSize = UDim2.fromOffset(0, 0)
         return page
     end
 
@@ -1399,16 +1393,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- GUESS THE SLAPPER: live player cards and manual, clearly-labelled observations.
     if GUI.GuessSlapperNav then
         Label(GUI.GuessSlapperPage, "GUESS THE SLAPPER", 17, 30).Font = Enum.Font.GothamBold
-        Label(GUI.GuessSlapperPage, "Live server roster. Select a player to mark, inspect, or record your guess.", 10, 30, Grey).TextWrapped = true
+        Label(GUI.GuessSlapperPage, "Player roster and slap detection tools.", 10, 26, Grey).TextWrapped = true
 
         local PlayersService = game:GetService("Players")
+        local rosterContent = MakeFolder("PLAYER ROSTER", GUI.GuessSlapperPage)
         local markedSuspects = {}
         local playerCards = {}
-        local rosterStatus = Label(GUI.GuessSlapperPage, "PLAYERS: LOADING...", 11, 24, Color3.fromRGB(170, 210, 255))
+        local rosterStatus = Label(rosterContent, "PLAYERS: LOADING...", 11, 24, Color3.fromRGB(170, 210, 255))
         rosterStatus.Font = Enum.Font.GothamBold
-        local guessStatus = Label(GUI.GuessSlapperPage, "SLAPPER GUESS: None recorded", 10, 34, Grey)
+        local guessStatus = Label(rosterContent, "SLAPPER GUESS: None recorded", 10, 34, Grey)
         guessStatus.TextWrapped = true
-        local detailStatus = Label(GUI.GuessSlapperPage, "Select VIEW DETAILS on a player card to inspect their visible character status.", 10, 38, Grey)
+        local detailStatus = Label(rosterContent, "Select VIEW DETAILS on a player card to inspect their visible character status.", 10, 38, Grey)
         detailStatus.TextWrapped = true
 
         local rosterFrame = Instance.new("Frame")
@@ -1416,7 +1411,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         rosterFrame.Size = UDim2.new(1, 0, 0, 0)
         rosterFrame.AutomaticSize = Enum.AutomaticSize.Y
         rosterFrame.BackgroundTransparency = 1
-        rosterFrame.Parent = GUI.GuessSlapperPage
+        rosterFrame.Parent = rosterContent
         local rosterLayout = Instance.new("UIListLayout")
         rosterLayout.Padding = UDim.new(0, 8)
         rosterLayout.SortOrder = Enum.SortOrder.Name
@@ -1522,20 +1517,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end
 
-        MakeButton(GUI.GuessSlapperPage, "REFRESH PLAYER CARDS", refreshRoster, Color3.fromRGB(65, 90, 125))
-        local identificationTitle = Label(GUI.GuessSlapperPage, "SLAPPER IDENTIFICATION", 13, 25, PurpleLight)
+        MakeButton(rosterContent, "REFRESH PLAYER CARDS", refreshRoster, Color3.fromRGB(65, 90, 125))
+        local detectorContent = MakeFolder("SLAP DETECTOR", GUI.GuessSlapperPage)
+        local identificationTitle = Label(detectorContent, "SLAPPER IDENTIFICATION", 13, 22, PurpleLight)
         identificationTitle.Font = Enum.Font.GothamBold
-        local identificationInfo = Label(GUI.GuessSlapperPage, "The detector watches client-visible impact signals, then checks nearby players for recent replicated slap-like animations and equipped tools. Results are evidence-based estimates, not server-confirmed attacker IDs.", 10, 58, Grey)
+        local identificationInfo = Label(detectorContent, "Detects possible hits on you and displays the best matching username.", 10, 28, Grey)
         identificationInfo.TextWrapped = true
         identificationInfo.Size = UDim2.new(1, 0, 0, 58)
 
-        local detectorStatus = Label(GUI.GuessSlapperPage, "DETECTOR: STOPPED", 11, 24, Color3.fromRGB(235, 175, 125))
+        local detectorStatus = Label(detectorContent, "DETECTOR: STOPPED", 11, 24, Color3.fromRGB(235, 175, 125))
         detectorStatus.Font = Enum.Font.GothamBold
-        local detectorSummary = Label(GUI.GuessSlapperPage, "Waiting to start. Health loss and sudden knockback are monitored as possible impact signals.", 10, 38, Grey)
+        local detectorSummary = Label(detectorContent, "Waiting for an impact.", 10, 22, Grey)
         detectorSummary.TextWrapped = true
-        local lastDetection = Label(GUI.GuessSlapperPage, "LAST RESULT: None", 11, 44, White)
+        local lastDetection = Label(detectorContent, "No hit detected yet.", 12, 28, White)
         lastDetection.TextWrapped = true
-        local historyLabel = Label(GUI.GuessSlapperPage, "SLAP HISTORY: No events recorded", 10, 110, Grey)
+        local historyLabel = Label(detectorContent, "Recent usernames will appear here.", 10, 80, Grey)
         historyLabel.TextWrapped = true
         historyLabel.TextYAlignment = Enum.TextYAlignment.Top
 
@@ -1563,12 +1559,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             local lines = { "SLAP HISTORY (newest first):" }
             for i = #detectorHistory, math.max(1, #detectorHistory - 5), -1 do
                 local item = detectorHistory[i]
-                table.insert(lines, os.date("%I:%M:%S %p", item.time) .. " | " .. item.result)
+                table.insert(lines, item.result)
             end
             historyLabel.Text = table.concat(lines, "\n")
         end
         local function detectImpact(victim, signal, severity)
-            if not detectorRunning or victim == PlayersService.LocalPlayer then return end
+            if not detectorRunning or victim ~= PlayersService.LocalPlayer then return end
             local now = os.clock()
             if now - (detectorVictimCooldown[victim.UserId] or 0) < 1.1 then return end
             detectorVictimCooldown[victim.UserId] = now
@@ -1608,23 +1604,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     confidence = "LIKELY"
                     color = Color3.fromRGB(235, 195, 115)
                 end
-                result = best.player.DisplayName .. " (@" .. best.player.Name .. ") — " .. confidence
-                    .. " | " .. best.action .. " " .. string.format("%.1fs ago", best.age)
-                    .. " | " .. string.format("%.1f studs", best.distance)
+                result = "@" .. best.player.Name
             else
-                result = "No nearby player had a recent matching action — UNKNOWN"
+                result = "Unknown"
             end
             local entry = {
                 time = os.time(),
-                result = victim.DisplayName .. " was impacted (" .. signal .. "). Candidate: " .. result,
+                result = result,
                 victim = victim.Name,
                 signal = signal
             }
             table.insert(detectorHistory, entry)
             while #detectorHistory > 12 do table.remove(detectorHistory, 1) end
-            lastDetection.Text = "LAST RESULT: " .. entry.result
+            lastDetection.Text = "SLAPPER: " .. entry.result
             lastDetection.TextColor3 = color
-            detectorSummary.Text = "Impact signal: " .. signal .. " | Victim: " .. victim.DisplayName .. " | Candidates are ranked by recent animation, proximity, and visible tool state."
+            detectorSummary.Text = "Hit detected"
             renderHistory()
         end
         local function bindCharacter(player, character)
@@ -1677,7 +1671,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             detectorStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
         end
         local detectorButton
-        detectorButton = MakeButton(GUI.GuessSlapperPage, "START SLAP DETECTOR", function()
+        detectorButton = MakeButton(detectorContent, "START SLAP DETECTOR", function()
             if detectorRunning then
                 stopSlapDetector()
                 detectorButton.Text = "START SLAP DETECTOR"
@@ -1686,7 +1680,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             detectorRunning = true
             detectorStatus.Text = "DETECTOR: LISTENING"
             detectorStatus.TextColor3 = Color3.fromRGB(130, 220, 165)
-            detectorSummary.Text = "Listening for health drops, ragdoll/physics transitions, knockback spikes, and replicated player animations."
+            detectorSummary.Text = "Listening for hits on you..."
             detectorButton.Text = "STOP SLAP DETECTOR"
 
             for _, player in ipairs(PlayersService:GetPlayers()) do
@@ -1706,15 +1700,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 lastRootVelocity[player.UserId] = nil
             end))
         end, Color3.fromRGB(65, 105, 145))
-        MakeButton(GUI.GuessSlapperPage, "CLEAR SLAP HISTORY", function()
+        MakeButton(detectorContent, "CLEAR HISTORY", function()
             table.clear(detectorHistory)
-            lastDetection.Text = "LAST RESULT: None"
+            lastDetection.Text = "No hit detected yet."
             lastDetection.TextColor3 = White
             renderHistory()
         end, Color3.fromRGB(75, 75, 95))
-        local detectorDisclaimer = Label(GUI.GuessSlapperPage, "LIMITATION: Roblox client replication may hide the real attacker. A health/physics event only confirms a possible impact; nearby animation correlation is a LIKELY candidate, never a server-verified identity.", 9, 52, Grey)
+        local detectorDisclaimer = Label(detectorContent, "Names are estimates from client-visible signals, not server-confirmed attacker IDs.", 9, 30, Grey)
         detectorDisclaimer.TextWrapped = true
-        detectorDisclaimer.Size = UDim2.new(1, 0, 0, 52)
+        detectorDisclaimer.Size = UDim2.new(1, 0, 0, 30)
         GUI.StopSlapDetector = stopSlapDetector
 
         local observationContent = MakeFolder("ROUND OBSERVATIONS", GUI.GuessSlapperPage)
@@ -4399,8 +4393,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GUI.ViewportConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
             if not Frame.Parent then return end
             local newViewport = Camera.ViewportSize
-            WindowWidth = math.max(280, math.min(900, newViewport.X - 24))
-            WindowHeight = math.max(340, math.min(650, newViewport.Y - 24))
+            WindowWidth = math.max(300, math.min(760, math.floor(newViewport.X * 0.88)))
+            WindowHeight = math.max(340, math.min(560, math.floor(newViewport.Y * 0.68)))
             Frame.Size = UDim2.fromOffset(WindowWidth, WindowHeight)
             Frame.Position = UDim2.new(0.5, -WindowWidth / 2, 0.5, -WindowHeight / 2)
             SidebarWidth = GUI.SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
