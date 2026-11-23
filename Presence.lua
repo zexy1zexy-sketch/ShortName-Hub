@@ -48,7 +48,20 @@ function Presence.Report()
             displayName = player.DisplayName,
             gameName = gameName,
             placeId = game.PlaceId,
-            universeId = game.GameId
+            universeId = game.GameId,
+            executor = (function()
+                local name = "Unknown / unavailable"
+                pcall(function()
+                    if type(identifyexecutor) == "function" then
+                        local reported = identifyexecutor()
+                        if type(reported) == "string" and reported ~= "" then name = reported end
+                    elseif type(getexecutorname) == "function" then
+                        local reported = getexecutorname()
+                        if type(reported) == "string" and reported ~= "" then name = reported end
+                    end
+                end)
+                return name
+            end)()
         })
     })
 end
@@ -60,6 +73,27 @@ function Presence.GetPlayers(adminKey)
         Method = "GET",
         Timeout = 25,
         Headers = { ["x-admin-key"] = adminKey }
+    })
+end
+
+function Presence.SetBan(adminKey, userId, duration)
+    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+    return Send({
+        Url = ENDPOINT .. "/ban",
+        Method = "PATCH",
+        Timeout = 20,
+        Headers = { ["Content-Type"] = "application/json", ["x-admin-key"] = adminKey },
+        Body = HttpService:JSONEncode({ userId = tonumber(userId), duration = duration })
+    })
+end
+
+function Presence.CheckBan()
+    local player = Players.LocalPlayer
+    if not player then return false, "Local player unavailable" end
+    return Send({
+        Url = ENDPOINT .. "/check-ban?userId=" .. tostring(player.UserId),
+        Method = "GET",
+        Timeout = 15
     })
 end
 
