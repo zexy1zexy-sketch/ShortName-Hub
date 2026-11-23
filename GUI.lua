@@ -99,7 +99,7 @@ function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent,
         if endedConnection then endedConnection:Disconnect() end
     end)
 
-    setValue(initialValue, false)
+    setValue(initialValue, true)
     return holder, function(value) setValue(value, false) end
 end
 
