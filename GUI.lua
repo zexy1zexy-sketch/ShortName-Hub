@@ -525,11 +525,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
     local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
-    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 5 or 4)
-    DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 6) or nil
-    local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 7 or 5)
+    GUI.GuessSlapperNav = game.PlaceId == 106683702021527 and MakeNav("🖐️  Guess the Slapper", IsCreator and 5 or 4) or nil
+    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 6 or 5)
+    DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 7) or nil
+    local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 8 or 6)
 
-    local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, DetectionNav, SoonNav }
+    local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, DetectionNav, SoonNav }
     local function FilterSidebar(query)
         query = tostring(query or ""):lower():gsub("^%s*(.-)%s*$", "%1")
         for _, nav in ipairs(SidebarNavButtons) do
@@ -573,7 +574,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
         Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
         Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
-        for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
+        for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, SoonNav }) do
             if nav then
                 nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "-") or (nav:GetAttribute("SNHFullText") or nav.Name)
                 nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
@@ -605,11 +606,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
     local PlayerToolsPage = MakePage("PlayerTools")
     local GamePage = MakePage("NoobIncremental")
+    GUI.GuessSlapperPage = MakePage("GuessTheSlapper")
     local FightPage = MakePage("FightOnABaseplate"); local DetectionPage = IsCreator and MakePage("Detection") or nil; local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
+        local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true
@@ -644,6 +646,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
         StyleNav(PlayerToolsNav, page == "PlayerTools")
         StyleNav(GameNav, page == "Game")
+        if GUI.GuessSlapperNav then StyleNav(GUI.GuessSlapperNav, page == "GuessSlapper") end
         StyleNav(FightNav, page == "Fight"); if DetectionNav then StyleNav(DetectionNav, page == "Detection") end; StyleNav(SoonNav, page == "Soon")
     end
 
@@ -756,7 +759,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                             local pageKey = pageObject.Name
                             local pageName = ({
                                 Updates = "Updates", Settings = "Settings", Players = "Players",
-                                PlayerTools = "PlayerTools", NoobIncremental = "Game",
+                                PlayerTools = "PlayerTools", NoobIncremental = "Game", GuessTheSlapper = "GuessSlapper",
                                 FightOnABaseplate = "Fight", ComingSoon = "Soon"
                             })[pageKey]
                             if pageName then
@@ -818,6 +821,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GameNav.Activated:Connect(function()
         SelectPage("Game")
     end)
+    if GUI.GuessSlapperNav then
+        GUI.GuessSlapperNav.Activated:Connect(function()
+            SelectPage("GuessSlapper")
+        end)
+    end
     FightNav.Activated:Connect(function()
         SelectPage("Fight")
     end)
@@ -956,12 +964,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Purple = preset.Color
         PurpleLight = preset.Light
         CurrentAccent = preset
-        for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
+        for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, SoonNav }) do
             if nav then
             local active = (CurrentPage == "Updates" and nav == GUI.UpdatesNav)
                 or (CurrentPage == "Players" and nav == PlayerAdminUI.Nav)
                 or (CurrentPage == "PlayerTools" and nav == PlayerToolsNav)
                 or (CurrentPage == "Game" and nav == GameNav)
+                or (CurrentPage == "GuessSlapper" and nav == GUI.GuessSlapperNav)
                 or (CurrentPage == "Fight" and nav == FightNav)
                 or (CurrentPage == "Soon" and nav == SoonNav)
             nav.BackgroundColor3 = active and preset.Active or nextButton
@@ -1385,6 +1394,111 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         b.Font = Enum.Font.GothamBold; b.Parent = parent; Corner(b, 10)
         Stroke(b, Border, 1); AddHover(b, color or Color3.fromRGB(75, 55, 115), Color3.fromRGB(94, 68, 137)); b.Activated:Connect(callback)
         return b
+    end
+
+    -- GUESS THE SLAPPER: client-side notes and practice utilities for this experience only.
+    if GUI.GuessSlapperNav then
+        Label(GUI.GuessSlapperPage, "GUESS THE SLAPPER", 17, 30).Font = Enum.Font.GothamBold
+        Label(GUI.GuessSlapperPage, "Round helpers, manual observations, and reaction practice. These tools do not read hidden game state or automate guesses.", 10, 38, Grey).TextWrapped = true
+
+        local SuspectContent = MakeFolder("SUSPECT TRACKER", GUI.GuessSlapperPage)
+        local suspectInput = ""
+        local suspects = {}
+        local suspectStatus = Label(SuspectContent, "No suspects recorded.", 10, 42, Grey)
+        MakeBox(SuspectContent, "PLAYER TO TRACK", "", function(value)
+            suspectInput = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
+        end)
+        local function refreshSuspects()
+            if #suspects == 0 then
+                suspectStatus.Text = "No suspects recorded."
+            else
+                suspectStatus.Text = table.concat(suspects, "\n")
+            end
+        end
+        MakeButton(SuspectContent, "ADD AS SUSPECT", function()
+            if suspectInput == "" then suspectStatus.Text = "Enter a player name first."; return end
+            for _, name in ipairs(suspects) do
+                if name:lower() == suspectInput:lower() then suspectStatus.Text = "That player is already listed."; return end
+            end
+            table.insert(suspects, suspectInput .. "  •  SUSPECT")
+            refreshSuspects()
+        end, Color3.fromRGB(85, 75, 125))
+        MakeButton(SuspectContent, "CLEAR SUSPECT LIST", function()
+            table.clear(suspects)
+            refreshSuspects()
+        end, Color3.fromRGB(75, 65, 85))
+
+        local HistoryContent = MakeFolder("SLAP HISTORY", GUI.GuessSlapperPage)
+        local historyInput = ""
+        local historyEntries = {}
+        local historyDisplay = Label(HistoryContent, "No round observations yet.", 10, 54, Grey)
+        historyDisplay.TextWrapped = true
+        MakeBox(HistoryContent, "ROUND OBSERVATION", "", function(value)
+            historyInput = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
+        end)
+        MakeButton(HistoryContent, "SAVE OBSERVATION", function()
+            if historyInput == "" then historyDisplay.Text = "Enter an observation first."; return end
+            table.insert(historyEntries, 1, os.date("%I:%M %p") .. " - " .. historyInput)
+            while #historyEntries > 8 do table.remove(historyEntries) end
+            historyDisplay.Text = table.concat(historyEntries, "\n")
+            historyInput = ""
+        end, Color3.fromRGB(65, 90, 125))
+
+        local PlayerListContent = MakeFolder("PLAYER QUICK LIST", GUI.GuessSlapperPage)
+        local playerListDisplay = Label(PlayerListContent, "Press refresh to list players in this server.", 10, 64, Grey)
+        playerListDisplay.TextWrapped = true
+        local function refreshPlayerList()
+            local names = {}
+            for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+                table.insert(names, player.DisplayName .. "  (@" .. player.Name .. ")")
+            end
+            table.sort(names)
+            playerListDisplay.Text = #names > 0 and table.concat(names, "\n") or "No players found."
+        end
+        MakeButton(PlayerListContent, "REFRESH PLAYER LIST", refreshPlayerList, Color3.fromRGB(65, 90, 125))
+
+        local DodgeContent = MakeFolder("DODGE PRACTICE", GUI.GuessSlapperPage)
+        local dodgeStatus = Label(DodgeContent, "Practice your reaction time with a tap test.", 10, 38, Grey)
+        local dodgeWaiting = false
+        local dodgeArmed = false
+        local dodgeStarted = 0
+        local dodgeButton
+        dodgeButton = MakeButton(DodgeContent, "START REACTION TEST", function()
+            if dodgeArmed then
+                local elapsed = math.max(0, os.clock() - dodgeStarted)
+                dodgeArmed = false
+                dodgeWaiting = false
+                dodgeButton.Text = "START REACTION TEST"
+                dodgeStatus.Text = string.format("REACTION TIME: %.0f MS", elapsed * 1000)
+                return
+            end
+            if dodgeWaiting then return end
+            dodgeWaiting = true
+            dodgeButton.Text = "WAIT FOR THE SIGNAL..."
+            dodgeStatus.Text = "Wait for the button to change, then tap it quickly."
+            task.spawn(function()
+                task.wait(math.random(15, 40) / 10)
+                if not dodgeButton or not dodgeButton.Parent then return end
+                dodgeWaiting = false
+                dodgeArmed = true
+                dodgeStarted = os.clock()
+                dodgeButton.Text = "TAP NOW!"
+                dodgeStatus.Text = "GO!"
+            end)
+        end, Color3.fromRGB(65, 105, 85))
+
+        local NotesContent = MakeFolder("ROUND NOTES", GUI.GuessSlapperPage)
+        local roundNote = ""
+        local notesDisplay = Label(NotesContent, "No notes saved.", 10, 54, Grey)
+        notesDisplay.TextWrapped = true
+        MakeBox(NotesContent, "NOTE", "", function(value)
+            roundNote = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
+        end)
+        MakeButton(NotesContent, "SAVE ROUND NOTE", function()
+            if roundNote == "" then notesDisplay.Text = "Enter a note first."; return end
+            notesDisplay.Text = os.date("%b %d, %I:%M %p") .. "\n" .. roundNote
+            roundNote = ""
+        end, Color3.fromRGB(85, 75, 125))
     end
 
 
@@ -3806,9 +3920,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackPanel.Parent = SoonPage
     FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
     FeedbackPanel.Size = UDim2.new(1, 0, 0, 226)
-    FeedbackPanel.LayoutOrder = 3
+    SoonCard.LayoutOrder = 1
+    FeedbackPanel.LayoutOrder = 2
+    FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
+    FeedbackPanel.BackgroundColor3 = ButtonDark
     FeedbackPanel.Visible = true
-    FeedbackPanel.ZIndex = 5
+    FeedbackPanel.ZIndex = 2
     FeedbackTitle.Text = "  SEND FEEDBACK"
     FeedbackStatus.Text = "Share an idea or report a problem. Your message goes to the private hub feedback inbox."
     FeedbackStatus.Size = UDim2.new(1, -20, 0, 30)
