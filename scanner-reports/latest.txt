@@ -1,5 +1,1 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 19:13:48 UTC\n\n13:12:55  Diagnostic console initialized before loading modules.\n13:12:55  Executor HTTP request API: available\n13:12:59  Startup completed successfully.\n13:13:34  ERROR: Players.shortname_zen.PlayerScripts.Interface:375: attempt to index nil with 'Text'
-    Stack Begin
-    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 375 - function Do
-    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 421
-    Stack End
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 19:39:43 UTC\n\n13:39:28  Diagnostic console initialized before loading modules.\n13:39:28  Executor HTTP request API: available\n13:39:31  COMPILE ERROR in GUI.lua: [string "GHLAOdqqTSJoHiUikfHF"]:3597: Out of local registers when trying to allocate ObserverButton: exceeded limit 200\n13:39:31  STARTUP FAILED: [string "XTZIgJseCqSTQbQJzAuM"]:318: Could not compile GUI.lua: [string "GHLAOdqqTSJoHiUikfHF"]:3597: Out of local registers when trying to allocate ObserverButton: exceeded limit 200\n13:39:31  FATAL LOADER ERROR: [string "XTZIgJseCqSTQbQJzAuM"]:578: [string "XTZIgJseCqSTQbQJzAuM"]:318: Could not compile GUI.lua: [string "GHLAOdqqTSJoHiUikfHF"]:3597: Out of local registers when trying to allocate ObserverButton: exceeded limit 200
