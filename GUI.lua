@@ -1879,11 +1879,22 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local function RefreshGameDetection()
         local ok, details = pcall(function()
             return {
-                name = tostring(game.Name or "Unknown Experience"),
-                placeId = tonumber(game.PlaceId) or 0,
+                local detectedName = tostring(game.Name or "Unknown Experience")
+                local placeId = tonumber(game.PlaceId) or 0
+                if placeId > 0 then
+                    pcall(function()
+                        local info = game:GetService("MarketplaceService"):GetProductInfo(placeId)
+                        if info and type(info.Name) == "string" and info.Name ~= "" then
+                            detectedName = info.Name
+                        end
+                    end)
+                end
+                return {
+                name = detectedName,
+                placeId = placeId,
                 universeId = tonumber(game.GameId) or 0,
                 detectedAt = os.date("!%Y-%m-%d %H:%M:%S UTC")
-            }
+                }
         end)
         if not ok or not details then
             GameDetectorStatus.Text = "DETECTOR: COULD NOT READ GAME INFO"
