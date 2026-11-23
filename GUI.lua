@@ -1886,20 +1886,160 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             inspectorStatus.Text = "INSPECTOR: SCAN COMPLETE"
         end
         MakeButton(inspectorContent, "SCAN VISIBLE SLAP SYSTEM OBJECTS", runSlapArchitectureScan, Color3.fromRGB(65, 90, 125))
-        MakeButton(inspectorContent, "SNAPSHOT MY MOVEMENT", function()
+        local HttpService = game:GetService("HttpService")
+        local RunService = game:GetService("RunService")
+        local PromptService = game:GetService("ProximityPromptService")
+        local snapshotLog = {}
+        local inspectorConnections = {}
+        local watchedGui = {}
+        local lastMovementCapture = 0
+        local lastPromptCapture = 0
+        local lastGuiCapture = {}
+        local function addInspectorConnection(connection)
+            table.insert(inspectorConnections, connection)
+            return connection
+        end
+        local function captureSnapshot(eventType, extra)
             local character = LocalPlayer and LocalPlayer.Character
             local root = character and character:FindFirstChild("HumanoidRootPart")
             local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-            if not root then
+            local velocity = root and root.AssemblyLinearVelocity or Vector3.zero
+            local position = root and root.Position or Vector3.zero
+            local entry = {
+                timestamp = os.clock(),
+                wallTime = os.date("!%Y-%m-%dT%H:%M:%SZ"),
+                eventType = tostring(eventType),
+                humanoidState = humanoid and tostring(humanoid:GetState()) or "unknown",
+                velocity = { x = velocity.X, y = velocity.Y, z = velocity.Z, magnitude = velocity.Magnitude },
+                position = { x = position.X, y = position.Y, z = position.Z },
+                guiSnapshot = {},
+                nearbyPlayers = {},
+                note = extra or ""
+            }
+            local playerGui = LocalPlayer and LocalPlayer:FindFirstChildOfClass("PlayerGui")
+            if playerGui then
+                for _, object in ipairs(playerGui:GetDescendants()) do
+                    if object:IsA("GuiObject") and object.Visible and #entry.guiSnapshot < 40 then
+                        local ok, absPos, absSize = pcall(function() return object.AbsolutePosition, object.AbsoluteSize end)
+                        if ok then
+                            table.insert(entry.guiSnapshot, {
+                                name = object.Name,
+                                class = object.ClassName,
+                                text = (object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox")) and object.Text:sub(1, 80) or "",
+                                x = absPos.X, y = absPos.Y, width = absSize.X, height = absSize.Y
+                            })
+                        end
+                    end
+                end
+            end
+            for _, player in ipairs(PlayersService:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    local otherRoot = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                    if otherRoot then
+                        local distance = (otherRoot.Position - position).Magnitude
+                        if distance <= 20 then
+                            table.insert(entry.nearbyPlayers, { name = player.Name, userId = player.UserId, distance = math.floor(distance * 100) / 100 })
+                        end
+                    end
+                end
+            end
+            table.insert(snapshotLog, entry)
+            while #snapshotLog > 100 do table.remove(snapshotLog, 1) end
+            inspectorStatus.Text = "INSPECTOR: " .. string.upper(tostring(eventType)) .. " CAPTURED (" .. #snapshotLog .. ")"
+            return entry
+        end
+        local function isDodgeGui(object)
+            local textValue = ""
+            pcall(function()
+                if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then textValue = object.Text end
+            end)
+            local haystack = (object.Name .. " " .. textValue):lower()
+            return haystack:find("dodge", 1, true) or haystack:find("perfect", 1, true) or haystack:find("avoid", 1, true)
+        end
+        local function watchGuiObject(object)
+            if not object:IsA("GuiObject") or watchedGui[object] then return end
+            watchedGui[object] = true
+            local function checkVisible()
+                if object.Parent and object.Visible and isDodgeGui(object) then
+                    local now = os.clock()
+                    if now - (lastGuiCapture[object] or 0) > 1 then
+                        lastGuiCapture[object] = now
+                        captureSnapshot("dodge-prompt-candidate", "Visible GUI matched dodge/perfect/avoid text: " .. safeFullName(object))
+                    end
+                end
+            end
+            addInspectorConnection(object:GetPropertyChangedSignal("Visible"):Connect(checkVisible))
+            if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
+                addInspectorConnection(object:GetPropertyChangedSignal("Text"):Connect(checkVisible))
+            end
+            checkVisible()
+        end
+        local playerGui = LocalPlayer and LocalPlayer:FindFirstChildOfClass("PlayerGui")
+        if playerGui then
+            for _, object in ipairs(playerGui:GetDescendants()) do watchGuiObject(object) end
+            addInspectorConnection(playerGui.DescendantAdded:Connect(watchGuiObject))
+        end
+        addInspectorConnection(PromptService.PromptShown:Connect(function(prompt)
+            captureSnapshot("dodge-prompt-candidate", "ProximityPrompt shown: " .. safeFullName(prompt))
+        end))
+        addInspectorConnection(PromptService.PromptHidden:Connect(function(prompt)
+            captureSnapshot("dodge-prompt-hidden", "ProximityPrompt hidden: " .. safeFullName(prompt))
+        end))
+        addInspectorConnection(RunService.Heartbeat:Connect(function()
+            local character = LocalPlayer and LocalPlayer.Character
+            local root = character and character:FindFirstChild("HumanoidRootPart")
+            if root and root.AssemblyLinearVelocity.Magnitude >= 20 and os.clock() - lastMovementCapture >= 1.5 then
+                lastMovementCapture = os.clock()
+                captureSnapshot("movement-spike-candidate", "Speed exceeded 20 studs/second; this may be knockback or ordinary movement.")
+            end
+        end))
+        MakeButton(inspectorContent, "SNAPSHOT MY MOVEMENT", function()
+            if not (LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
                 inspectorStatus.Text = "INSPECTOR: CHARACTER ROOT NOT FOUND"
                 return
             end
-            local velocity = root.AssemblyLinearVelocity
-            local state = humanoid and tostring(humanoid:GetState()) or "unknown"
-            inspectorResults.Text = "LOCAL PLAYER SNAPSHOT\nVelocity: " .. tostring(velocity) .. "\nSpeed: " .. string.format("%.2f", velocity.Magnitude) .. "\nHumanoid state: " .. state .. "\n\nThis is your client-visible character state, not proof of server-side hit force."
-            inspectorStatus.Text = "INSPECTOR: MOVEMENT SNAPSHOT SAVED"
+            local entry = captureSnapshot("manual-snapshot", "Manually requested movement snapshot.")
+            inspectorResults.Text = "LOCAL SNAPSHOT SAVED\nTime: " .. entry.wallTime .. "\nVelocity: " .. string.format("%.2f", entry.velocity.magnitude) .. " studs/s\nPosition: " .. string.format("%.2f, %.2f, %.2f", entry.position.x, entry.position.y, entry.position.z) .. "\nHumanoid state: " .. entry.humanoidState .. "\nNearby players: " .. #entry.nearbyPlayers .. "\nVisible GUI objects: " .. #entry.guiSnapshot .. "\nTotal snapshots: " .. #snapshotLog
         end, Color3.fromRGB(75, 85, 115))
-        Label(inspectorContent, "LIMITATION: This tool does not decompile protected scripts, inspect server code, hook remotes, or modify combat traffic. Use the results as clues, not proof of exploitability.", 9, 48, Grey).TextWrapped = true
+        MakeButton(inspectorContent, "EXPORT SNAPSHOT REPORT", function()
+            if #snapshotLog == 0 then captureSnapshot("manual-snapshot", "Created during report export.") end
+            local report = {
+                reportType = "SHORTNAME_HUB_OBSERVATION_SNAPSHOT",
+                game = game.Name,
+                placeId = game.PlaceId,
+                jobId = game.JobId,
+                generatedAt = os.date("!%Y-%m-%dT%H:%M:%SZ"),
+                snapshotCount = #snapshotLog,
+                snapshots = snapshotLog
+            }
+            local encoded
+            local ok, result = pcall(function() return HttpService:JSONEncode(report) end)
+            if not ok then inspectorStatus.Text = "INSPECTOR: REPORT ENCODE FAILED"; return end
+            encoded = result
+            local exported = false
+            if type(writefile) == "function" then
+                local filename = "ShortNameHub_Snapshot_" .. os.date("!%Y%m%d_%H%M%S") .. ".json"
+                local wrote = pcall(function() writefile(filename, encoded) end)
+                if wrote then inspectorStatus.Text = "INSPECTOR: REPORT SAVED — " .. filename; exported = true end
+            end
+            if not exported and type(setclipboard) == "function" then
+                local copied = pcall(function() setclipboard(encoded) end)
+                if copied then inspectorStatus.Text = "INSPECTOR: JSON REPORT COPIED TO CLIPBOARD"; exported = true end
+            end
+            if not exported then
+                inspectorResults.Text = encoded:sub(1, 12000)
+                inspectorStatus.Text = "INSPECTOR: REPORT READY — COPY VISIBLE JSON"
+            end
+        end, Color3.fromRGB(65, 105, 145))
+        MakeButton(inspectorContent, "CLEAR SNAPSHOT HISTORY", function()
+            table.clear(snapshotLog)
+            inspectorResults.Text = "Snapshot history cleared."
+            inspectorStatus.Text = "INSPECTOR: READY"
+        end, Color3.fromRGB(75, 75, 95))
+        local snapshotInfo = Label(inspectorContent, "AUTO-CAPTURE: matching visible Dodge/Perfect/Avoid GUI, ProximityPrompt show/hide, and movement spikes. Reports include local movement, visible GUI details, and nearby players. GUI-name matching is heuristic; movement spikes are not proof of a slap. Client-to-server remote arguments and server validation are not observable here.", 9, 78, Grey)
+        snapshotInfo.TextWrapped = true
+        snapshotInfo.Size = UDim2.new(1, 0, 0, 78)
+        Label(inspectorContent, "LIMITATION: Read-only client observation only. No combat remotes are invoked or modified.", 9, 30, Grey).TextWrapped = true
 
         refreshRoster()
         PlayersService.PlayerAdded:Connect(refreshRoster)
