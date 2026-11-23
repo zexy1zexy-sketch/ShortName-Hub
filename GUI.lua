@@ -1606,7 +1606,42 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         miniResult.TextYAlignment = Enum.TextYAlignment.Top
         miniResult.ZIndex = 41
         miniResult.Parent = miniPanel
-        miniClose.MouseButton1Click:Connect(function() miniPanel.Visible = false end)
+        -- Drag the floating detector by its title; supports mouse and touch.
+        local miniDragging = false
+        local miniDragInput = nil
+        local miniDragStart = nil
+        local miniStartPosition = nil
+        miniTitle.Active = true
+        miniTitle.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1
+                or input.UserInputType == Enum.UserInputType.Touch then
+                miniDragging = true
+                miniDragInput = input
+                miniDragStart = input.Position
+                miniStartPosition = miniPanel.Position
+                input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.End then
+                        miniDragging = false
+                        miniDragInput = nil
+                    end
+                end)
+            end
+        end)
+        UIS.InputChanged:Connect(function(input)
+            if miniDragging and (input.UserInputType == Enum.UserInputType.MouseMovement
+                or input.UserInputType == Enum.UserInputType.Touch) then
+                local delta = input.Position - miniDragStart
+                miniPanel.Position = UDim2.new(
+                    miniStartPosition.X.Scale,
+                    miniStartPosition.X.Offset + delta.X,
+                    miniStartPosition.Y.Scale,
+                    miniStartPosition.Y.Offset + delta.Y
+                )
+            end
+        end)
+        miniClose.Activated:Connect(function()
+            miniPanel.Visible = false
+        end)
         local function setMiniDetectorState(running)
             miniPanel.Visible = running
             miniStatus.Text = running and "LISTENING FOR HITS ON YOU" or "STOPPED"
