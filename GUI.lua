@@ -4810,18 +4810,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackClose.Visible = false
 
     -- MINIMIZE BUBBLE
-    local Bubble = Instance.new("TextButton"); Bubble.Name = "ShortNameBubble"; Bubble.Size = UDim2.fromOffset(55, 55)
-    Bubble.Position = UDim2.new(0, 15, 0.5, -27); Bubble.BackgroundColor3 = Dark; Bubble.Text = "SN"
-    Bubble.TextColor3 = White; Bubble.TextSize = 17; Bubble.Font = Enum.Font.GothamBold
-    Bubble.Visible = false; Bubble.Parent = ScreenGui; Corner(Bubble, 50)
-    AddGradient(Bubble, Color3.fromRGB(42, 31, 62), Dark, 90); Stroke(Bubble, PurpleLight, 2); AddHover(Bubble, Dark, Color3.fromRGB(43, 33, 61))
-    local Minimized = false
+    GUI.MinimizeBubble = Instance.new("TextButton"); GUI.MinimizeBubble.Name = "ShortNameBubble"; GUI.MinimizeBubble.Size = UDim2.fromOffset(55, 55)
+    GUI.MinimizeBubble.Position = UDim2.new(0, 15, 0.5, -27); GUI.MinimizeBubble.BackgroundColor3 = Dark; GUI.MinimizeBubble.Text = "SN"
+    GUI.MinimizeBubble.TextColor3 = White; GUI.MinimizeBubble.TextSize = 17; GUI.MinimizeBubble.Font = Enum.Font.GothamBold
+    GUI.MinimizeBubble.Visible = false; GUI.MinimizeBubble.Parent = ScreenGui; Corner(GUI.MinimizeBubble, 50)
+    AddGradient(GUI.MinimizeBubble, Color3.fromRGB(42, 31, 62), Dark, 90); Stroke(GUI.MinimizeBubble, PurpleLight, 2); AddHover(GUI.MinimizeBubble, Dark, Color3.fromRGB(43, 33, 61))
+    HubExtras.Minimized = false
 
     MinButton.Activated:Connect(function()
-        if Minimized then
+        if HubExtras.Minimized then
             return
         end
-        Minimized = true
+        HubExtras.Minimized = true
         Tween(
             WindowScale,
             {
@@ -4834,12 +4834,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             )
         )
         task.delay(0.16, function()
-            if ScreenGui.Parent and Minimized then
+            if ScreenGui.Parent and HubExtras.Minimized then
                 Frame.Visible = false
-                Bubble.Visible = true
-                Bubble.Size = UDim2.fromOffset(42, 42)
+                GUI.MinimizeBubble.Visible = true
+                GUI.MinimizeBubble.Size = UDim2.fromOffset(42, 42)
                 Tween(
-                    Bubble,
+                    GUI.MinimizeBubble,
                     {
                         Size = UDim2.fromOffset(55, 55)
                     },
@@ -4853,9 +4853,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end)
 
-    Bubble.Activated:Connect(function()
-        Minimized = false
-        Bubble.Visible = false
+    GUI.MinimizeBubble.Activated:Connect(function()
+        HubExtras.Minimized = false
+        GUI.MinimizeBubble.Visible = false
         Frame.Visible = true
         WindowScale.Scale = 0.78
         Tween(
@@ -4878,15 +4878,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             return
         end
         if input.KeyCode == HubExtras.HubToggleKey then
-            if Minimized then
-                Minimized = false
-                Bubble.Visible = false
+            if HubExtras.Minimized then
+                HubExtras.Minimized = false
+                GUI.MinimizeBubble.Visible = false
                 Frame.Visible = true
                 WindowScale.Scale = 1
             else
-                Minimized = true
+                HubExtras.Minimized = true
                 Frame.Visible = false
-                Bubble.Visible = true
+                GUI.MinimizeBubble.Visible = true
             end
         elseif input.KeyCode == Enum.KeyCode.K
             and (UIS:IsKeyDown(Enum.KeyCode.LeftControl) or UIS:IsKeyDown(Enum.KeyCode.RightControl)) then
@@ -4948,14 +4948,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local BubbleDragging = false; local BubbleInput; local BubbleStart
     local BubblePosition
 
-    Bubble.InputBegan:Connect(function(input)
+    GUI.MinimizeBubble.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1
             or input.UserInputType == Enum.UserInputType.Touch
         then
             BubbleDragging = true
             BubbleInput = input
             BubbleStart = input.Position
-            BubblePosition = Bubble.Position
+            BubblePosition = GUI.MinimizeBubble.Position
             input.Changed:Connect(function()
                 if input.UserInputState == Enum.UserInputState.End then
                     BubbleDragging = false
@@ -4964,7 +4964,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end)
 
-    Bubble.InputChanged:Connect(function(input)
+    GUI.MinimizeBubble.InputChanged:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement
             or input.UserInputType == Enum.UserInputType.Touch
         then
@@ -4975,7 +4975,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     UIS.InputChanged:Connect(function(input)
         if input == BubbleInput and BubbleDragging then
             local delta = input.Position - BubbleStart
-            Bubble.Position = UDim2.new(
+            GUI.MinimizeBubble.Position = UDim2.new(
                 BubblePosition.X.Scale,
                 BubblePosition.X.Offset + delta.X,
                 BubblePosition.Y.Scale,
