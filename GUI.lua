@@ -672,6 +672,26 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FloatingClose.Activated:Connect(function()
         FloatingTabWindow.Visible = false
     end)
+    local floatingDragging, floatingDragStart, floatingStartPosition = false, nil, nil
+    FloatingHeader.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            floatingDragging = true
+            floatingDragStart = input.Position
+            floatingStartPosition = FloatingTabWindow.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then floatingDragging = false end
+            end)
+        end
+    end)
+    UIS.InputChanged:Connect(function(input)
+        if floatingDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - floatingDragStart
+            FloatingTabWindow.Position = UDim2.new(
+                floatingStartPosition.X.Scale, floatingStartPosition.X.Offset + delta.X,
+                floatingStartPosition.Y.Scale, floatingStartPosition.Y.Offset + delta.Y
+            )
+        end
+    end)
     local function SelectPage(page)
         local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
         if CurrentFloatingPage then RestoreFloatingPage() end
