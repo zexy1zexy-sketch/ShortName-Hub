@@ -1663,6 +1663,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- SHORTNAME HUB EXTRAS: searchable roster, notifications, HUD, keybinds and profiles.
     local HttpService = game:GetService("HttpService")
     local HubToggleKey = Enum.KeyCode.RightControl
+    local QuickMenuKey = Enum.KeyCode.RightAlt
     local SelectedDirectoryPlayer = nil
 
     local Toast = Instance.new("TextLabel")
@@ -1798,6 +1799,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end)
 
+    local QuickKeyBox
+    QuickKeyBox = MakeBox(SettingsPage, "QUICK MENU KEY (EXAMPLE: F7, RIGHTALT)", "RightAlt", function(value)
+        local keyName = tostring(value or ""):gsub("%s+", "")
+        local key = Enum.KeyCode[keyName]
+        if key and key ~= Enum.KeyCode.Unknown and key ~= HubToggleKey then
+            QuickMenuKey = key
+            Notify("Quick menu key: " .. key.Name)
+        else
+            QuickKeyBox.Text = QuickMenuKey.Name
+            Notify("Invalid or conflicting quick menu key")
+        end
+    end)
+
     Label(SettingsPage, "CONFIGURATION PROFILES", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(SettingsPage, "Save appearance and keybind settings locally if executor file APIs are supported.", 10, 32, Grey)
     local ProfileNameBox = MakeBox(SettingsPage, "PROFILE NAME", "Default", function() end)
@@ -1820,7 +1834,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             accent = CurrentAccent.Name or "Purple",
             surface = ActiveSurfacePreset and ActiveSurfacePreset.Name or "MIDNIGHT",
             scale = WindowScale.Scale,
-            toggleKey = HubToggleKey.Name
+            toggleKey = HubToggleKey.Name,
+            quickMenuKey = QuickMenuKey.Name
         }
         local ok, err = pcall(function() writefile(path, HttpService:JSONEncode(payload)) end)
         ProfileStatus.Text = ok and ("PROFILE: SAVED " .. path) or ("PROFILE: SAVE FAILED " .. tostring(err))
@@ -1842,6 +1857,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if type(data.toggleKey) == "string" and Enum.KeyCode[data.toggleKey] then
             HubToggleKey = Enum.KeyCode[data.toggleKey]
             KeybindBox.Text = HubToggleKey.Name
+        end
+        if type(data.quickMenuKey) == "string" and Enum.KeyCode[data.quickMenuKey] and Enum.KeyCode[data.quickMenuKey] ~= HubToggleKey then
+            QuickMenuKey = Enum.KeyCode[data.quickMenuKey]
+            QuickKeyBox.Text = QuickMenuKey.Name
         end
         ProfileStatus.Text = "PROFILE: LOADED " .. path
         Notify("Profile loaded")
@@ -1909,7 +1928,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- SESSION TOOLS: live diagnostics and copy helpers
     Label(UtilityFolder, "SESSION TOOLS", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    Label(UtilityFolder, "RightControl hides or restores the hub.", 10, 20, Grey)
+    Label(UtilityFolder, "Hub toggle: " .. HubToggleKey.Name .. "  |  Quick menu: " .. QuickMenuKey.Name, 10, 20, Grey)
     local PerformanceLabel = Label(UtilityFolder, "FPS: --  |  PING: --  |  MEMORY: -- MB", 10, 24, White)
     PerformanceLabel.TextWrapped = true
 
@@ -2880,6 +2899,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 Frame.Visible = false
                 Bubble.Visible = true
             end
+        elseif input.KeyCode == QuickMenuKey then
+            QuickMenuPanel.Visible = not QuickMenuPanel.Visible
         end
     end)
 
