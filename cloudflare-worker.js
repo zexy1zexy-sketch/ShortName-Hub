@@ -64,6 +64,7 @@ async function savePresence(body,env){
   gameName:cleanText(body.gameName,100)||"Unknown experience",
   placeId:Number.isSafeInteger(Number(body.placeId))?Number(body.placeId):0,
   universeId:Number.isSafeInteger(Number(body.universeId))?Number(body.universeId):0,
+  executor:cleanText(body.executor,60)||"Unknown / unavailable",
   lastSeen:Date.now(),
   rank:["Member","Premium","Staff"].includes(old?.rank)?old.rank:"Member"
  };
@@ -110,6 +111,34 @@ export default {async fetch(request,env){
    if(request.method==="GET"&&url.pathname==="/players"){
     if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
     return reply({ok:true,players:await listPlayers(env)});
+   }
+   if(request.method==="PATCH"&&url.pathname==="/ban"){
+    if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
+    const body=await request.json().catch(()=>null);
+    const id=Number(body?.userId),duration=body?.duration;
+    if(!Number.isSafeInteger(id)||id<=0||id===7867608166||!["1d","30d","permanent"].includes(duration))return reply({ok:false,error:"Invalid user ID or ban duration"},400);
+    const expiresAt=duration==="permanent"?null:Date.now()+(duration==="1d"?86400000:2592000000);
+    const record={userId:id,duration,expiresAt,createdAt:Date.now()};
+    await env.REPORTS.put("ban:"+id,JSON.stringify(record));
+    return reply({ok:true,ban:record});
+   }
+   if(request.method==="DELETE"&&url.pathname==="/ban"){
+    if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
+    const id=Number(url.searchParams.get("userId"));
+    if(!Number.isSafeInteger(id)||id<=0)return reply({ok:false,error:"Invalid user ID"},400);
+    await env.REPORTS.delete("ban:"+id);
+    return reply({ok:true});
+   }
+   if(request.method==="GET"&&url.pathname==="/check-ban"){
+    const id=Number(url.searchParams.get("userId"));
+    if(!Number.isSafeInteger(id)||id<=0)return reply({ok:false,error:"Invalid user ID"},400);
+    const ban=await env.REPORTS.get("ban:"+id,"json");
+    if(!ban)return reply({ok:true,banned:false});
+    if(ban.expiresAt!==null&&Number(ban.expiresAt)<=Date.now()){
+      await env.REPORTS.delete("ban:"+id);
+      return reply({ok:true,banned:false});
+    }
+    return reply({ok:true,banned:true,ban});
    }
    if(request.method==="PATCH"&&url.pathname==="/rank"){
     if(!isAdmin(request,env))return reply({ok:false,error:"Unauthorized"},401);
@@ -164,6 +193,6 @@ export default {async fetch(request,env){
    await env.REPORTS.put(rateKey,"1",{expirationTtl:60});
    return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
-  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","GET /latest?key=...","POST /upload","POST /game-report","POST /snapshot-report","POST /feedback"]},404);
+  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","PATCH /ban","DELETE /ban","GET /check-ban","GET /latest?key=...","POST /upload","POST /game-report","POST /snapshot-report","POST /feedback"]},404);
  }catch(e){return reply({ok:false,error:"Worker error",details:String(e?.message||e)},500);}
 }};
