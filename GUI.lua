@@ -88,19 +88,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
-    HeaderTitle.Size = UDim2.new(1, -110, 0, 25); HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
+    HeaderTitle.Size = UDim2.new(1, -215, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
     local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  PREMIUM BUILD", 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
-    HeaderSubtitle.Size = UDim2.new(1, -130, 0, 13); HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
+    HeaderSubtitle.Size = UDim2.new(1, -215, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
-    local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(38, 34); MinButton.Position = UDim2.new(1, -88, 0, 7)
+    local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
     MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "—"; MinButton.TextColor3 = White
-    MinButton.TextSize = 19; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Frame
+    MinButton.TextSize = 17; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Header
     MinButton.ZIndex = 5; Corner(MinButton, 8); Stroke(MinButton, Border, 1)
     AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
-    local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(38, 34)
-    ExitButton.Position = UDim2.new(1, -44, 0, 7); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "×"
-    ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 23; ExitButton.Font = Enum.Font.Gotham
+    local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
+    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "×"
+    ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
 
@@ -108,14 +108,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local OwnerViewButton
     if IsCreator then
         OwnerViewButton = Instance.new("TextButton")
-        OwnerViewButton.Size = UDim2.fromOffset(82, 26)
-        OwnerViewButton.Position = UDim2.new(1, -132, 0, 56)
+        OwnerViewButton.Size = UDim2.fromOffset(62, 28)
+        OwnerViewButton.Position = UDim2.new(1, -206, 0, 9)
         OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
         OwnerViewButton.Text = "OWNER VIEW"
         OwnerViewButton.TextColor3 = White
         OwnerViewButton.TextSize = 9
         OwnerViewButton.Font = Enum.Font.GothamBold
-        OwnerViewButton.Parent = Frame
+        OwnerViewButton.Parent = Header
         OwnerViewButton.ZIndex = 8
         Corner(OwnerViewButton, 7)
         Stroke(OwnerViewButton, PurpleLight, 1)
@@ -124,28 +124,28 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- COMMUNITY SHORTCUTS
     local CrownButton = Instance.new("TextButton")
-    CrownButton.Size = UDim2.fromOffset(30, 30)
-    CrownButton.Position = UDim2.new(1, -40, 0, 56)
+    CrownButton.Size = UDim2.fromOffset(28, 30)
+    CrownButton.Position = UDim2.new(1, -138, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "♛"
+    CrownButton.Text = "👑"
     CrownButton.TextColor3 = Color3.fromRGB(255, 215, 120)
-    CrownButton.TextSize = 19
+    CrownButton.TextSize = 17
     CrownButton.Font = Enum.Font.GothamBold
-    CrownButton.Parent = Frame
+    CrownButton.Parent = Header
     CrownButton.ZIndex = 8
     Corner(CrownButton, 8)
     Stroke(CrownButton, Color3.fromRGB(155, 120, 65), 1)
     AddHover(CrownButton, ButtonDark, Color3.fromRGB(65, 53, 37))
 
     local FeedbackButton = Instance.new("TextButton")
-    FeedbackButton.Size = UDim2.fromOffset(30, 30)
-    FeedbackButton.Position = UDim2.new(1, -40, 0, 92)
+    FeedbackButton.Size = UDim2.fromOffset(28, 30)
+    FeedbackButton.Position = UDim2.new(1, -104, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
     FeedbackButton.Text = "✉"
     FeedbackButton.TextColor3 = White
     FeedbackButton.TextSize = 16
     FeedbackButton.Font = Enum.Font.GothamBold
-    FeedbackButton.Parent = Frame
+    FeedbackButton.Parent = Header
     FeedbackButton.ZIndex = 8
     Corner(FeedbackButton, 8)
     Stroke(FeedbackButton, Border, 1)
@@ -1716,7 +1716,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
 
     -- COMBAT HUD, ASSET RECOGNITION, AND SAFE HITBOX VISUALIZER
-    local CombatToolsFolder = MakeFolder("COMBAT HUD & ASSET TOOLS", FightPage)
+    local CombatToolsFolder = MakeFolder("COMBAT HUD & ASSET TOOLS", FightFolder)
     Label(CombatToolsFolder, "COMBAT HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(CombatToolsFolder, "Shows your own live health, movement speed, and equipped tool. Local display only.", 10, 36, Grey)
 
