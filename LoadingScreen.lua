@@ -256,46 +256,61 @@ function LoadingScreen.Start()
         end
     end)
 
-    -- LOADING SEQUENCE
+    -- Progress is driven by completed loader operations, not elapsed time.
+    local Loading = {}
+    local Finished = false
 
-    local Messages = {
-        "WAKING UP THE HUB...",
-        "PREPARING INTERFACE...",
-        "CHARGING UP...",
-        "ALMOST READY..."
-    }
-
-    for i = 1, 4 do
-        Subtitle.Text = Messages[i]
-
+    function Loading.SetProgress(current, total, message)
+        if Finished then
+            return
+        end
+        total = math.max(1, tonumber(total) or 1)
+        current = math.clamp(tonumber(current) or 0, 0, total)
+        local fraction = current / total
+        Subtitle.Text = tostring(message or "LOADING...")
+        Percentage.Text = tostring(math.floor(fraction * 100 + 0.5)) .. "%"
         Tween(Bar, {
-            Size = UDim2.fromScale(i / 4, 1)
-        }, 0.75, Enum.EasingStyle.Quint)
-
-        Percentage.Text = tostring(i * 25) .. "%"
-
-        task.wait(0.75)
+            Size = UDim2.fromScale(fraction, 1)
+        }, 0.22, Enum.EasingStyle.Quad)
     end
 
-    task.wait(0.25)
+    function Loading.Finish()
+        if Finished then
+            return
+        end
+        Loading.SetProgress(1, 1, "SHORTNAME HUB READY")
+        Finished = true
+        task.spawn(function()
+            task.wait(0.3)
+            Tween(LogoScale, {Scale = 0.75}, 0.25)
+            Tween(Background, {BackgroundTransparency = 1}, 0.35)
+            Tween(Logo, {ImageTransparency = 1}, 0.25)
+            task.wait(0.4)
+            if ScreenGui.Parent then
+                ScreenGui:Destroy()
+            end
+        end)
+    end
 
-    -- EXIT ANIMATION
+    function Loading.Fail(message)
+        if Finished then
+            return
+        end
+        Finished = true
+        Subtitle.Text = "LOAD FAILED"
+        Percentage.Text = tostring(message or "Please re-execute the loader.")
+        Percentage.TextSize = 9
+        Percentage.TextWrapped = true
+        Bar.BackgroundColor3 = Color3.fromRGB(220, 75, 90)
+        task.spawn(function()
+            task.wait(2.5)
+            if ScreenGui.Parent then
+                ScreenGui:Destroy()
+            end
+        end)
+    end
 
-    Tween(LogoScale, {
-        Scale = 0.75
-    }, 0.25)
-
-    Tween(Background, {
-        BackgroundTransparency = 1
-    }, 0.35)
-
-    Tween(Logo, {
-        ImageTransparency = 1
-    }, 0.25)
-
-    task.wait(0.4)
-
-    ScreenGui:Destroy()
+    return Loading
 end
 
 return LoadingScreen
