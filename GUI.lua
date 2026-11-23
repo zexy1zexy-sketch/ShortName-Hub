@@ -315,8 +315,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return b
     end
 
-    local SettingsNav = MakeNav("⚙  Settings", 1); local PlayersNav
-    if IsCreator then PlayersNav = MakeNav("♙  Players", 2) end
+    local PlayerAdminUI = {}
+    local SettingsNav = MakeNav("⚙  Settings", 1)
+    if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
     local GameNav = MakeNav("◆  Noob Incremental", 3)
     local FightNav = MakeNav("⚔  Fight on a Baseplate", 4); local SoonNav = MakeNav("＋  Coming Soon", 5)
 
@@ -344,13 +345,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return page
     end
 
-    local SettingsPage = MakePage("Settings"); local PlayersPage = IsCreator and MakePage("Players") or nil
+    local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
     local GamePage = MakePage("NoobIncremental")
     local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Settings = SettingsPage, Players = PlayersPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
+        local pages = { Settings = SettingsPage, Players = PlayerAdminUI.Page, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true; pageObject.Position = UDim2.fromOffset(15, 8)
@@ -373,7 +374,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
 
         StyleNav(SettingsNav, page == "Settings")
-        if PlayersNav then StyleNav(PlayersNav, page == "Players") end
+        if PlayerAdminUI.Nav then StyleNav(PlayersNav, page == "Players") end
         StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
@@ -879,7 +880,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             local AdminKey = ""
             MakeBox(PlayersPage, "OWNER ADMIN KEY (Cloudflare UPLOAD_KEY)", "", function(value) AdminKey = value end)
             local RosterStatus = Label(PlayersPage, "ROSTER: ENTER ADMIN KEY, THEN REFRESH", 10, 24, Grey)
-            local RefreshRosterButton
             local function ClearRosterRows()
                 for _, child in ipairs(PlayersPage:GetChildren()) do
                     if child.Name == "PresencePlayerRow" then child:Destroy() end
@@ -951,7 +951,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     end
                 end
             end
-            RefreshRosterButton = MakeButton(PlayersPage, "REFRESH PLAYER ROSTER", RefreshRoster, Color3.fromRGB(55, 85, 125))
+            MakeButton(PlayerAdminUI.Page, "REFRESH PLAYER ROSTER", RefreshRoster, Color3.fromRGB(55, 85, 125))
             task.spawn(function()
                 while ScreenGui.Parent do
                     task.wait(60)
