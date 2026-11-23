@@ -1,1 +1,17 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 04:26:29 UTC\n\n22:26:08  Diagnostic console initialized before loading modules.\n22:26:08  Executor HTTP request API: available\n22:26:09  COMPILE ERROR in GUI.lua: [string "loXzZOAymPtgpRTKlPxD"]:2525: Out of local registers when trying to allocate ObserverTracked: exceeded limit 200\n22:26:09  STARTUP FAILED: [string "NoKsrDSlxJCwUHubyaHF"]:318: Could not compile GUI.lua: [string "loXzZOAymPtgpRTKlPxD"]:2525: Out of local registers when trying to allocate ObserverTracked: exceeded limit 200\n22:26:09  FATAL LOADER ERROR: [string "NoKsrDSlxJCwUHubyaHF"]:556: [string "NoKsrDSlxJCwUHubyaHF"]:318: Could not compile GUI.lua: [string "loXzZOAymPtgpRTKlPxD"]:2525: Out of local registers when trying to allocate ObserverTracked: exceeded limit 200
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 04:28:43 UTC\n\n22:27:43  Diagnostic console initialized before loading modules.\n22:27:43  Executor HTTP request API: available\n22:27:46  Startup completed successfully.\n22:27:56  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
+    Stack Begin
+    Script 'LocalScript', Line 454 - function ApplyAccent
+    Script 'LocalScript', Line 474
+    Stack End\n22:28:11  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
+    Stack Begin
+    Script 'LocalScript', Line 454 - function ApplyAccent
+    Script 'LocalScript', Line 474
+    Stack End\n22:28:17  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
+    Stack Begin
+    Script 'LocalScript', Line 454 - function ApplyAccent
+    Script 'LocalScript', Line 474
+    Stack End\n22:28:30  ERROR: [string "toHUOTLfWPUaTmJeRznd"]:454: invalid argument #1 to 'pairs' (table expected, got nil)
+    Stack Begin
+    Script 'LocalScript', Line 454 - function ApplyAccent
+    Script 'LocalScript', Line 474
+    Stack End
