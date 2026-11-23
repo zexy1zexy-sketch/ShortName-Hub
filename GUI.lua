@@ -1525,9 +1525,196 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         MakeButton(GUI.GuessSlapperPage, "REFRESH PLAYER CARDS", refreshRoster, Color3.fromRGB(65, 90, 125))
         local identificationTitle = Label(GUI.GuessSlapperPage, "SLAPPER IDENTIFICATION", 13, 25, PurpleLight)
         identificationTitle.Font = Enum.Font.GothamBold
-        local identificationInfo = Label(GUI.GuessSlapperPage, "No confirmed slap attribution signal has been identified in the client-visible game data. The roster can record your guess, but it cannot honestly confirm who hit you until the game exposes a reliable hit event or attacker ID.", 10, 76, Grey)
+        local identificationInfo = Label(GUI.GuessSlapperPage, "The detector watches client-visible impact signals, then checks nearby players for recent replicated slap-like animations and equipped tools. Results are evidence-based estimates, not server-confirmed attacker IDs.", 10, 58, Grey)
         identificationInfo.TextWrapped = true
-        identificationInfo.Size = UDim2.new(1, 0, 0, 76)
+        identificationInfo.Size = UDim2.new(1, 0, 0, 58)
+
+        local detectorStatus = Label(GUI.GuessSlapperPage, "DETECTOR: STOPPED", 11, 24, Color3.fromRGB(235, 175, 125))
+        detectorStatus.Font = Enum.Font.GothamBold
+        local detectorSummary = Label(GUI.GuessSlapperPage, "Waiting to start. Health loss and sudden knockback are monitored as possible impact signals.", 10, 38, Grey)
+        detectorSummary.TextWrapped = true
+        local lastDetection = Label(GUI.GuessSlapperPage, "LAST RESULT: None", 11, 44, White)
+        lastDetection.TextWrapped = true
+        local historyLabel = Label(GUI.GuessSlapperPage, "SLAP HISTORY: No events recorded", 10, 110, Grey)
+        historyLabel.TextWrapped = true
+        historyLabel.TextYAlignment = Enum.TextYAlignment.Top
+
+        local detectorRunning = false
+        local detectorConnections = {}
+        local characterConnections = {}
+        local recentActions = {}
+        local detectorHistory = {}
+        local lastRootVelocity = {}
+        local detectorVictimCooldown = {}
+        local function disconnectList(list)
+            for _, connection in ipairs(list) do
+                pcall(function() connection:Disconnect() end)
+            end
+            table.clear(list)
+        end
+        local function recordAction(player, kind)
+            recentActions[player.UserId] = { time = os.clock(), kind = kind }
+        end
+        local function renderHistory()
+            if #detectorHistory == 0 then
+                historyLabel.Text = "SLAP HISTORY: No events recorded"
+                return
+            end
+            local lines = { "SLAP HISTORY (newest first):" }
+            for i = #detectorHistory, math.max(1, #detectorHistory - 5), -1 do
+                local item = detectorHistory[i]
+                table.insert(lines, os.date("%I:%M:%S %p", item.time) .. " | " .. item.result)
+            end
+            historyLabel.Text = table.concat(lines, "\n")
+        end
+        local function detectImpact(victim, signal, severity)
+            if not detectorRunning or victim == PlayersService.LocalPlayer then return end
+            local now = os.clock()
+            if now - (detectorVictimCooldown[victim.UserId] or 0) < 1.1 then return end
+            detectorVictimCooldown[victim.UserId] = now
+
+            local victimRoot = victim.Character and victim.Character:FindFirstChild("HumanoidRootPart")
+            local victimPosition
+            if victimRoot then pcall(function() victimPosition = victimRoot.Position end) end
+            local ranked = {}
+            for _, candidate in ipairs(PlayersService:GetPlayers()) do
+                if candidate ~= victim and candidate.Character then
+                    local action = recentActions[candidate.UserId]
+                    local candidateRoot = candidate.Character:FindFirstChild("HumanoidRootPart")
+                    local distance
+                    if victimPosition and candidateRoot then
+                        pcall(function() distance = (candidateRoot.Position - victimPosition).Magnitude end)
+                    end
+                    if action and now - action.time <= 1.6 and distance and distance <= 22 then
+                        local score = 45
+                        local age = now - action.time
+                        score = score + math.max(0, 30 - age * 20)
+                        score = score + math.max(0, 25 - distance)
+                        local equipped = candidate.Character:FindFirstChildOfClass("Tool")
+                        if equipped then score = score + 8 end
+                        table.insert(ranked, { player = candidate, score = math.floor(score), distance = distance, action = action.kind, age = age })
+                    end
+                end
+            end
+            table.sort(ranked, function(a, b) return a.score > b.score end)
+
+            local result
+            local confidence = "UNKNOWN"
+            local color = Color3.fromRGB(235, 175, 125)
+            if ranked[1] then
+                local best = ranked[1]
+                local separated = not ranked[2] or best.score - ranked[2].score >= 12
+                if best.score >= 65 and separated then
+                    confidence = "LIKELY"
+                    color = Color3.fromRGB(235, 195, 115)
+                end
+                result = best.player.DisplayName .. " (@" .. best.player.Name .. ") — " .. confidence
+                    .. " | " .. best.action .. " " .. string.format("%.1fs ago", best.age)
+                    .. " | " .. string.format("%.1f studs", best.distance)
+            else
+                result = "No nearby player had a recent matching action — UNKNOWN"
+            end
+            local entry = {
+                time = os.time(),
+                result = victim.DisplayName .. " was impacted (" .. signal .. "). Candidate: " .. result,
+                victim = victim.Name,
+                signal = signal
+            }
+            table.insert(detectorHistory, entry)
+            while #detectorHistory > 12 do table.remove(detectorHistory, 1) end
+            lastDetection.Text = "LAST RESULT: " .. entry.result
+            lastDetection.TextColor3 = color
+            detectorSummary.Text = "Impact signal: " .. signal .. " | Victim: " .. victim.DisplayName .. " | Candidates are ranked by recent animation, proximity, and visible tool state."
+            renderHistory()
+        end
+        local function bindCharacter(player, character)
+            if not detectorRunning or not character then return end
+            local humanoid = character:FindFirstChildOfClass("Humanoid") or character:WaitForChild("Humanoid", 5)
+            if not humanoid or not detectorRunning then return end
+            local previousHealth = humanoid.Health
+            table.insert(detectorConnections, humanoid.HealthChanged:Connect(function(health)
+                if health < previousHealth - 0.5 then
+                    detectImpact(player, "health drop -" .. string.format("%.1f", previousHealth - health), previousHealth - health)
+                end
+                previousHealth = health
+            end))
+            table.insert(detectorConnections, humanoid.StateChanged:Connect(function(_, newState)
+                if newState == Enum.HumanoidStateType.FallingDown or newState == Enum.HumanoidStateType.Physics then
+                    detectImpact(player, "ragdoll/physics state", 1)
+                end
+            end))
+            local animator = humanoid:FindFirstChildOfClass("Animator")
+            if animator then
+                table.insert(detectorConnections, animator.AnimationPlayed:Connect(function(track)
+                    if not detectorRunning or player == PlayersService.LocalPlayer then return end
+                    local animationId = "unknown"
+                    pcall(function() animationId = track.Animation and track.Animation.AnimationId or "unknown" end)
+                    recordAction(player, "replicated animation " .. tostring(animationId))
+                end))
+            end
+            local root = character:FindFirstChild("HumanoidRootPart")
+            if root then
+                local lastVelocity = root.AssemblyLinearVelocity
+                lastRootVelocity[player.UserId] = lastVelocity
+                table.insert(detectorConnections, root:GetPropertyChangedSignal("AssemblyLinearVelocity"):Connect(function()
+                    if not detectorRunning then return end
+                    local current = root.AssemblyLinearVelocity
+                    local delta = (current - (lastRootVelocity[player.UserId] or current)).Magnitude
+                    lastRootVelocity[player.UserId] = current
+                    if delta >= 38 then
+                        detectImpact(player, "sudden knockback velocity change", delta)
+                    end
+                end))
+            end
+        end
+        local function stopSlapDetector()
+            detectorRunning = false
+            disconnectList(detectorConnections)
+            disconnectList(characterConnections)
+            table.clear(recentActions)
+            table.clear(lastRootVelocity)
+            detectorStatus.Text = "DETECTOR: STOPPED"
+            detectorStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
+        end
+        local detectorButton = MakeButton(GUI.GuessSlapperPage, "START SLAP DETECTOR", function()
+            if detectorRunning then
+                stopSlapDetector()
+                detectorButton.Text = "START SLAP DETECTOR"
+                return
+            end
+            detectorRunning = true
+            detectorStatus.Text = "DETECTOR: LISTENING"
+            detectorStatus.TextColor3 = Color3.fromRGB(130, 220, 165)
+            detectorSummary.Text = "Listening for health drops, ragdoll/physics transitions, knockback spikes, and replicated player animations."
+            detectorButton.Text = "STOP SLAP DETECTOR"
+
+            for _, player in ipairs(PlayersService:GetPlayers()) do
+                if player.Character then bindCharacter(player, player.Character) end
+                table.insert(characterConnections, player.CharacterAdded:Connect(function(character)
+                    task.defer(function() bindCharacter(player, character) end)
+                end))
+            end
+            table.insert(characterConnections, PlayersService.PlayerAdded:Connect(function(player)
+                table.insert(characterConnections, player.CharacterAdded:Connect(function(character)
+                    task.defer(function() bindCharacter(player, character) end)
+                end))
+                if player.Character then bindCharacter(player, player.Character) end
+            end))
+            table.insert(characterConnections, PlayersService.PlayerRemoving:Connect(function(player)
+                recentActions[player.UserId] = nil
+                lastRootVelocity[player.UserId] = nil
+            end))
+        end, Color3.fromRGB(65, 105, 145))
+        MakeButton(GUI.GuessSlapperPage, "CLEAR SLAP HISTORY", function()
+            table.clear(detectorHistory)
+            lastDetection.Text = "LAST RESULT: None"
+            lastDetection.TextColor3 = White
+            renderHistory()
+        end, Color3.fromRGB(75, 75, 95))
+        local detectorDisclaimer = Label(GUI.GuessSlapperPage, "LIMITATION: Roblox client replication may hide the real attacker. A health/physics event only confirms a possible impact; nearby animation correlation is a LIKELY candidate, never a server-verified identity.", 9, 52, Grey)
+        detectorDisclaimer.TextWrapped = true
+        detectorDisclaimer.Size = UDim2.new(1, 0, 0, 52)
+        GUI.StopSlapDetector = stopSlapDetector
 
         local observationContent = MakeFolder("ROUND OBSERVATIONS", GUI.GuessSlapperPage)
         local observationBoxValue = ""
