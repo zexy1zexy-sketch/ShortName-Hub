@@ -66,23 +66,30 @@ function Presence.Report()
     })
 end
 
-function Presence.GetPlayers(adminKey)
-    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+local function OwnerHeaders(session)
+    return { ["x-owner-session"] = tostring(session or "") }
+end
+
+function Presence.ExchangeOwnerCode(code)
     return Send({
-        Url = ENDPOINT .. "/players",
-        Method = "GET",
-        Timeout = 25,
-        Headers = { ["x-admin-key"] = adminKey }
+        Url = ENDPOINT .. "/owner-session",
+        Method = "POST",
+        Timeout = 20,
+        Headers = { ["Content-Type"] = "application/json" },
+        Body = HttpService:JSONEncode({ code = tostring(code or "") })
     })
 end
 
-function Presence.SetBan(adminKey, userId, duration)
-    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+function Presence.GetPlayers(session)
+    if type(session) ~= "string" or session == "" then return false, "Verify owner access first." end
+    return Send({ Url = ENDPOINT .. "/players", Method = "GET", Timeout = 25, Headers = OwnerHeaders(session) })
+end
+
+function Presence.SetBan(session, userId, duration)
+    if type(session) ~= "string" or session == "" then return false, "Verify owner access first." end
     return Send({
-        Url = ENDPOINT .. "/ban",
-        Method = "PATCH",
-        Timeout = 20,
-        Headers = { ["Content-Type"] = "application/json", ["x-admin-key"] = adminKey },
+        Url = ENDPOINT .. "/ban", Method = "PATCH", Timeout = 20,
+        Headers = { ["Content-Type"] = "application/json", ["x-owner-session"] = session },
         Body = HttpService:JSONEncode({ userId = tonumber(userId), duration = duration })
     })
 end
@@ -97,18 +104,18 @@ function Presence.CheckBan()
     })
 end
 
-function Presence.GetBans(adminKey)
-    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+function Presence.GetBans(session)
+    if type(session) ~= "string" or session == "" then return false, "Verify owner access first." end
     return Send({
         Url = ENDPOINT .. "/bans",
         Method = "GET",
         Timeout = 25,
-        Headers = { ["x-admin-key"] = adminKey }
+        Headers = OwnerHeaders(session)
     })
 end
 
-function Presence.GetSecurityEvents(adminKey)
-    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+function Presence.GetSecurityEvents(session)
+    if type(session) ~= "string" or session == "" then return false, "Verify owner access first." end
     return Send({
         Url = ENDPOINT .. "/security-events",
         Method = "GET",
@@ -135,13 +142,13 @@ function Presence.ReportSecurity(uploadKey, eventData)
     })
 end
 
-function Presence.SetRank(adminKey, userId, rank)
-    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+function Presence.SetRank(session, userId, rank)
+    if type(session) ~= "string" or session == "" then return false, "Verify owner access first." end
     return Send({
         Url = ENDPOINT .. "/rank",
         Method = "PATCH",
         Timeout = 20,
-        Headers = { ["Content-Type"] = "application/json", ["x-admin-key"] = adminKey },
+        Headers = { ["Content-Type"] = "application/json", ["x-owner-session"] = session },
         Body = HttpService:JSONEncode({ userId = tonumber(userId), rank = rank })
     })
 end
