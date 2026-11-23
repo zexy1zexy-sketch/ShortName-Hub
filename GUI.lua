@@ -2990,9 +2990,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    local UploadKey = ""
-    MakeBox(FightScannerFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
-        UploadKey = value
+    local UploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+    MakeBox(FightScannerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", UploadKey, function(value)
+        UploadKey = tostring(value or "")
+        UploadKeyCache.__SHORTNAME_UPLOAD_KEY = UploadKey
     end)
 
     MakeButton(FightScannerFolder, "UPLOAD REPORT", function()
@@ -3205,9 +3206,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    local StructureUploadKey = ""
-    MakeBox(FightStructureFolder, "CLOUDFLARE UPLOAD KEY", "", function(value)
-        StructureUploadKey = value
+    local StructureUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+    MakeBox(FightStructureFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", StructureUploadKey, function(value)
+        StructureUploadKey = tostring(value or "")
+        UploadKeyCache.__SHORTNAME_UPLOAD_KEY = StructureUploadKey
     end)
 
     MakeButton(FightStructureFolder, "UPLOAD STRUCTURE REPORT", function()
