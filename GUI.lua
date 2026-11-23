@@ -2333,6 +2333,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         pcall(makefolder, "ShortNameHub")
         local payload = {
             accent = CurrentAccent.Name or "Purple",
+            accentColor = {
+                math.floor(CurrentAccent.Color.R * 255 + 0.5),
+                math.floor(CurrentAccent.Color.G * 255 + 0.5),
+                math.floor(CurrentAccent.Color.B * 255 + 0.5)
+            },
             surface = ActiveSurfacePreset and ActiveSurfacePreset.Name or "MIDNIGHT",
             scale = WindowScale.Scale,
             transparency = Frame.BackgroundTransparency,
@@ -2353,6 +2358,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if not ok or type(data) ~= "table" then ProfileStatus.Text = "PROFILE: INVALID FILE" return end
         for _, preset in ipairs(AccentPresets) do
             if preset.Name == data.accent then ApplyAccent(preset) break end
+        end
+        if type(data.accentColor) == "table" and #data.accentColor == 3 then
+            local red = math.clamp(tonumber(data.accentColor[1]) or 145, 0, 255)
+            local green = math.clamp(tonumber(data.accentColor[2]) or 75, 0, 255)
+            local blue = math.clamp(tonumber(data.accentColor[3]) or 255, 0, 255)
+            local color = Color3.fromRGB(red, green, blue)
+            ApplyAccent({
+                Name = data.accent or "Custom",
+                Color = color,
+                Light = color:Lerp(Color3.new(1, 1, 1), 0.28),
+                Active = ButtonDark:Lerp(color, 0.62)
+            })
         end
         for _, preset in ipairs(SurfacePresets) do
             if preset.Name == data.surface then ApplySurfaceTheme(preset) ActiveSurfacePreset = preset break end
