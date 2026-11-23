@@ -5,11 +5,11 @@ local Config = {
 
     AutoEnabled = false,
 
-    AirInterval = 5,
-    AirTime = 3,
+    AirInterval = 10,
+    AirTime = 1,
     AirHeight = 100,
 
-    TeleportsPerSecond = 1,
+    TeleportsPerSecond = 70,
 
     MinAirInterval = 1,
     MaxAirInterval = 30,
