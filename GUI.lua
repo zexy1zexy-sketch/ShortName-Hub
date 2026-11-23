@@ -2057,6 +2057,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local inspectorConnections = {}
         local watchedGui = {}
         local lastMovementCapture = 0
+        local lastRootVelocity = nil
+        local lastRootCharacter = nil
         local lastGuiCapture = {}
         local function addInspectorConnection(connection)
             table.insert(inspectorConnections, connection)
@@ -2198,17 +2200,33 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             addInspectorConnection(playerGui.DescendantAdded:Connect(watchGuiObject))
         end
         addInspectorConnection(PromptService.PromptShown:Connect(function(prompt)
-            captureSnapshot("dodge-prompt-candidate", "ProximityPrompt shown: " .. safeFullName(prompt))
+            captureSnapshot("proximity-prompt-shown", "A ProximityPrompt became active; this is an observation, not proof of a dodge prompt: " .. safeFullName(prompt))
         end))
         addInspectorConnection(PromptService.PromptHidden:Connect(function(prompt)
-            captureSnapshot("dodge-prompt-hidden", "ProximityPrompt hidden: " .. safeFullName(prompt))
+            captureSnapshot("proximity-prompt-hidden", "A ProximityPrompt was hidden: " .. safeFullName(prompt))
         end))
         addInspectorConnection(RunService.Heartbeat:Connect(function()
             local character = LocalPlayer and LocalPlayer.Character
             local root = character and character:FindFirstChild("HumanoidRootPart")
-            if root and root.AssemblyLinearVelocity.Magnitude >= 20 and os.clock() - lastMovementCapture >= 1.5 then
-                lastMovementCapture = os.clock()
-                captureSnapshot("movement-spike-candidate", "Speed exceeded 20 studs/second; this may be knockback or ordinary movement.")
+            if not root then
+                lastRootVelocity = nil
+                lastRootCharacter = nil
+                return
+            end
+            local velocity = root.AssemblyLinearVelocity
+            local now = os.clock()
+            if lastRootCharacter ~= character then
+                lastRootCharacter = character
+                lastRootVelocity = velocity
+                return
+            end
+            local previousVelocity = lastRootVelocity
+            lastRootVelocity = velocity
+            if previousVelocity and (velocity - previousVelocity).Magnitude >= 35 and now - lastMovementCapture >= 1.5 then
+                lastMovementCapture = now
+                captureSnapshot("velocity-change-candidate",
+                    "Abrupt velocity change observed (delta " .. string.format("%.1f", (velocity - previousVelocity).Magnitude) ..
+                    " studs/s). Possible knockback, collision, or other physics change; not confirmed as a slap.")
             end
         end))
         MakeButton(inspectorContent, "SNAPSHOT MY MOVEMENT", function()
