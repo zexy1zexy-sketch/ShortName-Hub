@@ -42,6 +42,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     local function AddHover(button, normalColor, hoverColor)
         button.AutoButtonColor = false
+        button:SetAttribute("SNHNormalColor", normalColor)
         button.MouseEnter:Connect(function()
             Tween(button, {
                 BackgroundColor3 = hoverColor
@@ -49,7 +50,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
         button.MouseLeave:Connect(function()
             Tween(button, {
-                BackgroundColor3 = normalColor
+                BackgroundColor3 = button:GetAttribute("SNHNormalColor") or normalColor
             })
         end)
     end
@@ -471,6 +472,74 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Stroke(b, preset.Light, 1); AddHover(b, preset.Color, preset.Light)
         b.Activated:Connect(function()
             ApplyAccent(preset)
+        end)
+    end
+
+    Label(SettingsPage, "Background style", 11, 19, Grey)
+    local SurfacePresets = {
+        { Name = "MIDNIGHT", Dark = Color3.fromRGB(12, 12, 17), Panel = Color3.fromRGB(23, 23, 31), Button = Color3.fromRGB(31, 31, 42), Border = Color3.fromRGB(54, 48, 70), Top = Color3.fromRGB(19, 18, 27) },
+        { Name = "BLACKOUT", Dark = Color3.fromRGB(5, 5, 8), Panel = Color3.fromRGB(14, 14, 19), Button = Color3.fromRGB(23, 23, 30), Border = Color3.fromRGB(43, 43, 55), Top = Color3.fromRGB(10, 10, 15) },
+        { Name = "SLATE", Dark = Color3.fromRGB(18, 22, 32), Panel = Color3.fromRGB(29, 35, 49), Button = Color3.fromRGB(39, 47, 64), Border = Color3.fromRGB(65, 76, 98), Top = Color3.fromRGB(29, 34, 48) }
+    }
+    local SurfaceRow = Instance.new("Frame")
+    SurfaceRow.Size = UDim2.new(1, 0, 0, 32)
+    SurfaceRow.BackgroundTransparency = 1
+    SurfaceRow.Parent = SettingsPage
+    local SurfaceLayout = Instance.new("UIListLayout")
+    SurfaceLayout.FillDirection = Enum.FillDirection.Horizontal
+    SurfaceLayout.Padding = UDim.new(0, 5)
+    SurfaceLayout.Parent = SurfaceRow
+
+    local function ApplySurfaceTheme(preset)
+        local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
+        for _, obj in ipairs(ScreenGui:GetDescendants()) do
+            if obj:IsA("GuiObject") then
+                if obj.BackgroundColor3 == oldDark then
+                    obj.BackgroundColor3 = preset.Dark
+                elseif obj.BackgroundColor3 == oldPanel then
+                    obj.BackgroundColor3 = preset.Panel
+                elseif obj.BackgroundColor3 == oldButton then
+                    obj.BackgroundColor3 = preset.Button
+                end
+                if obj:IsA("TextButton") and obj:GetAttribute("SNHNormalColor") == oldButton then
+                    obj:SetAttribute("SNHNormalColor", preset.Button)
+                end
+            elseif obj:IsA("UIStroke") and obj.Color == oldBorder then
+                obj.Color = preset.Border
+            elseif obj:IsA("UIGradient") then
+                if obj.Parent == Frame then
+                    obj.Color = ColorSequence.new(preset.Top, preset.Dark)
+                elseif obj.Parent == Header then
+                    obj.Color = ColorSequence.new(preset.Panel, preset.Dark)
+                end
+            end
+        end
+        Dark, Panel, ButtonDark, Border = preset.Dark, preset.Panel, preset.Button, preset.Border
+    end
+
+    for _, preset in ipairs(SurfacePresets) do
+        local b = Instance.new("TextButton")
+        b.Size = UDim2.new(1 / 3, -4, 1, 0)
+        b.BackgroundColor3 = preset.Button
+        b.Text = preset.Name
+        b.TextColor3 = White
+        b.TextSize = 9
+        b.Font = Enum.Font.GothamBold
+        b.Parent = SurfaceRow
+        Corner(b, 7)
+        Stroke(b, preset.Border, 1)
+        AddHover(b, preset.Button, preset.Panel)
+        b.Activated:Connect(function()
+            ApplySurfaceTheme(preset)
+            for _, sibling in ipairs(SurfaceRow:GetChildren()) do
+                if sibling:IsA("TextButton") then
+                    local stroke = sibling:FindFirstChildOfClass("UIStroke")
+                    if stroke then
+                        stroke.Color = sibling == b and CurrentAccent.Light or Border
+                        stroke.Thickness = sibling == b and 1.5 or 1
+                    end
+                end
+            end
         end)
     end
 
