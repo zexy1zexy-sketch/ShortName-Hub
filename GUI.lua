@@ -843,9 +843,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- FIGHT ON A BASEPLATE FOLDER
     -- Kept separate from the other game folders.
     local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
-    local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder, false)
+    local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
+    local FightScannerFolder = MakeFolder("GAME OBJECT SCANNER", FightDetectorsFolder, false)
 
-    Label(FightScannerFolder, "FIGHT ON A BASEPLATE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(FightScannerFolder, "GAME OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightScannerFolder,
         "Scans locally replicated game objects and visible UI for combat-related names and text.",
@@ -989,8 +990,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
 
     -- READ-ONLY COMBAT SYSTEM INSPECTOR
-    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM INSPECTOR", FightFolder, false)
-    Label(FightInspectorFolder, "COMBAT SYSTEM INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM FINDER", FightDetectorsFolder, false)
+    Label(FightInspectorFolder, "COMBAT SYSTEM FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightInspectorFolder,
         "Inspects selected combat-related instances, their classes, paths, and child structure. It never calls remotes or reads script source.",
@@ -1066,8 +1067,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(85, 75, 105))
 
     -- PASSIVE COMBAT STRUCTURE SCANNER
-    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE SCANNER", FightFolder, false)
-    Label(FightStructureFolder, "COMBAT STRUCTURE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE FINDER", FightDetectorsFolder, false)
+    Label(FightStructureFolder, "COMBAT STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightStructureFolder,
         "Inventories client-visible combat-related objects and RemoteEvent/RemoteFunction names and paths. It never invokes them or reads script source.",
@@ -1948,8 +1949,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
     -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
-    local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage, false)
-    Label(ObserverFolder, "PASSIVE ATTACK OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local ObserverFolder = MakeFolder("WEAPON MOVEMENT OBSERVER", FightDetectorsFolder, false)
+    Label(ObserverFolder, "WEAPON MOVEMENT OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(ObserverFolder, "Tracks new combat objects plus movement of existing weapon/hitbox parts. Start before a fight. Read-only; no remotes are called and no game objects are changed.", 10, 48, Grey)
     local ObserverRunning = false
     local ObserverConnection
