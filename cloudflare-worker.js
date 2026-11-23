@@ -14,6 +14,16 @@ async function saveReport(report,env){
  const put=await gh(p,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
  if(!put.ok)throw new Error("GitHub save failed ("+put.status+"): "+await put.text());return await put.json();
 }
+async function saveFeedback(message,env){
+ if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
+ const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+ const path="feedback/inbox/"+stamp+"-"+crypto.randomUUID()+".txt";
+ const content="SHORTNAME HUB FEEDBACK\\nReceived: "+new Date().toISOString()+"\\n\\n"+message+"\\n";
+ const body={message:"Add ShortName Hub feedback",content:b64utf8(content),branch:BRANCH};
+ const put=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+path,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+ if(!put.ok)throw new Error("GitHub feedback save failed ("+put.status+"): "+await put.text());
+ return {path,commit: (await put.json()).commit?.sha||null};
+}
 async function serveModule(request,env){
  // Public, allowlisted module delivery. The GitHub token remains server-side.
  const name=new URL(request.url).searchParams.get("name")||"";
@@ -42,6 +52,18 @@ export default {async fetch(request,env){
    await env.REPORTS.put("latest-report",body.report);const saved=await saveReport(body.report,env);
    return reply({ok:true,characters:body.report.length,github:"saved",commit:saved.commit?.sha||null});
   }
-  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","GET /latest?key=...","POST /upload"]},404);
+  if(request.method==="POST"&&url.pathname==="/feedback"){
+   const body=await request.json().catch(()=>null);
+   if(!body||typeof body.message!=="string")return reply({ok:false,error:"Expected JSON body with message"},400);
+   const message=body.message.trim();
+   if(message.length<8||message.length>1500)return reply({ok:false,error:"Feedback must be 8-1,500 characters"},400);
+   const ip=request.headers.get("CF-Connecting-IP")||"unknown";
+   const rateKey="feedback-cooldown:"+ip;
+   if(await env.REPORTS.get(rateKey))return reply({ok:false,error:"Please wait a minute before sending another idea"},429);
+   const saved=await saveFeedback(message,env);
+   await env.REPORTS.put(rateKey,"1",{expirationTtl:60});
+   return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
+  }
+  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","GET /latest?key=...","POST /upload","POST /feedback"]},404);
  }catch(e){return reply({ok:false,error:"Worker error",details:String(e?.message||e)},500);}
 }};
