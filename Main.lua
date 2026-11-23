@@ -509,8 +509,8 @@ StartHub = function(skipKey)
                 FightInspector,
                 FightStructureScanner,
                 RefreshHub,
-                PresenceModule
-                ThemeModule,
+                PresenceModule,
+                ThemeModule
             )
         end)
 
