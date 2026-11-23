@@ -6,7 +6,7 @@ local OwnerViewEnabled = IsCreator
 local OwnerOnlyFolders = {}
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
-function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback, PresenceModule)
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -128,7 +128,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, -138, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "👑"
+    CrownButton.Text = "⚙"
     CrownButton.TextColor3 = Color3.fromRGB(255, 215, 120)
     CrownButton.TextSize = 17
     CrownButton.Font = Enum.Font.GothamBold
@@ -183,9 +183,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CommunityClose.Parent = CommunityPanel
     CommunityClose.ZIndex = 22
     Corner(CommunityClose, 6)
-    CrownButton.Activated:Connect(function()
-        CommunityPanel.Visible = not CommunityPanel.Visible
-    end)
     CommunityClose.Activated:Connect(function()
         CommunityPanel.Visible = false
     end)
@@ -318,8 +315,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return b
     end
 
-    local SettingsNav = MakeNav("⚙  Settings", 1); local GameNav = MakeNav("◆  Noob Incremental", 2)
-    local FightNav = MakeNav("⚔  Fight on a Baseplate", 3); local SoonNav = MakeNav("＋  Coming Soon", 4)
+    local SettingsNav = MakeNav("⚙  Settings", 1); local PlayersNav
+    if IsCreator then PlayersNav = MakeNav("♙  Players", 2) end
+    local GameNav = MakeNav("◆  Noob Incremental", 3)
+    local FightNav = MakeNav("⚔  Fight on a Baseplate", 4); local SoonNav = MakeNav("＋  Coming Soon", 5)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -345,12 +344,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return page
     end
 
-    local SettingsPage = MakePage("Settings"); local GamePage = MakePage("NoobIncremental")
+    local SettingsPage = MakePage("Settings"); local PlayersPage = IsCreator and MakePage("Players") or nil
+    local GamePage = MakePage("NoobIncremental")
     local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Settings = SettingsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
+        local pages = { Settings = SettingsPage, Players = PlayersPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true; pageObject.Position = UDim2.fromOffset(15, 8)
@@ -372,11 +372,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             or Grey
         end
 
-        StyleNav(SettingsNav, page == "Settings"); StyleNav(GameNav, page == "Game")
+        StyleNav(SettingsNav, page == "Settings")
+        if PlayersNav then StyleNav(PlayersNav, page == "Players") end
+        StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
 
     SettingsNav.Activated:Connect(function()
+        SelectPage("Settings")
+    end)
+    if PlayersNav then
+        PlayersNav.Activated:Connect(function() SelectPage("Players") end)
+    end
+    CrownButton.Activated:Connect(function()
+        CommunityPanel.Visible = false
+        FeedbackPanel.Visible = false
         SelectPage("Settings")
     end)
     GameNav.Activated:Connect(function()
@@ -823,6 +833,132 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return b
     end
 
+
+    -- OPTIONAL PRESENCE SHARING: off until each user explicitly enables it.
+    do
+        local PresenceEnabled = false
+        local PresenceToken = 0
+        local PresenceStatus = Label(SettingsPage, "PRESENCE SHARING: OFF", 10, 22, Grey)
+        Label(SettingsPage, "Optional: share your Roblox username and current experience with the hub creator's player roster. You can turn this off at any time.", 10, 42, Grey).TextWrapped = true
+        local PresenceButton = MakeButton(SettingsPage, "ENABLE PRESENCE SHARING", function()
+            PresenceEnabled = not PresenceEnabled
+            PresenceToken += 1
+            local token = PresenceToken
+            PresenceButton.Text = PresenceEnabled and "DISABLE PRESENCE SHARING" or "ENABLE PRESENCE SHARING"
+            PresenceStatus.Text = PresenceEnabled and "PRESENCE SHARING: ON" or "PRESENCE SHARING: OFF"
+            if PresenceEnabled then
+                task.spawn(function()
+                    while PresenceEnabled and PresenceToken == token and ScreenGui.Parent do
+                        if PresenceModule and type(PresenceModule.Report) == "function" then
+                            local ok, sent, detail = pcall(function() return PresenceModule.Report() end)
+                            if not ok or not sent then
+                                PresenceStatus.Text = "PRESENCE: " .. tostring(ok and detail or sent)
+                            else
+                                PresenceStatus.Text = "PRESENCE SHARING: ON • UPDATED"
+                            end
+                        else
+                            PresenceStatus.Text = "PRESENCE: MODULE UNAVAILABLE"
+                        end
+                        task.wait(45)
+                    end
+                end)
+            end
+        end, Color3.fromRGB(65, 95, 135))
+        ScreenGui.Destroying:Connect(function()
+            PresenceEnabled = false
+            PresenceToken += 1
+        end)
+    end
+
+    -- CREATOR-ONLY PLAYER ROSTER. The owner admin key is entered locally and is never saved.
+    if PlayersPage then
+        task.spawn(function()
+            Label(PlayersPage, "COMMUNITY PLAYERS", 16, 28).Font = Enum.Font.GothamBold
+            Label(PlayersPage, "Users who opted in to presence sharing. Online status expires after 90 seconds without a heartbeat.", 10, 38, Grey).TextWrapped = true
+            local AdminKey = ""
+            MakeBox(PlayersPage, "OWNER ADMIN KEY (Cloudflare UPLOAD_KEY)", "", function(value) AdminKey = value end)
+            local RosterStatus = Label(PlayersPage, "ROSTER: ENTER ADMIN KEY, THEN REFRESH", 10, 24, Grey)
+            local RefreshRosterButton
+            local function ClearRosterRows()
+                for _, child in ipairs(PlayersPage:GetChildren()) do
+                    if child.Name == "PresencePlayerRow" then child:Destroy() end
+                end
+            end
+            local function RefreshRoster()
+                if not PresenceModule or type(PresenceModule.GetPlayers) ~= "function" then
+                    RosterStatus.Text = "ROSTER: PRESENCE MODULE UNAVAILABLE"
+                    return
+                end
+                if AdminKey == "" then
+                    RosterStatus.Text = "ROSTER: ENTER OWNER ADMIN KEY"
+                    return
+                end
+                RosterStatus.Text = "ROSTER: LOADING..."
+                local ok, result, detail = pcall(function() return PresenceModule.GetPlayers(AdminKey) end)
+                if not ok or not result then
+                    RosterStatus.Text = "ROSTER: " .. tostring(ok and detail or result)
+                    return
+                end
+                ClearRosterRows()
+                local list = result.players or {}
+                RosterStatus.Text = "ROSTER: " .. tostring(#list) .. " REGISTERED USERS"
+                for _, playerData in ipairs(list) do
+                    local row = Instance.new("Frame")
+                    row.Name = "PresencePlayerRow"
+                    row.Size = UDim2.new(1, 0, 0, 76)
+                    row.BackgroundColor3 = ButtonDark
+                    row.BorderSizePixel = 0
+                    row.Parent = PlayersPage
+                    Corner(row, 8)
+                    Stroke(row, Border, 1)
+                    local online = playerData.online == true
+                    local seenText = online and ("ONLINE • " .. tostring(playerData.gameName or "Unknown game")) or ("OFFLINE • LAST SEEN " .. (tonumber(playerData.lastSeen) and os.date("%b %d %I:%M %p", playerData.lastSeen / 1000) or "UNKNOWN"))
+                    local details = Instance.new("TextLabel")
+                    details.BackgroundTransparency = 1
+                    details.Position = UDim2.fromOffset(8, 5)
+                    details.Size = UDim2.new(1, -184, 1, -10)
+                    details.TextXAlignment = Enum.TextXAlignment.Left
+                    details.TextYAlignment = Enum.TextYAlignment.Center
+                    details.TextWrapped = true
+                    details.Font = Enum.Font.Gotham
+                    details.TextSize = 10
+                    details.TextColor3 = online and Color3.fromRGB(130, 230, 165) or Grey
+                    details.Text = tostring(playerData.displayName or playerData.username) .. "  (@" .. tostring(playerData.username) .. ")\n" .. seenText .. "\nRANK: " .. tostring(playerData.rank or "Member")
+                    details.Parent = row
+                    local rankOptions = { { "MEM", "Member", 0 }, { "PREM", "Premium", 1 }, { "STAFF", "Staff", 2 } }
+                    for _, option in ipairs(rankOptions) do
+                        local button = Instance.new("TextButton")
+                        button.Size = UDim2.fromOffset(52, 25)
+                        button.Position = UDim2.new(1, -176 + option[3] * 58, 0, 25)
+                        button.BackgroundColor3 = playerData.rank == option[2] and CurrentAccent.Active or Color3.fromRGB(48, 45, 60)
+                        button.Text = option[1]
+                        button.TextColor3 = White
+                        button.TextSize = 9
+                        button.Font = Enum.Font.GothamBold
+                        button.Parent = row
+                        Corner(button, 6)
+                        button.Activated:Connect(function()
+                            local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, option[2]) end)
+                            if saved and response then
+                                RosterStatus.Text = "UPDATED RANK: " .. tostring(playerData.username) .. " → " .. option[2]
+                                RefreshRoster()
+                            else
+                                RosterStatus.Text = "RANK UPDATE FAILED: " .. tostring(saved and message or response)
+                            end
+                        end)
+                    end
+                end
+            end
+            RefreshRosterButton = MakeButton(PlayersPage, "REFRESH PLAYER ROSTER", RefreshRoster, Color3.fromRGB(55, 85, 125))
+            task.spawn(function()
+                while ScreenGui.Parent do
+                    task.wait(60)
+                    if PlayersPage.Visible and AdminKey ~= "" then RefreshRoster() end
+                end
+            end)
+        end)
+    end
+
     -- HALLOWEEN EVENT FOLDER
     local HalloweenFolder = MakeFolder("HALLOWEEN EVENT")
 
@@ -979,7 +1115,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     do
     -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
-    local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", FightFolder)
+    local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", GamePage)
     Label(PlayerToolsFolder, "PLAYER TRACKER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(PlayerToolsFolder, "Enter a player name to spectate their character. Your own character is not teleported or attached.", 10, 38, Grey)
 
