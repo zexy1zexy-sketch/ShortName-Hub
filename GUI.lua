@@ -3631,6 +3631,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     White)
     SoonText.TextXAlignment = Enum.TextXAlignment.Center
 
+    do
     local FeedbackComingSoon = Instance.new("Frame")
     FeedbackComingSoon.Name = "FeedbackComingSoon"
     FeedbackComingSoon.Size = UDim2.new(1, 0, 0, 62)
@@ -3645,6 +3646,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local FeedbackComingDescription = Label(FeedbackComingSoon, "Send ideas and report issues - coming in a future update.", 10, 25, Grey)
     FeedbackComingDescription.Position = UDim2.fromOffset(14, 31)
     FeedbackComingDescription.TextWrapped = true
+    end
 
     -- MINIMIZE BUBBLE
     local Bubble = Instance.new("TextButton"); Bubble.Name = "ShortNameBubble"; Bubble.Size = UDim2.fromOffset(55, 55)
