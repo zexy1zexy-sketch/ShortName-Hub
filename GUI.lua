@@ -930,6 +930,59 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(45, 105, 145))
 
     MakeButton(PlayerToolsFolder, "STOP PLAYER TRACKER", StopPlayerTracker, Color3.fromRGB(85, 65, 95))
+
+    -- AUTO RESET: affects only the local player's own character.
+    Label(PlayerToolsFolder, "AUTO RESET", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(PlayerToolsFolder, "Automatically resets your own character at the chosen interval.", 10, 32, Grey)
+    local AutoResetInterval = 5
+    local AutoResetEnabled = false
+    local AutoResetToken = 0
+    local AutoResetStatus = Label(PlayerToolsFolder, "AUTO RESET: OFF", 10, 22, Grey)
+
+    MakeBox(PlayerToolsFolder, "RESET INTERVAL (SECONDS, 1–60)", "5", function(value)
+        local parsed = tonumber(value)
+        if not parsed then
+            AutoResetStatus.Text = "AUTO RESET: ENTER A NUMBER"
+            return
+        end
+        AutoResetInterval = math.clamp(parsed, 1, 60)
+        AutoResetStatus.Text = "AUTO RESET INTERVAL: " .. string.format("%.1f", AutoResetInterval) .. " SEC"
+    end)
+
+    local AutoResetButton
+    local function StopAutoReset()
+        AutoResetEnabled = false
+        AutoResetToken += 1
+        if AutoResetButton and AutoResetButton.Parent then
+            AutoResetButton.Text = "AUTO RESET: OFF"
+        end
+        if AutoResetStatus and AutoResetStatus.Parent then
+            AutoResetStatus.Text = "AUTO RESET: OFF"
+        end
+    end
+
+    AutoResetButton = MakeButton(PlayerToolsFolder, "AUTO RESET: OFF", function()
+        AutoResetEnabled = not AutoResetEnabled
+        AutoResetToken += 1
+        local token = AutoResetToken
+        if not AutoResetEnabled then
+            StopAutoReset()
+            return
+        end
+        AutoResetButton.Text = "AUTO RESET: ON"
+        AutoResetStatus.Text = "AUTO RESET: RUNNING"
+        task.spawn(function()
+            while AutoResetEnabled and AutoResetToken == token and ScreenGui.Parent do
+                task.wait(AutoResetInterval)
+                if not AutoResetEnabled or AutoResetToken ~= token or not ScreenGui.Parent then break end
+                local character = LocalPlayer and LocalPlayer.Character
+                local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+                if humanoid and humanoid.Health > 0 then
+                    humanoid.Health = 0
+                end
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 75))
     local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
     local FightScannerFolder = MakeFolder("GAME OBJECT SCANNER", FightDetectorsFolder, false)
 
@@ -2330,6 +2383,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(45, 105, 145))
 
     ScreenGui.Destroying:Connect(function()
+        StopAutoReset()
+        StopAutoReset()
         StopPlayerTracker()
         RemoveCombatHud()
         HitboxEnabled = false
