@@ -1,10 +1,8 @@
 SHORTNAME HUB - PASSIVE ATTACK OBSERVER
 Mode: Workspace DescendantAdded only; no remotes invoked; no game objects modified.
-Captured objects: 6
+Captured objects: 4
 ----------------------------------------
-1. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-4.4,2.4,-111.1 | path=Workspace.Live.gktztktkz.Weapon
-2. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.gktztktkz.Weapon.WeaponTrail
-3. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-0.5,2.4,-113.0 | path=Workspace.Live.ertgnmi5eq.Weapon
-4. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.ertgnmi5eq.Weapon.WeaponTrail
-5. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-9.5,2.3,-104.9 | path=Workspace.Live.eliahissu.Weapon
-6. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.eliahissu.Weapon.WeaponTrail
+1. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-18.3,1.3,-116.8 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+2. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon.WeaponTrail
+3. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-8.8,2.4,-105.6 | path=Workspace.Live.SL33ppyboyyyyy.Weapon
+4. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.SL33ppyboyyyyy.Weapon.WeaponTrail
