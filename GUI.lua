@@ -129,7 +129,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Position = UDim2.new(1, -138, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
     CrownButton.Text = "⚙"
-    CrownButton.TextColor3 = Color3.fromRGB(255, 215, 120)
+    CrownButton.TextColor3 = White
     CrownButton.TextSize = 17
     CrownButton.Font = Enum.Font.GothamBold
     CrownButton.Parent = Header
@@ -895,13 +895,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     return
                 end
                 RosterStatus.Text = "ROSTER: LOADING..."
-                local ok, result, detail = pcall(function() return PresenceModule.GetPlayers(AdminKey) end)
-                if not ok or not result then
-                    RosterStatus.Text = "ROSTER: " .. tostring(ok and detail or result)
+                local ok, sent, result = pcall(function() return PresenceModule.GetPlayers(AdminKey) end)
+                if not ok or not sent then
+                    RosterStatus.Text = "ROSTER: " .. tostring(ok and result or sent)
                     return
                 end
                 ClearRosterRows()
-                local list = result.players or {}
+                local list = type(result) == "table" and result.players or {}
                 RosterStatus.Text = "ROSTER: " .. tostring(#list) .. " REGISTERED USERS"
                 for _, playerData in ipairs(list) do
                     local row = Instance.new("Frame")
@@ -2116,7 +2116,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         b.Activated:Connect(callback)
     end
     QuickAction("OPEN SETTINGS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Settings") end)
-    QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Fight") end)
+    QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Game") end)
     QuickAction("TOGGLE PERFORMANCE HUD", function()
         HubExtras.PerformanceHudEnabled = not HubExtras.PerformanceHudEnabled
         HubExtras.PerformanceHud.Visible = HubExtras.PerformanceHudEnabled
