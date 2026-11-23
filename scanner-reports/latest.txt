@@ -1,8 +1,65 @@
 SHORTNAME HUB - PASSIVE ATTACK OBSERVER
-Mode: Workspace DescendantAdded only; no remotes invoked; no game objects modified.
-Captured objects: 4
+Mode: Workspace DescendantAdded + read-only sampling of existing/new combat-named BaseParts; no remotes invoked; no game objects modified.
+Captured events: 33
+Tracked moving parts: 27
 ----------------------------------------
-1. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-18.3,1.3,-116.8 | path=Workspace.Live.Antwonnnnnnn7.Weapon
-2. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon.WeaponTrail
-3. [MeshPart] Weapon | match=weapon | size=0.40,0.61,5.63 | position=-8.8,2.4,-105.6 | path=Workspace.Live.SL33ppyboyyyyy.Weapon
-4. [Trail] WeaponTrail | match=weapon | path=Workspace.Live.SL33ppyboyyyyy.Weapon.WeaponTrail
+1. [MeshPart] Weapon | match=weapon | source=DescendantAdded | size=0.40,0.61,5.63 | position=3.5,2.1,-108.8 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+2. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=3.5,2.1,-108.8 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+3. [Trail] WeaponTrail | match=weapon | source=DescendantAdded | path=Workspace.Live.Antwonnnnnnn7.Weapon.WeaponTrail
+4. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-8.2,2.4,-118.9 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+5. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=1.9,2.3,-111.2 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+6. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-2.0,2.7,-115.4 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+7. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-3.6,2.4,-97.2 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+8. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-2.0,2.4,-114.6 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+9. [MeshPart] Weapon | match=weapon | source=DescendantAdded | size=0.40,0.61,5.63 | position=-102.3,2.0,70.6 | path=Workspace.Live.SL33ppyboyyyyy.Weapon
+10. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-102.3,2.0,70.6 | path=Workspace.Live.SL33ppyboyyyyy.Weapon
+11. [Trail] WeaponTrail | match=weapon | source=DescendantAdded | path=Workspace.Live.SL33ppyboyyyyy.Weapon.WeaponTrail
+12. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-77.1,1.8,23.2 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+13. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-110.7,1.8,71.2 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+14. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-99.6,1.8,60.3 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+15. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-100.4,1.8,60.7 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+16. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-101.9,1.8,60.6 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+17. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-33.2,1.7,-45.7 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+18. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-104.2,1.8,60.3 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+19. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-40.5,1.7,-50.0 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+20. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-100.6,2.0,57.7 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+21. [MeshPart] Weapon | match=weapon | source=DescendantAdded | size=0.33,4.79,0.34 | position=-57.3,2.0,-66.8 | path=Workspace.Live.mrmarleyfergu.Weapon
+22. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-57.3,2.0,-66.8 | path=Workspace.Live.mrmarleyfergu.Weapon
+23. [Trail] WeaponTrail | match=weapon | source=DescendantAdded | path=Workspace.Live.mrmarleyfergu.Weapon.WeaponTrail
+24. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-102.2,1.8,57.6 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+25. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-99.8,1.8,60.0 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+26. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-100.3,1.7,61.0 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+27. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-100.0,1.7,63.9 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+28. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-30.5,1.7,-54.2 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+29. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-96.1,2.0,60.4 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+30. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-2.4,2.1,-102.9 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+31. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-1.0,2.2,-111.0 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+32. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-0.7,2.1,-116.6 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+33. [MeshPart] Weapon | tracked existing/new part | match=weapon | source=newly-added | position=-3.3,2.2,-98.8 | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 1. [MeshPart] Weapon | changes=141 | maxDelta=4.90 studs | estimatedMaxSpeed=215.1 studs/s | match=weapon | path=Workspace.Live.mrmarleyfergu.Weapon
+MOVEMENT 2. [MeshPart] Weapon | changes=9 | maxDelta=193.15 studs | estimatedMaxSpeed=1425.5 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 3. [MeshPart] Weapon | changes=11 | maxDelta=137.41 studs | estimatedMaxSpeed=1107.7 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 4. [MeshPart] Weapon | changes=9 | maxDelta=220.71 studs | estimatedMaxSpeed=1825.9 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 5. [MeshPart] Weapon | changes=7 | maxDelta=3.10 studs | estimatedMaxSpeed=25.4 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 6. [MeshPart] Weapon | changes=8 | maxDelta=4.30 studs | estimatedMaxSpeed=31.9 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 7. [MeshPart] Weapon | changes=399 | maxDelta=8.69 studs | estimatedMaxSpeed=64.8 studs/s | match=weapon | path=Workspace.Live.SL33ppyboyyyyy.Weapon
+MOVEMENT 8. [MeshPart] Weapon | changes=7 | maxDelta=212.80 studs | estimatedMaxSpeed=1648.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 9. [MeshPart] Weapon | changes=15 | maxDelta=199.68 studs | estimatedMaxSpeed=1516.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 10. [MeshPart] Weapon | changes=6 | maxDelta=3.14 studs | estimatedMaxSpeed=24.3 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 11. [MeshPart] Weapon | changes=10 | maxDelta=222.51 studs | estimatedMaxSpeed=1652.1 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 12. [MeshPart] Weapon | changes=11 | maxDelta=128.29 studs | estimatedMaxSpeed=967.2 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 13. [MeshPart] Weapon | changes=14 | maxDelta=223.73 studs | estimatedMaxSpeed=1696.7 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 14. [MeshPart] Weapon | changes=6 | maxDelta=211.00 studs | estimatedMaxSpeed=1669.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 15. [MeshPart] Weapon | changes=12 | maxDelta=52.97 studs | estimatedMaxSpeed=440.6 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 16. [MeshPart] Weapon | changes=8 | maxDelta=2.31 studs | estimatedMaxSpeed=17.3 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 17. [MeshPart] Weapon | changes=18 | maxDelta=1.88 studs | estimatedMaxSpeed=15.2 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 18. [MeshPart] Weapon | changes=17 | maxDelta=3.05 studs | estimatedMaxSpeed=25.4 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 19. [MeshPart] Weapon | changes=11 | maxDelta=3.42 studs | estimatedMaxSpeed=25.6 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 20. [MeshPart] Weapon | changes=8 | maxDelta=128.22 studs | estimatedMaxSpeed=934.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 21. [MeshPart] Weapon | changes=6 | maxDelta=3.50 studs | estimatedMaxSpeed=26.6 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 22. [MeshPart] Weapon | changes=10 | maxDelta=3.80 studs | estimatedMaxSpeed=29.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 23. [MeshPart] Weapon | changes=9 | maxDelta=2.07 studs | estimatedMaxSpeed=14.8 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 24. [MeshPart] Weapon | changes=7 | maxDelta=2.31 studs | estimatedMaxSpeed=19.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 25. [MeshPart] Weapon | changes=9 | maxDelta=219.82 studs | estimatedMaxSpeed=1655.3 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 26. [MeshPart] Weapon | changes=8 | maxDelta=212.67 studs | estimatedMaxSpeed=1738.0 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
+MOVEMENT 27. [MeshPart] Weapon | changes=10 | maxDelta=238.54 studs | estimatedMaxSpeed=1781.9 studs/s | match=weapon | path=Workspace.Live.Antwonnnnnnn7.Weapon
