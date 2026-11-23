@@ -59,7 +59,29 @@ local function BuildDiagnosticConsole()
         title.Font = Enum.Font.GothamBold
         title.TextSize = 13
         title.TextXAlignment = Enum.TextXAlignment.Left
+        title.Size = UDim2.new(1, -76, 0, 28)
+        title.Active = true
         title.Parent = frame
+
+        local minimize = Instance.new("TextButton")
+        minimize.Size = UDim2.fromOffset(28, 22)
+        minimize.Position = UDim2.new(1, -64, 0, 7)
+        minimize.BackgroundColor3 = Color3.fromRGB(48, 48, 62)
+        minimize.TextColor3 = Color3.new(1, 1, 1)
+        minimize.Text = "—"
+        minimize.TextSize = 16
+        minimize.Font = Enum.Font.GothamBold
+        minimize.Parent = frame
+
+        local close = Instance.new("TextButton")
+        close.Size = UDim2.fromOffset(28, 22)
+        close.Position = UDim2.new(1, -32, 0, 7)
+        close.BackgroundColor3 = Color3.fromRGB(150, 55, 65)
+        close.TextColor3 = Color3.new(1, 1, 1)
+        close.Text = "X"
+        close.TextSize = 12
+        close.Font = Enum.Font.GothamBold
+        close.Parent = frame
 
         local output = Instance.new("TextBox")
         output.Size = UDim2.new(1, -16, 1, -104)
@@ -113,6 +135,58 @@ local function BuildDiagnosticConsole()
 
         DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus = gui, frame, output, status
         UploadKeyBox, UploadButton = keyBox, upload
+
+        local minimized = false
+        local fullSize = UDim2.fromOffset(440, 300)
+        minimize.Activated:Connect(function()
+            minimized = not minimized
+            output.Visible = not minimized
+            keyBox.Visible = not minimized
+            upload.Visible = not minimized
+            status.Visible = not minimized
+            frame.Size = minimized and UDim2.fromOffset(440, 38) or fullSize
+            minimize.Text = minimized and "+" or "—"
+        end)
+        close.Activated:Connect(function()
+            -- Hide rather than destroy so a later startup error can reopen the console.
+            frame.Visible = false
+        end)
+
+        -- Drag the console by its title bar (mouse or touch).
+        local UserInputService = game:GetService("UserInputService")
+        local dragging = false
+        local dragInput
+        local dragStart
+        local startPosition
+        title.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1
+                or input.UserInputType == Enum.UserInputType.Touch then
+                dragging = true
+                dragStart = input.Position
+                startPosition = frame.Position
+                input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.End then
+                        dragging = false
+                    end
+                end)
+            end
+        end)
+        title.InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement
+                or input.UserInputType == Enum.UserInputType.Touch then
+                dragInput = input
+            end
+        end)
+        UserInputService.InputChanged:Connect(function(input)
+            if dragging and (input == dragInput or input.UserInputType == Enum.UserInputType.MouseMovement) then
+                local delta = input.Position - dragStart
+                frame.Position = UDim2.new(
+                    startPosition.X.Scale, startPosition.X.Offset + delta.X,
+                    startPosition.Y.Scale, startPosition.Y.Offset + delta.Y
+                )
+            end
+        end)
+
         upload.Activated:Connect(function()
             local key = tostring(keyBox.Text or "")
             if key == "" then
