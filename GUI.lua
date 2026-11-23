@@ -483,12 +483,31 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     -- SIDEBAR
-    local SidebarWidth = math.min(166, WindowWidth * 0.28); local Sidebar = Instance.new("Frame"); Sidebar.Position = UDim2.fromOffset(14, 62)
-    Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76); Sidebar.BackgroundColor3 = Panel; Sidebar.BackgroundTransparency = 1; Sidebar.BorderSizePixel = 0
-    Sidebar.Parent = Frame; local SideLayout = Instance.new("UIListLayout"); SideLayout.Padding = UDim.new(0, 7)
-    SideLayout.SortOrder = Enum.SortOrder.LayoutOrder; SideLayout.Parent = Sidebar; local SidePadding = Instance.new("UIPadding")
+    local SidebarWidth = math.min(166, WindowWidth * 0.28); local Sidebar = Instance.new("ScrollingFrame"); Sidebar.Name = "Sidebar"
+    Sidebar.Position = UDim2.fromOffset(14, 62); Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
+    Sidebar.BackgroundColor3 = Panel; Sidebar.BackgroundTransparency = 1; Sidebar.BorderSizePixel = 0
+    Sidebar.CanvasSize = UDim2.fromOffset(0, 0); Sidebar.AutomaticCanvasSize = Enum.AutomaticSize.None
+    Sidebar.ScrollingDirection = Enum.ScrollingDirection.Y; Sidebar.ScrollingEnabled = true
+    Sidebar.ScrollBarThickness = 4; Sidebar.ScrollBarImageColor3 = Purple; Sidebar.Active = true
+    Sidebar.ClipsDescendants = true; Sidebar.Parent = Frame
+    local SideLayout = Instance.new("UIListLayout"); SideLayout.Padding = UDim.new(0, 7)
+    SideLayout.SortOrder = Enum.SortOrder.LayoutOrder; SideLayout.Parent = Sidebar
+    local SidePadding = Instance.new("UIPadding")
     SidePadding.PaddingTop = UDim.new(0, 9); SidePadding.PaddingLeft = UDim.new(0, 8); SidePadding.PaddingRight = UDim.new(0, 8)
-    SidePadding.Parent = Sidebar
+    SidePadding.PaddingBottom = UDim.new(0, 9); SidePadding.Parent = Sidebar
+    SideLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        Sidebar.CanvasSize = UDim2.fromOffset(0, SideLayout.AbsoluteContentSize.Y + 18)
+    end)
+
+    local SidebarSearch = Instance.new("TextBox")
+    SidebarSearch.Name = "SidebarSearch"; SidebarSearch.LayoutOrder = 0
+    SidebarSearch.Size = UDim2.new(1, 0, 0, 34); SidebarSearch.BackgroundColor3 = ButtonDark
+    SidebarSearch.BackgroundTransparency = 0.08; SidebarSearch.BorderSizePixel = 0
+    SidebarSearch.Text = ""; SidebarSearch.PlaceholderText = "Search tabs..."
+    SidebarSearch.PlaceholderColor3 = Grey; SidebarSearch.TextColor3 = White
+    SidebarSearch.TextSize = 10; SidebarSearch.Font = Enum.Font.Gotham
+    SidebarSearch.ClearTextOnFocus = false; SidebarSearch.TextXAlignment = Enum.TextXAlignment.Left
+    SidebarSearch.Parent = Sidebar; Corner(SidebarSearch, 8); Stroke(SidebarSearch, Border, 1)
 
     local function MakeNav(text, order)
         local b = Instance.new("TextButton"); b.Name = text; b.LayoutOrder = order
@@ -507,6 +526,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local PlayerToolsNav = MakeNav("T  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("G  Noob Incremental", IsCreator and 4 or 3)
     local FightNav = MakeNav("B  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("+  Coming Soon", IsCreator and 6 or 5)
+
+    local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }
+    local function FilterSidebar(query)
+        query = tostring(query or ""):lower():gsub("^%s*(.-)%s*$", "%1")
+        for _, nav in ipairs(SidebarNavButtons) do
+            if nav then
+                local fullText = tostring(nav:GetAttribute("SNHFullText") or nav.Name)
+                nav.Visible = query == "" or fullText:lower():find(query, 1, true) ~= nil
+            end
+        end
+    end
+    SidebarSearch:GetPropertyChangedSignal("Text"):Connect(function()
+        FilterSidebar(SidebarSearch.Text)
+    end)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -532,6 +565,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GUI.SidebarCollapsed = not GUI.SidebarCollapsed
         SidebarWidth = GUI.SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
         Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
+        SidebarSearch.Visible = not GUI.SidebarCollapsed
+        if GUI.SidebarCollapsed then
+            SidebarSearch.Text = ""
+        end
         Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
         Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
         for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
