@@ -460,7 +460,16 @@ StartHub = function(skipKey)
         local NPC = LoadTracked("NPC.lua", "Loaded NPC systems")
         local Teleport = LoadTracked("Teleport.lua", "Loaded movement systems")
         local GUI = LoadTracked("GUI.lua", "Loaded interface code")
-        local PresenceModule = LoadTracked("Presence.lua", "Loaded community presence")
+        local PresenceModule
+        local presenceLoaded, presenceResult = pcall(function()
+            return LoadTracked("Presence.lua", "Loaded community presence")
+        end)
+        if presenceLoaded then
+            PresenceModule = presenceResult
+        else
+            AddDiagnostic("Presence module unavailable: " .. tostring(presenceResult))
+            Step("Presence service unavailable")
+        end
         local ScytheModule = LoadTracked("Scythe.lua", "Loaded weapon systems")
         local ThanksgivingScanner = LoadTracked("ThanksgivingScanner.lua", "Loaded event scanner")
         local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded combat scanner")
