@@ -61,7 +61,8 @@ async function listPlayers(env){
  players.sort((a,b)=>Number(b.online)-Number(a.online)||String(a.username).localeCompare(String(b.username)));
  return players;
 }
-\nasync function serveModule(request,env){
+
+async function serveModule(request,env){
  // Public, allowlisted module delivery. The GitHub token remains server-side.
  const name=new URL(request.url).searchParams.get("name")||"";
  if(!ALLOWED_MODULES.has(name))return reply({ok:false,error:"Module is not allowlisted"},400);
