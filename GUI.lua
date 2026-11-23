@@ -572,6 +572,45 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- SETTINGS
     Label(SettingsPage, "SETTINGS", 17, 30).Font = Enum.Font.GothamBold; Label(SettingsPage, "Personalize your hub experience.", 12, 23, Grey)
+    do
+        local searchBox = Instance.new("TextBox")
+        searchBox.Name = "SettingsSearch"
+        searchBox.Size = UDim2.new(1, 0, 0, 34)
+        searchBox.BackgroundColor3 = ButtonDark
+        searchBox.TextColor3 = White
+        searchBox.PlaceholderColor3 = Grey
+        searchBox.PlaceholderText = "Search settings..."
+        searchBox.Text = ""
+        searchBox.TextSize = 11
+        searchBox.Font = Enum.Font.Gotham
+        searchBox.ClearTextOnFocus = false
+        searchBox.Parent = SettingsPage
+        Corner(searchBox, 8)
+        Stroke(searchBox, Border, 1)
+        local function matchesSearch(object, query)
+            if query == "" then return true end
+            local function checkText(item)
+                if item:IsA("TextLabel") or item:IsA("TextButton") or item:IsA("TextBox") then
+                    local content = (tostring(item.Text or "") .. " " .. tostring(item.PlaceholderText or "")):lower()
+                    if content:find(query, 1, true) then return true end
+                end
+                return false
+            end
+            if checkText(object) then return true end
+            for _, descendant in ipairs(object:GetDescendants()) do
+                if checkText(descendant) then return true end
+            end
+            return false
+        end
+        searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+            local query = tostring(searchBox.Text or ""):lower():gsub("^%s*(.-)%s*$", "%1")
+            for _, child in ipairs(SettingsPage:GetChildren()) do
+                if child:IsA("GuiObject") and child ~= searchBox then
+                    child.Visible = matchesSearch(child, query)
+                end
+            end
+        end)
+    end
     Label(SettingsPage, "APPEARANCE", 13, 25, PurpleLight).Font = Enum.Font.GothamBold; Label(SettingsPage, "Accent color", 11, 19, Grey)
 
     local AccentPresets = {
@@ -2056,11 +2095,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Corner(Toast, 9)
     Stroke(Toast, PurpleLight, 1.2)
     local ToastToken = 0
+    HubExtras.NotificationHistory = {}
     local function Notify(message, duration)
         ToastToken += 1
         local token = ToastToken
+        local entry = os.date("%H:%M:%S") .. "  " .. tostring(message)
+        table.insert(HubExtras.NotificationHistory, entry)
+        while #HubExtras.NotificationHistory > 30 do
+            table.remove(HubExtras.NotificationHistory, 1)
+        end
         Toast.Text = tostring(message)
         Toast.Visible = true
+        if HubExtras.NotificationHistoryText then
+            HubExtras.NotificationHistoryText.Text = table.concat(HubExtras.NotificationHistory, "\n")
+            HubExtras.NotificationHistoryScroll.CanvasSize = UDim2.fromOffset(0, HubExtras.NotificationHistoryText.AbsoluteSize.Y + 8)
+        end
         task.delay(duration or 2.5, function()
             if Toast.Parent and ToastToken == token then Toast.Visible = false end
         end)
@@ -2258,7 +2307,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Corner(QuickMenuButton, 8)
     Stroke(QuickMenuButton, Border, 1)
     HubExtras.QuickMenuPanel = Instance.new("Frame")
-    HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
+    HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(184, 214)
     HubExtras.QuickMenuPanel.Position = UDim2.new(1, IsCreator and -316 or -214, 0, 44)
     HubExtras.QuickMenuPanel.BackgroundColor3 = Panel
     HubExtras.QuickMenuPanel.Visible = false
@@ -2266,6 +2315,56 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     HubExtras.QuickMenuPanel.Parent = Frame
     Corner(HubExtras.QuickMenuPanel, 9)
     Stroke(HubExtras.QuickMenuPanel, PurpleLight, 1)
+    HubExtras.NotificationHistoryPanel = Instance.new("Frame")
+    HubExtras.NotificationHistoryPanel.Name = "NotificationHistory"
+    HubExtras.NotificationHistoryPanel.Size = UDim2.fromOffset(260, 230)
+    HubExtras.NotificationHistoryPanel.Position = UDim2.new(1, -270, 0, 48)
+    HubExtras.NotificationHistoryPanel.BackgroundColor3 = Panel
+    HubExtras.NotificationHistoryPanel.Visible = false
+    HubExtras.NotificationHistoryPanel.ZIndex = 60
+    HubExtras.NotificationHistoryPanel.Parent = Frame
+    Corner(HubExtras.NotificationHistoryPanel, 10)
+    Stroke(HubExtras.NotificationHistoryPanel, CurrentAccent.Light, 1.2)
+    local historyTitle = Label(HubExtras.NotificationHistoryPanel, "NOTIFICATION HISTORY", 11, 28, CurrentAccent.Light)
+    historyTitle.Position = UDim2.fromOffset(10, 4)
+    historyTitle.Font = Enum.Font.GothamBold
+    local historyClose = Instance.new("TextButton")
+    historyClose.Size = UDim2.fromOffset(24, 24)
+    historyClose.Position = UDim2.new(1, -29, 0, 4)
+    historyClose.BackgroundColor3 = ButtonDark
+    historyClose.Text = "×"
+    historyClose.TextColor3 = White
+    historyClose.TextSize = 16
+    historyClose.Parent = HubExtras.NotificationHistoryPanel
+    historyClose.ZIndex = 61
+    Corner(historyClose, 6)
+    historyClose.Activated:Connect(function() HubExtras.NotificationHistoryPanel.Visible = false end)
+    HubExtras.NotificationHistoryScroll = Instance.new("ScrollingFrame")
+    HubExtras.NotificationHistoryScroll.Size = UDim2.new(1, -16, 1, -40)
+    HubExtras.NotificationHistoryScroll.Position = UDim2.fromOffset(8, 34)
+    HubExtras.NotificationHistoryScroll.BackgroundColor3 = ButtonDark
+    HubExtras.NotificationHistoryScroll.BorderSizePixel = 0
+    HubExtras.NotificationHistoryScroll.ScrollBarThickness = 3
+    HubExtras.NotificationHistoryScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    HubExtras.NotificationHistoryScroll.CanvasSize = UDim2.fromOffset(0, 0)
+    HubExtras.NotificationHistoryScroll.ZIndex = 60
+    HubExtras.NotificationHistoryScroll.Parent = HubExtras.NotificationHistoryPanel
+    Corner(HubExtras.NotificationHistoryScroll, 7)
+    HubExtras.NotificationHistoryText = Instance.new("TextLabel")
+    HubExtras.NotificationHistoryText.Size = UDim2.new(1, -12, 0, 0)
+    HubExtras.NotificationHistoryText.AutomaticSize = Enum.AutomaticSize.Y
+    HubExtras.NotificationHistoryText.Position = UDim2.fromOffset(6, 4)
+    HubExtras.NotificationHistoryText.BackgroundTransparency = 1
+    HubExtras.NotificationHistoryText.TextColor3 = White
+    HubExtras.NotificationHistoryText.TextSize = 10
+    HubExtras.NotificationHistoryText.Font = Enum.Font.Gotham
+    HubExtras.NotificationHistoryText.TextXAlignment = Enum.TextXAlignment.Left
+    HubExtras.NotificationHistoryText.TextYAlignment = Enum.TextYAlignment.Top
+    HubExtras.NotificationHistoryText.TextWrapped = true
+    HubExtras.NotificationHistoryText.Text = "No notifications yet."
+    HubExtras.NotificationHistoryText.ZIndex = 61
+    HubExtras.NotificationHistoryText.Parent = HubExtras.NotificationHistoryScroll
+
     local QuickLayout = Instance.new("UIListLayout")
     QuickLayout.Padding = UDim.new(0, 5)
     QuickLayout.Parent = HubExtras.QuickMenuPanel
@@ -2289,6 +2388,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
     QuickAction("OPEN UPDATES", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Updates") end)
     QuickAction("OPEN SETTINGS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Settings") end)
+    QuickAction("NOTIFICATION HISTORY", function()
+        HubExtras.QuickMenuPanel.Visible = false
+        HubExtras.NotificationHistoryText.Text = #HubExtras.NotificationHistory > 0 and table.concat(HubExtras.NotificationHistory, "\n") or "No notifications yet."
+        HubExtras.NotificationHistoryPanel.Visible = not HubExtras.NotificationHistoryPanel.Visible
+    end)
     QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("PlayerTools") end)
     QuickAction("TOGGLE PERFORMANCE HUD", function()
         HubExtras.PerformanceHudEnabled = not HubExtras.PerformanceHudEnabled
