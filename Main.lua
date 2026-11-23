@@ -1,4 +1,5 @@
 -- ShortName Hub loader for the private GitHub repository.
+-- Current release: v1.0.0
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
@@ -281,7 +282,7 @@ StartHub = function(skipKey)
         }
 
         StopRuntime(previousRuntime)
-        print("ShortName Hub: " .. (skipKey and "refreshed successfully!" or "GUI loaded successfully!"))
+        print("ShortName Hub v" .. tostring(Config.Version or "1.0.0") .. ": " .. (skipKey and "refreshed successfully!" or "GUI loaded successfully!"))
         return true
     end)
 
