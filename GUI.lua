@@ -4147,7 +4147,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     ScreenGui.Destroying:Connect(function()
         if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
-        if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
@@ -4385,6 +4384,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 FightStructureScanner:Stop()
             end
         end)
+        if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
