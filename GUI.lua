@@ -1352,9 +1352,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             if DetectionNav and DetectionNav.Parent then
                 DetectionNav.Visible = OwnerViewEnabled
             end
-            if GUI.GuessSlapperNav and GUI.GuessSlapperNav.Parent then
-                GUI.GuessSlapperNav.Visible = OwnerViewEnabled
-            end
             if PlayerAdminUI.Page and PlayerAdminUI.Page.Parent then
                 PlayerAdminUI.Page.Visible = OwnerViewEnabled and CurrentPage == "Players"
             end
@@ -1362,7 +1359,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 DetectionPage.Visible = OwnerViewEnabled and CurrentPage == "Detection"
             end
             if not OwnerViewEnabled then
-                if CurrentPage == "Players" or CurrentPage == "Detection" or CurrentPage == "GuessSlapper" then
+                if CurrentPage == "Players" or CurrentPage == "Detection" then
                     SelectPage("Updates")
                 end
                 CommunityPanel.Visible = false
