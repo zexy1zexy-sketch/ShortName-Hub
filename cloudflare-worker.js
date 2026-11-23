@@ -140,6 +140,6 @@ export default {async fetch(request,env){
    await env.REPORTS.put(rateKey,"1",{expirationTtl:60});
    return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
-  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","GET /latest?key=...","POST /upload","POST /feedback"]},404);
+  return reply({ok:false,error:"Not found",routes:["GET /module?name=GUI.lua","POST /presence","GET /players","PATCH /rank","GET /latest?key=...","POST /upload","POST /game-report","POST /feedback"]},404);
  }catch(e){return reply({ok:false,error:"Worker error",details:String(e?.message||e)},500);}
 }};
