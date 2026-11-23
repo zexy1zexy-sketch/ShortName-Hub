@@ -1,1 +1,5 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 06:08:07 UTC\n\n00:07:52  Diagnostic console initialized before loading modules.\n00:07:52  Executor HTTP request API: available\n00:07:54  COMPILE ERROR in GUI.lua: [string "gneIZvspRCOBXffSHiuM"]:3804: Out of local registers when trying to allocate card: exceeded limit 200\n00:07:54  STARTUP FAILED: [string "BtcmkDZNemUPpkkgVabh"]:318: Could not compile GUI.lua: [string "gneIZvspRCOBXffSHiuM"]:3804: Out of local registers when trying to allocate card: exceeded limit 200\n00:07:54  FATAL LOADER ERROR: [string "BtcmkDZNemUPpkkgVabh"]:578: [string "BtcmkDZNemUPpkkgVabh"]:318: Could not compile GUI.lua: [string "gneIZvspRCOBXffSHiuM"]:3804: Out of local registers when trying to allocate card: exceeded limit 200
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-23 19:13:48 UTC\n\n13:12:55  Diagnostic console initialized before loading modules.\n13:12:55  Executor HTTP request API: available\n13:12:59  Startup completed successfully.\n13:13:34  ERROR: Players.shortname_zen.PlayerScripts.Interface:375: attempt to index nil with 'Text'
+    Stack Begin
+    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 375 - function Do
+    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 421
+    Stack End
