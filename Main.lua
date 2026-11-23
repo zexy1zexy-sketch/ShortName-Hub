@@ -459,6 +459,7 @@ StartHub = function(skipKey)
         local Config = LoadTracked("Config.lua", "Loaded configuration")
         local NPC = LoadTracked("NPC.lua", "Loaded NPC systems")
         local Teleport = LoadTracked("Teleport.lua", "Loaded movement systems")
+        local ThemeModule = LoadTracked("Theme.lua", "Loaded theme foundation")
         local GUI = LoadTracked("GUI.lua", "Loaded interface code")
         local PresenceModule
         local presenceLoaded, presenceResult = pcall(function()
@@ -509,6 +510,7 @@ StartHub = function(skipKey)
                 FightStructureScanner,
                 RefreshHub,
                 PresenceModule
+                ThemeModule,
             )
         end)
 
