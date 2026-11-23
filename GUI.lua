@@ -6,6 +6,62 @@ local OwnerViewEnabled = IsCreator
 local OwnerOnlyFolders = {}
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
+local function BuildUpdatesPage(page, config, accent, buttonDark, border, white, grey, label, corner, stroke, tween)
+    label(page, "WELCOME BACK", 18, 32).Font = Enum.Font.GothamBold
+    label(page, "Here's what's new in ShortName Hub.", 12, 24, grey)
+    local welcomeCard = Instance.new("Frame")
+    welcomeCard.Size = UDim2.new(1, 0, 0, 104)
+    welcomeCard.BackgroundColor3 = buttonDark
+    welcomeCard.BorderSizePixel = 0
+    welcomeCard.Parent = page
+    corner(welcomeCard, 12)
+    stroke(welcomeCard, accent.Light, 1.2)
+    local welcomeTitle = label(welcomeCard, "SHORTNAME HUB  •  CONTROL CENTER", 13, 25, accent.Light)
+    welcomeTitle.Position = UDim2.fromOffset(14, 12)
+    welcomeTitle.Font = Enum.Font.GothamBold
+    local welcomeDescription = label(welcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, white)
+    welcomeDescription.Position = UDim2.fromOffset(14, 42)
+    welcomeDescription.TextWrapped = true
+    label(page, "LATEST CHANGES  •  v" .. tostring(config.Version or "1.0.2"), 12, 25, accent.Light).Font = Enum.Font.GothamBold
+    local updateItems = {
+        { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
+        { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
+        { "03  •  Custom backgrounds", "Set a custom Roblox image asset ID or asset URL." },
+        { "04  •  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
+    }
+    for _, item in ipairs(updateItems) do
+        local card = Instance.new("Frame")
+        card.Size = UDim2.new(1, 0, 0, 40)
+        card.BackgroundColor3 = buttonDark
+        card.BorderSizePixel = 0
+        card.ClipsDescendants = true
+        card.Parent = page
+        corner(card, 10)
+        stroke(card, border, 1)
+        local heading = Instance.new("TextButton")
+        heading.Size = UDim2.new(1, -20, 0, 38)
+        heading.Position = UDim2.fromOffset(10, 1)
+        heading.BackgroundTransparency = 1
+        heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  •  " .. item[1] .. "     +"
+        heading.TextColor3 = white
+        heading.TextSize = 11
+        heading.Font = Enum.Font.GothamBold
+        heading.TextXAlignment = Enum.TextXAlignment.Left
+        heading.Parent = card
+        local detail = label(card, item[2], 10, 34, grey)
+        detail.Position = UDim2.fromOffset(12, 40)
+        detail.TextWrapped = true
+        detail.Visible = false
+        local expanded = false
+        heading.Activated:Connect(function()
+            expanded = not expanded
+            detail.Visible = expanded
+            heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  •  " .. item[1] .. (expanded and "     −" or "     +")
+            tween(card, { Size = UDim2.new(1, 0, 0, expanded and 80 or 40) }, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+        end)
+    end
+end
+
 function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent, callback, formatValue)
     local holder = Instance.new("Frame")
     holder.Name = "SNHSlider_" .. tostring(title):gsub("%W", "")
@@ -3777,61 +3833,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ScreenGui:Destroy()
     end)
 
-    do
-        Label(GUI.UpdatesPage, "WELCOME BACK", 18, 32).Font = Enum.Font.GothamBold
-        Label(GUI.UpdatesPage, "Here's what's new in ShortName Hub.", 12, 24, Grey)
-        local WelcomeCard = Instance.new("Frame")
-        WelcomeCard.Size = UDim2.new(1, 0, 0, 104)
-        WelcomeCard.BackgroundColor3 = ButtonDark
-        WelcomeCard.BorderSizePixel = 0
-        WelcomeCard.Parent = GUI.UpdatesPage
-        Corner(WelcomeCard, 12)
-        Stroke(WelcomeCard, CurrentAccent.Light, 1.2)
-        local WelcomeTitle = Label(WelcomeCard, "SHORTNAME HUB  •  CONTROL CENTER", 13, 25, CurrentAccent.Light)
-        WelcomeTitle.Position = UDim2.fromOffset(14, 12)
-        WelcomeTitle.Font = Enum.Font.GothamBold
-        local WelcomeDescription = Label(WelcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, White)
-        WelcomeDescription.Position = UDim2.fromOffset(14, 42)
-        WelcomeDescription.TextWrapped = true
-        Label(GUI.UpdatesPage, "LATEST CHANGES  •  v" .. tostring(Config.Version or "1.0.2"), 12, 25, CurrentAccent.Light).Font = Enum.Font.GothamBold
-        local UpdateItems = {
-            { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
-            { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
-            { "03  •  Custom backgrounds", "Set a custom Roblox image asset ID or asset URL." },
-            { "04  •  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
-        }
-        for _, item in ipairs(UpdateItems) do
-            local card = Instance.new("Frame")
-            card.Size = UDim2.new(1, 0, 0, 40)
-            card.BackgroundColor3 = ButtonDark
-            card.BorderSizePixel = 0
-            card.ClipsDescendants = true
-            card.Parent = GUI.UpdatesPage
-            Corner(card, 10)
-            Stroke(card, Border, 1)
-            local heading = Instance.new("TextButton")
-            heading.Size = UDim2.new(1, -20, 0, 38)
-            heading.Position = UDim2.fromOffset(10, 1)
-            heading.BackgroundTransparency = 1
-            heading.Text = "v" .. tostring(Config.Version or "1.0.2") .. "  •  " .. item[1] .. "     +"
-            heading.TextColor3 = White
-            heading.TextSize = 11
-            heading.Font = Enum.Font.GothamBold
-            heading.TextXAlignment = Enum.TextXAlignment.Left
-            heading.Parent = card
-            local detail = Label(card, item[2], 10, 34, Grey)
-            detail.Position = UDim2.fromOffset(12, 40)
-            detail.TextWrapped = true
-            detail.Visible = false
-            local expanded = false
-            heading.Activated:Connect(function()
-                expanded = not expanded
-                detail.Visible = expanded
-                heading.Text = "v" .. tostring(Config.Version or "1.0.2") .. "  •  " .. item[1] .. (expanded and "     −" or "     +")
-                Tween(card, { Size = UDim2.new(1, 0, 0, expanded and 80 or 40) }, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
-            end)
-        end
-    end
+    BuildUpdatesPage(GUI.UpdatesPage, Config, CurrentAccent, ButtonDark, Border, White, Grey, Label, Corner, Stroke, Tween)
     SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
     if Camera then
         GUI.ViewportConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
