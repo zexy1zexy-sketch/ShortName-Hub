@@ -16,18 +16,18 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
     welcomeCard.Parent = page
     corner(welcomeCard, 12)
     stroke(welcomeCard, accent.Light, 1.2)
-    local welcomeTitle = label(welcomeCard, "SHORTNAME HUB  •  CONTROL CENTER", 13, 25, accent.Light)
+    local welcomeTitle = label(welcomeCard, "SHORTNAME HUB  -  CONTROL CENTER", 13, 25, accent.Light)
     welcomeTitle.Position = UDim2.fromOffset(14, 12)
     welcomeTitle.Font = Enum.Font.GothamBold
     local welcomeDescription = label(welcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, white)
     welcomeDescription.Position = UDim2.fromOffset(14, 42)
     welcomeDescription.TextWrapped = true
-    label(page, "LATEST CHANGES  •  v" .. tostring(config.Version or "1.0.2"), 12, 25, accent.Light).Font = Enum.Font.GothamBold
+    label(page, "LATEST CHANGES  -  v" .. tostring(config.Version or "1.0.2"), 12, 25, accent.Light).Font = Enum.Font.GothamBold
     local updateItems = {
-        { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
-        { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
-        { "03  •  Custom backgrounds", "Set a custom Roblox image asset ID or asset URL." },
-        { "04  •  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
+        { "01  -  Modular theme foundation", "Centralized accent palette and active navigation glow." },
+        { "02  -  Adjustable appearance", "New interface scale and transparency sliders." },
+        { "03  -  Custom backgrounds", "Set a custom Roblox image asset ID or asset URL." },
+        { "04  -  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
     }
     for _, item in ipairs(updateItems) do
         local card = Instance.new("Frame")
@@ -42,7 +42,7 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
         heading.Size = UDim2.new(1, -20, 0, 38)
         heading.Position = UDim2.fromOffset(10, 1)
         heading.BackgroundTransparency = 1
-        heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  •  " .. item[1] .. "     +"
+        heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  -  " .. item[1] .. "     +"
         heading.TextColor3 = white
         heading.TextSize = 11
         heading.Font = Enum.Font.GothamBold
@@ -56,7 +56,7 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
         heading.Activated:Connect(function()
             expanded = not expanded
             detail.Visible = expanded
-            heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  •  " .. item[1] .. (expanded and "     −" or "     +")
+            heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  -  " .. item[1] .. (expanded and "     -" or "     +")
             tween(card, { Size = UDim2.new(1, 0, 0, expanded and 80 or 40) }, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
         end)
     end
@@ -255,20 +255,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- HEADER
     local Header = Instance.new("Frame"); Header.Size = UDim2.new(1, 0, 0, 48); Header.BackgroundColor3 = Dark
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
-    AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  ◈  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
+    AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SN  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
     HeaderTitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
-    local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
+    local HeaderSubtitle = Label(Header, "CONTROL CENTER  -  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
     HeaderSubtitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
-    MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "−"; MinButton.TextColor3 = White
+    MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "-"; MinButton.TextColor3 = White
     MinButton.TextSize = 17; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Header
     MinButton.ZIndex = 5; Corner(MinButton, 8); Stroke(MinButton, Border, 1)
     AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
     local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
-    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "×"
+    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "X"
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
@@ -280,7 +280,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         OwnerViewButton.Size = UDim2.fromOffset(62, 28)
         OwnerViewButton.Position = UDim2.new(1, -240, 0, 9)
         OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
-        OwnerViewButton.Text = "♛ OWNER"
+        OwnerViewButton.Text = "C OWNER"
         OwnerViewButton.TextColor3 = White
         OwnerViewButton.TextSize = 9
         OwnerViewButton.Font = Enum.Font.GothamBold
@@ -298,7 +298,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GearButton.Size = UDim2.fromOffset(28, 30)
         GearButton.Position = UDim2.new(1, IsCreator and -274 or -240, 0, 8)
         GearButton.BackgroundColor3 = ButtonDark
-        GearButton.Text = "⚙"
+        GearButton.Text = "S"
         GearButton.TextColor3 = White
         GearButton.TextSize = 17
         GearButton.Font = Enum.Font.GothamBold
@@ -314,7 +314,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "♛"
+    CrownButton.Text = "C"
     CrownButton.TextColor3 = White
     CrownButton.TextSize = 19
     CrownButton.Font = Enum.Font.GothamBold
@@ -328,7 +328,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackButton.Size = UDim2.fromOffset(28, 30)
     FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
-    FeedbackButton.Text = "✉"
+    FeedbackButton.Text = "F"
     FeedbackButton.TextColor3 = White
     FeedbackButton.TextSize = 16
     FeedbackButton.Font = Enum.Font.GothamBold
@@ -352,7 +352,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CommunityTitle.Font = Enum.Font.GothamBold
     CommunityTitle.Position = UDim2.fromOffset(8, 4)
     CommunityTitle.ZIndex = 21
-    local CreatorLine = Label(CommunityPanel, "  " .. (LocalPlayer and LocalPlayer.Name or "Creator") .. "  •  CREATOR", 11, 28, White)
+    local CreatorLine = Label(CommunityPanel, "  " .. (LocalPlayer and LocalPlayer.Name or "Creator") .. "  -  CREATOR", 11, 28, White)
     CreatorLine.Position = UDim2.fromOffset(8, 36)
     CreatorLine.ZIndex = 21
     local CommunityNote = Label(CommunityPanel, "  More contributors will be listed here as they join.", 9, 38, Grey)
@@ -363,7 +363,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CommunityClose.Size = UDim2.fromOffset(24, 24)
     CommunityClose.Position = UDim2.new(1, -29, 0, 4)
     CommunityClose.BackgroundColor3 = ButtonDark
-    CommunityClose.Text = "×"
+    CommunityClose.Text = "X"
     CommunityClose.TextColor3 = White
     CommunityClose.TextSize = 17
     CommunityClose.Parent = CommunityPanel
@@ -391,7 +391,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackClose.Size = UDim2.fromOffset(24, 24)
     FeedbackClose.Position = UDim2.new(1, -29, 0, 4)
     FeedbackClose.BackgroundColor3 = ButtonDark
-    FeedbackClose.Text = "×"
+    FeedbackClose.Text = "X"
     FeedbackClose.TextColor3 = White
     FeedbackClose.TextSize = 17
     FeedbackClose.Parent = FeedbackPanel
@@ -430,10 +430,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackSend.Parent = FeedbackPanel
     FeedbackSend.ZIndex = 21
     Corner(FeedbackSend, 7)
-    FeedbackButton.Activated:Connect(function()
-        FeedbackPanel.Visible = not FeedbackPanel.Visible
-        CommunityPanel.Visible = false
-    end)
+    FeedbackButton.Visible = false
+    FeedbackButton.Active = false
     FeedbackClose.Activated:Connect(function()
         FeedbackPanel.Visible = false
     end)
@@ -495,7 +493,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local function MakeNav(text, order)
         local b = Instance.new("TextButton"); b.Name = text; b.LayoutOrder = order
         b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = ButtonDark; b.BackgroundTransparency = 1; b.TextColor3 = Grey
-        b.Text = text; b:SetAttribute("SNHFullText", text); b:SetAttribute("SNHShortText", text:match("^([^%s]+)") or "•"); b.TextSize = WindowWidth < 380 and 11 or 12; b.Font = Enum.Font.GothamMedium
+        b.Text = text; b:SetAttribute("SNHFullText", text); b:SetAttribute("SNHShortText", text:match("^([^%s]+)") or "-"); b.TextSize = WindowWidth < 380 and 11 or 12; b.Font = Enum.Font.GothamMedium
         b.TextXAlignment = Enum.TextXAlignment.Left
         b.Parent = Sidebar; Corner(b, 9)
         local navStroke = Stroke(b, Border, 1)
@@ -504,11 +502,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    GUI.UpdatesNav = MakeNav("◷  Updates", 1)
-    if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
-    local PlayerToolsNav = MakeNav("⌘  Player Tools", IsCreator and 3 or 2)
-    local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 4 or 3)
-    local FightNav = MakeNav("⚔  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("＋  Coming Soon", IsCreator and 6 or 5)
+    GUI.UpdatesNav = MakeNav("U  Updates", 1)
+    if IsCreator then PlayerAdminUI.Nav = MakeNav("P  Players", 2) end
+    local PlayerToolsNav = MakeNav("T  Player Tools", IsCreator and 3 or 2)
+    local GameNav = MakeNav("G  Noob Incremental", IsCreator and 4 or 3)
+    local FightNav = MakeNav("B  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("+  Coming Soon", IsCreator and 6 or 5)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -522,7 +520,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.SidebarToggle.Size = UDim2.fromOffset(26, 30)
     GUI.SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
     GUI.SidebarToggle.BackgroundColor3 = ButtonDark
-    GUI.SidebarToggle.Text = "☰"
+    GUI.SidebarToggle.Text = "M"
     GUI.SidebarToggle.TextColor3 = White
     GUI.SidebarToggle.TextSize = 15
     GUI.SidebarToggle.Font = Enum.Font.GothamBold
@@ -538,19 +536,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
         for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
             if nav then
-                nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "•") or (nav:GetAttribute("SNHFullText") or nav.Name)
+                nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "-") or (nav:GetAttribute("SNHFullText") or nav.Name)
                 nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
                 nav.TextSize = GUI.SidebarCollapsed and 16 or (WindowWidth < 380 and 11 or 12)
             end
         end
-        GUI.SidebarToggle.Text = GUI.SidebarCollapsed and "»" or "☰"
+        GUI.SidebarToggle.Text = GUI.SidebarCollapsed and ">" or "M"
     end)
 
     local function MakePage(name)
         local page = Instance.new("ScrollingFrame"); page.Name = name; page.Size = UDim2.new(1, -16, 1, -16)
         page.Position = UDim2.fromOffset(8, 8); page.BackgroundTransparency = 1; page.BorderSizePixel = 0
-        page.ScrollBarThickness = 3; page.ScrollBarImageColor3 = Purple; page.CanvasSize = UDim2.fromOffset(0, 0)
-        page.AutomaticCanvasSize = Enum.AutomaticSize.Y; page.ScrollingDirection = Enum.ScrollingDirection.Y
+        page.ScrollBarThickness = 5; page.ScrollBarImageColor3 = Purple; page.CanvasSize = UDim2.fromOffset(0, 0)
+        page.AutomaticCanvasSize = Enum.AutomaticSize.None; page.ScrollingDirection = Enum.ScrollingDirection.Y
+        page.ScrollingEnabled = true; page.Active = true; page.ClipsDescendants = true
         page.Visible = false; page.Parent = Content; local layout = Instance.new("UIListLayout")
         layout.Padding = UDim.new(0, 11); layout.SortOrder = Enum.SortOrder.LayoutOrder; layout.Parent = page
         local padding = Instance.new("UIPadding"); padding.PaddingBottom = UDim.new(0, 10); padding.Parent = page
@@ -615,7 +614,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GUI.GlobalSearchButton.Size = UDim2.fromOffset(26, 30)
         GUI.GlobalSearchButton.Position = UDim2.new(1, IsCreator and -376 or -308, 0, 8)
         GUI.GlobalSearchButton.BackgroundColor3 = ButtonDark
-        GUI.GlobalSearchButton.Text = "⌕"
+        GUI.GlobalSearchButton.Text = "Q"
         GUI.GlobalSearchButton.TextColor3 = White
         GUI.GlobalSearchButton.TextSize = 19
         GUI.GlobalSearchButton.Font = Enum.Font.GothamBold
@@ -643,7 +642,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         searchClose.Size = UDim2.fromOffset(26, 26)
         searchClose.Position = UDim2.new(1, -34, 0, 5)
         searchClose.BackgroundColor3 = ButtonDark
-        searchClose.Text = "×"
+        searchClose.Text = "X"
         searchClose.TextColor3 = White
         searchClose.TextSize = 17
         searchClose.Parent = searchPanel
@@ -672,9 +671,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         results.Position = UDim2.fromOffset(10, 82)
         results.BackgroundColor3 = ButtonDark
         results.BorderSizePixel = 0
-        results.ScrollBarThickness = 3
+        results.ScrollBarThickness = 5
         results.CanvasSize = UDim2.fromOffset(0, 0)
-        results.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        results.AutomaticCanvasSize = Enum.AutomaticSize.None
+        results.ScrollingDirection = Enum.ScrollingDirection.Y
+        results.ScrollingEnabled = true
+        results.Active = true
         results.ZIndex = 71
         results.Parent = searchPanel
         Corner(results, 8)
@@ -686,6 +688,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         resultsPadding.PaddingLeft = UDim.new(0, 5)
         resultsPadding.PaddingRight = UDim.new(0, 5)
         resultsPadding.Parent = results
+        resultsLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+            results.CanvasSize = UDim2.fromOffset(0, resultsLayout.AbsoluteContentSize.Y + 12)
+        end)
 
         local function rebuildResults()
             for _, child in ipairs(results:GetChildren()) do
@@ -724,7 +729,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                                 resultButton.TextSize = 10
                                 resultButton.Font = Enum.Font.GothamMedium
                                 resultButton.TextXAlignment = Enum.TextXAlignment.Left
-                                resultButton.Text = "  " .. string.sub(value:gsub("%s+", " "), 1, 54) .. "   •   " .. pageKey
+                                resultButton.Text = "  " .. string.sub(value:gsub("%s+", " "), 1, 54) .. "   -   " .. pageKey
                                 resultButton.Parent = results
                                 resultButton.ZIndex = 72
                                 Corner(resultButton, 6)
@@ -1167,7 +1172,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     RefreshHubButton.TextColor3 = White
     RefreshHubButton.TextSize = 18
     RefreshHubButton.Font = Enum.Font.GothamBold
-    RefreshHubButton.Text = "↻"
+    RefreshHubButton.Text = "R"
     RefreshHubButton.Parent = Header
     RefreshHubButton.ZIndex = 8
     RefreshHubButton.AutoButtonColor = false
@@ -1196,7 +1201,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
 
         RefreshBusy = true
-        RefreshHubButton.Text = "…"
+        RefreshHubButton.Text = "..."
         RefreshHubButton.Active = false
         task.spawn(function()
             local ok, result, detail = pcall(refreshAction)
@@ -1207,7 +1212,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
                 task.wait(2)
                 if RefreshHubButton.Parent then
-                    RefreshHubButton.Text = "↻"
+                    RefreshHubButton.Text = "R"
                 end
             end
         end)
@@ -1232,22 +1237,22 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AddGradient(Folder, Color3.fromRGB(34, 32, 46), ButtonDark, 90); local HeaderButton = Instance.new("TextButton"); HeaderButton.Size =
         UDim2.new(1, 0, 0, 38)
         local FolderIcons = {
-            ["HALLOWEEN EVENT"] = "◈",
-            ["THANKSGIVING EVENT"] = "◉",
-            ["EVENT SCANNER"] = "⌕",
-            ["FIGHT ON A BASEPLATE"] = "⚔",
-            ["PLAYER TOOLS"] = "⌘",
-            ["DETECTORS"] = "⌖",
-            ["GAME OBJECT SCANNER"] = "⌕",
-            ["COMBAT SYSTEM FINDER"] = "✣",
-            ["COMBAT STRUCTURE FINDER"] = "▦",
-            ["NPC & TELEPORT"] = "⌖",
-            ["REMOTES"] = "⌁",
-            ["HOUSE TELEPORT"] = "⌂",
-            ["COMBAT HUD & ASSET TOOLS"] = "⚒",
-            ["WEAPON MOVEMENT OBSERVER"] = "◉"
+            ["HALLOWEEN EVENT"] = "SN",
+            ["THANKSGIVING EVENT"] = "O",
+            ["EVENT SCANNER"] = "Q",
+            ["FIGHT ON A BASEPLATE"] = "B",
+            ["PLAYER TOOLS"] = "T",
+            ["DETECTORS"] = "N",
+            ["GAME OBJECT SCANNER"] = "Q",
+            ["COMBAT SYSTEM FINDER"] = "X",
+            ["COMBAT STRUCTURE FINDER"] = "D",
+            ["NPC & TELEPORT"] = "N",
+            ["REMOTES"] = "~",
+            ["HOUSE TELEPORT"] = "H",
+            ["COMBAT HUD & ASSET TOOLS"] = "W",
+            ["WEAPON MOVEMENT OBSERVER"] = "O"
         }
-        local FolderIcon = FolderIcons[name] or "📁"
+        local FolderIcon = FolderIcons[name] or "F"
         HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = FolderIcon .. "  " .. name .. "     +"; HeaderButton.TextColor3 = White
         HeaderButton.TextSize = 12; HeaderButton.Font = Enum.Font.GothamBold; HeaderButton.TextXAlignment = Enum.TextXAlignment.Left
         HeaderButton.AutoButtonColor = false; HeaderButton.TextColor3 = Color3.fromRGB(235, 228, 250); HeaderButton.Parent = Folder
@@ -1342,7 +1347,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                             if not ok or not sent then
                                 PresenceStatus.Text = "PRESENCE: " .. tostring(ok and detail or sent)
                             else
-                                PresenceStatus.Text = "PRESENCE SHARING: ON • UPDATED"
+                                PresenceStatus.Text = "PRESENCE SHARING: ON - UPDATED"
                             end
                         else
                             PresenceStatus.Text = "PRESENCE: MODULE UNAVAILABLE"
@@ -1399,7 +1404,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     Corner(row, 8)
                     Stroke(row, Border, 1)
                     local online = playerData.online == true
-                    local seenText = online and ("ONLINE • " .. tostring(playerData.gameName or "Unknown game")) or ("OFFLINE • LAST SEEN " .. (tonumber(playerData.lastSeen) and os.date("%b %d %I:%M %p", playerData.lastSeen / 1000) or "UNKNOWN"))
+                    local seenText = online and ("ONLINE - " .. tostring(playerData.gameName or "Unknown game")) or ("OFFLINE - LAST SEEN " .. (tonumber(playerData.lastSeen) and os.date("%b %d %I:%M %p", playerData.lastSeen / 1000) or "UNKNOWN"))
                     local details = Instance.new("TextLabel")
                     details.BackgroundTransparency = 1
                     details.Position = UDim2.fromOffset(8, 5)
@@ -1428,7 +1433,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                         button.Activated:Connect(function()
                             local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, selectedRank) end)
                             if saved and response then
-                                RosterStatus.Text = "UPDATED RANK: " .. tostring(playerData.username) .. " → " .. selectedRank
+                                RosterStatus.Text = "UPDATED RANK: " .. tostring(playerData.username) .. " -> " .. selectedRank
                                 RefreshRoster()
                             else
                                 RosterStatus.Text = "RANK UPDATE FAILED: " .. tostring(saved and message or response)
@@ -1751,7 +1756,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local AutoResetToken = 0
     local AutoResetStatus = Label(PlayerToolsFolder, "AUTO RESET: OFF", 10, 22, Grey)
 
-    MakeBox(PlayerToolsFolder, "RESET INTERVAL (SECONDS, 1–60)", "5", function(value)
+    MakeBox(PlayerToolsFolder, "RESET INTERVAL (SECONDS, 1-60)", "5", function(value)
         local parsed = tonumber(value)
         if not parsed then
             AutoResetStatus.Text = "AUTO RESET: ENTER A NUMBER"
@@ -2398,10 +2403,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     DirectoryList.Size = UDim2.new(1, 0, 0, 145)
     DirectoryList.BackgroundColor3 = ButtonDark
     DirectoryList.BorderSizePixel = 0
-    DirectoryList.ScrollBarThickness = 3
+    DirectoryList.ScrollBarThickness = 5
     DirectoryList.CanvasSize = UDim2.fromOffset(0, 0)
-    DirectoryList.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    DirectoryList.AutomaticCanvasSize = Enum.AutomaticSize.None
     DirectoryList.ScrollingDirection = Enum.ScrollingDirection.Y
+    DirectoryList.ScrollingEnabled = true
+    DirectoryList.Active = true
     DirectoryList.Parent = SettingsPage
     Corner(DirectoryList, 8)
     local DirectoryLayout = Instance.new("UIListLayout")
@@ -2441,7 +2448,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                         local copied = false
                         if type(setclipboard) == "function" then copied = pcall(setclipboard, player.Name) end
                         if not copied and type(toclipboard) == "function" then copied = pcall(toclipboard, player.Name) end
-                        DirectoryStatus.Text = "SELECTED: @" .. player.Name .. (copied and " • COPIED" or "")
+                        DirectoryStatus.Text = "SELECTED: @" .. player.Name .. (copied and " - COPIED" or "")
                         Notify("Selected @" .. player.Name)
                     end)
                 end
@@ -2609,7 +2616,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     QuickMenuButton.Size = UDim2.fromOffset(30, 30)
     QuickMenuButton.Position = UDim2.new(1, IsCreator and -308 or -206, 0, 8)
     QuickMenuButton.BackgroundColor3 = ButtonDark
-    QuickMenuButton.Text = "▦"
+    QuickMenuButton.Text = "D"
     QuickMenuButton.TextColor3 = White
     QuickMenuButton.TextSize = 15
     QuickMenuButton.Font = Enum.Font.GothamBold
@@ -2643,7 +2650,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     historyClose.Size = UDim2.fromOffset(24, 24)
     historyClose.Position = UDim2.new(1, -29, 0, 4)
     historyClose.BackgroundColor3 = ButtonDark
-    historyClose.Text = "×"
+    historyClose.Text = "X"
     historyClose.TextColor3 = White
     historyClose.TextSize = 16
     historyClose.Parent = HubExtras.NotificationHistoryPanel
@@ -2655,8 +2662,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     HubExtras.NotificationHistoryScroll.Position = UDim2.fromOffset(8, 34)
     HubExtras.NotificationHistoryScroll.BackgroundColor3 = ButtonDark
     HubExtras.NotificationHistoryScroll.BorderSizePixel = 0
-    HubExtras.NotificationHistoryScroll.ScrollBarThickness = 3
-    HubExtras.NotificationHistoryScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    HubExtras.NotificationHistoryScroll.ScrollBarThickness = 5
+    HubExtras.NotificationHistoryScroll.AutomaticCanvasSize = Enum.AutomaticSize.None
+    HubExtras.NotificationHistoryScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+    HubExtras.NotificationHistoryScroll.ScrollingEnabled = true
+    HubExtras.NotificationHistoryScroll.Active = true
     HubExtras.NotificationHistoryScroll.CanvasSize = UDim2.fromOffset(0, 0)
     HubExtras.NotificationHistoryScroll.ZIndex = 60
     HubExtras.NotificationHistoryScroll.Parent = HubExtras.NotificationHistoryPanel
@@ -2768,7 +2778,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             if HubExtras.PerformanceHud and HubExtras.PerformanceHud.Parent and HubExtras.PerformanceHudEnabled then
                 local elapsed = math.max(0, math.floor(os.clock() - HubExtras.SessionStartedAt))
                 local sessionText = string.format("%02d:%02d:%02d", math.floor(elapsed / 3600), math.floor(elapsed / 60) % 60, elapsed % 60)
-                HubExtras.PerformanceHud.Text = string.format("FPS %d  •  PING %s  •  %s", lastFps, tostring(pingText), sessionText)
+                HubExtras.PerformanceHud.Text = string.format("FPS %d  -  PING %s  -  %s", lastFps, tostring(pingText), sessionText)
             end
         end
     end)
@@ -3166,7 +3176,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end
         AssetStatus.Text = "ASSET CHECK: " .. tostring(#found) .. "/" .. tostring(#names) .. " SYSTEMS FOUND"
-        AssetResults.Text = #found > 0 and table.concat(found, "  •  ") or "No known combat asset folders found."
+        AssetResults.Text = #found > 0 and table.concat(found, "  -  ") or "No known combat asset folders found."
     end, Color3.fromRGB(45, 105, 145))
 
     Label(CombatToolsFolder, "HITBOX / WEAPON ATTACHMENT VISUALIZER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
@@ -3296,7 +3306,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                         end
                     end)
                     count = 1
-                    HitboxStatus.Text = "TEMPLATE PREVIEW ONLY — NOT A LIVE HITBOX"
+                    HitboxStatus.Text = "TEMPLATE PREVIEW ONLY - NOT A LIVE HITBOX"
                 else
                     HitboxStatus.Text = "NO LIVE HITBOX PARTS OR AVAILABLE TEMPLATE PREVIEW"
                 end
@@ -3322,7 +3332,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local ObserverSeen = {}
     local ObserverTracked = {}
     local ObserverLastSample = 0
-    local ObserverStatus = Label(ObserverFolder, "OBSERVER: OFF — NO DATA", 10, 24, Color3.fromRGB(170, 210, 255))
+    local ObserverStatus = Label(ObserverFolder, "OBSERVER: OFF - NO DATA", 10, 24, Color3.fromRGB(170, 210, 255))
     local ObserverOutput = Label(ObserverFolder, "Start the observer before combat, exchange a few attacks, then stop and upload the report.", 9, 48, Grey)
     ObserverOutput.TextWrapped = true
     ObserverOutput.TextYAlignment = Enum.TextYAlignment.Top
@@ -3434,7 +3444,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 if data.movementEvents > 0 then moving = moving + 1 end
             end
             ObserverButton.Text = "START ATTACK OBSERVER"
-            ObserverStatus.Text = "OBSERVER: STOPPED — " .. tostring(#ObserverRecords) .. " EVENTS / " .. tostring(moving) .. " MOVING"
+            ObserverStatus.Text = "OBSERVER: STOPPED - " .. tostring(#ObserverRecords) .. " EVENTS / " .. tostring(moving) .. " MOVING"
             ObserverOutput.Text = "Captured " .. tostring(#ObserverRecords) .. " events and detected movement on " .. tostring(moving) .. " tracked parts. Upload or copy the report."
             return
         end
@@ -3445,7 +3455,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ObserverLastSample = 0
         ObserverRunning = true
         ObserverButton.Text = "STOP ATTACK OBSERVER"
-        ObserverStatus.Text = "OBSERVER: LISTENING — FIGHT NOW"
+        ObserverStatus.Text = "OBSERVER: LISTENING - FIGHT NOW"
         ObserverOutput.Text = "Scanning existing combat parts and listening for new ones..."
 
         -- Include parts that already exist before the observer starts.
@@ -3620,6 +3630,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     AddGradient(SoonCard, Color3.fromRGB(36, 31, 49), ButtonDark, 90); local SoonText = Label(SoonCard, "Stay tuned for future updates!", 12, 75,
     White)
     SoonText.TextXAlignment = Enum.TextXAlignment.Center
+
+    local FeedbackComingSoon = Instance.new("Frame")
+    FeedbackComingSoon.Name = "FeedbackComingSoon"
+    FeedbackComingSoon.Size = UDim2.new(1, 0, 0, 62)
+    FeedbackComingSoon.BackgroundColor3 = ButtonDark
+    FeedbackComingSoon.BorderSizePixel = 0
+    FeedbackComingSoon.Parent = SoonPage
+    Corner(FeedbackComingSoon, 10)
+    Stroke(FeedbackComingSoon, Border, 1)
+    local FeedbackComingTitle = Label(FeedbackComingSoon, "FEEDBACK", 12, 22, PurpleLight)
+    FeedbackComingTitle.Position = UDim2.fromOffset(14, 7)
+    FeedbackComingTitle.Font = Enum.Font.GothamBold
+    local FeedbackComingDescription = Label(FeedbackComingSoon, "Send ideas and report issues - coming in a future update.", 10, 25, Grey)
+    FeedbackComingDescription.Position = UDim2.fromOffset(14, 31)
+    FeedbackComingDescription.TextWrapped = true
 
     -- MINIMIZE BUBBLE
     local Bubble = Instance.new("TextButton"); Bubble.Name = "ShortNameBubble"; Bubble.Size = UDim2.fromOffset(55, 55)
