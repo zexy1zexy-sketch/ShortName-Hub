@@ -268,7 +268,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
     local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
-    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "X"
+    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "❌"
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
@@ -280,7 +280,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         OwnerViewButton.Size = UDim2.fromOffset(62, 28)
         OwnerViewButton.Position = UDim2.new(1, -240, 0, 9)
         OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
-        OwnerViewButton.Text = "C OWNER"
+        OwnerViewButton.Text = "👑 OWNER"
         OwnerViewButton.TextColor3 = White
         OwnerViewButton.TextSize = 9
         OwnerViewButton.Font = Enum.Font.GothamBold
@@ -298,7 +298,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GearButton.Size = UDim2.fromOffset(28, 30)
         GearButton.Position = UDim2.new(1, IsCreator and -274 or -240, 0, 8)
         GearButton.BackgroundColor3 = ButtonDark
-        GearButton.Text = "S"
+        GearButton.Text = "⚙️"
         GearButton.TextColor3 = White
         GearButton.TextSize = 17
         GearButton.Font = Enum.Font.GothamBold
@@ -314,7 +314,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "C"
+    CrownButton.Text = "👑"
     CrownButton.TextColor3 = White
     CrownButton.TextSize = 19
     CrownButton.Font = Enum.Font.GothamBold
@@ -328,7 +328,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackButton.Size = UDim2.fromOffset(28, 30)
     FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
-    FeedbackButton.Text = "F"
+    FeedbackButton.Text = "💬"
     FeedbackButton.TextColor3 = White
     FeedbackButton.TextSize = 16
     FeedbackButton.Font = Enum.Font.GothamBold
@@ -363,7 +363,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CommunityClose.Size = UDim2.fromOffset(24, 24)
     CommunityClose.Position = UDim2.new(1, -29, 0, 4)
     CommunityClose.BackgroundColor3 = ButtonDark
-    CommunityClose.Text = "X"
+    CommunityClose.Text = "❌"
     CommunityClose.TextColor3 = White
     CommunityClose.TextSize = 17
     CommunityClose.Parent = CommunityPanel
@@ -391,7 +391,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackClose.Size = UDim2.fromOffset(24, 24)
     FeedbackClose.Position = UDim2.new(1, -29, 0, 4)
     FeedbackClose.BackgroundColor3 = ButtonDark
-    FeedbackClose.Text = "X"
+    FeedbackClose.Text = "❌"
     FeedbackClose.TextColor3 = White
     FeedbackClose.TextSize = 17
     FeedbackClose.Parent = FeedbackPanel
@@ -521,11 +521,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    GUI.UpdatesNav = MakeNav("U  Updates", 1)
-    if IsCreator then PlayerAdminUI.Nav = MakeNav("P  Players", 2) end
-    local PlayerToolsNav = MakeNav("T  Player Tools", IsCreator and 3 or 2)
-    local GameNav = MakeNav("G  Noob Incremental", IsCreator and 4 or 3)
-    local FightNav = MakeNav("B  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("+  Coming Soon", IsCreator and 6 or 5)
+    GUI.UpdatesNav = MakeNav("📰  Updates", 1)
+    if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
+    local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
+    local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
+    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("✨  Coming Soon", IsCreator and 6 or 5)
 
     local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }
     local function FilterSidebar(query)
@@ -553,7 +553,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.SidebarToggle.Size = UDim2.fromOffset(26, 30)
     GUI.SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
     GUI.SidebarToggle.BackgroundColor3 = ButtonDark
-    GUI.SidebarToggle.Text = "M"
+    GUI.SidebarToggle.Text = "☰"
     GUI.SidebarToggle.TextColor3 = White
     GUI.SidebarToggle.TextSize = 15
     GUI.SidebarToggle.Font = Enum.Font.GothamBold
@@ -651,7 +651,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GUI.GlobalSearchButton.Size = UDim2.fromOffset(26, 30)
         GUI.GlobalSearchButton.Position = UDim2.new(1, IsCreator and -376 or -308, 0, 8)
         GUI.GlobalSearchButton.BackgroundColor3 = ButtonDark
-        GUI.GlobalSearchButton.Text = "Q"
+        GUI.GlobalSearchButton.Text = "🔎"
         GUI.GlobalSearchButton.TextColor3 = White
         GUI.GlobalSearchButton.TextSize = 19
         GUI.GlobalSearchButton.Font = Enum.Font.GothamBold
@@ -679,7 +679,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         searchClose.Size = UDim2.fromOffset(26, 26)
         searchClose.Position = UDim2.new(1, -34, 0, 5)
         searchClose.BackgroundColor3 = ButtonDark
-        searchClose.Text = "X"
+        searchClose.Text = "❌"
         searchClose.TextColor3 = White
         searchClose.TextSize = 17
         searchClose.Parent = searchPanel
@@ -1209,7 +1209,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     RefreshHubButton.TextColor3 = White
     RefreshHubButton.TextSize = 18
     RefreshHubButton.Font = Enum.Font.GothamBold
-    RefreshHubButton.Text = "R"
+    RefreshHubButton.Text = "🔄"
     RefreshHubButton.Parent = Header
     RefreshHubButton.ZIndex = 8
     RefreshHubButton.AutoButtonColor = false
@@ -1249,7 +1249,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
                 task.wait(2)
                 if RefreshHubButton.Parent then
-                    RefreshHubButton.Text = "R"
+                    RefreshHubButton.Text = "🔄"
                 end
             end
         end)
@@ -1274,20 +1274,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AddGradient(Folder, Color3.fromRGB(34, 32, 46), ButtonDark, 90); local HeaderButton = Instance.new("TextButton"); HeaderButton.Size =
         UDim2.new(1, 0, 0, 38)
         local FolderIcons = {
-            ["HALLOWEEN EVENT"] = "SN",
-            ["THANKSGIVING EVENT"] = "O",
-            ["EVENT SCANNER"] = "Q",
-            ["FIGHT ON A BASEPLATE"] = "B",
-            ["PLAYER TOOLS"] = "T",
-            ["DETECTORS"] = "N",
-            ["GAME OBJECT SCANNER"] = "Q",
-            ["COMBAT SYSTEM FINDER"] = "X",
-            ["COMBAT STRUCTURE FINDER"] = "D",
-            ["NPC & TELEPORT"] = "N",
-            ["REMOTES"] = "~",
-            ["HOUSE TELEPORT"] = "H",
-            ["COMBAT HUD & ASSET TOOLS"] = "W",
-            ["WEAPON MOVEMENT OBSERVER"] = "O"
+            ["HALLOWEEN EVENT"] = "🎃",
+            ["THANKSGIVING EVENT"] = "🦃",
+            ["EVENT SCANNER"] = "🔎",
+            ["FIGHT ON A BASEPLATE"] = "⚔️",
+            ["PLAYER TOOLS"] = "🛠️",
+            ["DETECTORS"] = "🧭",
+            ["GAME OBJECT SCANNER"] = "🎮",
+            ["COMBAT SYSTEM FINDER"] = "🛡️",
+            ["COMBAT STRUCTURE FINDER"] = "🏗️",
+            ["NPC & TELEPORT"] = "🧍",
+            ["REMOTES"] = "📡",
+            ["HOUSE TELEPORT"] = "🏠",
+            ["COMBAT HUD & ASSET TOOLS"] = "🎯",
+            ["WEAPON MOVEMENT OBSERVER"] = "👁️"
         }
         local FolderIcon = FolderIcons[name] or "F"
         HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = FolderIcon .. "  " .. name .. "     +"; HeaderButton.TextColor3 = White
@@ -1374,40 +1374,27 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
 
-    -- OPTIONAL PRESENCE SHARING: off until each user explicitly enables it.
+    -- AUTOMATIC ACTIVE STATUS: reports each user after the hub loads.
     do
-        local PresenceEnabled = false
-        local PresenceToken = 0
-        local PresenceStatus = Label(SettingsPage, "PRESENCE SHARING: OFF", 10, 22, Grey)
-        Label(SettingsPage, "Optional: share your Roblox username and current experience with the hub creator's roster. Your last-seen record remains after you go offline; turning this off stops new updates.", 10, 42, Grey).TextWrapped = true
-        local PresenceButton
-        PresenceButton = MakeButton(SettingsPage, "ENABLE PRESENCE SHARING", function()
-            PresenceEnabled = not PresenceEnabled
-            PresenceToken += 1
-            local token = PresenceToken
-            PresenceButton.Text = PresenceEnabled and "DISABLE PRESENCE SHARING" or "ENABLE PRESENCE SHARING"
-            PresenceStatus.Text = PresenceEnabled and "PRESENCE SHARING: ON" or "PRESENCE SHARING: OFF"
-            if PresenceEnabled then
-                task.spawn(function()
-                    while PresenceEnabled and PresenceToken == token and ScreenGui.Parent do
-                        if PresenceModule and type(PresenceModule.Report) == "function" then
-                            local ok, sent, detail = pcall(function() return PresenceModule.Report() end)
-                            if not ok or not sent then
-                                PresenceStatus.Text = "PRESENCE: " .. tostring(ok and detail or sent)
-                            else
-                                PresenceStatus.Text = "PRESENCE SHARING: ON - UPDATED"
-                            end
-                        else
-                            PresenceStatus.Text = "PRESENCE: MODULE UNAVAILABLE"
-                        end
-                        task.wait(45)
+        local PresenceStatus = Label(SettingsPage, "ACTIVE STATUS: AUTOMATIC", 10, 22, Color3.fromRGB(130, 210, 165))
+        Label(SettingsPage, "When ShortName Hub loads, your Roblox username, display name, and current experience are shared with the hub's community roster. Updates repeat while the hub is open.", 10, 42, Grey).TextWrapped = true
+        task.spawn(function()
+            while ScreenGui.Parent do
+                if PresenceModule and type(PresenceModule.Report) == "function" then
+                    local ok, sent, detail = pcall(function() return PresenceModule.Report() end)
+                    if not ok or not sent then
+                        PresenceStatus.Text = "ACTIVE STATUS: " .. tostring(ok and detail or sent)
+                        PresenceStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
+                    else
+                        PresenceStatus.Text = "ACTIVE STATUS: ONLINE"
+                        PresenceStatus.TextColor3 = Color3.fromRGB(130, 210, 165)
                     end
-                end)
+                else
+                    PresenceStatus.Text = "ACTIVE STATUS: MODULE UNAVAILABLE"
+                    PresenceStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
+                end
+                task.wait(45)
             end
-        end, Color3.fromRGB(65, 95, 135))
-        ScreenGui.Destroying:Connect(function()
-            PresenceEnabled = false
-            PresenceToken += 1
         end)
     end
 
@@ -2664,7 +2651,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     QuickMenuButton.Size = UDim2.fromOffset(30, 30)
     QuickMenuButton.Position = UDim2.new(1, IsCreator and -308 or -206, 0, 8)
     QuickMenuButton.BackgroundColor3 = ButtonDark
-    QuickMenuButton.Text = "D"
+    QuickMenuButton.Text = "📋"
     QuickMenuButton.TextColor3 = White
     QuickMenuButton.TextSize = 15
     QuickMenuButton.Font = Enum.Font.GothamBold
@@ -2698,7 +2685,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     historyClose.Size = UDim2.fromOffset(24, 24)
     historyClose.Position = UDim2.new(1, -29, 0, 4)
     historyClose.BackgroundColor3 = ButtonDark
-    historyClose.Text = "X"
+    historyClose.Text = "❌"
     historyClose.TextColor3 = White
     historyClose.TextSize = 16
     historyClose.Parent = HubExtras.NotificationHistoryPanel
