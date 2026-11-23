@@ -258,7 +258,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SN  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
     HeaderTitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
-    local HeaderSubtitle = Label(Header, "CONTROL CENTER  -  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
+    local ReportedExecutor = "Unknown / unavailable"
+    pcall(function()
+        if type(identifyexecutor) == "function" then
+            local value = identifyexecutor()
+            if type(value) == "string" and value ~= "" then ReportedExecutor = value end
+        elseif type(getexecutorname) == "function" then
+            local value = getexecutorname()
+            if type(value) == "string" and value ~= "" then ReportedExecutor = value end
+        end
+    end)
+    local HeaderSubtitle = Label(Header, "@" .. tostring(LocalPlayer and LocalPlayer.Name or "Unknown") .. "  •  " .. ReportedExecutor .. "  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
     HeaderSubtitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
@@ -608,20 +618,85 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local FightPage = MakePage("FightOnABaseplate"); local DetectionPage = IsCreator and MakePage("Detection") or nil; local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
+    local FloatingTabsEnabled = false
+    local FloatingTabWindow = Instance.new("Frame")
+    FloatingTabWindow.Name = "FloatingTabWindow"
+    FloatingTabWindow.Size = UDim2.new(0.68, 0, 0.72, 0)
+    FloatingTabWindow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    FloatingTabWindow.AnchorPoint = Vector2.new(0.5, 0.5)
+    FloatingTabWindow.BackgroundColor3 = Panel
+    FloatingTabWindow.BorderSizePixel = 0
+    FloatingTabWindow.Visible = false
+    FloatingTabWindow.ZIndex = 30
+    FloatingTabWindow.Parent = ScreenGui
+    Corner(FloatingTabWindow, 12)
+    Stroke(FloatingTabWindow, PurpleLight, 1.2)
+    local FloatingHeader = Instance.new("Frame")
+    FloatingHeader.Size = UDim2.new(1, 0, 0, 34)
+    FloatingHeader.BackgroundColor3 = Dark
+    FloatingHeader.BorderSizePixel = 0
+    FloatingHeader.ZIndex = 31
+    FloatingHeader.Parent = FloatingTabWindow
+    Corner(FloatingHeader, 10)
+    local FloatingTitle = Label(FloatingHeader, "  TAB WINDOW", 11, 32, White)
+    FloatingTitle.Position = UDim2.fromOffset(8, 0)
+    FloatingTitle.ZIndex = 32
+    local FloatingClose = Instance.new("TextButton")
+    FloatingClose.Size = UDim2.fromOffset(26, 25)
+    FloatingClose.Position = UDim2.new(1, -31, 0, 4)
+    FloatingClose.BackgroundColor3 = ButtonDark
+    FloatingClose.Text = "X"
+    FloatingClose.TextColor3 = White
+    FloatingClose.TextSize = 12
+    FloatingClose.Font = Enum.Font.GothamBold
+    FloatingClose.ZIndex = 32
+    FloatingClose.Parent = FloatingHeader
+    Corner(FloatingClose, 6)
+    local FloatingBody = Instance.new("Frame")
+    FloatingBody.Position = UDim2.fromOffset(7, 40)
+    FloatingBody.Size = UDim2.new(1, -14, 1, -47)
+    FloatingBody.BackgroundTransparency = 1
+    FloatingBody.ClipsDescendants = true
+    FloatingBody.ZIndex = 31
+    FloatingBody.Parent = FloatingTabWindow
+    local CurrentFloatingPage
+    local function RestoreFloatingPage()
+        if CurrentFloatingPage and CurrentFloatingPage.Parent then
+            CurrentFloatingPage.Parent = Content
+            CurrentFloatingPage.Position = UDim2.fromOffset(8, 8)
+            CurrentFloatingPage.Size = UDim2.new(1, -16, 1, -16)
+            CurrentFloatingPage.Visible = false
+        end
+        CurrentFloatingPage = nil
+    end
+    FloatingClose.Activated:Connect(function()
+        FloatingTabWindow.Visible = false
+    end)
     local function SelectPage(page)
         local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
-        for name, pageObject in pairs(pages) do
-            if name == page then
-                pageObject.Visible = true
-                if GUI.AnimationsEnabled then
-                    pageObject.Position = UDim2.fromOffset(18, 8)
-                    Tween(pageObject, { Position = UDim2.fromOffset(8, 8) }, TweenInfo.new(0.22, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
-                else
+        if CurrentFloatingPage then RestoreFloatingPage() end
+        local selectedPage = pages[page]
+        local useFloating = FloatingTabsEnabled and page ~= "Settings" and selectedPage ~= nil
+        if useFloating then
+            for _, pageObject in pairs(pages) do if pageObject then pageObject.Visible = false end end
+            selectedPage.Parent = FloatingBody
+            selectedPage.Position = UDim2.fromOffset(0, 0)
+            selectedPage.Size = UDim2.new(1, 0, 1, 0)
+            selectedPage.Visible = true
+            selectedPage.CanvasPosition = Vector2.new(0, 0)
+            CurrentFloatingPage = selectedPage
+            FloatingTitle.Text = "  " .. string.upper(tostring(page)) .. "  •  SHORTNAME HUB"
+            FloatingTabWindow.Visible = true
+        else
+            FloatingTabWindow.Visible = false
+            for name, pageObject in pairs(pages) do
+                if pageObject then
+                    if pageObject.Parent ~= Content then pageObject.Parent = Content end
+                    pageObject.Size = UDim2.new(1, -16, 1, -16)
                     pageObject.Position = UDim2.fromOffset(8, 8)
+                    pageObject.Visible = name == page
+                    if name == page then pageObject.CanvasPosition = Vector2.new(0, 0) end
                 end
-                pageObject.CanvasPosition = Vector2.new(0, 0)
-            else
-                pageObject.Visible = false
             end
         end
 
@@ -1106,6 +1181,29 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             end
         end)
     end
+
+    local FloatingTabsToggle = Instance.new("TextButton")
+    FloatingTabsToggle.Size = UDim2.new(1, 0, 0, 38)
+    FloatingTabsToggle.BackgroundColor3 = ButtonDark
+    FloatingTabsToggle.TextColor3 = White
+    FloatingTabsToggle.TextSize = 11
+    FloatingTabsToggle.Font = Enum.Font.GothamBold
+    FloatingTabsToggle.Parent = SettingsPage
+    Corner(FloatingTabsToggle, 9)
+    Stroke(FloatingTabsToggle, Border, 1)
+    local function UpdateFloatingToggle()
+        FloatingTabsToggle.Text = "OPEN TABS IN FLOATING WINDOWS: " .. (FloatingTabsEnabled and "ON" or "OFF")
+    end
+    UpdateFloatingToggle()
+    FloatingTabsToggle.Activated:Connect(function()
+        FloatingTabsEnabled = not FloatingTabsEnabled
+        UpdateFloatingToggle()
+        if not FloatingTabsEnabled then
+            RestoreFloatingPage()
+            FloatingTabWindow.Visible = false
+            if CurrentPage and CurrentPage ~= "Settings" then SelectPage(CurrentPage) end
+        end
+    end)
 
     Label(SettingsPage, "WINDOW SCALE", 11, 19, Grey)
     GUI.ScaleSlider, GUI.SetScaleSlider = GUI.CreateSlider(SettingsPage, "Interface size", 0.72, 1.1, 1, Purple, function(value)
@@ -2222,20 +2320,112 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end
 
-    -- CREATOR-ONLY PLAYER ROSTER. The owner admin key is entered locally and is never saved.
+    -- CREATOR-ONLY PLAYER ROSTER.
     if PlayerAdminUI.Page then
         task.spawn(function()
             Label(PlayerAdminUI.Page, "COMMUNITY PLAYERS", 16, 28).Font = Enum.Font.GothamBold
-            Label(PlayerAdminUI.Page, "Users who opted in to presence sharing. Online status expires after 90 seconds without a heartbeat.", 10, 38, Grey).TextWrapped = true
-            local AdminKey = ""
-            MakeBox(PlayerAdminUI.Page, "OWNER ADMIN KEY (Cloudflare UPLOAD_KEY)", "", function(value) AdminKey = value end)
-            local RosterStatus = Label(PlayerAdminUI.Page, "ROSTER: ENTER ADMIN KEY, THEN REFRESH", 10, 24, Grey)
+            Label(PlayerAdminUI.Page, "Registered hub users. Online status expires after 90 seconds without a heartbeat. Executor names are client-reported.", 10, 42, Grey).TextWrapped = true
+            local sharedEnv = _G
+            pcall(function() if type(getgenv) == "function" then sharedEnv = getgenv() end end)
+            local AdminKey = type(sharedEnv.__SHORTNAME_OWNER_ADMIN_KEY) == "string" and sharedEnv.__SHORTNAME_OWNER_ADMIN_KEY or ""
+            local KeyBox = MakeBox(PlayerAdminUI.Page, "OWNER ADMIN KEY (ENTER ONCE PER EXECUTOR SESSION)", AdminKey, function(value)
+                AdminKey = tostring(value or "")
+                sharedEnv.__SHORTNAME_OWNER_ADMIN_KEY = AdminKey
+            end)
+            KeyBox.PlaceholderText = "Paste Cloudflare UPLOAD_KEY"
+            local RosterStatus = Label(PlayerAdminUI.Page, "ROSTER: " .. (AdminKey ~= "" and "READY TO LOAD" or "ENTER OWNER KEY ONCE"), 10, 24, Grey)
+            local SearchBox = MakeBox(PlayerAdminUI.Page, "SEARCH USERNAME OR USER ID", "", function() end)
+            SearchBox.PlaceholderText = "Type a username or Roblox user ID..."
+            local cachedPlayers = {}
             local function ClearRosterRows()
                 for _, child in ipairs(PlayerAdminUI.Page:GetChildren()) do
                     if child.Name == "PresencePlayerRow" then child:Destroy() end
                 end
             end
+            local function RenderRoster()
+                ClearRosterRows()
+                local query = tostring(SearchBox.Text or ""):lower():gsub("^%s*(.-)%s*$", "%1")
+                local shown = 0
+                for _, playerData in ipairs(cachedPlayers) do
+                    local username = tostring(playerData.username or "")
+                    local userIdText = tostring(playerData.userId or "")
+                    if query == "" or username:lower():find(query, 1, true) or userIdText:find(query, 1, true) then
+                        shown += 1
+                        local row = Instance.new("Frame")
+                        row.Name = "PresencePlayerRow"
+                        row.Size = UDim2.new(1, 0, 0, 104)
+                        row.BackgroundColor3 = ButtonDark
+                        row.BorderSizePixel = 0
+                        row.Parent = PlayerAdminUI.Page
+                        Corner(row, 8)
+                        Stroke(row, Border, 1)
+                        local online = playerData.online == true
+                        local seenText = online and ("ONLINE - " .. tostring(playerData.gameName or "Unknown game")) or ("OFFLINE - LAST SEEN " .. (tonumber(playerData.lastSeen) and os.date("%b %d %I:%M %p", playerData.lastSeen / 1000) or "UNKNOWN"))
+                        local details = Instance.new("TextLabel")
+                        details.BackgroundTransparency = 1
+                        details.Position = UDim2.fromOffset(8, 5)
+                        details.Size = UDim2.new(1, -150, 1, -10)
+                        details.TextXAlignment = Enum.TextXAlignment.Left
+                        details.TextYAlignment = Enum.TextYAlignment.Center
+                        details.TextWrapped = true
+                        details.Font = Enum.Font.Gotham
+                        details.TextSize = 9
+                        details.TextColor3 = online and Color3.fromRGB(130, 230, 165) or Grey
+                        details.Text = tostring(playerData.displayName or username) .. "  (@" .. username .. ")\nUSER ID: " .. userIdText .. "\n" .. seenText .. "\nEXECUTOR (REPORTED): " .. tostring(playerData.executor or "Unknown / unavailable") .. "\nRANK: " .. tostring(playerData.rank or "Member")
+                        details.Parent = row
+                        local rankOptions = { { "MEM", "Member", 0 }, { "PREM", "Premium", 1 }, { "STAFF", "Staff", 2 } }
+                        for _, option in ipairs(rankOptions) do
+                            local selectedRank = option[2]
+                            local button = Instance.new("TextButton")
+                            button.Size = UDim2.fromOffset(40, 22)
+                            button.Position = UDim2.new(1, -134 + option[3] * 44, 0, 12)
+                            button.BackgroundColor3 = playerData.rank == selectedRank and CurrentAccent.Active or Color3.fromRGB(48, 45, 60)
+                            button.Text = option[1]
+                            button.TextColor3 = White
+                            button.TextSize = 8
+                            button.Font = Enum.Font.GothamBold
+                            button.Parent = row
+                            Corner(button, 5)
+                            button.Activated:Connect(function()
+                                local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, selectedRank) end)
+                                if saved and response then
+                                    playerData.rank = selectedRank
+                                    RosterStatus.Text = "SAVED RANK: @" .. username .. " -> " .. selectedRank
+                                    RenderRoster()
+                                else
+                                    RosterStatus.Text = "RANK UPDATE FAILED: " .. tostring(saved and message or response)
+                                end
+                            end)
+                        end
+                        local banOptions = { { "1 DAY", "1d", 0 }, { "30 DAY", "30d", 1 }, { "PERM", "permanent", 2 } }
+                        for _, option in ipairs(banOptions) do
+                            local duration = option[2]
+                            local button = Instance.new("TextButton")
+                            button.Size = UDim2.fromOffset(40, 22)
+                            button.Position = UDim2.new(1, -134 + option[3] * 44, 0, 57)
+                            button.BackgroundColor3 = Color3.fromRGB(105, 48, 58)
+                            button.Text = option[1]
+                            button.TextColor3 = White
+                            button.TextSize = 8
+                            button.Font = Enum.Font.GothamBold
+                            button.Parent = row
+                            Corner(button, 5)
+                            button.Activated:Connect(function()
+                                local saved, response, message = pcall(function() return PresenceModule.SetBan(AdminKey, playerData.userId, duration) end)
+                                if saved and response then
+                                    RosterStatus.Text = "HUB BAN APPLIED: @" .. username .. " (" .. option[1] .. ")"
+                                else
+                                    RosterStatus.Text = "BAN FAILED: " .. tostring(saved and message or response)
+                                end
+                            end)
+                        end
+                    end
+                end
+                RosterStatus.Text = "ROSTER: " .. tostring(#cachedPlayers) .. " REGISTERED USERS  •  SHOWING " .. tostring(shown)
+            end
+            SearchBox:GetPropertyChangedSignal("Text"):Connect(RenderRoster)
             local function RefreshRoster()
+                if not IsCreator then return end
                 if not PresenceModule or type(PresenceModule.GetPlayers) ~= "function" then
                     RosterStatus.Text = "ROSTER: PRESENCE MODULE UNAVAILABLE"
                     return
@@ -2250,64 +2440,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     RosterStatus.Text = "ROSTER: " .. tostring(ok and result or sent)
                     return
                 end
-                ClearRosterRows()
-                local list = type(result) == "table" and result.players or {}
-                RosterStatus.Text = "ROSTER: " .. tostring(#list) .. " REGISTERED USERS"
-                for _, playerData in ipairs(list) do
-                    local row = Instance.new("Frame")
-                    row.Name = "PresencePlayerRow"
-                    row.Size = UDim2.new(1, 0, 0, 76)
-                    row.BackgroundColor3 = ButtonDark
-                    row.BorderSizePixel = 0
-                    row.Parent = PlayerAdminUI.Page
-                    Corner(row, 8)
-                    Stroke(row, Border, 1)
-                    local online = playerData.online == true
-                    local seenText = online and ("ONLINE - " .. tostring(playerData.gameName or "Unknown game")) or ("OFFLINE - LAST SEEN " .. (tonumber(playerData.lastSeen) and os.date("%b %d %I:%M %p", playerData.lastSeen / 1000) or "UNKNOWN"))
-                    local details = Instance.new("TextLabel")
-                    details.BackgroundTransparency = 1
-                    details.Position = UDim2.fromOffset(8, 5)
-                    details.Size = UDim2.new(1, -184, 1, -10)
-                    details.TextXAlignment = Enum.TextXAlignment.Left
-                    details.TextYAlignment = Enum.TextYAlignment.Center
-                    details.TextWrapped = true
-                    details.Font = Enum.Font.Gotham
-                    details.TextSize = 10
-                    details.TextColor3 = online and Color3.fromRGB(130, 230, 165) or Grey
-                    details.Text = tostring(playerData.displayName or playerData.username) .. "  (@" .. tostring(playerData.username) .. ")\n" .. seenText .. "\nRANK: " .. tostring(playerData.rank or "Member")
-                    details.Parent = row
-                    local rankOptions = { { "MEM", "Member", 0 }, { "PREM", "Premium", 1 }, { "STAFF", "Staff", 2 } }
-                    for _, option in ipairs(rankOptions) do
-                        local selectedRank = option[2]
-                        local button = Instance.new("TextButton")
-                        button.Size = UDim2.fromOffset(52, 25)
-                        button.Position = UDim2.new(1, -176 + option[3] * 58, 0, 25)
-                        button.BackgroundColor3 = playerData.rank == selectedRank and CurrentAccent.Active or Color3.fromRGB(48, 45, 60)
-                        button.Text = option[1]
-                        button.TextColor3 = White
-                        button.TextSize = 9
-                        button.Font = Enum.Font.GothamBold
-                        button.Parent = row
-                        Corner(button, 6)
-                        button.Activated:Connect(function()
-                            local saved, response, message = pcall(function() return PresenceModule.SetRank(AdminKey, playerData.userId, selectedRank) end)
-                            if saved and response then
-                                RosterStatus.Text = "UPDATED RANK: " .. tostring(playerData.username) .. " -> " .. selectedRank
-                                RefreshRoster()
-                            else
-                                RosterStatus.Text = "RANK UPDATE FAILED: " .. tostring(saved and message or response)
-                            end
-                        end)
-                    end
-                end
+                cachedPlayers = type(result) == "table" and result.players or {}
+                RenderRoster()
             end
-            MakeButton(PlayerAdminUI.Page, "REFRESH PLAYER ROSTER", RefreshRoster, Color3.fromRGB(55, 85, 125))
+            MakeButton(PlayerAdminUI.Page, "LOAD / REFRESH ALL REGISTERED USERS", RefreshRoster, Color3.fromRGB(55, 85, 125))
             task.spawn(function()
                 while ScreenGui.Parent do
                     task.wait(60)
                     if PlayerAdminUI.Page.Visible and AdminKey ~= "" then RefreshRoster() end
                 end
             end)
+            if AdminKey ~= "" then task.defer(RefreshRoster) end
         end)
     end
 
