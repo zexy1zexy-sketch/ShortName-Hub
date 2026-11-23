@@ -1,4 +1,7 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
+local CREATOR_USER_ID = 7867608166
+local LocalPlayer = Players.LocalPlayer
+local IsCreator = LocalPlayer ~= nil and LocalPlayer.UserId == CREATOR_USER_ID
 local TweenService = game:GetService("TweenService"); local GUI = {}
 
 function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback)
@@ -98,6 +101,184 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 23; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
+
+    -- COMMUNITY SHORTCUTS
+    local CrownButton = Instance.new("TextButton")
+    CrownButton.Size = UDim2.fromOffset(30, 30)
+    CrownButton.Position = UDim2.new(1, -40, 0, 56)
+    CrownButton.BackgroundColor3 = ButtonDark
+    CrownButton.Text = "♛"
+    CrownButton.TextColor3 = Color3.fromRGB(255, 215, 120)
+    CrownButton.TextSize = 19
+    CrownButton.Font = Enum.Font.GothamBold
+    CrownButton.Parent = Frame
+    CrownButton.ZIndex = 8
+    Corner(CrownButton, 8)
+    Stroke(CrownButton, Color3.fromRGB(155, 120, 65), 1)
+    AddHover(CrownButton, ButtonDark, Color3.fromRGB(65, 53, 37))
+
+    local FeedbackButton = Instance.new("TextButton")
+    FeedbackButton.Size = UDim2.fromOffset(30, 30)
+    FeedbackButton.Position = UDim2.new(1, -40, 0, 92)
+    FeedbackButton.BackgroundColor3 = ButtonDark
+    FeedbackButton.Text = "✉"
+    FeedbackButton.TextColor3 = White
+    FeedbackButton.TextSize = 16
+    FeedbackButton.Font = Enum.Font.GothamBold
+    FeedbackButton.Parent = Frame
+    FeedbackButton.ZIndex = 8
+    Corner(FeedbackButton, 8)
+    Stroke(FeedbackButton, Border, 1)
+    AddHover(FeedbackButton, ButtonDark, Color3.fromRGB(55, 48, 69))
+
+    local CommunityPanel = Instance.new("Frame")
+    CommunityPanel.Size = UDim2.fromOffset(244, 132)
+    CommunityPanel.Position = UDim2.new(1, -254, 0, 56)
+    CommunityPanel.BackgroundColor3 = Panel
+    CommunityPanel.BorderSizePixel = 0
+    CommunityPanel.Visible = false
+    CommunityPanel.ZIndex = 20
+    CommunityPanel.Parent = Frame
+    Corner(CommunityPanel, 10)
+    Stroke(CommunityPanel, CurrentAccent and CurrentAccent.Light or PurpleLight, 1.2)
+    local CommunityTitle = Label(CommunityPanel, "  CONTRIBUTORS", 13, 28, PurpleLight)
+    CommunityTitle.Font = Enum.Font.GothamBold
+    CommunityTitle.Position = UDim2.fromOffset(8, 4)
+    CommunityTitle.ZIndex = 21
+    local CreatorLine = Label(CommunityPanel, "  " .. (LocalPlayer and LocalPlayer.Name or "Creator") .. "  •  CREATOR", 11, 28, White)
+    CreatorLine.Position = UDim2.fromOffset(8, 36)
+    CreatorLine.ZIndex = 21
+    local CommunityNote = Label(CommunityPanel, "  More contributors will be listed here as they join.", 9, 38, Grey)
+    CommunityNote.Position = UDim2.fromOffset(8, 68)
+    CommunityNote.TextWrapped = true
+    CommunityNote.ZIndex = 21
+    local CommunityClose = Instance.new("TextButton")
+    CommunityClose.Size = UDim2.fromOffset(24, 24)
+    CommunityClose.Position = UDim2.new(1, -29, 0, 4)
+    CommunityClose.BackgroundColor3 = ButtonDark
+    CommunityClose.Text = "×"
+    CommunityClose.TextColor3 = White
+    CommunityClose.TextSize = 17
+    CommunityClose.Parent = CommunityPanel
+    CommunityClose.ZIndex = 22
+    Corner(CommunityClose, 6)
+    CrownButton.Activated:Connect(function()
+        CommunityPanel.Visible = not CommunityPanel.Visible
+    end)
+    CommunityClose.Activated:Connect(function()
+        CommunityPanel.Visible = false
+    end)
+
+    local FeedbackPanel = Instance.new("Frame")
+    FeedbackPanel.Size = UDim2.fromOffset(244, 226)
+    FeedbackPanel.Position = UDim2.new(1, -254, 0, 56)
+    FeedbackPanel.BackgroundColor3 = Panel
+    FeedbackPanel.BorderSizePixel = 0
+    FeedbackPanel.Visible = false
+    FeedbackPanel.ZIndex = 20
+    FeedbackPanel.Parent = Frame
+    Corner(FeedbackPanel, 10)
+    Stroke(FeedbackPanel, PurpleLight, 1.2)
+    local FeedbackTitle = Label(FeedbackPanel, "  SEND FEEDBACK", 13, 28, PurpleLight)
+    FeedbackTitle.Font = Enum.Font.GothamBold
+    FeedbackTitle.Position = UDim2.fromOffset(8, 4)
+    FeedbackTitle.ZIndex = 21
+    local FeedbackClose = Instance.new("TextButton")
+    FeedbackClose.Size = UDim2.fromOffset(24, 24)
+    FeedbackClose.Position = UDim2.new(1, -29, 0, 4)
+    FeedbackClose.BackgroundColor3 = ButtonDark
+    FeedbackClose.Text = "×"
+    FeedbackClose.TextColor3 = White
+    FeedbackClose.TextSize = 17
+    FeedbackClose.Parent = FeedbackPanel
+    FeedbackClose.ZIndex = 22
+    Corner(FeedbackClose, 6)
+    local FeedbackBox = Instance.new("TextBox")
+    FeedbackBox.Size = UDim2.new(1, -20, 0, 112)
+    FeedbackBox.Position = UDim2.fromOffset(10, 38)
+    FeedbackBox.BackgroundColor3 = ButtonDark
+    FeedbackBox.TextColor3 = White
+    FeedbackBox.PlaceholderColor3 = Grey
+    FeedbackBox.PlaceholderText = "Share a feature idea or report..."
+    FeedbackBox.Text = ""
+    FeedbackBox.TextSize = 11
+    FeedbackBox.Font = Enum.Font.Gotham
+    FeedbackBox.TextWrapped = true
+    FeedbackBox.TextXAlignment = Enum.TextXAlignment.Left
+    FeedbackBox.TextYAlignment = Enum.TextYAlignment.Top
+    FeedbackBox.MultiLine = true
+    FeedbackBox.ClearTextOnFocus = false
+    FeedbackBox.Parent = FeedbackPanel
+    FeedbackBox.ZIndex = 21
+    Corner(FeedbackBox, 7)
+    local FeedbackStatus = Label(FeedbackPanel, "Ideas go to the private hub feedback inbox.", 9, 26, Grey)
+    FeedbackStatus.Position = UDim2.fromOffset(10, 154)
+    FeedbackStatus.TextWrapped = true
+    FeedbackStatus.ZIndex = 21
+    local FeedbackSend = Instance.new("TextButton")
+    FeedbackSend.Size = UDim2.new(1, -20, 0, 32)
+    FeedbackSend.Position = UDim2.fromOffset(10, 188)
+    FeedbackSend.BackgroundColor3 = Purple
+    FeedbackSend.Text = "SUBMIT IDEA"
+    FeedbackSend.TextColor3 = White
+    FeedbackSend.TextSize = 11
+    FeedbackSend.Font = Enum.Font.GothamBold
+    FeedbackSend.Parent = FeedbackPanel
+    FeedbackSend.ZIndex = 21
+    Corner(FeedbackSend, 7)
+    FeedbackButton.Activated:Connect(function()
+        FeedbackPanel.Visible = not FeedbackPanel.Visible
+        CommunityPanel.Visible = false
+    end)
+    FeedbackClose.Activated:Connect(function()
+        FeedbackPanel.Visible = false
+    end)
+    FeedbackSend.Activated:Connect(function()
+        local message = tostring(FeedbackBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
+        if #message < 8 then
+            FeedbackStatus.Text = "Please enter a little more detail."
+            return
+        end
+        if #message > 1500 then
+            FeedbackStatus.Text = "Please keep feedback under 1,500 characters."
+            return
+        end
+        local requestFunction
+        if type(request) == "function" then requestFunction = request
+        elseif type(http_request) == "function" then requestFunction = http_request
+        elseif syn and type(syn.request) == "function" then requestFunction = syn.request
+        elseif http and type(http.request) == "function" then requestFunction = http.request
+        elseif fluxus and type(fluxus.request) == "function" then requestFunction = fluxus.request end
+        if not requestFunction then
+            FeedbackStatus.Text = "This executor has no HTTP request API."
+            return
+        end
+        FeedbackSend.Text = "SENDING..."
+        FeedbackSend.Active = false
+        task.spawn(function()
+            local HttpService = game:GetService("HttpService")
+            local ok, response = pcall(function()
+                return requestFunction({
+                    Url = "https://shortname-report-receive.ryft-amv.workers.dev/feedback",
+                    Method = "POST",
+                    Timeout = 30,
+                    Headers = { ["Content-Type"] = "application/json" },
+                    Body = HttpService:JSONEncode({ message = message })
+                })
+            end)
+            local statusCode = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
+            local body = type(response) == "table" and (response.Body or response.body or "") or ""
+            local decodedOk, decoded = pcall(function() return HttpService:JSONDecode(body) end)
+            if ok and statusCode == 200 and decodedOk and type(decoded) == "table" and decoded.ok == true then
+                FeedbackStatus.Text = "Thanks! Your idea was sent."
+                FeedbackBox.Text = ""
+            else
+                FeedbackStatus.Text = "Could not send feedback. Try again later."
+            end
+            FeedbackSend.Text = "SUBMIT IDEA"
+            FeedbackSend.Active = true
+        end)
+    end)
 
     -- SIDEBAR
     local SidebarWidth = math.min(155, WindowWidth * 0.34); local Sidebar = Instance.new("Frame"); Sidebar.Position = UDim2.fromOffset(10, 58)
@@ -409,8 +590,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     -- FOLDER SYSTEM
-    local function MakeFolder(name, parent)
+    local function MakeFolder(name, parent, visible)
         local Folder = Instance.new("Frame"); Folder.Name = name:gsub("%W", "") .. "Folder"; Folder.Size = UDim2.new(1, 0, 0, 38)
+        Folder.Visible = visible ~= false
         Folder.BackgroundColor3 = ButtonDark; Folder.BorderSizePixel = 0; Folder.ClipsDescendants = true
         Folder.Parent = parent or GamePage; Corner(Folder, 10); Stroke(Folder, Border, 1)
         AddGradient(Folder, Color3.fromRGB(34, 32, 46), ButtonDark, 90); local HeaderButton = Instance.new("TextButton"); HeaderButton.Size =
@@ -477,7 +659,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- THANKSGIVING EVENT FOLDER
     -- Kept separate from Halloween so event features stay organized.
     local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT")
-    local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder)
+    local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder, IsCreator)
 
     Label(ThanksgivingScannerFolder, "THANKSGIVING EVENT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
@@ -624,7 +806,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- FIGHT ON A BASEPLATE FOLDER
     -- Kept separate from the other game folders.
     local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
-    local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder)
+    local FightScannerFolder = MakeFolder("GAME SCANNER", FightFolder, IsCreator)
 
     Label(FightScannerFolder, "FIGHT ON A BASEPLATE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
@@ -770,7 +952,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
 
     -- READ-ONLY COMBAT SYSTEM INSPECTOR
-    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM INSPECTOR", FightFolder)
+    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM INSPECTOR", FightFolder, IsCreator)
     Label(FightInspectorFolder, "COMBAT SYSTEM INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightInspectorFolder,
@@ -847,7 +1029,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(85, 75, 105))
 
     -- PASSIVE COMBAT STRUCTURE SCANNER
-    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE SCANNER", FightFolder)
+    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE SCANNER", FightFolder, IsCreator)
     Label(FightStructureFolder, "COMBAT STRUCTURE SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightStructureFolder,
@@ -1729,7 +1911,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
     -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
-    local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage)
+    local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage, IsCreator)
     Label(ObserverFolder, "PASSIVE ATTACK OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(ObserverFolder, "Tracks new combat objects plus movement of existing weapon/hitbox parts. Start before a fight. Read-only; no remotes are called and no game objects are changed.", 10, 48, Grey)
     local ObserverRunning = false
@@ -1780,14 +1962,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             maxSpeed = 0,
             maxDelta = 0,
             movementEvents = 0,
+            burstEvents = 0,
+            outlierJumps = 0,
             path = path,
             matched = matched,
             className = className,
             name = name,
             source = source
         }
-        AddObserverRecord(className, name, "tracked existing/new part | match=" .. matched .. " | source=" .. source .. " | position="
-            .. string.format("%.1f,%.1f,%.1f", position.X, position.Y, position.Z) .. " | path=" .. path)
+        if not ObserverSeen[object] then
+            ObserverSeen[object] = true
+            AddObserverRecord(className, name, "tracked part | match=" .. matched .. " | source=" .. source .. " | position="
+                .. string.format("%.1f,%.1f,%.1f", position.X, position.Y, position.Z) .. " | path=" .. path)
+        end
     end
 
     local function StopAttackObserver()
@@ -1819,12 +2006,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
         local movementCount = 0
         for object, data in pairs(ObserverTracked) do
-            if data.movementEvents > 0 then
+            if data.movementEvents > 0 or data.outlierJumps > 0 then
                 movementCount = movementCount + 1
                 table.insert(report, string.format(
-                    "MOVEMENT %d. [%s] %s | changes=%d | maxDelta=%.2f studs | estimatedMaxSpeed=%.1f studs/s | match=%s | path=%s",
+                    "MOVEMENT %d. [%s] %s | normalChanges=%d | possibleBursts=%d | filteredMaxDelta=%.2f studs | filteredMaxSpeed=%.1f studs/s | ignoredLargeJumps=%d | match=%s | path=%s",
                     movementCount, data.className, data.name, data.movementEvents,
-                    data.maxDelta, data.maxSpeed, data.matched, data.path
+                    data.burstEvents, data.maxDelta, data.maxSpeed, data.outlierJumps, data.matched, data.path
                 ))
             end
         end
@@ -1896,9 +2083,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     details = details .. " | parent=" .. (parent and parent.Name or "none")
                 end
             end)
-            local key = tostring(className) .. "|" .. path
-            if not ObserverSeen[key] then
-                ObserverSeen[key] = true
+            if not ObserverSeen[object] then
+                ObserverSeen[object] = true
                 AddObserverRecord(className, name, details .. " | path=" .. path)
             end
             if object:IsA("BasePart") then
@@ -1911,7 +2097,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ObserverSampleConnection = RunService.Heartbeat:Connect(function()
             if not ObserverRunning then return end
             local now = os.clock()
-            if now - ObserverLastSample < 0.12 then return end
+            if now - ObserverLastSample < 0.08 then return end
             ObserverLastSample = now
             for object, data in pairs(ObserverTracked) do
                 if object and object.Parent then
@@ -1919,10 +2105,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     if ok then
                         local delta = (position - data.lastPosition).Magnitude
                         local elapsed = math.max(now - data.lastTime, 0.001)
-                        if delta >= 0.18 then
+                        if delta >= 25 then
+                            -- Large discontinuities are logged separately; they may be
+                            -- teleports or replication corrections, not attack motion.
+                            data.outlierJumps = data.outlierJumps + 1
+                        elseif delta >= 0.18 then
                             data.movementEvents = data.movementEvents + 1
                             data.maxDelta = math.max(data.maxDelta, delta)
                             data.maxSpeed = math.max(data.maxSpeed, delta / elapsed)
+                            if delta >= 0.75 then
+                                data.burstEvents = data.burstEvents + 1
+                            end
                         end
                         data.lastPosition = position
                         data.lastTime = now
