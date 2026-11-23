@@ -374,7 +374,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
 
         StyleNav(SettingsNav, page == "Settings")
-        if PlayerAdminUI.Nav then StyleNav(PlayersNav, page == "Players") end
+        if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
         StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
@@ -382,8 +382,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     SettingsNav.Activated:Connect(function()
         SelectPage("Settings")
     end)
-    if PlayersNav then
-        PlayersNav.Activated:Connect(function() SelectPage("Players") end)
+    if PlayerAdminUI.Nav then
+        PlayerAdminUI.Nav.Activated:Connect(function() SelectPage("Players") end)
     end
     CrownButton.Activated:Connect(function()
         CommunityPanel.Visible = false
@@ -873,15 +873,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     -- CREATOR-ONLY PLAYER ROSTER. The owner admin key is entered locally and is never saved.
-    if PlayersPage then
+    if PlayerAdminUI.Page then
         task.spawn(function()
-            Label(PlayersPage, "COMMUNITY PLAYERS", 16, 28).Font = Enum.Font.GothamBold
-            Label(PlayersPage, "Users who opted in to presence sharing. Online status expires after 90 seconds without a heartbeat.", 10, 38, Grey).TextWrapped = true
+            Label(PlayerAdminUI.Page, "COMMUNITY PLAYERS", 16, 28).Font = Enum.Font.GothamBold
+            Label(PlayerAdminUI.Page, "Users who opted in to presence sharing. Online status expires after 90 seconds without a heartbeat.", 10, 38, Grey).TextWrapped = true
             local AdminKey = ""
-            MakeBox(PlayersPage, "OWNER ADMIN KEY (Cloudflare UPLOAD_KEY)", "", function(value) AdminKey = value end)
-            local RosterStatus = Label(PlayersPage, "ROSTER: ENTER ADMIN KEY, THEN REFRESH", 10, 24, Grey)
+            MakeBox(PlayerAdminUI.Page, "OWNER ADMIN KEY (Cloudflare UPLOAD_KEY)", "", function(value) AdminKey = value end)
+            local RosterStatus = Label(PlayerAdminUI.Page, "ROSTER: ENTER ADMIN KEY, THEN REFRESH", 10, 24, Grey)
             local function ClearRosterRows()
-                for _, child in ipairs(PlayersPage:GetChildren()) do
+                for _, child in ipairs(PlayerAdminUI.Page:GetChildren()) do
                     if child.Name == "PresencePlayerRow" then child:Destroy() end
                 end
             end
@@ -909,7 +909,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     row.Size = UDim2.new(1, 0, 0, 76)
                     row.BackgroundColor3 = ButtonDark
                     row.BorderSizePixel = 0
-                    row.Parent = PlayersPage
+                    row.Parent = PlayerAdminUI.Page
                     Corner(row, 8)
                     Stroke(row, Border, 1)
                     local online = playerData.online == true
@@ -955,7 +955,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             task.spawn(function()
                 while ScreenGui.Parent do
                     task.wait(60)
-                    if PlayersPage.Visible and AdminKey ~= "" then RefreshRoster() end
+                    if PlayerAdminUI.Page.Visible and AdminKey ~= "" then RefreshRoster() end
                 end
             end)
         end)
