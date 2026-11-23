@@ -1,5 +1,156 @@
 -- ShortName Hub loader for the private GitHub repository.
 -- Current release: v1.0.2
+
+-- EARLY DIAGNOSTIC CONSOLE: create this before fetching or executing any modules.
+local DiagnosticLines = {}
+local DiagnosticGui, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
+
+local function AddDiagnostic(message)
+    local line = os.date("%H:%M:%S") .. "  " .. tostring(message)
+    table.insert(DiagnosticLines, line)
+    while #DiagnosticLines > 120 do
+        table.remove(DiagnosticLines, 1)
+    end
+    if DiagnosticOutput then
+        DiagnosticOutput.Text = table.concat(DiagnosticLines, "\\n")
+        DiagnosticOutput.CursorPosition = #DiagnosticOutput.Text + 1
+    end
+end
+
+local function BuildDiagnosticConsole()
+    local ok, err = pcall(function()
+        local gui = Instance.new("ScreenGui")
+        gui.Name = "ShortNameDiagnosticConsole"
+        gui.ResetOnSpawn = false
+        gui.DisplayOrder = 100000
+        local parentOk = pcall(function() gui.Parent = gethui() end)
+        if not parentOk then gui.Parent = game:GetService("CoreGui") end
+
+        local frame = Instance.new("Frame")
+        frame.Size = UDim2.fromOffset(440, 300)
+        frame.Position = UDim2.new(0.5, -220, 0.5, -150)
+        frame.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
+        frame.BorderSizePixel = 0
+        frame.Parent = gui
+
+        local title = Instance.new("TextLabel")
+        title.Size = UDim2.new(1, -16, 0, 28)
+        title.Position = UDim2.fromOffset(8, 5)
+        title.BackgroundTransparency = 1
+        title.Text = "SHORTNAME HUB  •  STARTUP CONSOLE"
+        title.TextColor3 = Color3.fromRGB(205, 175, 255)
+        title.Font = Enum.Font.GothamBold
+        title.TextSize = 13
+        title.TextXAlignment = Enum.TextXAlignment.Left
+        title.Parent = frame
+
+        local output = Instance.new("TextBox")
+        output.Size = UDim2.new(1, -16, 1, -104)
+        output.Position = UDim2.fromOffset(8, 36)
+        output.BackgroundColor3 = Color3.fromRGB(9, 9, 13)
+        output.TextColor3 = Color3.fromRGB(225, 225, 235)
+        output.PlaceholderText = "Waiting for startup messages..."
+        output.Text = ""
+        output.TextSize = 11
+        output.Font = Enum.Font.Code
+        output.TextXAlignment = Enum.TextXAlignment.Left
+        output.TextYAlignment = Enum.TextYAlignment.Top
+        output.TextWrapped = false
+        output.MultiLine = true
+        output.ClearTextOnFocus = false
+        output.TextEditable = false
+        output.Parent = frame
+
+        local keyBox = Instance.new("TextBox")
+        keyBox.Size = UDim2.new(1, -150, 0, 26)
+        keyBox.Position = UDim2.new(0, 8, 1, -60)
+        keyBox.BackgroundColor3 = Color3.fromRGB(34, 34, 44)
+        keyBox.TextColor3 = Color3.fromRGB(240, 240, 248)
+        keyBox.PlaceholderText = "Upload key (required)"
+        keyBox.Text = ""
+        keyBox.TextSize = 11
+        keyBox.Font = Enum.Font.Gotham
+        keyBox.ClearTextOnFocus = false
+        keyBox.Parent = frame
+
+        local upload = Instance.new("TextButton")
+        upload.Size = UDim2.fromOffset(132, 26)
+        upload.Position = UDim2.new(1, -140, 1, -60)
+        upload.BackgroundColor3 = Color3.fromRGB(112, 66, 190)
+        upload.TextColor3 = Color3.new(1, 1, 1)
+        upload.Text = "UPLOAD REPORT"
+        upload.TextSize = 10
+        upload.Font = Enum.Font.GothamBold
+        upload.Parent = frame
+
+        local status = Instance.new("TextLabel")
+        status.Size = UDim2.new(1, -16, 0, 22)
+        status.Position = UDim2.new(0, 8, 1, -29)
+        status.BackgroundTransparency = 1
+        status.Text = "Console started before module loading."
+        status.TextColor3 = Color3.fromRGB(170, 170, 185)
+        status.TextSize = 10
+        status.Font = Enum.Font.Gotham
+        status.TextXAlignment = Enum.TextXAlignment.Left
+        status.Parent = frame
+
+        DiagnosticGui, DiagnosticOutput, DiagnosticStatus = gui, output, status
+        UploadKeyBox, UploadButton = keyBox, upload
+        upload.Activated:Connect(function()
+            local key = tostring(keyBox.Text or "")
+            if key == "" then
+                status.Text = "Enter the upload key first."
+                return
+            end
+            local requestFn = RequestFunction or GetRequestFunction()
+            if not requestFn then
+                status.Text = "Executor HTTP request API unavailable."
+                return
+            end
+            upload.Active = false
+            upload.Text = "UPLOADING..."
+            status.Text = "Sending diagnostic report..."
+            task.spawn(function()
+                local HttpService = game:GetService("HttpService")
+                local report = "SHORTNAME HUB STARTUP DIAGNOSTICS\\nCaptured: " .. os.date("!%Y-%m-%d %H:%M:%S UTC") .. "\\n\\n" .. table.concat(DiagnosticLines, "\\n")
+                local sent, response = pcall(function()
+                    return requestFn({
+                        Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
+                        Method = "POST",
+                        Timeout = 45,
+                        Headers = { ["Content-Type"] = "application/json", ["x-upload-key"] = key },
+                        Body = HttpService:JSONEncode({ report = report })
+                    })
+                end)
+                local code = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
+                local body = type(response) == "table" and (response.Body or response.body or "") or tostring(response)
+                local decodedOk, decoded = pcall(function() return HttpService:JSONDecode(body) end)
+                if sent and code == 200 and decodedOk and type(decoded) == "table" and decoded.ok == true then
+                    status.Text = "UPLOAD CONFIRMED — report saved."
+                else
+                    status.Text = "UPLOAD FAILED: HTTP " .. tostring(code) .. " — " .. tostring(body):sub(1, 100)
+                end
+                upload.Text = "UPLOAD REPORT"
+                upload.Active = true
+            end)
+        end)
+
+        AddDiagnostic("Diagnostic console initialized before loading modules.")
+    end)
+    if not ok then
+        warn("ShortName Hub diagnostic console could not initialize: " .. tostring(err))
+    end
+end
+
+pcall(BuildDiagnosticConsole)
+
+pcall(function()
+    game:GetService("LogService").MessageOut:Connect(function(message, messageType)
+        if messageType == Enum.MessageType.MessageError or messageType == Enum.MessageType.MessageWarning then
+            AddDiagnostic(tostring(messageType) .. ": " .. tostring(message))
+        end
+    end)
+end)
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
@@ -24,6 +175,7 @@ local function GetRequestFunction()
 end
 
 local RequestFunction = GetRequestFunction()
+AddDiagnostic("Executor HTTP request API: " .. (RequestFunction and "available" or "not found"))
 
 local function LoadModule(name)
     if not name:match("^[%w_%-]+%.lua$") then
@@ -62,10 +214,12 @@ local function LoadModule(name)
 
     local chunk, compileError = loadstring(source)
     if not chunk then
+        AddDiagnostic("COMPILE ERROR in " .. name .. ": " .. tostring(compileError))
         error("Could not compile " .. name .. ": " .. tostring(compileError))
     end
     local moduleSuccess, moduleResult = pcall(chunk)
     if not moduleSuccess then
+        AddDiagnostic("MODULE ERROR in " .. name .. ": " .. tostring(moduleResult))
         error("Module execution failed for " .. name .. ": " .. tostring(moduleResult))
     end
     return moduleResult
@@ -297,7 +451,10 @@ StartHub = function(skipKey)
     end
 
     if not success then
+        AddDiagnostic("STARTUP FAILED: " .. tostring(result))
         error(result)
+    else
+        AddDiagnostic("Startup completed successfully.")
     end
     return result
 end
@@ -306,5 +463,6 @@ local success, result = pcall(function()
     return StartHub(false)
 end)
 if not success then
+    AddDiagnostic("FATAL LOADER ERROR: " .. tostring(result))
     warn("ShortName Hub startup error: " .. tostring(result))
 end
