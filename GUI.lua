@@ -1045,7 +1045,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if TeleportTargetRemovingConnection then
             TeleportTargetRemovingConnection:Disconnect()
             TeleportTargetRemovingConnection = nil
-        end\n    end)
+        end
+    end)
     end
 
     local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
