@@ -459,7 +459,16 @@ StartHub = function(skipKey)
         local Config = LoadTracked("Config.lua", "Loaded configuration")
         local NPC = LoadTracked("NPC.lua", "Loaded NPC systems")
         local Teleport = LoadTracked("Teleport.lua", "Loaded movement systems")
-        local ThemeModule = LoadTracked("Theme.lua", "Loaded theme foundation")
+        local ThemeModule
+        local themeLoaded, themeResult = pcall(function()
+            return LoadTracked("Theme.lua", "Loaded theme foundation")
+        end)
+        if themeLoaded then
+            ThemeModule = themeResult
+        else
+            AddDiagnostic("Theme module unavailable; using built-in fallback: " .. tostring(themeResult))
+            Step("Using built-in theme fallback")
+        end
         local GUI = LoadTracked("GUI.lua", "Loaded interface code")
         local PresenceModule
         local presenceLoaded, presenceResult = pcall(function()
