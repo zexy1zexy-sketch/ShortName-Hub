@@ -843,6 +843,93 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- FIGHT ON A BASEPLATE FOLDER
     -- Kept separate from the other game folders.
     local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
+
+    -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
+    local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", FightFolder)
+    Label(PlayerToolsFolder, "PLAYER TRACKER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(PlayerToolsFolder, "Enter a player name to spectate their character. Your own character is not teleported or attached.", 10, 38, Grey)
+
+    local PlayerTrackerName = ""
+    local PlayerTrackerTarget
+    local PlayerTrackerCharacterConnection
+    local PlayerTrackerRemovingConnection
+    local PlayerTrackerActive = false
+    local PlayerTrackerStatus = Label(PlayerToolsFolder, "TRACKER: READY", 10, 22, Grey)
+
+    local function RestorePlayerTrackerCamera()
+        local camera = workspace.CurrentCamera
+        local character = LocalPlayer and LocalPlayer.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        if camera and humanoid then
+            camera.CameraType = Enum.CameraType.Custom
+            camera.CameraSubject = humanoid
+        end
+    end
+
+    local function StopPlayerTracker()
+        PlayerTrackerActive = false
+        if PlayerTrackerCharacterConnection then
+            PlayerTrackerCharacterConnection:Disconnect()
+            PlayerTrackerCharacterConnection = nil
+        end
+        if PlayerTrackerRemovingConnection then
+            PlayerTrackerRemovingConnection:Disconnect()
+            PlayerTrackerRemovingConnection = nil
+        end
+        PlayerTrackerTarget = nil
+        RestorePlayerTrackerCamera()
+        if PlayerTrackerStatus and PlayerTrackerStatus.Parent then
+            PlayerTrackerStatus.Text = "TRACKER: STOPPED"
+        end
+    end
+
+    MakeBox(PlayerToolsFolder, "PLAYER USERNAME", "", function(value)
+        PlayerTrackerName = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
+    end)
+
+    MakeButton(PlayerToolsFolder, "START PLAYER TRACKER", function()
+        local query = PlayerTrackerName:lower()
+        if query == "" then
+            PlayerTrackerStatus.Text = "TRACKER: ENTER A USERNAME"
+            return
+        end
+        local target
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and (player.Name:lower() == query or player.Name:lower():sub(1, #query) == query) then
+                target = player
+                break
+            end
+        end
+        if not target then
+            PlayerTrackerStatus.Text = "TRACKER: PLAYER NOT FOUND"
+            return
+        end
+
+        StopPlayerTracker()
+        PlayerTrackerActive = true
+        PlayerTrackerTarget = target
+        local function SetCameraTarget(character)
+            if not PlayerTrackerActive or PlayerTrackerTarget ~= target then return end
+            local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+            if humanoid and workspace.CurrentCamera then
+                workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+                workspace.CurrentCamera.CameraSubject = humanoid
+                PlayerTrackerStatus.Text = "TRACKER: SPECTATING " .. target.Name
+            else
+                PlayerTrackerStatus.Text = "TRACKER: WAITING FOR TARGET"
+            end
+        end
+        if target.Character then SetCameraTarget(target.Character) end
+        PlayerTrackerCharacterConnection = target.CharacterAdded:Connect(SetCameraTarget)
+        PlayerTrackerRemovingConnection = Players.PlayerRemoving:Connect(function(leaving)
+            if leaving == target then
+                StopPlayerTracker()
+                PlayerTrackerStatus.Text = "TRACKER: TARGET LEFT"
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 145))
+
+    MakeButton(PlayerToolsFolder, "STOP PLAYER TRACKER", StopPlayerTracker, Color3.fromRGB(85, 65, 95))
     local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
     local FightScannerFolder = MakeFolder("GAME OBJECT SCANNER", FightDetectorsFolder, false)
 
@@ -2243,6 +2330,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(45, 105, 145))
 
     ScreenGui.Destroying:Connect(function()
+        StopPlayerTracker()
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
@@ -2447,6 +2535,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 FightStructureScanner:Stop()
             end
         end)
+        StopPlayerTracker()
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
