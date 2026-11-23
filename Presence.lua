@@ -120,7 +120,7 @@ function Presence.GetSecurityEvents(session)
         Url = ENDPOINT .. "/security-events",
         Method = "GET",
         Timeout = 25,
-        Headers = { ["x-admin-key"] = adminKey }
+        Headers = OwnerHeaders(session)
     })
 end
 
