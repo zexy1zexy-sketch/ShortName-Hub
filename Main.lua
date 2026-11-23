@@ -5,7 +5,8 @@
 local DiagnosticLines = {}
 local RequestFunction
 local GetRequestFunction
-local DiagnosticGui, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
+local DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
+local ShowDiagnosticConsole
 
 local function AddDiagnostic(message)
     local line = os.date("%H:%M:%S") .. "  " .. tostring(message)
@@ -46,6 +47,7 @@ local function BuildDiagnosticConsole()
         frame.Position = UDim2.new(0.5, -220, 0.5, -150)
         frame.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
         frame.BorderSizePixel = 0
+        frame.Visible = false
         frame.Parent = gui
 
         local title = Instance.new("TextLabel")
@@ -109,7 +111,7 @@ local function BuildDiagnosticConsole()
         status.TextXAlignment = Enum.TextXAlignment.Left
         status.Parent = frame
 
-        DiagnosticGui, DiagnosticOutput, DiagnosticStatus = gui, output, status
+        DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus = gui, frame, output, status
         UploadKeyBox, UploadButton = keyBox, upload
         upload.Activated:Connect(function()
             local key = tostring(keyBox.Text or "")
@@ -158,12 +160,20 @@ local function BuildDiagnosticConsole()
     end
 end
 
+ShowDiagnosticConsole = function()
+    if DiagnosticGui and DiagnosticFrame then
+        DiagnosticGui.Enabled = true
+        DiagnosticFrame.Visible = true
+    end
+end
+
 pcall(BuildDiagnosticConsole)
 
 pcall(function()
     game:GetService("LogService").MessageOut:Connect(function(message, messageType)
-        if messageType == Enum.MessageType.MessageError or messageType == Enum.MessageType.MessageWarning then
-            AddDiagnostic(tostring(messageType) .. ": " .. tostring(message))
+        if messageType == Enum.MessageType.MessageError then
+            AddDiagnostic("ERROR: " .. tostring(message))
+            ShowDiagnosticConsole()
         end
     end)
 end)
@@ -260,6 +270,7 @@ local function GetSharedEnvironment()
 end
 
 local SharedEnvironment = GetSharedEnvironment()
+SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 local RUNTIME_KEY = "__SHORTNAME_HUB_RUNTIME"
 
 -- A fresh execution of the loader must retire the previous execution's GUI
@@ -480,5 +491,6 @@ local success, result = pcall(function()
 end)
 if not success then
     AddDiagnostic("FATAL LOADER ERROR: " .. tostring(result))
+    ShowDiagnosticConsole()
     warn("ShortName Hub startup error: " .. tostring(result))
 end
