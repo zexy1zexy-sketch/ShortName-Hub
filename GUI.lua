@@ -413,18 +413,28 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         or c == Color3.fromRGB(94, 68, 137)
     end
 
+    -- Always derive theme surfaces from the original palette, never the last selected accent.
+    local AccentBaseDark = Color3.fromRGB(12, 12, 17)
+    local AccentBasePanel = Color3.fromRGB(23, 23, 31)
+    local AccentBaseButton = Color3.fromRGB(31, 31, 42)
+    local AccentBaseBorder = Color3.fromRGB(54, 48, 70)
+
     local function ApplyAccent(preset)
         local oldAccent = CurrentAccent
         local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
+        local nextDark = AccentBaseDark:Lerp(preset.Color, 0.14)
+        local nextPanel = AccentBasePanel:Lerp(preset.Color, 0.19)
+        local nextButton = AccentBaseButton:Lerp(preset.Color, 0.24)
+        local nextBorder = AccentBaseBorder:Lerp(preset.Color, 0.45)
         for _, obj in ipairs(ScreenGui:GetDescendants()) do
             if obj:IsA("GuiObject") then
                 local bg = obj.BackgroundColor3
                 if bg == oldDark then
-                    obj.BackgroundColor3 = oldDark:Lerp(preset.Color, 0.14)
+                    obj.BackgroundColor3 = nextDark
                 elseif bg == oldPanel then
-                    obj.BackgroundColor3 = oldPanel:Lerp(preset.Color, 0.19)
+                    obj.BackgroundColor3 = nextPanel
                 elseif bg == oldButton then
-                    obj.BackgroundColor3 = oldButton:Lerp(preset.Color, 0.24)
+                    obj.BackgroundColor3 = nextButton
                 elseif bg == oldAccent.Active or bg == Color3.fromRGB(75, 50, 115) or bg == Color3.fromRGB(100, 65, 160) then
                     obj.BackgroundColor3 = preset.Active
                 end
@@ -437,23 +447,25 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     obj.ScrollBarImageColor3 = preset.Color
                 end
             elseif obj:IsA("UIStroke") then
-                if IsAccentColor(obj.Color) or obj.Color == oldBorder then
+                if IsAccentColor(obj.Color) then
                     obj.Color = preset.Light
+                elseif obj.Color == oldBorder then
+                    obj.Color = nextBorder
                 end
             elseif obj:IsA("UIGradient") then
                 if obj.Parent == AccentLine then
                     obj.Color = ColorSequence.new(preset.Light, preset.Color)
                 elseif obj.Parent == Frame then
-                    obj.Color = ColorSequence.new(oldDark:Lerp(preset.Color, 0.12), oldDark:Lerp(preset.Color, 0.14))
+                    obj.Color = ColorSequence.new(AccentBaseDark:Lerp(preset.Color, 0.12), nextDark)
                 elseif obj.Parent == Header or obj.Parent == Sidebar or obj.Parent == Content then
-                    obj.Color = ColorSequence.new(oldPanel:Lerp(preset.Color, 0.19), oldDark:Lerp(preset.Color, 0.14))
+                    obj.Color = ColorSequence.new(nextPanel, nextDark)
                 end
             end
         end
-        Dark = oldDark:Lerp(preset.Color, 0.14)
-        Panel = oldPanel:Lerp(preset.Color, 0.19)
-        ButtonDark = oldButton:Lerp(preset.Color, 0.24)
-        Border = oldBorder:Lerp(preset.Color, 0.45)
+        Dark = nextDark
+        Panel = nextPanel
+        ButtonDark = nextButton
+        Border = nextBorder
         Purple = preset.Color
         PurpleLight = preset.Light
         CurrentAccent = preset
@@ -462,9 +474,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 or (CurrentPage == "Game" and nav == GameNav)
                 or (CurrentPage == "Fight" and nav == FightNav)
                 or (CurrentPage == "Soon" and nav == SoonNav)
-            nav.BackgroundColor3 = active and preset.Active or ButtonDark
+            nav.BackgroundColor3 = active and preset.Active or nextButton
             local stroke = nav:FindFirstChildOfClass("UIStroke")
-            if stroke then stroke.Color = active and preset.Light or Border end
+            if stroke then stroke.Color = active and preset.Light or nextBorder end
         end
     end
 
