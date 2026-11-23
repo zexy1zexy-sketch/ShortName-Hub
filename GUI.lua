@@ -1664,9 +1664,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local HubExtras = {}
     do
     local HttpService = game:GetService("HttpService")
-    local HubExtras.HubToggleKey = Enum.KeyCode.RightControl
-    local HubExtras.QuickMenuKey = Enum.KeyCode.RightAlt
-    local HubExtras.SessionStartedAt = os.clock()
+    HubExtras.HubToggleKey = Enum.KeyCode.RightControl
+    HubExtras.QuickMenuKey = Enum.KeyCode.RightAlt
+    HubExtras.SessionStartedAt = os.clock()
     local SelectedDirectoryPlayer = nil
 
     local Toast = Instance.new("TextLabel")
@@ -1765,8 +1765,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     RefreshDirectory()
 
     Label(SettingsPage, "PERFORMANCE HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    local HubExtras.PerformanceHudEnabled = false
-    local HubExtras.PerformanceHud = Instance.new("TextLabel")
+    HubExtras.PerformanceHudEnabled = false
+    HubExtras.PerformanceHud = Instance.new("TextLabel")
     HubExtras.PerformanceHud.Name = "ShortNamePerformanceHUD"
     HubExtras.PerformanceHud.Size = UDim2.fromOffset(255, 28)
     HubExtras.PerformanceHud.Position = UDim2.new(1, -265, 0, 12)
@@ -1883,7 +1883,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     QuickMenuButton.ZIndex = 8
     Corner(QuickMenuButton, 8)
     Stroke(QuickMenuButton, Border, 1)
-    local HubExtras.QuickMenuPanel = Instance.new("Frame")
+    HubExtras.QuickMenuPanel = Instance.new("Frame")
     HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
     HubExtras.QuickMenuPanel.Position = UDim2.new(1, IsCreator and -254 or -180, 0, 44)
     HubExtras.QuickMenuPanel.BackgroundColor3 = Panel
