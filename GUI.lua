@@ -1727,104 +1727,211 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(45, 115, 75))
 
-    -- PASSIVE ATTACK OBSERVER: records newly replicated combat-named
-    -- Workspace instances only. It never calls remotes or changes game objects.
+    -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
+    -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
     local ObserverFolder = MakeFolder("AUTO WEAVE RESEARCH", FightPage)
     Label(ObserverFolder, "PASSIVE ATTACK OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    Label(ObserverFolder, "Start this before a fight. It records newly appearing client-visible combat objects and their basic metadata. No remotes are called.", 10, 42, Grey)
+    Label(ObserverFolder, "Tracks new combat objects plus movement of existing weapon/hitbox parts. Start before a fight. Read-only; no remotes are called and no game objects are changed.", 10, 48, Grey)
     local ObserverRunning = false
     local ObserverConnection
+    local ObserverSampleConnection
     local ObserverRecords = {}
     local ObserverSeen = {}
+    local ObserverTracked = {}
+    local ObserverLastSample = 0
     local ObserverStatus = Label(ObserverFolder, "OBSERVER: OFF — NO DATA", 10, 24, Color3.fromRGB(170, 210, 255))
-    local ObserverOutput = Label(ObserverFolder, "Start the observer, exchange a few attacks, then stop and copy the report.", 9, 48, Grey)
+    local ObserverOutput = Label(ObserverFolder, "Start the observer before combat, exchange a few attacks, then stop and upload the report.", 9, 48, Grey)
     ObserverOutput.TextWrapped = true
     ObserverOutput.TextYAlignment = Enum.TextYAlignment.Top
+
+    local ObserverTerms = {"hitbox", "hurtbox", "damage", "attack", "swing", "slash", "projectile", "bullet", "strike", "hit", "weapon", "trail"}
+    local function ObserverMatch(object)
+        local lowerName = string.lower(tostring(object.Name))
+        for _, term in ipairs(ObserverTerms) do
+            if string.find(lowerName, term, 1, true) then
+                return term
+            end
+        end
+        return nil
+    end
+
+    local function AddObserverRecord(className, name, details)
+        if #ObserverRecords >= 160 then return end
+        table.insert(ObserverRecords, {
+            className = tostring(className),
+            name = tostring(name),
+            details = tostring(details)
+        })
+        ObserverStatus.Text = "OBSERVER: " .. tostring(#ObserverRecords) .. " EVENTS RECORDED"
+    end
+
+    local function TrackObserverObject(object, source)
+        if not ObserverRunning or not object or ObserverTracked[object] then return end
+        if not object:IsA("BasePart") then return end
+        local matched = ObserverMatch(object)
+        if not matched then return end
+        local ok, position, path, className, name = pcall(function()
+            return object.Position, object:GetFullName(), object.ClassName, object.Name
+        end)
+        if not ok then return end
+        ObserverTracked[object] = {
+            lastPosition = position,
+            lastTime = os.clock(),
+            maxSpeed = 0,
+            maxDelta = 0,
+            movementEvents = 0,
+            path = path,
+            matched = matched,
+            className = className,
+            name = name,
+            source = source
+        }
+        AddObserverRecord(className, name, "tracked existing/new part | match=" .. matched .. " | source=" .. source .. " | position="
+            .. string.format("%.1f,%.1f,%.1f", position.X, position.Y, position.Z) .. " | path=" .. path)
+    end
+
     local function StopAttackObserver()
         ObserverRunning = false
         if ObserverConnection then
             ObserverConnection:Disconnect()
             ObserverConnection = nil
         end
+        if ObserverSampleConnection then
+            ObserverSampleConnection:Disconnect()
+            ObserverSampleConnection = nil
+        end
     end
+
     local function BuildObserverReport()
         local report = {
             "SHORTNAME HUB - PASSIVE ATTACK OBSERVER",
-            "Mode: Workspace DescendantAdded only; no remotes invoked; no game objects modified.",
-            "Captured objects: " .. tostring(#ObserverRecords),
+            "Mode: Workspace DescendantAdded + read-only sampling of existing/new combat-named BaseParts; no remotes invoked; no game objects modified.",
+            "Captured events: " .. tostring(#ObserverRecords),
+            "Tracked moving parts: " .. tostring((function()
+                local count = 0
+                for _ in pairs(ObserverTracked) do count = count + 1 end
+                return count
+            end)()),
             "----------------------------------------"
         }
         for index, entry in ipairs(ObserverRecords) do
-            table.insert(report, string.format(
-                "%d. [%s] %s | %s",
-                index, entry.className, entry.name, entry.details
-            ))
+            table.insert(report, string.format("%d. [%s] %s | %s", index, entry.className, entry.name, entry.details))
+        end
+        local movementCount = 0
+        for object, data in pairs(ObserverTracked) do
+            if data.movementEvents > 0 then
+                movementCount = movementCount + 1
+                table.insert(report, string.format(
+                    "MOVEMENT %d. [%s] %s | changes=%d | maxDelta=%.2f studs | estimatedMaxSpeed=%.1f studs/s | match=%s | path=%s",
+                    movementCount, data.className, data.name, data.movementEvents,
+                    data.maxDelta, data.maxSpeed, data.matched, data.path
+                ))
+            end
         end
         if #ObserverRecords == 0 then
-            table.insert(report, "No matching newly-added Workspace objects were observed.")
+            table.insert(report, "No matching combat objects were observed.")
+        end
+        if movementCount == 0 then
+            table.insert(report, "No measurable movement changes were detected on tracked combat-named parts.")
         end
         return table.concat(report, "\n")
     end
+
     local ObserverButton
     ObserverButton = MakeButton(ObserverFolder, "START ATTACK OBSERVER", function()
         if ObserverRunning then
             StopAttackObserver()
+            local moving = 0
+            for _, data in pairs(ObserverTracked) do
+                if data.movementEvents > 0 then moving = moving + 1 end
+            end
             ObserverButton.Text = "START ATTACK OBSERVER"
-            ObserverStatus.Text = "OBSERVER: STOPPED — " .. tostring(#ObserverRecords) .. " OBJECTS"
-            ObserverOutput.Text = #ObserverRecords > 0 and ("Captured " .. tostring(#ObserverRecords) .. " objects. Copy the report below.") or "No matching objects captured. Try while an opponent is actively attacking."
+            ObserverStatus.Text = "OBSERVER: STOPPED — " .. tostring(#ObserverRecords) .. " EVENTS / " .. tostring(moving) .. " MOVING"
+            ObserverOutput.Text = "Captured " .. tostring(#ObserverRecords) .. " events and detected movement on " .. tostring(moving) .. " tracked parts. Upload or copy the report."
             return
         end
+
         ObserverRecords = {}
         ObserverSeen = {}
+        ObserverTracked = {}
+        ObserverLastSample = 0
         ObserverRunning = true
         ObserverButton.Text = "STOP ATTACK OBSERVER"
         ObserverStatus.Text = "OBSERVER: LISTENING — FIGHT NOW"
-        ObserverOutput.Text = "Listening for newly appearing combat-related Workspace objects..."
-        local terms = {"hitbox", "hurtbox", "damage", "attack", "swing", "slash", "projectile", "bullet", "strike", "hit", "weapon", "trail"}
+        ObserverOutput.Text = "Scanning existing combat parts and listening for new ones..."
+
+        -- Include parts that already exist before the observer starts.
+        local scanned = 0
+        for _, object in ipairs(workspace:GetDescendants()) do
+            if scanned >= 12000 then break end
+            scanned = scanned + 1
+            if object:IsA("BasePart") then
+                TrackObserverObject(object, "present-at-start")
+            end
+        end
+
+        -- Record newly replicated named objects, including trails and attachments.
         ObserverConnection = workspace.DescendantAdded:Connect(function(object)
-            if not ObserverRunning or #ObserverRecords >= 120 then return end
+            if not ObserverRunning or #ObserverRecords >= 160 then return end
             local ok, name, className = pcall(function()
                 return object.Name, object.ClassName
             end)
             if not ok then return end
-            local lowerName = string.lower(tostring(name))
-            local matched
-            for _, term in ipairs(terms) do
-                if string.find(lowerName, term, 1, true) then
-                    matched = term
-                    break
-                end
-            end
+            local matched = ObserverMatch(object)
             if not matched then return end
             local allowedClass = object:IsA("BasePart") or object:IsA("Attachment")
                 or object:IsA("Trail") or object:IsA("Beam")
                 or object:IsA("ParticleEmitter") or object:IsA("Model")
             if not allowedClass then return end
             local path = ""
-            local details = "match=" .. matched
+            local details = "match=" .. matched .. " | source=DescendantAdded"
             pcall(function()
                 path = object:GetFullName()
                 if object:IsA("BasePart") then
-                    details = details .. string.format(
-                        " | size=%.2f,%.2f,%.2f | position=%.1f,%.1f,%.1f",
+                    details = details .. string.format(" | size=%.2f,%.2f,%.2f | position=%.1f,%.1f,%.1f",
                         object.Size.X, object.Size.Y, object.Size.Z,
-                        object.Position.X, object.Position.Y, object.Position.Z
-                    )
+                        object.Position.X, object.Position.Y, object.Position.Z)
                 elseif object:IsA("Attachment") then
                     local parent = object.Parent
                     details = details .. " | parent=" .. (parent and parent.Name or "none")
                 end
             end)
             local key = tostring(className) .. "|" .. path
-            if ObserverSeen[key] then return end
-            ObserverSeen[key] = true
-            table.insert(ObserverRecords, {
-                name = tostring(name), className = tostring(className),
-                details = details .. " | path=" .. path
-            })
-            ObserverStatus.Text = "OBSERVER: CAPTURED " .. tostring(#ObserverRecords) .. " OBJECTS"
+            if not ObserverSeen[key] then
+                ObserverSeen[key] = true
+                AddObserverRecord(className, name, details .. " | path=" .. path)
+            end
+            if object:IsA("BasePart") then
+                TrackObserverObject(object, "newly-added")
+            end
+        end)
+
+        -- Sample position periodically rather than every frame to keep overhead low.
+        local RunService = game:GetService("RunService")
+        ObserverSampleConnection = RunService.Heartbeat:Connect(function()
+            if not ObserverRunning then return end
+            local now = os.clock()
+            if now - ObserverLastSample < 0.12 then return end
+            ObserverLastSample = now
+            for object, data in pairs(ObserverTracked) do
+                if object and object.Parent then
+                    local ok, position = pcall(function() return object.Position end)
+                    if ok then
+                        local delta = (position - data.lastPosition).Magnitude
+                        local elapsed = math.max(now - data.lastTime, 0.001)
+                        if delta >= 0.18 then
+                            data.movementEvents = data.movementEvents + 1
+                            data.maxDelta = math.max(data.maxDelta, delta)
+                            data.maxSpeed = math.max(data.maxSpeed, delta / elapsed)
+                        end
+                        data.lastPosition = position
+                        data.lastTime = now
+                    end
+                end
+            end
         end)
     end, Color3.fromRGB(45, 105, 145))
+
     MakeButton(ObserverFolder, "COPY ATTACK OBSERVER REPORT", function()
         local report = BuildObserverReport()
         local copied = false
