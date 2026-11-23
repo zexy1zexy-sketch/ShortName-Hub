@@ -3146,20 +3146,25 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end)
 
-    -- WINDOW DRAGGING
-    local Dragging = false; local DragInput; local DragStart
-    local StartPosition
+    -- WINDOW DRAGGING: keep state on HubExtras to avoid exhausting
+    -- the parent function's Luau local-register budget.
+    HubExtras.WindowDragState = {
+        Dragging = false,
+        DragInput = nil,
+        DragStart = nil,
+        StartPosition = nil
+    }
 
     Header.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1
             or input.UserInputType == Enum.UserInputType.Touch
         then
-            Dragging = true
-            DragStart = input.Position
-            StartPosition = Frame.Position
+            HubExtras.WindowDragState.Dragging = true
+            HubExtras.WindowDragState.DragStart = input.Position
+            HubExtras.WindowDragState.StartPosition = Frame.Position
             input.Changed:Connect(function()
                 if input.UserInputState == Enum.UserInputState.End then
-                    Dragging = false
+                    HubExtras.WindowDragState.Dragging = false
                 end
             end)
         end
@@ -3169,18 +3174,21 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if input.UserInputType == Enum.UserInputType.MouseMovement
             or input.UserInputType == Enum.UserInputType.Touch
         then
-            DragInput = input
+            HubExtras.WindowDragState.DragInput = input
         end
     end)
 
     UIS.InputChanged:Connect(function(input)
-        if input == DragInput and Dragging then
-            local delta = input.Position - DragStart
+        if input == HubExtras.WindowDragState.DragInput
+            and HubExtras.WindowDragState.Dragging
+        then
             Frame.Position = UDim2.new(
-                StartPosition.X.Scale,
-                StartPosition.X.Offset + delta.X,
-                StartPosition.Y.Scale,
-                StartPosition.Y.Offset + delta.Y
+                HubExtras.WindowDragState.StartPosition.X.Scale,
+                HubExtras.WindowDragState.StartPosition.X.Offset
+                    + (input.Position - HubExtras.WindowDragState.DragStart).X,
+                HubExtras.WindowDragState.StartPosition.Y.Scale,
+                HubExtras.WindowDragState.StartPosition.Y.Offset
+                    + (input.Position - HubExtras.WindowDragState.DragStart).Y
             )
         end
     end)
