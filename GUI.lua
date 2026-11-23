@@ -109,7 +109,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if IsCreator then
         OwnerViewButton = Instance.new("TextButton")
         OwnerViewButton.Size = UDim2.fromOffset(82, 26)
-        OwnerViewButton.Position = UDim2.new(1, -132, 0, 128)
+        OwnerViewButton.Position = UDim2.new(1, -132, 0, 56)
         OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
         OwnerViewButton.Text = "OWNER VIEW"
         OwnerViewButton.TextColor3 = White
