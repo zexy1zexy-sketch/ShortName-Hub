@@ -89,9 +89,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
-    HeaderTitle.Size = UDim2.new(1, IsCreator and -348 or -249, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
+    HeaderTitle.Size = UDim2.new(1, IsCreator and -382 or -274, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
     local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
-    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -348 or -249, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
+    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -382 or -274, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
     MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "➖"; MinButton.TextColor3 = White
@@ -125,10 +125,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- OWNER SETTINGS SHORTCUT: sits immediately left of the owner/users switch.
     local GearButton
-    if IsCreator then
+    do
         GearButton = Instance.new("TextButton")
         GearButton.Size = UDim2.fromOffset(28, 30)
-        GearButton.Position = UDim2.new(1, -274, 0, 8)
+        GearButton.Position = UDim2.new(1, IsCreator and -274 or -240, 0, 8)
         GearButton.BackgroundColor3 = ButtonDark
         GearButton.Text = "⚙️"
         GearButton.TextColor3 = White
@@ -334,11 +334,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    local SettingsNav = MakeNav("⚙  Settings", 1)
-    if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
-    local PlayerToolsNav = MakeNav("♙  Player Tools", 3)
-    local GameNav = MakeNav("◆  Noob Incremental", 4)
-    local FightNav = MakeNav("⚔  Fight on a Baseplate", 5); local SoonNav = MakeNav("＋  Coming Soon", 6)
+    if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 1) end
+    local PlayerToolsNav = MakeNav("🧰  Player Tools", IsCreator and 2 or 1)
+    local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 3 or 2)
+    local FightNav = MakeNav("⚔  Fight on a Baseplate", IsCreator and 4 or 3); local SoonNav = MakeNav("＋  Coming Soon", IsCreator and 5 or 4)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
@@ -393,16 +392,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             or Grey
         end
 
-        StyleNav(SettingsNav, page == "Settings")
         if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
         StyleNav(PlayerToolsNav, page == "PlayerTools")
         StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
 
-    SettingsNav.Activated:Connect(function()
-        SelectPage("Settings")
-    end)
     if PlayerAdminUI.Nav then
         PlayerAdminUI.Nav.Activated:Connect(function() SelectPage("Players") end)
     end
@@ -2125,9 +2120,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local QuickMenuButton = Instance.new("TextButton")
     QuickMenuButton.Name = "QuickMenuButton"
     QuickMenuButton.Size = UDim2.fromOffset(30, 30)
-    QuickMenuButton.Position = UDim2.new(1, IsCreator and -246 or -172, 0, 8)
+    QuickMenuButton.Position = UDim2.new(1, IsCreator and -308 or -206, 0, 8)
     QuickMenuButton.BackgroundColor3 = ButtonDark
-    QuickMenuButton.Text = "☰"
+    QuickMenuButton.Text = "🧰"
     QuickMenuButton.TextColor3 = White
     QuickMenuButton.TextSize = 15
     QuickMenuButton.Font = Enum.Font.GothamBold
@@ -2137,7 +2132,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Stroke(QuickMenuButton, Border, 1)
     HubExtras.QuickMenuPanel = Instance.new("Frame")
     HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
-    HubExtras.QuickMenuPanel.Position = UDim2.new(1, IsCreator and -254 or -180, 0, 44)
+    HubExtras.QuickMenuPanel.Position = UDim2.new(1, IsCreator and -316 or -214, 0, 44)
     HubExtras.QuickMenuPanel.BackgroundColor3 = Panel
     HubExtras.QuickMenuPanel.Visible = false
     HubExtras.QuickMenuPanel.ZIndex = 40
