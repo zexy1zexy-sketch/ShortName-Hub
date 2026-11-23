@@ -1661,10 +1661,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     -- SHORTNAME HUB EXTRAS: searchable roster, notifications, HUD, keybinds and profiles.
+    local HubExtras = {}
+    do
     local HttpService = game:GetService("HttpService")
-    local HubToggleKey = Enum.KeyCode.RightControl
-    local QuickMenuKey = Enum.KeyCode.RightAlt
-    local SessionStartedAt = os.clock()
+    local HubExtras.HubToggleKey = Enum.KeyCode.RightControl
+    local HubExtras.QuickMenuKey = Enum.KeyCode.RightAlt
+    local HubExtras.SessionStartedAt = os.clock()
     local SelectedDirectoryPlayer = nil
 
     local Toast = Instance.new("TextLabel")
@@ -1763,26 +1765,26 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     RefreshDirectory()
 
     Label(SettingsPage, "PERFORMANCE HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    local PerformanceHudEnabled = false
-    local PerformanceHud = Instance.new("TextLabel")
-    PerformanceHud.Name = "ShortNamePerformanceHUD"
-    PerformanceHud.Size = UDim2.fromOffset(255, 28)
-    PerformanceHud.Position = UDim2.new(1, -265, 0, 12)
-    PerformanceHud.BackgroundColor3 = Dark
-    PerformanceHud.TextColor3 = White
-    PerformanceHud.TextSize = 10
-    PerformanceHud.Font = Enum.Font.GothamBold
-    PerformanceHud.Visible = false
-    PerformanceHud.ZIndex = 90
-    PerformanceHud.Parent = ScreenGui
-    Corner(PerformanceHud, 7)
-    Stroke(PerformanceHud, PurpleLight, 1)
+    local HubExtras.PerformanceHudEnabled = false
+    local HubExtras.PerformanceHud = Instance.new("TextLabel")
+    HubExtras.PerformanceHud.Name = "ShortNamePerformanceHUD"
+    HubExtras.PerformanceHud.Size = UDim2.fromOffset(255, 28)
+    HubExtras.PerformanceHud.Position = UDim2.new(1, -265, 0, 12)
+    HubExtras.PerformanceHud.BackgroundColor3 = Dark
+    HubExtras.PerformanceHud.TextColor3 = White
+    HubExtras.PerformanceHud.TextSize = 10
+    HubExtras.PerformanceHud.Font = Enum.Font.GothamBold
+    HubExtras.PerformanceHud.Visible = false
+    HubExtras.PerformanceHud.ZIndex = 90
+    HubExtras.PerformanceHud.Parent = ScreenGui
+    Corner(HubExtras.PerformanceHud, 7)
+    Stroke(HubExtras.PerformanceHud, PurpleLight, 1)
     local HudButton
     HudButton = MakeButton(SettingsPage, "PERFORMANCE HUD: OFF", function()
-        PerformanceHudEnabled = not PerformanceHudEnabled
-        PerformanceHud.Visible = PerformanceHudEnabled
-        HudButton.Text = PerformanceHudEnabled and "PERFORMANCE HUD: ON" or "PERFORMANCE HUD: OFF"
-        Notify(PerformanceHudEnabled and "Performance HUD enabled" or "Performance HUD disabled")
+        HubExtras.PerformanceHudEnabled = not HubExtras.PerformanceHudEnabled
+        HubExtras.PerformanceHud.Visible = HubExtras.PerformanceHudEnabled
+        HudButton.Text = HubExtras.PerformanceHudEnabled and "PERFORMANCE HUD: ON" or "PERFORMANCE HUD: OFF"
+        Notify(HubExtras.PerformanceHudEnabled and "Performance HUD enabled" or "Performance HUD disabled")
     end)
 
     Label(SettingsPage, "CUSTOM KEYBIND", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
@@ -1791,11 +1793,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     KeybindBox = MakeBox(SettingsPage, "HUB TOGGLE KEY (EXAMPLE: F6, INSERT, RIGHTCONTROL)", "RightControl", function(value)
         local keyName = tostring(value or ""):gsub("%s+", "")
         local key = Enum.KeyCode[keyName]
-        if key and key ~= Enum.KeyCode.Unknown and key ~= QuickMenuKey then
-            HubToggleKey = key
+        if key and key ~= Enum.KeyCode.Unknown and key ~= HubExtras.QuickMenuKey then
+            HubExtras.HubToggleKey = key
             Notify("Toggle key: " .. key.Name)
         else
-            KeybindBox.Text = HubToggleKey.Name
+            KeybindBox.Text = HubExtras.HubToggleKey.Name
             Notify("Invalid key name")
         end
     end)
@@ -1804,11 +1806,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     QuickKeyBox = MakeBox(SettingsPage, "QUICK MENU KEY (EXAMPLE: F7, RIGHTALT)", "RightAlt", function(value)
         local keyName = tostring(value or ""):gsub("%s+", "")
         local key = Enum.KeyCode[keyName]
-        if key and key ~= Enum.KeyCode.Unknown and key ~= HubToggleKey then
-            QuickMenuKey = key
+        if key and key ~= Enum.KeyCode.Unknown and key ~= HubExtras.HubToggleKey then
+            HubExtras.QuickMenuKey = key
             Notify("Quick menu key: " .. key.Name)
         else
-            QuickKeyBox.Text = QuickMenuKey.Name
+            QuickKeyBox.Text = HubExtras.QuickMenuKey.Name
             Notify("Invalid or conflicting quick menu key")
         end
     end)
@@ -1835,8 +1837,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             accent = CurrentAccent.Name or "Purple",
             surface = ActiveSurfacePreset and ActiveSurfacePreset.Name or "MIDNIGHT",
             scale = WindowScale.Scale,
-            toggleKey = HubToggleKey.Name,
-            quickMenuKey = QuickMenuKey.Name
+            toggleKey = HubExtras.HubToggleKey.Name,
+            quickMenuKey = HubExtras.QuickMenuKey.Name
         }
         local ok, err = pcall(function() writefile(path, HttpService:JSONEncode(payload)) end)
         ProfileStatus.Text = ok and ("PROFILE: SAVED " .. path) or ("PROFILE: SAVE FAILED " .. tostring(err))
@@ -1856,12 +1858,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
         if type(data.scale) == "number" then WindowScale.Scale = math.clamp(data.scale, 0.7, 1.25) end
         if type(data.toggleKey) == "string" and Enum.KeyCode[data.toggleKey] then
-            HubToggleKey = Enum.KeyCode[data.toggleKey]
-            KeybindBox.Text = HubToggleKey.Name
+            HubExtras.HubToggleKey = Enum.KeyCode[data.toggleKey]
+            KeybindBox.Text = HubExtras.HubToggleKey.Name
         end
-        if type(data.quickMenuKey) == "string" and Enum.KeyCode[data.quickMenuKey] and Enum.KeyCode[data.quickMenuKey] ~= HubToggleKey then
-            QuickMenuKey = Enum.KeyCode[data.quickMenuKey]
-            QuickKeyBox.Text = QuickMenuKey.Name
+        if type(data.quickMenuKey) == "string" and Enum.KeyCode[data.quickMenuKey] and Enum.KeyCode[data.quickMenuKey] ~= HubExtras.HubToggleKey then
+            HubExtras.QuickMenuKey = Enum.KeyCode[data.quickMenuKey]
+            QuickKeyBox.Text = HubExtras.QuickMenuKey.Name
         end
         ProfileStatus.Text = "PROFILE: LOADED " .. path
         Notify("Profile loaded")
@@ -1881,23 +1883,23 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     QuickMenuButton.ZIndex = 8
     Corner(QuickMenuButton, 8)
     Stroke(QuickMenuButton, Border, 1)
-    local QuickMenuPanel = Instance.new("Frame")
-    QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
-    QuickMenuPanel.Position = UDim2.new(1, IsCreator and -254 or -180, 0, 44)
-    QuickMenuPanel.BackgroundColor3 = Panel
-    QuickMenuPanel.Visible = false
-    QuickMenuPanel.ZIndex = 40
-    QuickMenuPanel.Parent = Frame
-    Corner(QuickMenuPanel, 9)
-    Stroke(QuickMenuPanel, PurpleLight, 1)
+    local HubExtras.QuickMenuPanel = Instance.new("Frame")
+    HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
+    HubExtras.QuickMenuPanel.Position = UDim2.new(1, IsCreator and -254 or -180, 0, 44)
+    HubExtras.QuickMenuPanel.BackgroundColor3 = Panel
+    HubExtras.QuickMenuPanel.Visible = false
+    HubExtras.QuickMenuPanel.ZIndex = 40
+    HubExtras.QuickMenuPanel.Parent = Frame
+    Corner(HubExtras.QuickMenuPanel, 9)
+    Stroke(HubExtras.QuickMenuPanel, PurpleLight, 1)
     local QuickLayout = Instance.new("UIListLayout")
     QuickLayout.Padding = UDim.new(0, 5)
-    QuickLayout.Parent = QuickMenuPanel
+    QuickLayout.Parent = HubExtras.QuickMenuPanel
     local QuickPadding = Instance.new("UIPadding")
     QuickPadding.PaddingTop = UDim.new(0, 6)
     QuickPadding.PaddingLeft = UDim.new(0, 6)
     QuickPadding.PaddingRight = UDim.new(0, 6)
-    QuickPadding.Parent = QuickMenuPanel
+    QuickPadding.Parent = HubExtras.QuickMenuPanel
     local function QuickAction(label, callback)
         local b = Instance.new("TextButton")
         b.Size = UDim2.new(1, 0, 0, 28)
@@ -1906,30 +1908,32 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         b.TextSize = 10
         b.Font = Enum.Font.GothamBold
         b.Text = label
-        b.Parent = QuickMenuPanel
+        b.Parent = HubExtras.QuickMenuPanel
         b.ZIndex = 41
         Corner(b, 6)
         b.Activated:Connect(callback)
     end
-    QuickAction("OPEN SETTINGS", function() QuickMenuPanel.Visible = false SelectPage("Settings") end)
-    QuickAction("OPEN PLAYER TOOLS", function() QuickMenuPanel.Visible = false SelectPage("Fight") end)
+    QuickAction("OPEN SETTINGS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Settings") end)
+    QuickAction("OPEN PLAYER TOOLS", function() HubExtras.QuickMenuPanel.Visible = false SelectPage("Fight") end)
     QuickAction("TOGGLE PERFORMANCE HUD", function()
-        PerformanceHudEnabled = not PerformanceHudEnabled
-        PerformanceHud.Visible = PerformanceHudEnabled
-        HudButton.Text = PerformanceHudEnabled and "PERFORMANCE HUD: ON" or "PERFORMANCE HUD: OFF"
-        QuickMenuPanel.Visible = false
-        Notify(PerformanceHudEnabled and "Performance HUD enabled" or "Performance HUD disabled")
+        HubExtras.PerformanceHudEnabled = not HubExtras.PerformanceHudEnabled
+        HubExtras.PerformanceHud.Visible = HubExtras.PerformanceHudEnabled
+        HudButton.Text = HubExtras.PerformanceHudEnabled and "PERFORMANCE HUD: ON" or "PERFORMANCE HUD: OFF"
+        HubExtras.QuickMenuPanel.Visible = false
+        Notify(HubExtras.PerformanceHudEnabled and "Performance HUD enabled" or "Performance HUD disabled")
     end)
-    QuickAction("TEST NOTIFICATION", function() QuickMenuPanel.Visible = false Notify("Notifications are working") end)
+    QuickAction("TEST NOTIFICATION", function() HubExtras.QuickMenuPanel.Visible = false Notify("Notifications are working") end)
     QuickMenuButton.Activated:Connect(function()
-        QuickMenuPanel.Visible = not QuickMenuPanel.Visible
+        HubExtras.QuickMenuPanel.Visible = not HubExtras.QuickMenuPanel.Visible
         CommunityPanel.Visible = false
         FeedbackPanel.Visible = false
     end)
 
+    end -- scoped extras: keep Luau local-register usage below the compiler limit.
+
     -- SESSION TOOLS: live diagnostics and copy helpers
     Label(UtilityFolder, "SESSION TOOLS", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    Label(UtilityFolder, "Hub toggle: " .. HubToggleKey.Name .. "  |  Quick menu: " .. QuickMenuKey.Name, 10, 20, Grey)
+    Label(UtilityFolder, "Hub toggle: " .. HubExtras.HubToggleKey.Name .. "  |  Quick menu: " .. HubExtras.QuickMenuKey.Name, 10, 20, Grey)
     local PerformanceLabel = Label(UtilityFolder, "FPS: --  |  PING: --  |  MEMORY: -- MB", 10, 24, White)
     PerformanceLabel.TextWrapped = true
 
@@ -1967,10 +1971,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     tostring(memoryText)
                 )
             end
-            if PerformanceHud and PerformanceHud.Parent and PerformanceHudEnabled then
-                local elapsed = math.max(0, math.floor(os.clock() - SessionStartedAt))
+            if HubExtras.PerformanceHud and HubExtras.PerformanceHud.Parent and HubExtras.PerformanceHudEnabled then
+                local elapsed = math.max(0, math.floor(os.clock() - HubExtras.SessionStartedAt))
                 local sessionText = string.format("%02d:%02d:%02d", math.floor(elapsed / 3600), math.floor(elapsed / 60) % 60, elapsed % 60)
-                PerformanceHud.Text = string.format("FPS %d  •  PING %s  •  %s", lastFps, tostring(pingText), sessionText)
+                HubExtras.PerformanceHud.Text = string.format("FPS %d  •  PING %s  •  %s", lastFps, tostring(pingText), sessionText)
             end
         end
     end)
@@ -2891,7 +2895,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if processed or UIS:GetFocusedTextBox() then
             return
         end
-        if input.KeyCode == HubToggleKey then
+        if input.KeyCode == HubExtras.HubToggleKey then
             if Minimized then
                 Minimized = false
                 Bubble.Visible = false
@@ -2902,8 +2906,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 Frame.Visible = false
                 Bubble.Visible = true
             end
-        elseif input.KeyCode == QuickMenuKey then
-            QuickMenuPanel.Visible = not QuickMenuPanel.Visible
+        elseif input.KeyCode == HubExtras.QuickMenuKey then
+            HubExtras.QuickMenuPanel.Visible = not HubExtras.QuickMenuPanel.Visible
         end
     end)
 
