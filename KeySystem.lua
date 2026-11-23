@@ -5,6 +5,11 @@
 local HUB_KEY = "key"
 local DISCORD_INVITE = "https://discord.gg/YOUR-INVITE"
 
+-- USERS WHO CAN SKIP KEY VERIFICATION (Roblox UserIds)
+local KEY_BYPASS_USER_IDS = {
+    [7867608166] = true,
+}
+
 -- KEY SYSTEM UI
 
 local KeySystem = {}
@@ -13,6 +18,11 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
 function KeySystem.Start()
+    local localPlayer = game:GetService("Players").LocalPlayer
+    if localPlayer and KEY_BYPASS_USER_IDS[localPlayer.UserId] then
+        return true
+    end
+
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "ShortNameKeySystem"
     ScreenGui.ResetOnSpawn = false
