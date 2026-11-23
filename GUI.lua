@@ -2028,6 +2028,40 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 inspectorStatus.Text = "INSPECTOR: REPORT READY — COPY VISIBLE JSON"
             end
         end, Color3.fromRGB(65, 105, 145))
+        local SnapshotUploadKey = ""
+        MakeBox(inspectorContent, "CLOUDFLARE UPLOAD KEY", "", function(value)
+            SnapshotUploadKey = tostring(value or "")
+        end)
+        MakeButton(inspectorContent, "UPLOAD SNAPSHOT REPORT TO ME", function()
+            if #snapshotLog == 0 then captureSnapshot("manual-snapshot", "Created during report upload.") end
+            if SnapshotUploadKey == "" then inspectorStatus.Text = "INSPECTOR: ENTER UPLOAD KEY FIRST"; return end
+            local requestFunction
+            if type(request) == "function" then requestFunction = request
+            elseif type(http_request) == "function" then requestFunction = http_request
+            elseif syn and type(syn.request) == "function" then requestFunction = syn.request
+            elseif http and type(http.request) == "function" then requestFunction = http.request
+            elseif fluxus and type(fluxus.request) == "function" then requestFunction = fluxus.request end
+            if not requestFunction then inspectorStatus.Text = "INSPECTOR: EXECUTOR HTTP API UNAVAILABLE"; return end
+            local report = {reportType="SHORTNAME_HUB_OBSERVATION_SNAPSHOT",game=game.Name,placeId=game.PlaceId,jobId=game.JobId,generatedAt=os.date("!%Y-%m-%dT%H:%M:%SZ"),snapshotCount=#snapshotLog,snapshots=snapshotLog}
+            local encodedOk, encoded = pcall(function() return HttpService:JSONEncode(report) end)
+            if not encodedOk then inspectorStatus.Text = "INSPECTOR: REPORT ENCODE FAILED"; return end
+            inspectorStatus.Text = "INSPECTOR: UPLOADING SNAPSHOT REPORT..."
+            task.spawn(function()
+                local sent, response = pcall(function()
+                    return requestFunction({Url="https://shortname-report-receive.ryft-amv.workers.dev/snapshot-report",Method="POST",Timeout=30,Headers={["Content-Type"]="application/json",["x-upload-key"]=SnapshotUploadKey},Body=HttpService:JSONEncode({report=encoded})})
+                end)
+                local code = type(response)=="table" and (response.StatusCode or response.Status or response.status_code) or nil
+                local body = type(response)=="table" and (response.Body or response.body or "") or ""
+                local decodedOk, decoded = pcall(function() return HttpService:JSONDecode(body) end)
+                if sent and code==200 and decodedOk and type(decoded)=="table" and decoded.ok==true then
+                    inspectorStatus.Text = "INSPECTOR: UPLOAD CONFIRMED — SAVED TO PRIVATE GITHUB INBOX"
+                    inspectorResults.Text = "Snapshot report uploaded successfully.\nFile: "..tostring(decoded.path or "game-reports/snapshots").."\nSnapshots: "..tostring(report.snapshotCount).."\nTell ChatGPT: check snapshot reports."
+                else
+                    inspectorStatus.Text = "INSPECTOR: UPLOAD FAILED (HTTP "..tostring(code)..")"
+                    inspectorResults.Text = "Upload failed. "..(type(decoded)=="table" and tostring(decoded.error or decoded.details or "") or tostring(body):sub(1,300))
+                end
+            end)
+        end, Color3.fromRGB(45, 105, 75))
         MakeButton(inspectorContent, "CLEAR SNAPSHOT HISTORY", function()
             table.clear(snapshotLog)
             inspectorResults.Text = "Snapshot history cleared."
