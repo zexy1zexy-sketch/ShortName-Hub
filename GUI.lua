@@ -525,7 +525,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
     local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
-    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("✨  Coming Soon", IsCreator and 6 or 5)
+    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 6 or 5)
 
     local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }
     local function FilterSidebar(query)
@@ -3666,22 +3666,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     White)
     SoonText.TextXAlignment = Enum.TextXAlignment.Center
 
-    do
-    local FeedbackComingSoon = Instance.new("Frame")
-    FeedbackComingSoon.Name = "FeedbackComingSoon"
-    FeedbackComingSoon.Size = UDim2.new(1, 0, 0, 62)
-    FeedbackComingSoon.BackgroundColor3 = ButtonDark
-    FeedbackComingSoon.BorderSizePixel = 0
-    FeedbackComingSoon.Parent = SoonPage
-    Corner(FeedbackComingSoon, 10)
-    Stroke(FeedbackComingSoon, Border, 1)
-    local FeedbackComingTitle = Label(FeedbackComingSoon, "FEEDBACK", 12, 22, PurpleLight)
-    FeedbackComingTitle.Position = UDim2.fromOffset(14, 7)
-    FeedbackComingTitle.Font = Enum.Font.GothamBold
-    local FeedbackComingDescription = Label(FeedbackComingSoon, "Send ideas and report issues - coming in a future update.", 10, 25, Grey)
-    FeedbackComingDescription.Position = UDim2.fromOffset(14, 31)
-    FeedbackComingDescription.TextWrapped = true
-    end
+    -- Put the working feedback form directly on the Coming Soon page.
+    FeedbackPanel.Parent = SoonPage
+    FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
+    FeedbackPanel.Size = UDim2.new(1, 0, 0, 226)
+    FeedbackPanel.LayoutOrder = 3
+    FeedbackPanel.Visible = true
+    FeedbackPanel.ZIndex = 5
+    FeedbackTitle.Text = "  SEND FEEDBACK"
+    FeedbackStatus.Text = "Share an idea or report a problem. Your message goes to the private hub feedback inbox."
+    FeedbackStatus.Size = UDim2.new(1, -20, 0, 30)
+    FeedbackStatus.TextSize = 9
+    FeedbackBox.ZIndex = 6
+    FeedbackSend.ZIndex = 6
+    FeedbackClose.Visible = false
 
     -- MINIMIZE BUBBLE
     local Bubble = Instance.new("TextButton"); Bubble.Name = "ShortNameBubble"; Bubble.Size = UDim2.fromOffset(55, 55)
