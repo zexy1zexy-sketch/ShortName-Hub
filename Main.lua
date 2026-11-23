@@ -25,8 +25,21 @@ local function BuildDiagnosticConsole()
         gui.Name = "ShortNameDiagnosticConsole"
         gui.ResetOnSpawn = false
         gui.DisplayOrder = 100000
-        local parentOk = pcall(function() gui.Parent = gethui() end)
-        if not parentOk then gui.Parent = game:GetService("CoreGui") end
+        local parented = false
+        if type(gethui) == "function" then
+            parented = pcall(function() gui.Parent = gethui() end)
+        end
+        if not parented then
+            parented = pcall(function() gui.Parent = game:GetService("CoreGui") end)
+        end
+        if not parented then
+            local player = game:GetService("Players").LocalPlayer
+            if player then
+                gui.Parent = player:WaitForChild("PlayerGui", 5)
+                parented = gui.Parent ~= nil
+            end
+        end
+        if not parented then error("Could not parent diagnostic console to gethui, CoreGui, or PlayerGui") end
 
         local frame = Instance.new("Frame")
         frame.Size = UDim2.fromOffset(440, 300)
@@ -141,6 +154,7 @@ local function BuildDiagnosticConsole()
     end)
     if not ok then
         warn("ShortName Hub diagnostic console could not initialize: " .. tostring(err))
+        print("ShortName Hub diagnostic console error: " .. tostring(err))
     end
 end
 
