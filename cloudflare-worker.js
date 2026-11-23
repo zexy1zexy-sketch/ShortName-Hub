@@ -128,7 +128,6 @@ async function rejectAdminAttempt(request,env){
  await env.REPORTS.put("security:"+Date.now()+":"+crypto.randomUUID(),JSON.stringify(event),{expirationTtl:7776000});
  return reply({ok:false,error:"Unauthorized"},401);
 }
-async function requireOwnerSession(request,env){return await isAdmin(request,env)?null:await rejectAdminAttempt(request,env);}
 async function savePresence(body,env){
  const id=Number(body.userId);
  if(!Number.isSafeInteger(id)||id<=0)throw new Error("Invalid Roblox user ID");
