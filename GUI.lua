@@ -144,11 +144,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             Tween(button, {
                 BackgroundColor3 = hoverColor
             })
+            if ThemeModule and type(ThemeModule.ApplyGlow) == "function" then
+                ThemeModule.ApplyGlow(button, Purple, true)
+            end
         end)
         button.MouseLeave:Connect(function()
             Tween(button, {
                 BackgroundColor3 = button:GetAttribute("SNHNormalColor") or normalColor
             })
+            if ThemeModule and type(ThemeModule.ApplyGlow) == "function" then
+                ThemeModule.ApplyGlow(button, Purple, false)
+            end
         end)
     end
 
@@ -192,7 +198,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- HEADER
     local Header = Instance.new("Frame"); Header.Size = UDim2.new(1, 0, 0, 48); Header.BackgroundColor3 = Dark
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
-    AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
+    AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  ◈  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
     HeaderTitle.Size = UDim2.new(1, IsCreator and -382 or -274, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
     local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
@@ -489,7 +495,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         page.ScrollBarThickness = 3; page.ScrollBarImageColor3 = Purple; page.CanvasSize = UDim2.fromOffset(0, 0)
         page.AutomaticCanvasSize = Enum.AutomaticSize.Y; page.ScrollingDirection = Enum.ScrollingDirection.Y
         page.Visible = false; page.Parent = Content; local layout = Instance.new("UIListLayout")
-        layout.Padding = UDim.new(0, 8); layout.SortOrder = Enum.SortOrder.LayoutOrder; layout.Parent = page
+        layout.Padding = UDim.new(0, 11); layout.SortOrder = Enum.SortOrder.LayoutOrder; layout.Parent = page
         local padding = Instance.new("UIPadding"); padding.PaddingBottom = UDim.new(0, 10); padding.Parent = page
 
         layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
@@ -1042,9 +1048,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     -- BUTTONS
     local function MakeButton(parent, text, callback, color)
-        local b = Instance.new("TextButton"); b.Size = UDim2.new(1, 0, 0, 38); b.BackgroundColor3 = color or Color3.fromRGB(75, 55, 115)
+        local b = Instance.new("TextButton"); b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = color or Color3.fromRGB(75, 55, 115)
         b.TextColor3 = White; b.Text = text; b.TextSize = 12
-        b.Font = Enum.Font.GothamBold; b.Parent = parent; Corner(b, 8)
+        b.Font = Enum.Font.GothamBold; b.Parent = parent; Corner(b, 10)
         Stroke(b, Border, 1); AddHover(b, color or Color3.fromRGB(75, 55, 115), Color3.fromRGB(94, 68, 137)); b.Activated:Connect(callback)
         return b
     end
