@@ -572,7 +572,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         searchPanel.Name = "GlobalSearchPanel"
         searchPanel.AnchorPoint = Vector2.new(0.5, 0.5)
         searchPanel.Position = UDim2.fromScale(0.5, 0.5)
-        searchPanel.Size = UDim2.fromOffset(380, 350)
+        searchPanel.Size = UDim2.fromOffset(math.min(380, WindowWidth - 24), math.min(350, WindowHeight - 24))
         searchPanel.BackgroundColor3 = Panel
         searchPanel.Visible = false
         searchPanel.ZIndex = 70
@@ -674,6 +674,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                                 Corner(resultButton, 6)
                                 resultButton.Activated:Connect(function()
                                     SelectPage(pageName)
+                                    searchInput:ReleaseFocus()
                                     searchPanel.Visible = false
                                 end)
                             end
@@ -2560,7 +2561,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Corner(QuickMenuButton, 8)
     Stroke(QuickMenuButton, Border, 1)
     HubExtras.QuickMenuPanel = Instance.new("Frame")
-    HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(184, 214)
+    HubExtras.QuickMenuPanel.Size = UDim2.fromOffset(184, 244)
     HubExtras.QuickMenuPanel.Position = UDim2.new(1, IsCreator and -316 or -214, 0, 44)
     HubExtras.QuickMenuPanel.BackgroundColor3 = Panel
     HubExtras.QuickMenuPanel.Visible = false
