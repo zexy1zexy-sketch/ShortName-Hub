@@ -3485,6 +3485,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local function BuildObserverTools()
     -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
     -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
+    -- Isolate observer locals to keep the GUI builder below Luau register limits.
+    do
     local ObserverFolder = MakeFolder("WEAPON MOVEMENT OBSERVER", FightDetectorsFolder, false)
     Label(ObserverFolder, "WEAPON MOVEMENT OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(ObserverFolder, "Tracks new combat objects plus movement of existing weapon/hitbox parts. Start before a fight. Read-only; no remotes are called and no game objects are changed.", 10, 48, Grey)
@@ -3562,6 +3564,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             ObserverSampleConnection = nil
         end
     end
+    GUI.StopAttackObserver = StopAttackObserver
 
     local function BuildObserverReport()
         local report = {
@@ -3781,11 +3784,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
     BuildObserverTools()
 
+    end
+
     ScreenGui.Destroying:Connect(function()
         RemoveCombatHud()
         HitboxEnabled = false
         ClearHitboxVisuals()
-        StopAttackObserver()
+        if GUI.StopAttackObserver then GUI.StopAttackObserver() end
     end)
 
     -- COMING SOON PAGE
