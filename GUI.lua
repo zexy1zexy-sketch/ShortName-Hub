@@ -3797,7 +3797,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local UpdateItems = {
             { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
             { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
-            { "03  •  Custom backgrounds", "Set a Roblox image asset or HTTPS image URL." },
+            { "03  •  Custom backgrounds", "Set a custom Roblox image asset ID or asset URL." },
             { "04  •  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
         }
         for _, item in ipairs(UpdateItems) do
