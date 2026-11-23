@@ -1042,7 +1042,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     ScreenGui.Destroying:Connect(function()
         StopAutoReset()
         StopPlayerTracker()
-        if TeleportTargetRemovingConnection then\n            TeleportTargetRemovingConnection:Disconnect()\n            TeleportTargetRemovingConnection = nil\n        end\n    end)
+        if TeleportTargetRemovingConnection then
+            TeleportTargetRemovingConnection:Disconnect()
+            TeleportTargetRemovingConnection = nil
+        end\n    end)
     end
 
     local FightDetectorsFolder = MakeFolder("DETECTORS", FightFolder)
