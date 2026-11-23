@@ -2527,6 +2527,31 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     RenderRoster()
                 end, Color3.fromRGB(65, 58, 92))
             end
+            local SecurityReportStatus = Label(PlayerAdminUI.Page, "SECURITY REPORTS: NOT LOADED", 9, 78, Grey)
+            SecurityReportStatus.TextWrapped = true
+            MakeButton(PlayerAdminUI.Page, "LOAD SECURITY REPORTS", function()
+                if not PresenceModule or type(PresenceModule.GetSecurityEvents) ~= "function" then
+                    SecurityReportStatus.Text = "SECURITY REPORTS: MODULE UNAVAILABLE"
+                    return
+                end
+                SecurityReportStatus.Text = "SECURITY REPORTS: LOADING..."
+                task.spawn(function()
+                    local ok, sent, result = pcall(function() return PresenceModule.GetSecurityEvents(AdminKey) end)
+                    if not ok or not sent or type(result) ~= "table" then
+                        SecurityReportStatus.Text = "SECURITY REPORTS: " .. tostring(ok and result or sent)
+                        return
+                    end
+                    local events = result.events or {}
+                    local lines = { "SECURITY REPORTS: " .. tostring(#events) .. " EVENTS (LATEST 8)" }
+                    for index = 1, math.min(#events, 8) do
+                        local event = events[index]
+                        table.insert(lines, tostring(event.eventType or "event") .. " | " .. tostring(event.createdAt or "time unknown"))
+                        table.insert(lines, "USER: " .. tostring(event.username or "Unknown") .. " / " .. tostring(event.userId or "unverified"))
+                        table.insert(lines, tostring(event.details or "No details"))
+                    end
+                    SecurityReportStatus.Text = table.concat(lines, "\\n")
+                end)
+            end, Color3.fromRGB(105, 70, 105))
             MakeButton(PlayerAdminUI.Page, "LOAD / REFRESH ALL REGISTERED USERS", RefreshRoster, Color3.fromRGB(55, 85, 125))
             task.spawn(function()
                 while ScreenGui.Parent do
