@@ -2457,22 +2457,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end)
 
-    Label(SettingsPage, "CONFIGURATION PROFILES", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
-    Label(SettingsPage, "Save appearance and keybind settings locally if executor file APIs are supported.", 10, 32, Grey)
-    local ProfileNameBox = MakeBox(SettingsPage, "PROFILE NAME", "Default", function() end)
+    Label(SettingsPage, "SAVED PROFILE", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(SettingsPage, "One local profile slot remembers your latest appearance and keybind configuration.", 10, 32, Grey)
     local ProfileStatus = Label(SettingsPage, "PROFILE: READY", 10, 20, Grey)
-    local function ProfilePath(name)
-        name = tostring(name or ""):gsub("[^%w_%-]", "")
-        if name == "" then return nil end
-        return "ShortNameHub/" .. name .. ".json"
+    local function ProfilePath()
+        return "ShortNameHub/default.json"
     end
     local function HasProfileFileAPI()
         return type(makefolder) == "function" and type(writefile) == "function"
             and type(readfile) == "function" and type(isfile) == "function"
     end
-    MakeButton(SettingsPage, "SAVE PROFILE", function()
+    MakeButton(SettingsPage, "SAVE LATEST PROFILE", function()
         if not HasProfileFileAPI() then ProfileStatus.Text = "PROFILE: FILE API UNAVAILABLE" return end
-        local path = ProfilePath(ProfileNameBox.Text)
+        local path = ProfilePath()
         if not path then ProfileStatus.Text = "PROFILE: INVALID NAME" return end
         pcall(makefolder, "ShortNameHub")
         local payload = {
@@ -2494,7 +2491,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ProfileStatus.Text = ok and ("PROFILE: SAVED " .. path) or ("PROFILE: SAVE FAILED " .. tostring(err))
         if ok then Notify("Profile saved") end
     end)
-    MakeButton(SettingsPage, "LOAD PROFILE", function()
+    MakeButton(SettingsPage, "LOAD LATEST PROFILE", function()
         if not HasProfileFileAPI() then ProfileStatus.Text = "PROFILE: FILE API UNAVAILABLE" return end
         local path = ProfilePath(ProfileNameBox.Text)
         if not path or not isfile(path) then ProfileStatus.Text = "PROFILE: NOT FOUND" return end
