@@ -1396,113 +1396,169 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return b
     end
 
-    -- GUESS THE SLAPPER: client-side notes and practice utilities for this experience only.
+    -- GUESS THE SLAPPER: live player cards and manual, clearly-labelled observations.
     if GUI.GuessSlapperNav then
         Label(GUI.GuessSlapperPage, "GUESS THE SLAPPER", 17, 30).Font = Enum.Font.GothamBold
-        Label(GUI.GuessSlapperPage, "Round helpers, manual observations, and reaction practice. These tools do not read hidden game state or automate guesses.", 10, 38, Grey).TextWrapped = true
+        Label(GUI.GuessSlapperPage, "Live server roster. Select a player to mark, inspect, or record your guess.", 10, 30, Grey).TextWrapped = true
 
-        local SuspectContent = MakeFolder("SUSPECT TRACKER", GUI.GuessSlapperPage)
-        local suspectInput = ""
-        local suspects = {}
-        local suspectStatus = Label(SuspectContent, "No suspects recorded.", 10, 42, Grey)
-        MakeBox(SuspectContent, "PLAYER TO TRACK", "", function(value)
-            suspectInput = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
-        end)
-        local function refreshSuspects()
-            if #suspects == 0 then
-                suspectStatus.Text = "No suspects recorded."
-            else
-                suspectStatus.Text = table.concat(suspects, "\n")
+        local PlayersService = game:GetService("Players")
+        local markedSuspects = {}
+        local playerCards = {}
+        local rosterStatus = Label(GUI.GuessSlapperPage, "PLAYERS: LOADING...", 11, 24, Color3.fromRGB(170, 210, 255))
+        rosterStatus.Font = Enum.Font.GothamBold
+        local guessStatus = Label(GUI.GuessSlapperPage, "SLAPPER GUESS: None recorded", 10, 34, Grey)
+        guessStatus.TextWrapped = true
+        local detailStatus = Label(GUI.GuessSlapperPage, "Select VIEW DETAILS on a player card to inspect their visible character status.", 10, 38, Grey)
+        detailStatus.TextWrapped = true
+
+        local rosterFrame = Instance.new("Frame")
+        rosterFrame.Name = "LivePlayerCards"
+        rosterFrame.Size = UDim2.new(1, 0, 0, 0)
+        rosterFrame.AutomaticSize = Enum.AutomaticSize.Y
+        rosterFrame.BackgroundTransparency = 1
+        rosterFrame.Parent = GUI.GuessSlapperPage
+        local rosterLayout = Instance.new("UIListLayout")
+        rosterLayout.Padding = UDim.new(0, 8)
+        rosterLayout.SortOrder = Enum.SortOrder.Name
+        rosterLayout.Parent = rosterFrame
+
+        local function clearCards()
+            for _, card in pairs(playerCards) do
+                if card and card.Parent then card:Destroy() end
+            end
+            table.clear(playerCards)
+        end
+
+        local function makePlayerCard(player)
+            local card = Instance.new("Frame")
+            card.Name = string.format("Player_%09d", player.UserId)
+            card.Size = UDim2.new(1, 0, 0, 108)
+            card.BackgroundColor3 = ButtonDark
+            card.BorderSizePixel = 0
+            card.Parent = rosterFrame
+            Corner(card, 9)
+            Stroke(card, markedSuspects[player.UserId] and Color3.fromRGB(235, 170, 95) or Border, 1)
+
+            local nameLabel = Instance.new("TextLabel")
+            nameLabel.BackgroundTransparency = 1
+            nameLabel.Position = UDim2.fromOffset(10, 7)
+            nameLabel.Size = UDim2.new(1, -20, 0, 20)
+            nameLabel.Font = Enum.Font.GothamBold
+            nameLabel.TextSize = 12
+            nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+            nameLabel.TextColor3 = White
+            nameLabel.Text = player.DisplayName
+            nameLabel.Parent = card
+
+            local userLabel = Instance.new("TextLabel")
+            userLabel.BackgroundTransparency = 1
+            userLabel.Position = UDim2.fromOffset(10, 28)
+            userLabel.Size = UDim2.new(1, -20, 0, 17)
+            userLabel.Font = Enum.Font.Gotham
+            userLabel.TextSize = 10
+            userLabel.TextXAlignment = Enum.TextXAlignment.Left
+            userLabel.TextColor3 = Grey
+            userLabel.Text = "@" .. player.Name .. (player == PlayersService.LocalPlayer and "  •  YOU" or "")
+            userLabel.Parent = card
+
+            local function smallButton(text, x, width, color, callback)
+                local button = Instance.new("TextButton")
+                button.Size = UDim2.new(width, -6, 0, 28)
+                button.Position = UDim2.new(x, 3, 0, 68)
+                button.BackgroundColor3 = color
+                button.Text = text
+                button.TextColor3 = White
+                button.TextSize = 9
+                button.Font = Enum.Font.GothamBold
+                button.Parent = card
+                Corner(button, 6)
+                Stroke(button, Border, 1)
+                button.Activated:Connect(callback)
+                return button
+            end
+
+            smallButton(markedSuspects[player.UserId] and "UNMARK" or "SUSPECT", 0, 0.34, Color3.fromRGB(105, 78, 45), function()
+                if markedSuspects[player.UserId] then
+                    markedSuspects[player.UserId] = nil
+                else
+                    markedSuspects[player.UserId] = true
+                end
+                refreshRoster()
+            end)
+            smallButton("GUESS SLAPPER", 0.34, 0.38, Color3.fromRGB(80, 65, 125), function()
+                guessStatus.Text = "YOUR GUESS: " .. player.DisplayName .. " (@" .. player.Name .. ") — NOT VERIFIED"
+                guessStatus.TextColor3 = Color3.fromRGB(235, 190, 115)
+            end)
+            smallButton("VIEW DETAILS", 0.72, 0.28, Color3.fromRGB(55, 85, 120), function()
+                local character = player.Character
+                local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+                local root = character and character:FindFirstChild("HumanoidRootPart")
+                local tool = character and character:FindFirstChildOfClass("Tool")
+                local details = "PLAYER: " .. player.DisplayName .. " (@" .. player.Name .. ")"
+                details = details .. "\nHEALTH: " .. (humanoid and string.format("%.0f / %.0f", humanoid.Health, humanoid.MaxHealth) or "Unavailable")
+                details = details .. "\nCHARACTER: " .. (character and "Spawned" or "Not spawned")
+                details = details .. "\nEQUIPPED TOOL: " .. (tool and tool.Name or "None visible")
+                if root then
+                    details = details .. "\nPOSITION: " .. tostring(math.floor(root.Position.X)) .. ", " .. tostring(math.floor(root.Position.Y)) .. ", " .. tostring(math.floor(root.Position.Z))
+                end
+                detailStatus.Text = details
+            end)
+            playerCards[player.UserId] = card
+        end
+
+        function refreshRoster()
+            clearCards()
+            local currentPlayers = PlayersService:GetPlayers()
+            table.sort(currentPlayers, function(a, b)
+                return a.DisplayName:lower() < b.DisplayName:lower()
+            end)
+            rosterStatus.Text = "PLAYERS IN SERVER: " .. tostring(#currentPlayers)
+            for _, player in ipairs(currentPlayers) do
+                makePlayerCard(player)
+            end
+            if #currentPlayers == 0 then
+                rosterStatus.Text = "PLAYERS IN SERVER: 0"
             end
         end
-        MakeButton(SuspectContent, "ADD AS SUSPECT", function()
-            if suspectInput == "" then suspectStatus.Text = "Enter a player name first."; return end
-            for _, name in ipairs(suspects) do
-                if name:lower() == suspectInput:lower() then suspectStatus.Text = "That player is already listed."; return end
-            end
-            table.insert(suspects, suspectInput .. "  •  SUSPECT")
-            refreshSuspects()
-        end, Color3.fromRGB(85, 75, 125))
-        MakeButton(SuspectContent, "CLEAR SUSPECT LIST", function()
-            table.clear(suspects)
-            refreshSuspects()
-        end, Color3.fromRGB(75, 65, 85))
 
-        local HistoryContent = MakeFolder("SLAP HISTORY", GUI.GuessSlapperPage)
-        local historyInput = ""
-        local historyEntries = {}
-        local historyDisplay = Label(HistoryContent, "No round observations yet.", 10, 54, Grey)
-        historyDisplay.TextWrapped = true
-        MakeBox(HistoryContent, "ROUND OBSERVATION", "", function(value)
-            historyInput = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
+        MakeButton(GUI.GuessSlapperPage, "REFRESH PLAYER CARDS", refreshRoster, Color3.fromRGB(65, 90, 125))
+        local identificationTitle = Label(GUI.GuessSlapperPage, "SLAPPER IDENTIFICATION", 13, 25, PurpleLight)
+        identificationTitle.Font = Enum.Font.GothamBold
+        local identificationInfo = Label(GUI.GuessSlapperPage, "No confirmed slap attribution signal has been identified in the client-visible game data. The roster can record your guess, but it cannot honestly confirm who hit you until the game exposes a reliable hit event or attacker ID.", 10, 76, Grey)
+        identificationInfo.TextWrapped = true
+        identificationInfo.Size = UDim2.new(1, 0, 0, 76)
+
+        local observationContent = MakeFolder("ROUND OBSERVATIONS", GUI.GuessSlapperPage)
+        local observationBox = MakeBox(observationContent, "WHAT HAPPENED THIS ROUND?", "", function(value)
+            observationBoxValue = tostring(value or "")
         end)
-        MakeButton(HistoryContent, "SAVE OBSERVATION", function()
-            if historyInput == "" then historyDisplay.Text = "Enter an observation first."; return end
-            table.insert(historyEntries, 1, os.date("%I:%M %p") .. " - " .. historyInput)
-            while #historyEntries > 8 do table.remove(historyEntries) end
-            historyDisplay.Text = table.concat(historyEntries, "\n")
-            historyInput = ""
+        local observationBoxValue = ""
+        local observationLog = Label(observationContent, "No observations saved.", 10, 54, Grey)
+        observationLog.TextWrapped = true
+        MakeButton(observationContent, "SAVE OBSERVATION", function()
+            local entry = tostring(observationBoxValue or ""):gsub("^%s*(.-)%s*$", "%1")
+            if entry == "" then observationLog.Text = "Enter an observation first."; return end
+            observationLog.Text = os.date("%I:%M %p") .. " — " .. entry
+            observationBoxValue = ""
+            observationBox.Text = ""
         end, Color3.fromRGB(65, 90, 125))
 
-        local PlayerListContent = MakeFolder("PLAYER QUICK LIST", GUI.GuessSlapperPage)
-        local playerListDisplay = Label(PlayerListContent, "Press refresh to list players in this server.", 10, 64, Grey)
-        playerListDisplay.TextWrapped = true
-        local function refreshPlayerList()
-            local names = {}
-            for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
-                table.insert(names, player.DisplayName .. "  (@" .. player.Name .. ")")
-            end
-            table.sort(names)
-            playerListDisplay.Text = #names > 0 and table.concat(names, "\n") or "No players found."
-        end
-        MakeButton(PlayerListContent, "REFRESH PLAYER LIST", refreshPlayerList, Color3.fromRGB(65, 90, 125))
-
-        local DodgeContent = MakeFolder("DODGE PRACTICE", GUI.GuessSlapperPage)
-        local dodgeStatus = Label(DodgeContent, "Practice your reaction time with a tap test.", 10, 38, Grey)
-        local dodgeWaiting = false
-        local dodgeArmed = false
-        local dodgeStarted = 0
-        local dodgeButton
-        dodgeButton = MakeButton(DodgeContent, "START REACTION TEST", function()
-            if dodgeArmed then
-                local elapsed = math.max(0, os.clock() - dodgeStarted)
-                dodgeArmed = false
-                dodgeWaiting = false
-                dodgeButton.Text = "START REACTION TEST"
-                dodgeStatus.Text = string.format("REACTION TIME: %.0f MS", elapsed * 1000)
-                return
-            end
-            if dodgeWaiting then return end
-            dodgeWaiting = true
-            dodgeButton.Text = "WAIT FOR THE SIGNAL..."
-            dodgeStatus.Text = "Wait for the button to change, then tap it quickly."
-            task.spawn(function()
-                task.wait(math.random(15, 40) / 10)
-                if not dodgeButton or not dodgeButton.Parent then return end
-                dodgeWaiting = false
-                dodgeArmed = true
-                dodgeStarted = os.clock()
-                dodgeButton.Text = "TAP NOW!"
-                dodgeStatus.Text = "GO!"
-            end)
-        end, Color3.fromRGB(65, 105, 85))
-
-        local NotesContent = MakeFolder("ROUND NOTES", GUI.GuessSlapperPage)
-        local roundNote = ""
-        local notesDisplay = Label(NotesContent, "No notes saved.", 10, 54, Grey)
-        notesDisplay.TextWrapped = true
-        MakeBox(NotesContent, "NOTE", "", function(value)
-            roundNote = tostring(value or ""):gsub("^%s*(.-)%s*$", "%1")
+        refreshRoster()
+        PlayersService.PlayerAdded:Connect(refreshRoster)
+        PlayersService.PlayerRemoving:Connect(function(player)
+            markedSuspects[player.UserId] = nil
+            task.defer(refreshRoster)
         end)
-        MakeButton(NotesContent, "SAVE ROUND NOTE", function()
-            if roundNote == "" then notesDisplay.Text = "Enter a note first."; return end
-            notesDisplay.Text = os.date("%b %d, %I:%M %p") .. "\n" .. roundNote
-            roundNote = ""
-        end, Color3.fromRGB(85, 75, 125))
+        task.spawn(function()
+            while ScreenGui.Parent do
+                task.wait(5)
+                if GUI.GuessSlapperPage.Visible then refreshRoster() end
+            end
+        end)
     end
 
 
-    -- AUTOMATIC ACTIVE STATUS: reports each user after the hub loads.
+        -- AUTOMATIC ACTIVE STATUS: reports each user after the hub loads.
     do
         local PresenceStatus = Label(SettingsPage, "ACTIVE STATUS: AUTOMATIC", 10, 22, Color3.fromRGB(130, 210, 165))
         Label(SettingsPage, "When ShortName Hub loads, your Roblox username, display name, and current experience are shared with the hub's community roster. Updates repeat while the hub is open.", 10, 42, Grey).TextWrapped = true
