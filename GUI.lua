@@ -441,7 +441,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    GUI.GUI.UpdatesNav = MakeNav("◷  Updates", 1)
+    GUI.UpdatesNav = MakeNav("◷  Updates", 1)
     if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
     local PlayerToolsNav = MakeNav("🧰  Player Tools", IsCreator and 3 or 2)
     local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 4 or 3)
@@ -453,9 +453,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Content.BackgroundColor3 = Panel; Content.BackgroundTransparency = 0.18; Content.BorderSizePixel = 0; Content.Parent = Frame
     Corner(Content, 13); AddGradient(Content, Color3.fromRGB(27, 26, 37), Panel, 90); Stroke(Content, Border, 1)
 
-    GUI.GUI.SidebarCollapsed = false
-    GUI.GUI.SidebarToggle = Instance.new("TextButton")
-    GUI.SidebarToggle.Name = "GUI.SidebarToggle"
+    GUI.SidebarCollapsed = false
+    GUI.SidebarToggle = Instance.new("TextButton")
+    GUI.SidebarToggle.Name = "SidebarToggle"
     GUI.SidebarToggle.Size = UDim2.fromOffset(26, 30)
     GUI.SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
     GUI.SidebarToggle.BackgroundColor3 = ButtonDark
@@ -501,7 +501,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return page
     end
 
-    GUI.GUI.UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
+    GUI.UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
     local PlayerToolsPage = MakePage("PlayerTools")
     local GamePage = MakePage("NoobIncremental")
     local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
@@ -773,7 +773,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, function(value) return string.format("%.0f%%", value * 100) end)
 
     Label(SettingsPage, "CUSTOM BACKGROUND", 11, 19, Grey)
-    GUI.GUI.BackgroundUrlBox = Instance.new("TextBox")
+    GUI.BackgroundUrlBox = Instance.new("TextBox")
     GUI.BackgroundUrlBox.Size = UDim2.new(1, 0, 0, 34)
     GUI.BackgroundUrlBox.BackgroundColor3 = ButtonDark
     GUI.BackgroundUrlBox.TextColor3 = White
@@ -786,7 +786,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     GUI.BackgroundUrlBox.Parent = SettingsPage
     Corner(GUI.BackgroundUrlBox, 8)
     Stroke(GUI.BackgroundUrlBox, Border, 1)
-    GUI.GUI.BackgroundApply = Instance.new("TextButton")
+    GUI.BackgroundApply = Instance.new("TextButton")
     GUI.BackgroundApply.Size = UDim2.new(1, 0, 0, 34)
     GUI.BackgroundApply.BackgroundColor3 = ButtonDark
     GUI.BackgroundApply.TextColor3 = White
