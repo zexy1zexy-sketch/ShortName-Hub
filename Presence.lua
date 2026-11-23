@@ -97,6 +97,44 @@ function Presence.CheckBan()
     })
 end
 
+function Presence.GetBans(adminKey)
+    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+    return Send({
+        Url = ENDPOINT .. "/bans",
+        Method = "GET",
+        Timeout = 25,
+        Headers = { ["x-admin-key"] = adminKey }
+    })
+end
+
+function Presence.GetSecurityEvents(adminKey)
+    if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
+    return Send({
+        Url = ENDPOINT .. "/security-events",
+        Method = "GET",
+        Timeout = 25,
+        Headers = { ["x-admin-key"] = adminKey }
+    })
+end
+
+function Presence.ReportSecurity(uploadKey, eventData)
+    if type(uploadKey) ~= "string" or uploadKey == "" then return false, "Upload key unavailable." end
+    if type(eventData) ~= "table" then return false, "Security event data is invalid." end
+    local player = Players.LocalPlayer
+    if player then
+        eventData.userId = player.UserId
+        eventData.username = player.Name
+        eventData.placeId = game.PlaceId
+    end
+    return Send({
+        Url = ENDPOINT .. "/security-report",
+        Method = "POST",
+        Timeout = 20,
+        Headers = { ["Content-Type"] = "application/json", ["x-upload-key"] = uploadKey },
+        Body = HttpService:JSONEncode(eventData)
+    })
+end
+
 function Presence.SetRank(adminKey, userId, rank)
     if type(adminKey) ~= "string" or adminKey == "" then return false, "Enter the owner admin key." end
     return Send({
