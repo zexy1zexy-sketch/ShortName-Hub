@@ -591,8 +591,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             if query == "" then return true end
             local function checkText(item)
                 if item:IsA("TextLabel") or item:IsA("TextButton") or item:IsA("TextBox") then
-                    local content = (tostring(item.Text or "") .. " " .. tostring(item.PlaceholderText or "")):lower()
-                    if content:find(query, 1, true) then return true end
+                    local content = tostring(item.Text or "")
+                    if item:IsA("TextBox") then content = content .. " " .. tostring(item.PlaceholderText or "") end
+                    if content:lower():find(query, 1, true) then return true end
                 end
                 return false
             end
@@ -3534,7 +3535,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local WelcomeDescription = Label(WelcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, White)
         WelcomeDescription.Position = UDim2.fromOffset(14, 42)
         WelcomeDescription.TextWrapped = true
-        Label(GUI.UpdatesPage, "LATEST CHANGES", 12, 25, CurrentAccent.Light).Font = Enum.Font.GothamBold
+        Label(GUI.UpdatesPage, "LATEST CHANGES  •  v" .. tostring(Config.Version or "1.0.2"), 12, 25, CurrentAccent.Light).Font = Enum.Font.GothamBold
         local UpdateItems = {
             { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
             { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
@@ -3543,18 +3544,34 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         }
         for _, item in ipairs(UpdateItems) do
             local card = Instance.new("Frame")
-            card.Size = UDim2.new(1, 0, 0, 68)
+            card.Size = UDim2.new(1, 0, 0, 40)
             card.BackgroundColor3 = ButtonDark
             card.BorderSizePixel = 0
+            card.ClipsDescendants = true
             card.Parent = GUI.UpdatesPage
             Corner(card, 10)
             Stroke(card, Border, 1)
-            local heading = Label(card, item[1], 11, 22, White)
-            heading.Position = UDim2.fromOffset(12, 8)
+            local heading = Instance.new("TextButton")
+            heading.Size = UDim2.new(1, -20, 0, 38)
+            heading.Position = UDim2.fromOffset(10, 1)
+            heading.BackgroundTransparency = 1
+            heading.Text = "v" .. tostring(Config.Version or "1.0.2") .. "  •  " .. item[1] .. "     +"
+            heading.TextColor3 = White
+            heading.TextSize = 11
             heading.Font = Enum.Font.GothamBold
-            local detail = Label(card, item[2], 10, 28, Grey)
-            detail.Position = UDim2.fromOffset(12, 33)
+            heading.TextXAlignment = Enum.TextXAlignment.Left
+            heading.Parent = card
+            local detail = Label(card, item[2], 10, 34, Grey)
+            detail.Position = UDim2.fromOffset(12, 40)
             detail.TextWrapped = true
+            detail.Visible = false
+            local expanded = false
+            heading.Activated:Connect(function()
+                expanded = not expanded
+                detail.Visible = expanded
+                heading.Text = "v" .. tostring(Config.Version or "1.0.2") .. "  •  " .. item[1] .. (expanded and "     −" or "     +")
+                Tween(card, { Size = UDim2.new(1, 0, 0, expanded and 80 or 40) }, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+            end)
         end
     end
     SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
