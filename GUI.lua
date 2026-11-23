@@ -432,7 +432,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local function MakeNav(text, order)
         local b = Instance.new("TextButton"); b.Name = text; b.LayoutOrder = order
         b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = ButtonDark; b.BackgroundTransparency = 1; b.TextColor3 = Grey
-        b.Text = text; b.TextSize = WindowWidth < 380 and 11 or 12; b.Font = Enum.Font.GothamMedium
+        b.Text = text; b:SetAttribute("SNHFullText", text); b:SetAttribute("SNHShortText", text:match("^([^%s]+)") or "•"); b.TextSize = WindowWidth < 380 and 11 or 12; b.Font = Enum.Font.GothamMedium
         b.TextXAlignment = Enum.TextXAlignment.Left
         b.Parent = Sidebar; Corner(b, 9)
         local navStroke = Stroke(b, Border, 1)
@@ -441,16 +441,47 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 1) end
-    local PlayerToolsNav = MakeNav("🧰  Player Tools", IsCreator and 2 or 1)
-    local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 3 or 2)
-    local FightNav = MakeNav("⚔  Fight on a Baseplate", IsCreator and 4 or 3); local SoonNav = MakeNav("＋  Coming Soon", IsCreator and 5 or 4)
+    local UpdatesNav = MakeNav("◷  Updates", 1)
+    if IsCreator then PlayerAdminUI.Nav = MakeNav("♙  Players", 2) end
+    local PlayerToolsNav = MakeNav("🧰  Player Tools", IsCreator and 3 or 2)
+    local GameNav = MakeNav("◆  Noob Incremental", IsCreator and 4 or 3)
+    local FightNav = MakeNav("⚔  Fight on a Baseplate", IsCreator and 5 or 4); local SoonNav = MakeNav("＋  Coming Soon", IsCreator and 6 or 5)
 
     -- CONTENT AREA
     local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
     1, -68)
-    Content.BackgroundColor3 = Panel; Content.BorderSizePixel = 0; Content.Parent = Frame
-    Corner(Content, 11); AddGradient(Content, Color3.fromRGB(27, 26, 37), Panel, 90); Stroke(Content, Border, 1)
+    Content.BackgroundColor3 = Panel; Content.BackgroundTransparency = 0.18; Content.BorderSizePixel = 0; Content.Parent = Frame
+    Corner(Content, 13); AddGradient(Content, Color3.fromRGB(27, 26, 37), Panel, 90); Stroke(Content, Border, 1)
+
+    local SidebarCollapsed = false
+    local SidebarToggle = Instance.new("TextButton")
+    SidebarToggle.Name = "SidebarToggle"
+    SidebarToggle.Size = UDim2.fromOffset(26, 30)
+    SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
+    SidebarToggle.BackgroundColor3 = ButtonDark
+    SidebarToggle.Text = "☰"
+    SidebarToggle.TextColor3 = White
+    SidebarToggle.TextSize = 15
+    SidebarToggle.Font = Enum.Font.GothamBold
+    SidebarToggle.Parent = Header
+    SidebarToggle.ZIndex = 8
+    Corner(SidebarToggle, 8)
+    Stroke(SidebarToggle, Border, 1)
+    SidebarToggle.Activated:Connect(function()
+        SidebarCollapsed = not SidebarCollapsed
+        SidebarWidth = SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
+        Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
+        Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
+        Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
+        for _, nav in pairs({ UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
+            if nav then
+                nav.Text = SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "•") or (nav:GetAttribute("SNHFullText") or nav.Name)
+                nav.TextXAlignment = SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
+                nav.TextSize = SidebarCollapsed and 16 or (WindowWidth < 380 and 11 or 12)
+            end
+        end
+        SidebarToggle.Text = SidebarCollapsed and "»" or "☰"
+    end)
 
     local function MakePage(name)
         local page = Instance.new("ScrollingFrame"); page.Name = name; page.Size = UDim2.new(1, -16, 1, -16)
@@ -470,14 +501,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return page
     end
 
-    local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
+    local UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
     local PlayerToolsPage = MakePage("PlayerTools")
     local GamePage = MakePage("NoobIncremental")
     local FightPage = MakePage("FightOnABaseplate"); local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
     local function SelectPage(page)
-        local pages = { Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
+        local pages = { Updates = UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, Fight = FightPage, Soon = SoonPage }
         for name, pageObject in pairs(pages) do
             if name == page then
                 pageObject.Visible = true
@@ -504,12 +535,14 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             or Grey
         end
 
+        StyleNav(UpdatesNav, page == "Updates")
         if PlayerAdminUI.Nav then StyleNav(PlayerAdminUI.Nav, page == "Players") end
         StyleNav(PlayerToolsNav, page == "PlayerTools")
         StyleNav(GameNav, page == "Game")
         StyleNav(FightNav, page == "Fight"); StyleNav(SoonNav, page == "Soon")
     end
 
+    UpdatesNav.Activated:Connect(function() SelectPage("Updates") end)
     if PlayerAdminUI.Nav then
         PlayerAdminUI.Nav.Activated:Connect(function() SelectPage("Players") end)
     end
@@ -623,8 +656,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Purple = preset.Color
         PurpleLight = preset.Light
         CurrentAccent = preset
-        for _, nav in ipairs({ SettingsNav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
-            local active = (CurrentPage == "Settings" and nav == SettingsNav)
+        for _, nav in pairs({ UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, FightNav, SoonNav }) do
+            if nav then
+            local active = (CurrentPage == "Updates" and nav == UpdatesNav)
+                or (CurrentPage == "Players" and nav == PlayerAdminUI.Nav)
                 or (CurrentPage == "PlayerTools" and nav == PlayerToolsNav)
                 or (CurrentPage == "Game" and nav == GameNav)
                 or (CurrentPage == "Fight" and nav == FightNav)
@@ -632,6 +667,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             nav.BackgroundColor3 = active and preset.Active or nextButton
             local stroke = nav:FindFirstChildOfClass("UIStroke")
             if stroke then stroke.Color = active and preset.Light or nextBorder end
+            end
         end
     end
 
@@ -3370,7 +3406,46 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ScreenGui:Destroy()
     end)
 
-    SelectPage("Settings"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
+    do
+        Label(UpdatesPage, "WELCOME BACK", 18, 32).Font = Enum.Font.GothamBold
+        Label(UpdatesPage, "Here's what's new in ShortName Hub.", 12, 24, Grey)
+        local WelcomeCard = Instance.new("Frame")
+        WelcomeCard.Size = UDim2.new(1, 0, 0, 104)
+        WelcomeCard.BackgroundColor3 = ButtonDark
+        WelcomeCard.BorderSizePixel = 0
+        WelcomeCard.Parent = UpdatesPage
+        Corner(WelcomeCard, 12)
+        Stroke(WelcomeCard, CurrentAccent.Light, 1.2)
+        local WelcomeTitle = Label(WelcomeCard, "SHORTNAME HUB  •  CONTROL CENTER", 13, 25, CurrentAccent.Light)
+        WelcomeTitle.Position = UDim2.fromOffset(14, 12)
+        WelcomeTitle.Font = Enum.Font.GothamBold
+        local WelcomeDescription = Label(WelcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, White)
+        WelcomeDescription.Position = UDim2.fromOffset(14, 42)
+        WelcomeDescription.TextWrapped = true
+        Label(UpdatesPage, "LATEST CHANGES", 12, 25, CurrentAccent.Light).Font = Enum.Font.GothamBold
+        local UpdateItems = {
+            { "01  •  Modular theme foundation", "Centralized accent palette and active navigation glow." },
+            { "02  •  Adjustable appearance", "New interface scale and transparency sliders." },
+            { "03  •  Custom backgrounds", "Set a Roblox image asset or HTTPS image URL." },
+            { "04  •  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
+        }
+        for _, item in ipairs(UpdateItems) do
+            local card = Instance.new("Frame")
+            card.Size = UDim2.new(1, 0, 0, 68)
+            card.BackgroundColor3 = ButtonDark
+            card.BorderSizePixel = 0
+            card.Parent = UpdatesPage
+            Corner(card, 10)
+            Stroke(card, Border, 1)
+            local heading = Label(card, item[1], 11, 22, White)
+            heading.Position = UDim2.fromOffset(12, 8)
+            heading.Font = Enum.Font.GothamBold
+            local detail = Label(card, item[2], 10, 28, Grey)
+            detail.Position = UDim2.fromOffset(12, 33)
+            detail.TextWrapped = true
+        end
+    end
+    SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
     return { SetStatus = SetStatus, ScreenGui = ScreenGui }
 end
 
