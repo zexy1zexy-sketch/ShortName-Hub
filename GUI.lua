@@ -3014,8 +3014,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end)
 
-    -- BUBBLE DRAGGING
-    do
+    -- BUBBLE DRAGGING: isolate locals in a separate callback scope.
+    task.spawn(function()
     local BubbleDragging = false; local BubbleInput; local BubbleStart
     local BubblePosition
 
