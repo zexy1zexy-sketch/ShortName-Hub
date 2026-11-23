@@ -1296,7 +1296,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             for _, folder in ipairs(OwnerOnlyFolders) do
                 if folder and folder.Parent then folder.Visible = OwnerViewEnabled end
             end
+            -- The Players page is creator-only too; hide both its navigation
+            -- button and page whenever Users View is active.
+            if PlayerAdminUI.Nav and PlayerAdminUI.Nav.Parent then
+                PlayerAdminUI.Nav.Visible = OwnerViewEnabled
+            end
+            if PlayerAdminUI.Page and PlayerAdminUI.Page.Parent then
+                PlayerAdminUI.Page.Visible = OwnerViewEnabled and CurrentPage == "Players"
+            end
             if not OwnerViewEnabled then
+                if CurrentPage == "Players" then
+                    SelectPage("Updates")
+                end
                 CommunityPanel.Visible = false
                 FeedbackPanel.Visible = false
             end
