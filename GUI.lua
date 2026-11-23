@@ -852,15 +852,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     local PlayerTrackerName = ""
     local AutoTeleportSpeed = 16
-    local AutoTeleportSpeedStatus = Label(PlayerToolsFolder, "AUTO TP SPEED: 16 (NOT CONNECTED)", 10, 22, Grey)
-    MakeBox(PlayerToolsFolder, "AUTO TP SPEED (0.1-100)", "16", function(value)
+    local AutoTeleportSpeedStatus = Label(PlayerToolsFolder, "FOLLOW SPEED: 16 STUDS/SEC", 10, 22, Grey)
+    MakeBox(PlayerToolsFolder, "FOLLOW SPEED (0.1-100 STUDS/SEC)", "16", function(value)
         local parsed = tonumber(value)
-        if not parsed or parsed ~= parsed then
-            AutoTeleportSpeedStatus.Text = "AUTO TP SPEED: ENTER A NUMBER"
+        if not parsed or parsed ~= parsed or parsed == math.huge or parsed == -math.huge then
+            AutoTeleportSpeedStatus.Text = "FOLLOW SPEED: ENTER A NUMBER"
             return
         end
         AutoTeleportSpeed = math.clamp(parsed, 0.1, 100)
-        AutoTeleportSpeedStatus.Text = "SPEED SAVED: " .. string.format("%.1f", AutoTeleportSpeed) .. " (FOLLOW NOT CONNECTED)"
+        AutoTeleportSpeedStatus.Text = "FOLLOW SPEED: " .. string.format("%.1f", AutoTeleportSpeed) .. " STUDS/SEC"
     end)
     local PlayerTrackerTarget
     local PlayerTrackerCharacterConnection
@@ -943,6 +943,117 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     MakeButton(PlayerToolsFolder, "STOP PLAYER TRACKER", StopPlayerTracker, Color3.fromRGB(85, 65, 95))
 
+    -- AUTO FOLLOW: pathfinds toward the selected player using Humanoid movement.
+    local PathfindingService = game:GetService("PathfindingService")
+    local AutoFollowEnabled = false
+    local AutoFollowToken = 0
+    local AutoFollowStatus = Label(PlayerToolsFolder, "AUTO FOLLOW: OFF", 10, 22, Grey)
+    local AutoFollowButton
+
+    local function StopAutoFollow()
+        AutoFollowEnabled = false
+        AutoFollowToken += 1
+        local character = LocalPlayer and LocalPlayer.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            local originalSpeed = humanoid:GetAttribute("ShortNameHubOriginalWalkSpeed")
+            if typeof(originalSpeed) == "number" then
+                humanoid.WalkSpeed = originalSpeed
+                humanoid:SetAttribute("ShortNameHubOriginalWalkSpeed", nil)
+            end
+            humanoid:MoveTo((character:FindFirstChild("HumanoidRootPart") and character.HumanoidRootPart.Position) or Vector3.zero)
+        end
+        if AutoFollowButton and AutoFollowButton.Parent then
+            AutoFollowButton.Text = "START AUTO FOLLOW"
+        end
+        if AutoFollowStatus and AutoFollowStatus.Parent then
+            AutoFollowStatus.Text = "AUTO FOLLOW: OFF"
+        end
+    end
+
+    AutoFollowButton = MakeButton(PlayerToolsFolder, "START AUTO FOLLOW", function()
+        if AutoFollowEnabled then
+            StopAutoFollow()
+            return
+        end
+
+        local query = PlayerTrackerName:lower()
+        if query == "" then
+            AutoFollowStatus.Text = "AUTO FOLLOW: ENTER A USERNAME ABOVE"
+            return
+        end
+
+        local target
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and (player.Name:lower() == query or player.Name:lower():sub(1, #query) == query) then
+                target = player
+                break
+            end
+        end
+        if not target then
+            AutoFollowStatus.Text = "AUTO FOLLOW: PLAYER NOT FOUND"
+            return
+        end
+
+        AutoFollowEnabled = true
+        AutoFollowToken += 1
+        local token = AutoFollowToken
+        AutoFollowButton.Text = "STOP AUTO FOLLOW"
+        AutoFollowStatus.Text = "AUTO FOLLOW: FOLLOWING " .. target.Name
+
+        task.spawn(function()
+            while AutoFollowEnabled and AutoFollowToken == token and ScreenGui.Parent and target.Parent == Players do
+                local character = LocalPlayer and LocalPlayer.Character
+                local root = character and character:FindFirstChild("HumanoidRootPart")
+                local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+                local targetCharacter = target.Character
+                local targetRoot = targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart")
+
+                if root and humanoid and targetRoot and humanoid.Health > 0 then
+                    if humanoid:GetAttribute("ShortNameHubOriginalWalkSpeed") == nil then
+                        humanoid:SetAttribute("ShortNameHubOriginalWalkSpeed", humanoid.WalkSpeed)
+                    end
+                    humanoid.WalkSpeed = AutoTeleportSpeed
+
+                    local path = PathfindingService:CreatePath({
+                        AgentCanJump = true,
+                        AgentRadius = 2,
+                        AgentHeight = 5,
+                        WaypointSpacing = 4
+                    })
+                    local destination = targetRoot.Position - (targetRoot.CFrame.LookVector * 3)
+                    local computed = pcall(function()
+                        path:ComputeAsync(root.Position, destination)
+                    end)
+
+                    if computed and path.Status == Enum.PathStatus.Success then
+                        local waypoints = path:GetWaypoints()
+                        local nextWaypoint = waypoints[2] or waypoints[1]
+                        if nextWaypoint then
+                            if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
+                                humanoid.Jump = true
+                            end
+                            humanoid:MoveTo(nextWaypoint.Position)
+                            AutoFollowStatus.Text = "AUTO FOLLOW: " .. target.Name .. " • " .. string.format("%.1f", AutoTeleportSpeed) .. " SPEED"
+                        end
+                    else
+                        AutoFollowStatus.Text = "AUTO FOLLOW: NO PATH — RETRYING"
+                    end
+                else
+                    AutoFollowStatus.Text = "AUTO FOLLOW: WAITING FOR CHARACTER"
+                end
+                task.wait(0.65)
+            end
+
+            if AutoFollowToken == token then
+                StopAutoFollow()
+                if target.Parent ~= Players then
+                    AutoFollowStatus.Text = "AUTO FOLLOW: TARGET LEFT"
+                end
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 75))
+
     -- AUTO RESET: affects only the local player's own character.
     Label(PlayerToolsFolder, "AUTO RESET", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(PlayerToolsFolder, "Automatically resets your own character at the chosen interval.", 10, 32, Grey)
@@ -998,6 +1109,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     ScreenGui.Destroying:Connect(function()
         StopAutoReset()
+        StopAutoFollow()
         StopPlayerTracker()
     end)
     end
