@@ -476,6 +476,16 @@ StartHub = function(skipKey)
         end)
         if presenceLoaded then
             PresenceModule = presenceResult
+            if PresenceModule and type(PresenceModule.CheckBan) == "function" then
+                local banCheckOk, banAllowed, banResult = pcall(PresenceModule.CheckBan)
+                if banCheckOk and banAllowed and type(banResult) == "table" and banResult.banned == true then
+                    local ban = banResult.ban or {}
+                    local untilText = ban.expiresAt and os.date("%b %d, %Y %I:%M %p", ban.expiresAt / 1000) or "PERMANENTLY"
+                    error("SHORTNAME HUB ACCESS RESTRICTED UNTIL " .. untilText)
+                elseif not banCheckOk or not banAllowed then
+                    AddDiagnostic("Ban status could not be verified: " .. tostring(banCheckOk and banResult or banAllowed))
+                end
+            end
         else
             AddDiagnostic("Presence module unavailable: " .. tostring(presenceResult))
             Step("Presence service unavailable")
