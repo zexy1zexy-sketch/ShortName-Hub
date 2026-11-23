@@ -1383,6 +1383,22 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local UtilityFolder = SettingsPage
 
     Label(UtilityFolder, "PLAYER UTILITIES", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(UtilityFolder, "DIAGNOSTICS", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    MakeButton(UtilityFolder, "OPEN STARTUP ERROR CONSOLE", function()
+        local sharedEnv = _G
+        if type(getgenv) == "function" then
+            local ok, env = pcall(getgenv)
+            if ok and type(env) == "table" then
+                sharedEnv = env
+            end
+        end
+        local showConsole = sharedEnv.__SHORTNAME_SHOW_DIAGNOSTICS
+        if type(showConsole) == "function" then
+            showConsole()
+        else
+            SetStatus("DIAGNOSTIC CONSOLE IS NOT AVAILABLE")
+        end
+    end, Color3.fromRGB(85, 75, 125))
     Label(UtilityFolder, "Convenience tools for your current session.", 10, 22, Grey)
 
     local LocalPlayer = Players.LocalPlayer
