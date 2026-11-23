@@ -36,11 +36,13 @@ async function saveSnapshotReport(report,env){
  if(!put.ok)throw new Error("GitHub snapshot save failed ("+put.status+"): "+await put.text());
  return {path,commit:(await put.json()).commit?.sha||null};
 }
-async function saveFeedback(message,env){
+async function saveFeedback(message,username,userId,env){
  if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
  const path="feedback/inbox/"+stamp+"-"+crypto.randomUUID()+".txt";
- const content="SHORTNAME HUB FEEDBACK\nReceived: "+new Date().toISOString()+"\n\n"+message+"\n";
+ const safeUsername=cleanText(username,20)||"Unknown";
+ const safeUserId=Number.isSafeInteger(Number(userId))&&Number(userId)>0?String(Number(userId)):"Unknown";
+ const content="SHORTNAME HUB FEEDBACK\nReceived: "+new Date().toISOString()+"\nUsername: "+safeUsername+"\nUser ID: "+safeUserId+"\nIdentity source: Roblox client-reported\n\n"+message+"\n";
  const body={message:"Add ShortName Hub feedback",content:b64utf8(content),branch:BRANCH};
  const put=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+path,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
  if(!put.ok)throw new Error("GitHub feedback save failed ("+put.status+"): "+await put.text());
@@ -152,10 +154,13 @@ export default {async fetch(request,env){
    if(!body||typeof body.message!=="string")return reply({ok:false,error:"Expected JSON body with message"},400);
    const message=body.message.trim();
    if(message.length<8||message.length>1500)return reply({ok:false,error:"Feedback must be 8-1,500 characters"},400);
+   const username=cleanText(body.username,20);
+   const userId=Number(body.userId);
+   if(!username||!Number.isSafeInteger(userId)||userId<=0)return reply({ok:false,error:"Valid Roblox username and user ID are required"},400);
    const ip=request.headers.get("CF-Connecting-IP")||"unknown";
    const rateKey="feedback-cooldown:"+ip;
    if(await env.REPORTS.get(rateKey))return reply({ok:false,error:"Please wait a minute before sending another idea"},429);
-   const saved=await saveFeedback(message,env);
+   const saved=await saveFeedback(message,username,userId,env);
    await env.REPORTS.put(rateKey,"1",{expirationTtl:60});
    return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
