@@ -2097,7 +2097,24 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     inspectorResults.Text = "Snapshot report uploaded successfully.\nFile: "..tostring(decoded.path or "game-reports/snapshots").."\nSnapshots: "..tostring(report.snapshotCount).."\nTell ChatGPT: check snapshot reports."
                 else
                     inspectorStatus.Text = "INSPECTOR: UPLOAD FAILED (HTTP "..tostring(code)..")"
-                    inspectorResults.Text = "Upload failed. "..(type(decoded)=="table" and tostring(decoded.error or decoded.details or "") or tostring(body):sub(1,300))
+                    local diagnostic = ""
+                    if type(decoded) == "table" then
+                        diagnostic = "Server error: "..tostring(decoded.error or "Unknown error")
+                        if decoded.details ~= nil then
+                            diagnostic = diagnostic.."\nDetails: "..tostring(decoded.details)
+                        end
+                        if decoded.status ~= nil then
+                            diagnostic = diagnostic.."\nGitHub status: "..tostring(decoded.status)
+                        end
+                        if decoded.path ~= nil then
+                            diagnostic = diagnostic.."\nPath: "..tostring(decoded.path)
+                        end
+                    elseif body ~= "" then
+                        diagnostic = "Raw server response: "..tostring(body)
+                    else
+                        diagnostic = "No response body. Request result: "..tostring(response)
+                    end
+                    inspectorResults.Text = "SNAPSHOT UPLOAD DIAGNOSTICS\nHTTP status: "..tostring(code).."\n"..diagnostic:sub(1, 1800)
                 end
             end)
         end, Color3.fromRGB(45, 105, 75))
