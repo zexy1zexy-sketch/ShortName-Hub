@@ -50,6 +50,65 @@ async function saveFeedback(message,username,userId,env){
 }
 
 const PRESENCE_PREFIX="presence:";
+const ACCESS_JWKS_CACHE = new Map();
+function base64UrlBytes(value){
+ const padded=value.replace(/-/g,"+").replace(/_/g,"/")+"===".slice((value.length+3)%4);
+ const raw=atob(padded);return Uint8Array.from(raw,c=>c.charCodeAt(0));
+}
+async function verifyAccessIdentity(request,env){
+ const jwt=request.headers.get("Cf-Access-Jwt-Assertion")||"";
+ const parts=jwt.split(".");
+ if(parts.length!==3||!env.ACCESS_TEAM_DOMAIN||!env.ACCESS_AUD||!env.OWNER_EMAIL)return null;
+ let header,claims;
+ try{header=JSON.parse(new TextDecoder().decode(base64UrlBytes(parts[0])));claims=JSON.parse(new TextDecoder().decode(base64UrlBytes(parts[1])));}catch{return null;}
+ if(header.alg!=="RS256"||!header.kid)return null;
+ const issuer="https://"+String(env.ACCESS_TEAM_DOMAIN).replace(/^https?:\\/\\//,"").replace(/\\/$/,"");
+ if(claims.iss!==issuer||!Array.isArray(claims.aud)||!claims.aud.includes(env.ACCESS_AUD))return null;
+ if(String(claims.email||"").toLowerCase()!==String(env.OWNER_EMAIL).toLowerCase())return null;
+ const now=Math.floor(Date.now()/1000);
+ if(!Number.isFinite(claims.exp)||claims.exp<=now||!Number.isFinite(claims.iat)||claims.iat>now+60)return null;
+ try{
+  let keys=ACCESS_JWKS_CACHE.get(issuer);
+  if(!keys||keys.expires<Date.now()){
+   const response=await fetch(issuer+"/cdn-cgi/access/certs");
+   if(!response.ok)return null;
+   keys={data:await response.json(),expires:Date.now()+300000};ACCESS_JWKS_CACHE.set(issuer,keys);
+  }
+  const jwk=keys.data.keys.find(k=>k.kid===header.kid&&k.kty==="RSA");
+  if(!jwk)return null;
+  const key=await crypto.subtle.importKey("jwk",jwk,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);
+  const valid=await crypto.subtle.verify("RSASSA-PKCS1-v1_5",key,base64UrlBytes(parts[2]),new TextEncoder().encode(parts[0]+"."+parts[1]));
+  return valid?{email:String(claims.email).toLowerCase()}:null;
+ }catch{return null;}
+}
+async function createOwnerPair(request,env){
+ const identity=await verifyAccessIdentity(request,env);
+ if(!identity)return reply({ok:false,error:"Cloudflare Access owner verification failed"},401);
+ const bytes=crypto.getRandomValues(new Uint8Array(4));
+ const code=String(((bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|bytes[3])>>>0).slice(-6).padStart(6,"0");
+ await env.REPORTS.put("owner-pair:"+code,JSON.stringify({email:identity.email}),{expirationTtl:180});
+ return new Response(JSON.stringify({ok:true,code,expiresInSeconds:180,instructions:"Enter this one-time code in ShortName Hub. It expires in 3 minutes."}),{status:200,headers:{...cors(),"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"}});
+}
+async function exchangeOwnerPair(request,env){
+ const body=await request.json().catch(()=>null);
+ const code=String(body?.code||"").replace(/\\D/g,"");
+ if(code.length!==6)return reply({ok:false,error:"Enter the six-digit pairing code"},400);
+ const key="owner-pair:"+code;
+ const pair=await env.REPORTS.get(key,"json");
+ if(!pair)return reply({ok:false,error:"Pairing code expired or already used"},401);
+ await env.REPORTS.delete(key);
+ const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,"0")).join("");
+ await env.REPORTS.put("owner-session:"+token,JSON.stringify({email:pair.email,createdAt:Date.now()}),{expirationTtl:1800});
+ return reply({ok:true,session:token,expiresInSeconds:1800});
+}
+async function requireOwnerSession(request,env){
+ const token=request.headers.get("x-owner-session")||"";
+ if(!/^[a-f0-9]{64}$/.test(token))return await rejectAdminAttempt(request,env);
+ const session=await env.REPORTS.get("owner-session:"+token,"json");
+ if(!session||String(session.email||"").toLowerCase()!==String(env.OWNER_EMAIL||"").toLowerCase())return await rejectAdminAttempt(request,env);
+ return null;
+}
+
 function cleanText(value,max=80){return typeof value==="string"?value.replace(/[\u0000-\u001f]/g,"").trim().slice(0,max):"";}
 async function secretMatches(provided,expected){
  if(typeof provided!=="string"||typeof expected!=="string"||!expected)return false;
@@ -69,7 +128,7 @@ async function rejectAdminAttempt(request,env){
  await env.REPORTS.put("security:"+Date.now()+":"+crypto.randomUUID(),JSON.stringify(event),{expirationTtl:7776000});
  return reply({ok:false,error:"Unauthorized"},401);
 }
-async function requireAdmin(request,env){return await isAdmin(request,env)?null:await rejectAdminAttempt(request,env);}
+async function requireOwnerSession(request,env){return await isAdmin(request,env)?null:await rejectAdminAttempt(request,env);}
 async function savePresence(body,env){
  const id=Number(body.userId);
  if(!Number.isSafeInteger(id)||id<=0)throw new Error("Invalid Roblox user ID");
@@ -167,6 +226,8 @@ export default {async fetch(request,env){
  const url=new URL(request.url);
  try{
   if(request.method==="GET"&&url.pathname==="/module")return await serveModule(request,env);
+   if(request.method==="GET"&&url.pathname==="/owner-pair")return await createOwnerPair(request,env);
+   if(request.method==="POST"&&url.pathname==="/owner-session")return await exchangeOwnerPair(request,env);
    if(request.method==="POST"&&url.pathname==="/presence"){
     const body=await request.json().catch(()=>null);
     if(!body||typeof body!=="object")return reply({ok:false,error:"Expected presence JSON"},400);
@@ -182,19 +243,19 @@ export default {async fetch(request,env){
     return reply({ok:true,github:"saved",path:saved.path});
    }
    if(request.method==="GET"&&url.pathname==="/security-events"){
-    {const denied=await requireAdmin(request,env);if(denied)return denied;}
+    {const denied=await requireOwnerSession(request,env);if(denied)return denied;}
     return reply({ok:true,events:await listSecurityEvents(env)});
    }
    if(request.method==="GET"&&url.pathname==="/bans"){
-    {const denied=await requireAdmin(request,env);if(denied)return denied;}
+    {const denied=await requireOwnerSession(request,env);if(denied)return denied;}
     return reply({ok:true,bans:await listBans(env)});
    }
    if(request.method==="GET"&&url.pathname==="/players"){
-    {const denied=await requireAdmin(request,env);if(denied)return denied;}
+    {const denied=await requireOwnerSession(request,env);if(denied)return denied;}
     return reply({ok:true,players:await listPlayers(env)});
    }
    if(request.method==="PATCH"&&url.pathname==="/ban"){
-    {const denied=await requireAdmin(request,env);if(denied)return denied;}
+    {const denied=await requireOwnerSession(request,env);if(denied)return denied;}
     const body=await request.json().catch(()=>null);
     const id=Number(body?.userId),duration=body?.duration;
     if(!Number.isSafeInteger(id)||id<=0||id===7867608166||!["1d","30d","permanent"].includes(duration))return reply({ok:false,error:"Invalid user ID or ban duration"},400);
@@ -204,7 +265,7 @@ export default {async fetch(request,env){
     return reply({ok:true,ban:record});
    }
    if(request.method==="DELETE"&&url.pathname==="/ban"){
-    {const denied=await requireAdmin(request,env);if(denied)return denied;}
+    {const denied=await requireOwnerSession(request,env);if(denied)return denied;}
     const id=Number(url.searchParams.get("userId"));
     if(!Number.isSafeInteger(id)||id<=0)return reply({ok:false,error:"Invalid user ID"},400);
     await env.REPORTS.delete("ban:"+id);
@@ -222,7 +283,7 @@ export default {async fetch(request,env){
     return reply({ok:true,banned:true,ban});
    }
    if(request.method==="PATCH"&&url.pathname==="/rank"){
-    {const denied=await requireAdmin(request,env);if(denied)return denied;}
+    {const denied=await requireOwnerSession(request,env);if(denied)return denied;}
     const body=await request.json().catch(()=>null);
     const id=Number(body?.userId),rank=body?.rank;
     if(!Number.isSafeInteger(id)||id<=0||!["Member","Premium","Staff"].includes(rank))return reply({ok:false,error:"Invalid user ID or rank"},400);
