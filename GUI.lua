@@ -94,13 +94,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     HeaderSubtitle.Size = UDim2.new(1, IsCreator and -314 or -249, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
-    MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "—"; MinButton.TextColor3 = White
+    MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "➖"; MinButton.TextColor3 = White
     MinButton.TextSize = 17; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Header
     MinButton.ZIndex = 5; Corner(MinButton, 8); Stroke(MinButton, Border, 1)
     AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
     local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
-    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "×"
+    ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "❌"
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
@@ -112,7 +112,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         OwnerViewButton.Size = UDim2.fromOffset(62, 28)
         OwnerViewButton.Position = UDim2.new(1, -206, 0, 9)
         OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
-        OwnerViewButton.Text = "OWNER VIEW"
+        OwnerViewButton.Text = "👑 OWNER"
         OwnerViewButton.TextColor3 = White
         OwnerViewButton.TextSize = 9
         OwnerViewButton.Font = Enum.Font.GothamBold
@@ -130,7 +130,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         GearButton.Size = UDim2.fromOffset(28, 30)
         GearButton.Position = UDim2.new(1, -240, 0, 8)
         GearButton.BackgroundColor3 = ButtonDark
-        GearButton.Text = "⚙"
+        GearButton.Text = "⚙️"
         GearButton.TextColor3 = White
         GearButton.TextSize = 17
         GearButton.Font = Enum.Font.GothamBold
@@ -146,7 +146,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
-    CrownButton.Text = "♛"
+    CrownButton.Text = "👑"
     CrownButton.TextColor3 = White
     CrownButton.TextSize = 19
     CrownButton.Font = Enum.Font.GothamBold
@@ -160,7 +160,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackButton.Size = UDim2.fromOffset(28, 30)
     FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
-    FeedbackButton.Text = "✉"
+    FeedbackButton.Text = "💬"
     FeedbackButton.TextColor3 = White
     FeedbackButton.TextSize = 16
     FeedbackButton.Font = Enum.Font.GothamBold
@@ -731,7 +731,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     RefreshHubButton.TextColor3 = White
     RefreshHubButton.TextSize = 18
     RefreshHubButton.Font = Enum.Font.GothamBold
-    RefreshHubButton.Text = "↻"
+    RefreshHubButton.Text = "🔄"
     RefreshHubButton.Parent = Header
     RefreshHubButton.ZIndex = 8
     RefreshHubButton.AutoButtonColor = false
@@ -771,7 +771,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
                 task.wait(2)
                 if RefreshHubButton.Parent then
-                    RefreshHubButton.Text = "↻"
+                    RefreshHubButton.Text = "🔄"
                 end
             end
         end)
@@ -795,7 +795,24 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Folder.Parent = parent or GamePage; Corner(Folder, 10); Stroke(Folder, Border, 1)
         AddGradient(Folder, Color3.fromRGB(34, 32, 46), ButtonDark, 90); local HeaderButton = Instance.new("TextButton"); HeaderButton.Size =
         UDim2.new(1, 0, 0, 38)
-        HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = "📁  " .. name .. "     +"; HeaderButton.TextColor3 = White
+        local FolderIcons = {
+            ["HALLOWEEN EVENT"] = "🎃",
+            ["THANKSGIVING EVENT"] = "🦃",
+            ["EVENT SCANNER"] = "🔎",
+            ["FIGHT ON A BASEPLATE"] = "⚔️",
+            ["PLAYER TOOLS"] = "🧰",
+            ["DETECTORS"] = "🛰️",
+            ["GAME OBJECT SCANNER"] = "🔍",
+            ["COMBAT SYSTEM FINDER"] = "🥊",
+            ["COMBAT STRUCTURE FINDER"] = "🏗️",
+            ["NPC & TELEPORT"] = "🧭",
+            ["REMOTES"] = "📡",
+            ["HOUSE TELEPORT"] = "🏠",
+            ["COMBAT HUD & ASSET TOOLS"] = "🛠️",
+            ["WEAPON MOVEMENT OBSERVER"] = "👁️"
+        }
+        local FolderIcon = FolderIcons[name] or "📁"
+        HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = FolderIcon .. "  " .. name .. "     +"; HeaderButton.TextColor3 = White
         HeaderButton.TextSize = 12; HeaderButton.Font = Enum.Font.GothamBold; HeaderButton.TextXAlignment = Enum.TextXAlignment.Left
         HeaderButton.AutoButtonColor = false; HeaderButton.TextColor3 = Color3.fromRGB(235, 228, 250); HeaderButton.Parent = Folder
         local FolderContent = Instance.new("Frame"); FolderContent.Position = UDim2.fromOffset(8, 43); FolderContent.Size = UDim2.new(1, -16, 0, 0)
@@ -815,7 +832,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         HeaderButton.Activated:Connect(function()
             Open = not Open
             FolderContent.Visible = Open
-            HeaderButton.Text = (Open and "📂  " or "📁  ")
+            HeaderButton.Text = FolderIcon .. "  "
             .. name
             .. (Open and "     -" or "     +")
             UpdateSize()
