@@ -3,6 +3,8 @@
 
 -- EARLY DIAGNOSTIC CONSOLE: create this before fetching or executing any modules.
 local DiagnosticLines = {}
+local RequestFunction
+local GetRequestFunction
 local DiagnosticGui, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
 
 local function AddDiagnostic(message)
@@ -155,7 +157,7 @@ end)
 
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
 
-local function GetRequestFunction()
+GetRequestFunction = function()
     if type(request) == "function" then
         return request
     end
@@ -174,7 +176,7 @@ local function GetRequestFunction()
     return nil
 end
 
-local RequestFunction = GetRequestFunction()
+RequestFunction = GetRequestFunction()
 AddDiagnostic("Executor HTTP request API: " .. (RequestFunction and "available" or "not found"))
 
 local function LoadModule(name)
