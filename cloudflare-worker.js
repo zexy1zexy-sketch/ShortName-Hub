@@ -14,6 +14,16 @@ async function saveReport(report,env){
  const put=await gh(p,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
  if(!put.ok)throw new Error("GitHub save failed ("+put.status+"): "+await put.text());return await put.json();
 }
+async function saveGameReport(report,env){
+ if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
+ const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+ const path="game-reports/inbox/"+stamp+"-"+crypto.randomUUID()+".txt";
+ const content=report.trim()+"\n\nReceived by ShortName Hub: "+new Date().toISOString()+"\n";
+ const body={message:"Add manually approved game detection report",content:b64utf8(content),branch:BRANCH};
+ const put=await gh("/repos/"+OWNER+"/"+REPO+"/contents/"+path,env.GITHUB_TOKEN,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+ if(!put.ok)throw new Error("GitHub game report save failed ("+put.status+"): "+await put.text());
+ return {path,commit:(await put.json()).commit?.sha||null};
+}
 async function saveFeedback(message,env){
  if(!env.GITHUB_TOKEN)throw new Error("GITHUB_TOKEN secret is missing");
  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
@@ -108,6 +118,15 @@ export default {async fetch(request,env){
    if(body.report.length>MAX_REPORT_CHARS)return reply({ok:false,error:"Report too large"},413);
    await env.REPORTS.put("latest-report",body.report);const saved=await saveReport(body.report,env);
    return reply({ok:true,characters:body.report.length,github:"saved",commit:saved.commit?.sha||null});
+  }
+  if(request.method==="POST"&&url.pathname==="/game-report"){
+   if(!env.UPLOAD_KEY||request.headers.get("x-upload-key")!==env.UPLOAD_KEY)return reply({ok:false,error:"Unauthorized"},401);
+   const body=await request.json().catch(()=>null);
+   if(!body||typeof body.report!=="string")return reply({ok:false,error:"Expected JSON body with report string"},400);
+   const report=body.report.trim();
+   if(report.length<20||report.length>20000)return reply({ok:false,error:"Game report must be 20-20,000 characters"},400);
+   const saved=await saveGameReport(report,env);
+   return reply({ok:true,github:"saved",path:saved.path,commit:saved.commit});
   }
   if(request.method==="POST"&&url.pathname==="/feedback"){
    const body=await request.json().catch(()=>null);
