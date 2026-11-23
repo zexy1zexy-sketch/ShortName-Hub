@@ -1,5 +1,5 @@
 -- ShortName Hub loader for the private GitHub repository.
--- Current release: v1.0.0
+-- Current release: v1.0.2
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
