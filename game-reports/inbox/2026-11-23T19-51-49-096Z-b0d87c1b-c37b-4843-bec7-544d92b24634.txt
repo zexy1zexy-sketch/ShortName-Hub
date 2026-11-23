@@ -1,0 +1,9 @@
+SHORTNAME HUB GAME REPORT
+Detected: 2026-11-23 19:51:39 UTC
+Game: Guess the Slapper
+PlaceId: 106683702021527
+UniverseId: 9449993534
+Source: Roblox client game metadata
+Note: This report was manually approved for upload.
+
+Received by ShortName Hub: 2026-11-23T19:51:49.096Z
