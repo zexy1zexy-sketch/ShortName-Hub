@@ -1658,6 +1658,250 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end)
 
+    -- SHORTNAME HUB EXTRAS: searchable roster, notifications, HUD, keybinds and profiles.
+    local HttpService = game:GetService("HttpService")
+    local HubToggleKey = Enum.KeyCode.RightControl
+    local SelectedDirectoryPlayer = nil
+
+    local Toast = Instance.new("TextLabel")
+    Toast.Name = "ShortNameNotification"
+    Toast.Size = UDim2.fromOffset(280, 38)
+    Toast.Position = UDim2.new(1, -294, 0, 58)
+    Toast.BackgroundColor3 = ButtonDark
+    Toast.TextColor3 = White
+    Toast.TextSize = 11
+    Toast.Font = Enum.Font.GothamBold
+    Toast.TextWrapped = true
+    Toast.Visible = false
+    Toast.ZIndex = 80
+    Toast.Parent = Frame
+    Corner(Toast, 9)
+    Stroke(Toast, PurpleLight, 1.2)
+    local ToastToken = 0
+    local function Notify(message, duration)
+        ToastToken += 1
+        local token = ToastToken
+        Toast.Text = tostring(message)
+        Toast.Visible = true
+        task.delay(duration or 2.5, function()
+            if Toast.Parent and ToastToken == token then Toast.Visible = false end
+        end)
+    end
+
+    Label(SettingsPage, "PLAYER DIRECTORY", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(SettingsPage, "Live roster. Select a player to copy their username; no character movement.", 10, 32, Grey)
+    local DirectorySearch = MakeBox(SettingsPage, "FILTER PLAYERS", "", function() end)
+    local DirectoryStatus = Label(SettingsPage, "PLAYERS: --", 10, 20, Grey)
+    local DirectoryList = Instance.new("ScrollingFrame")
+    DirectoryList.Size = UDim2.new(1, 0, 0, 145)
+    DirectoryList.BackgroundColor3 = ButtonDark
+    DirectoryList.BorderSizePixel = 0
+    DirectoryList.ScrollBarThickness = 3
+    DirectoryList.CanvasSize = UDim2.fromOffset(0, 0)
+    DirectoryList.Parent = SettingsPage
+    Corner(DirectoryList, 8)
+    local DirectoryLayout = Instance.new("UIListLayout")
+    DirectoryLayout.Padding = UDim.new(0, 4)
+    DirectoryLayout.Parent = DirectoryList
+    local DirectoryPadding = Instance.new("UIPadding")
+    DirectoryPadding.PaddingTop = UDim.new(0, 5)
+    DirectoryPadding.PaddingLeft = UDim.new(0, 5)
+    DirectoryPadding.PaddingRight = UDim.new(0, 5)
+    DirectoryPadding.Parent = DirectoryList
+    DirectoryLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        DirectoryList.CanvasSize = UDim2.fromOffset(0, DirectoryLayout.AbsoluteContentSize.Y + 10)
+    end)
+    local function RefreshDirectory()
+        for _, child in ipairs(DirectoryList:GetChildren()) do
+            if child:IsA("TextButton") then child:Destroy() end
+        end
+        local query = tostring(DirectorySearch.Text or ""):lower()
+        local count = 0
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                local matches = query == "" or player.Name:lower():find(query, 1, true) or player.DisplayName:lower():find(query, 1, true)
+                if matches then
+                    count += 1
+                    local row = Instance.new("TextButton")
+                    row.Size = UDim2.new(1, -2, 0, 30)
+                    row.BackgroundColor3 = Panel
+                    row.TextColor3 = White
+                    row.TextSize = 10
+                    row.Font = Enum.Font.Gotham
+                    row.TextXAlignment = Enum.TextXAlignment.Left
+                    row.Text = "  " .. player.DisplayName .. "  (@" .. player.Name .. ")"
+                    row.Parent = DirectoryList
+                    Corner(row, 6)
+                    row.Activated:Connect(function()
+                        SelectedDirectoryPlayer = player
+                        local copied = false
+                        if type(setclipboard) == "function" then copied = pcall(setclipboard, player.Name) end
+                        if not copied and type(toclipboard) == "function" then copied = pcall(toclipboard, player.Name) end
+                        DirectoryStatus.Text = "SELECTED: @" .. player.Name .. (copied and " • COPIED" or "")
+                        Notify("Selected @" .. player.Name)
+                    end)
+                end
+            end
+        end
+        DirectoryStatus.Text = "PLAYERS: " .. tostring(count) .. (SelectedDirectoryPlayer and SelectedDirectoryPlayer.Parent and "  |  @" .. SelectedDirectoryPlayer.Name or "")
+    end
+    DirectorySearch.FocusLost:Connect(RefreshDirectory)
+    MakeButton(SettingsPage, "REFRESH PLAYER DIRECTORY", RefreshDirectory)
+    Players.PlayerAdded:Connect(RefreshDirectory)
+    Players.PlayerRemoving:Connect(function(player)
+        if SelectedDirectoryPlayer == player then SelectedDirectoryPlayer = nil end
+        RefreshDirectory()
+    end)
+    RefreshDirectory()
+
+    Label(SettingsPage, "PERFORMANCE HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local PerformanceHudEnabled = false
+    local PerformanceHud = Instance.new("TextLabel")
+    PerformanceHud.Name = "ShortNamePerformanceHUD"
+    PerformanceHud.Size = UDim2.fromOffset(210, 28)
+    PerformanceHud.Position = UDim2.new(1, -220, 0, 12)
+    PerformanceHud.BackgroundColor3 = Dark
+    PerformanceHud.TextColor3 = White
+    PerformanceHud.TextSize = 10
+    PerformanceHud.Font = Enum.Font.GothamBold
+    PerformanceHud.Visible = false
+    PerformanceHud.ZIndex = 90
+    PerformanceHud.Parent = ScreenGui
+    Corner(PerformanceHud, 7)
+    Stroke(PerformanceHud, PurpleLight, 1)
+    local HudButton
+    HudButton = MakeButton(SettingsPage, "PERFORMANCE HUD: OFF", function()
+        PerformanceHudEnabled = not PerformanceHudEnabled
+        PerformanceHud.Visible = PerformanceHudEnabled
+        HudButton.Text = PerformanceHudEnabled and "PERFORMANCE HUD: ON" or "PERFORMANCE HUD: OFF"
+        Notify(PerformanceHudEnabled and "Performance HUD enabled" or "Performance HUD disabled")
+    end)
+
+    Label(SettingsPage, "CUSTOM KEYBIND", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(SettingsPage, "Change the key used to hide and restore the hub.", 10, 22, Grey)
+    local KeybindBox
+    KeybindBox = MakeBox(SettingsPage, "HUB TOGGLE KEY (EXAMPLE: F6, INSERT, RIGHTCONTROL)", "RightControl", function(value)
+        local keyName = tostring(value or ""):gsub("%s+", "")
+        local key = Enum.KeyCode[keyName]
+        if key and key ~= Enum.KeyCode.Unknown then
+            HubToggleKey = key
+            Notify("Toggle key: " .. key.Name)
+        else
+            KeybindBox.Text = HubToggleKey.Name
+            Notify("Invalid key name")
+        end
+    end)
+
+    Label(SettingsPage, "CONFIGURATION PROFILES", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(SettingsPage, "Save appearance and keybind settings locally if executor file APIs are supported.", 10, 32, Grey)
+    local ProfileNameBox = MakeBox(SettingsPage, "PROFILE NAME", "Default", function() end)
+    local ProfileStatus = Label(SettingsPage, "PROFILE: READY", 10, 20, Grey)
+    local ActiveSurfacePreset = SurfacePresets[1]
+    local function ProfilePath(name)
+        name = tostring(name or ""):gsub("[^%w_%-]", "")
+        if name == "" then return nil end
+        return "ShortNameHub/" .. name .. ".json"
+    end
+    local function HasProfileFileAPI()
+        return type(makefolder) == "function" and type(writefile) == "function"
+            and type(readfile) == "function" and type(isfile) == "function"
+    end
+    MakeButton(SettingsPage, "SAVE PROFILE", function()
+        if not HasProfileFileAPI() then ProfileStatus.Text = "PROFILE: FILE API UNAVAILABLE" return end
+        local path = ProfilePath(ProfileNameBox.Text)
+        if not path then ProfileStatus.Text = "PROFILE: INVALID NAME" return end
+        pcall(makefolder, "ShortNameHub")
+        local payload = {
+            accent = CurrentAccent.Name or "Purple",
+            surface = ActiveSurfacePreset and ActiveSurfacePreset.Name or "MIDNIGHT",
+            scale = WindowScale.Scale,
+            toggleKey = HubToggleKey.Name
+        }
+        local ok, err = pcall(function() writefile(path, HttpService:JSONEncode(payload)) end)
+        ProfileStatus.Text = ok and ("PROFILE: SAVED " .. path) or ("PROFILE: SAVE FAILED " .. tostring(err))
+        if ok then Notify("Profile saved") end
+    end)
+    MakeButton(SettingsPage, "LOAD PROFILE", function()
+        if not HasProfileFileAPI() then ProfileStatus.Text = "PROFILE: FILE API UNAVAILABLE" return end
+        local path = ProfilePath(ProfileNameBox.Text)
+        if not path or not isfile(path) then ProfileStatus.Text = "PROFILE: NOT FOUND" return end
+        local ok, data = pcall(function() return HttpService:JSONDecode(readfile(path)) end)
+        if not ok or type(data) ~= "table" then ProfileStatus.Text = "PROFILE: INVALID FILE" return end
+        for _, preset in ipairs(AccentPresets) do
+            if preset.Name == data.accent then ApplyAccent(preset) break end
+        end
+        for _, preset in ipairs(SurfacePresets) do
+            if preset.Name == data.surface then ApplySurfaceTheme(preset) ActiveSurfacePreset = preset break end
+        end
+        if type(data.scale) == "number" then WindowScale.Scale = math.clamp(data.scale, 0.7, 1.25) end
+        if type(data.toggleKey) == "string" and Enum.KeyCode[data.toggleKey] then
+            HubToggleKey = Enum.KeyCode[data.toggleKey]
+            KeybindBox.Text = HubToggleKey.Name
+        end
+        ProfileStatus.Text = "PROFILE: LOADED " .. path
+        Notify("Profile loaded")
+    end)
+
+    -- A compact menu in the header gives one-click access to common pages and HUD.
+    local QuickMenuButton = Instance.new("TextButton")
+    QuickMenuButton.Name = "QuickMenuButton"
+    QuickMenuButton.Size = UDim2.fromOffset(30, 30)
+    QuickMenuButton.Position = UDim2.new(1, -172, 0, 8)
+    QuickMenuButton.BackgroundColor3 = ButtonDark
+    QuickMenuButton.Text = "☰"
+    QuickMenuButton.TextColor3 = White
+    QuickMenuButton.TextSize = 15
+    QuickMenuButton.Font = Enum.Font.GothamBold
+    QuickMenuButton.Parent = Header
+    QuickMenuButton.ZIndex = 8
+    Corner(QuickMenuButton, 8)
+    Stroke(QuickMenuButton, Border, 1)
+    local QuickMenuPanel = Instance.new("Frame")
+    QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
+    QuickMenuPanel.Position = UDim2.new(1, -180, 0, 44)
+    QuickMenuPanel.BackgroundColor3 = Panel
+    QuickMenuPanel.Visible = false
+    QuickMenuPanel.ZIndex = 40
+    QuickMenuPanel.Parent = Frame
+    Corner(QuickMenuPanel, 9)
+    Stroke(QuickMenuPanel, PurpleLight, 1)
+    local QuickLayout = Instance.new("UIListLayout")
+    QuickLayout.Padding = UDim.new(0, 5)
+    QuickLayout.Parent = QuickMenuPanel
+    local QuickPadding = Instance.new("UIPadding")
+    QuickPadding.PaddingTop = UDim.new(0, 6)
+    QuickPadding.PaddingLeft = UDim.new(0, 6)
+    QuickPadding.PaddingRight = UDim.new(0, 6)
+    QuickPadding.Parent = QuickMenuPanel
+    local function QuickAction(label, callback)
+        local b = Instance.new("TextButton")
+        b.Size = UDim2.new(1, 0, 0, 28)
+        b.BackgroundColor3 = ButtonDark
+        b.TextColor3 = White
+        b.TextSize = 10
+        b.Font = Enum.Font.GothamBold
+        b.Text = label
+        b.Parent = QuickMenuPanel
+        b.ZIndex = 41
+        Corner(b, 6)
+        b.Activated:Connect(callback)
+    end
+    QuickAction("OPEN SETTINGS", function() QuickMenuPanel.Visible = false SelectPage("Settings") end)
+    QuickAction("OPEN PLAYER TOOLS", function() QuickMenuPanel.Visible = false SelectPage("Fight") end)
+    QuickAction("TOGGLE PERFORMANCE HUD", function()
+        PerformanceHudEnabled = not PerformanceHudEnabled
+        PerformanceHud.Visible = PerformanceHudEnabled
+        HudButton.Text = PerformanceHudEnabled and "PERFORMANCE HUD: ON" or "PERFORMANCE HUD: OFF"
+        QuickMenuPanel.Visible = false
+        Notify(PerformanceHudEnabled and "Performance HUD enabled" or "Performance HUD disabled")
+    end)
+    QuickAction("TEST NOTIFICATION", function() QuickMenuPanel.Visible = false Notify("Notifications are working") end)
+    QuickMenuButton.Activated:Connect(function()
+        QuickMenuPanel.Visible = not QuickMenuPanel.Visible
+        CommunityPanel.Visible = false
+        FeedbackPanel.Visible = false
+    end)
+
     -- SESSION TOOLS: live diagnostics and copy helpers
     Label(UtilityFolder, "SESSION TOOLS", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(UtilityFolder, "RightControl hides or restores the hub.", 10, 20, Grey)
@@ -1697,6 +1941,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     tostring(pingText),
                     tostring(memoryText)
                 )
+            end
+            if PerformanceHud and PerformanceHud.Parent and PerformanceHudEnabled then
+                PerformanceHud.Text = string.format("FPS %d  •  PING %s", lastFps, tostring(pingText))
             end
         end
     end)
@@ -2617,7 +2864,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if processed or UIS:GetFocusedTextBox() then
             return
         end
-        if input.KeyCode == Enum.KeyCode.RightControl then
+        if input.KeyCode == HubToggleKey then
             if Minimized then
                 Minimized = false
                 Bubble.Visible = false
