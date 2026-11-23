@@ -89,9 +89,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
-    HeaderTitle.Size = UDim2.new(1, IsCreator and -280 or -215, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
+    HeaderTitle.Size = UDim2.new(1, IsCreator and -314 or -249, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
     local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
-    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -280 or -215, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
+    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -314 or -249, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
     MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "—"; MinButton.TextColor3 = White
@@ -144,7 +144,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- COMMUNITY SHORTCUTS
     local CrownButton = Instance.new("TextButton")
     CrownButton.Size = UDim2.fromOffset(28, 30)
-    CrownButton.Position = UDim2.new(1, -138, 0, 8)
+    CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
     CrownButton.Text = "♛"
     CrownButton.TextColor3 = White
@@ -158,7 +158,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     local FeedbackButton = Instance.new("TextButton")
     FeedbackButton.Size = UDim2.fromOffset(28, 30)
-    FeedbackButton.Position = UDim2.new(1, -104, 0, 8)
+    FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
     FeedbackButton.Text = "✉"
     FeedbackButton.TextColor3 = White
@@ -724,17 +724,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(SettingsPage, "When OFF, Roblox's gameplay-paused notification is disabled.", 11, 42, Grey)
 
 
-    Label(SettingsPage, "UPDATES", 13, 25, PurpleLight).Font = Enum.Font.GothamBold
-
     local RefreshHubButton = Instance.new("TextButton")
-    RefreshHubButton.Size = UDim2.new(1, 0, 0, 48)
+    RefreshHubButton.Size = UDim2.fromOffset(28, 30)
+    RefreshHubButton.Position = UDim2.new(1, -104, 0, 8)
     RefreshHubButton.BackgroundColor3 = ButtonDark
     RefreshHubButton.TextColor3 = White
-    RefreshHubButton.TextSize = 12
+    RefreshHubButton.TextSize = 18
     RefreshHubButton.Font = Enum.Font.GothamBold
-    RefreshHubButton.Text = "↻  REFRESH ENTIRE HUB"
-    RefreshHubButton.Parent = SettingsPage
-    Corner(RefreshHubButton, 9)
+    RefreshHubButton.Text = "↻"
+    RefreshHubButton.Parent = Header
+    RefreshHubButton.ZIndex = 8
+    RefreshHubButton.AutoButtonColor = false
+    RefreshHubButton:SetAttribute("SNHTooltip", "Refresh entire hub")
+    Corner(RefreshHubButton, 8)
     Stroke(RefreshHubButton, CurrentAccent.Light, 1.2)
     AddHover(RefreshHubButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
@@ -758,18 +760,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
 
         RefreshBusy = true
-        RefreshHubButton.Text = "↻  DOWNLOADING LATEST HUB..."
+        RefreshHubButton.Text = "…"
         RefreshHubButton.Active = false
         task.spawn(function()
             local ok, result, detail = pcall(refreshAction)
             if not ok or result == false then
                 RefreshBusy = false
                 RefreshHubButton.Active = true
-                RefreshHubButton.Text = "REFRESH FAILED - TRY AGAIN"
+                RefreshHubButton.Text = "!"
                 warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
                 task.wait(2)
                 if RefreshHubButton.Parent then
-                    RefreshHubButton.Text = "↻  REFRESH ENTIRE HUB"
+                    RefreshHubButton.Text = "↻"
                 end
             end
         end)
