@@ -1865,6 +1865,99 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Label(DetectionPage, "Owner-only tools for scanning game objects, inspecting combat structures, and recording observations.", 11, 34, Grey)
     end
     local FightDetectorsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or FightPage, false)
+
+    -- GAME DETECTOR: detects locally and only uploads after an explicit owner action.
+    local GameDetectorFolder = MakeFolder("GAME DETECTOR", FightDetectorsFolder)
+    Label(GameDetectorFolder, "CURRENT EXPERIENCE", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(GameDetectorFolder, "Detects the experience you are currently playing. Nothing is uploaded unless you press UPLOAD GAME REPORT.", 10, 42, Grey).TextWrapped = true
+    local GameDetectorStatus = Label(GameDetectorFolder, "DETECTOR: READY", 10, 22, Color3.fromRGB(170, 210, 255))
+    GameDetectorStatus.Font = Enum.Font.GothamBold
+    local GameDetectorName = Label(GameDetectorFolder, "GAME: --", 11, 24, White)
+    local GameDetectorPlace = Label(GameDetectorFolder, "PLACE ID: --", 10, 22, Grey)
+    local GameDetectorUniverse = Label(GameDetectorFolder, "UNIVERSE ID: --", 10, 22, Grey)
+    local GameDetectorReport = ""
+    local function RefreshGameDetection()
+        local ok, details = pcall(function()
+            return {
+                name = tostring(game.Name or "Unknown Experience"),
+                placeId = tonumber(game.PlaceId) or 0,
+                universeId = tonumber(game.GameId) or 0,
+                detectedAt = os.date("!%Y-%m-%d %H:%M:%S UTC")
+            }
+        end)
+        if not ok or not details then
+            GameDetectorStatus.Text = "DETECTOR: COULD NOT READ GAME INFO"
+            return
+        end
+        GameDetectorReport = table.concat({
+            "SHORTNAME HUB GAME REPORT",
+            "Detected: " .. details.detectedAt,
+            "Game: " .. details.name,
+            "PlaceId: " .. tostring(details.placeId),
+            "UniverseId: " .. tostring(details.universeId),
+            "Source: Roblox client game metadata",
+            "Note: This report was manually approved for upload."
+        }, "\n")
+        GameDetectorName.Text = "GAME: " .. details.name
+        GameDetectorPlace.Text = "PLACE ID: " .. tostring(details.placeId)
+        GameDetectorUniverse.Text = "UNIVERSE ID: " .. tostring(details.universeId)
+        GameDetectorStatus.Text = "DETECTOR: REPORT READY - NOT UPLOADED"
+    end
+    local GameDetectorKey = ""
+    MakeBox(GameDetectorFolder, "CLOUDFLARE UPLOAD KEY (ONLY NEEDED TO UPLOAD)", "", function(value)
+        GameDetectorKey = tostring(value or "")
+    end)
+    MakeButton(GameDetectorFolder, "DETECT CURRENT GAME", RefreshGameDetection, Color3.fromRGB(55, 95, 145))
+    MakeButton(GameDetectorFolder, "COPY GAME REPORT", function()
+        if GameDetectorReport == "" then RefreshGameDetection() end
+        local copyFn = setclipboard or toclipboard
+        if type(copyFn) == "function" then
+            local copied = pcall(copyFn, GameDetectorReport)
+            GameDetectorStatus.Text = copied and "DETECTOR: REPORT COPIED" or "DETECTOR: CLIPBOARD FAILED"
+        else
+            GameDetectorStatus.Text = "DETECTOR: CLIPBOARD UNAVAILABLE"
+        end
+    end, Color3.fromRGB(65, 75, 105))
+    MakeButton(GameDetectorFolder, "UPLOAD GAME REPORT", function()
+        if GameDetectorReport == "" then RefreshGameDetection() end
+        if GameDetectorKey == "" then
+            GameDetectorStatus.Text = "DETECTOR: ENTER UPLOAD KEY FIRST"
+            return
+        end
+        local requestFunction
+        if type(request) == "function" then requestFunction = request
+        elseif type(http_request) == "function" then requestFunction = http_request
+        elseif syn and type(syn.request) == "function" then requestFunction = syn.request
+        elseif http and type(http.request) == "function" then requestFunction = http.request
+        elseif fluxus and type(fluxus.request) == "function" then requestFunction = fluxus.request end
+        if not requestFunction then
+            GameDetectorStatus.Text = "DETECTOR: EXECUTOR HTTP API UNAVAILABLE"
+            return
+        end
+        GameDetectorStatus.Text = "DETECTOR: UPLOADING APPROVED REPORT..."
+        task.spawn(function()
+            local HttpService = game:GetService("HttpService")
+            local sent, response = pcall(function()
+                return requestFunction({
+                    Url = "https://shortname-report-receive.ryft-amv.workers.dev/game-report",
+                    Method = "POST",
+                    Timeout = 30,
+                    Headers = { ["Content-Type"] = "application/json", ["x-upload-key"] = GameDetectorKey },
+                    Body = HttpService:JSONEncode({ report = GameDetectorReport })
+                })
+            end)
+            local code = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
+            local body = type(response) == "table" and (response.Body or response.body or "") or ""
+            local decodedOk, decoded = pcall(function() return HttpService:JSONDecode(body) end)
+            if sent and code == 200 and decodedOk and type(decoded) == "table" and decoded.ok == true then
+                GameDetectorStatus.Text = "DETECTOR: UPLOAD CONFIRMED - SAVED TO GITHUB"
+            else
+                GameDetectorStatus.Text = "DETECTOR: UPLOAD FAILED (HTTP " .. tostring(code) .. ")"
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 75))
+    RefreshGameDetection()
+
     if ThanksgivingScannerFolder and ThanksgivingScannerFolder.Parent then
         ThanksgivingScannerFolder.Parent.Parent = FightDetectorsFolder
     end
