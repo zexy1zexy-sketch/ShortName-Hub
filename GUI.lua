@@ -89,9 +89,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
-    HeaderTitle.Size = UDim2.new(1, -215, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
+    HeaderTitle.Size = UDim2.new(1, IsCreator and -280 or -215, 0, 25); HeaderTitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderTitle.Position = UDim2.fromOffset(2, 5); HeaderTitle.TextSize = 15
     local HeaderSubtitle = Label(Header, "CONTROL CENTER  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
-    HeaderSubtitle.Size = UDim2.new(1, -215, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
+    HeaderSubtitle.Size = UDim2.new(1, IsCreator and -280 or -215, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
     local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
     MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "—"; MinButton.TextColor3 = White
@@ -1871,7 +1871,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local QuickMenuButton = Instance.new("TextButton")
     QuickMenuButton.Name = "QuickMenuButton"
     QuickMenuButton.Size = UDim2.fromOffset(30, 30)
-    QuickMenuButton.Position = UDim2.new(1, -172, 0, 8)
+    QuickMenuButton.Position = UDim2.new(1, IsCreator and -246 or -172, 0, 8)
     QuickMenuButton.BackgroundColor3 = ButtonDark
     QuickMenuButton.Text = "☰"
     QuickMenuButton.TextColor3 = White
@@ -1883,7 +1883,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Stroke(QuickMenuButton, Border, 1)
     local QuickMenuPanel = Instance.new("Frame")
     QuickMenuPanel.Size = UDim2.fromOffset(170, 142)
-    QuickMenuPanel.Position = UDim2.new(1, -180, 0, 44)
+    QuickMenuPanel.Position = UDim2.new(1, IsCreator and -254 or -180, 0, 44)
     QuickMenuPanel.BackgroundColor3 = Panel
     QuickMenuPanel.Visible = false
     QuickMenuPanel.ZIndex = 40
