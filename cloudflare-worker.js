@@ -1,6 +1,6 @@
 const OWNER="zexy1zexy-sketch", REPO="ShortName-Hub", BRANCH="main";
 const REPORT_PATH="scanner-reports/latest.txt", MAX_REPORT_CHARS=100000;
-const ALLOWED_MODULES=new Set(["Main.lua","Config.lua","GUI.lua","KeySystem.lua","LoadingScreen.lua","Logger.lua","NPC.lua","Scythe.lua","SpyAdapter.lua","Teleport.lua","ThanksgivingScanner.lua","FightOnABaseplateScanner.lua", "FightOnABaseplateInspector.lua","FightOnABaseplateStructureScanner.lua"]);
+const ALLOWED_MODULES=new Set(["Main.lua","Config.lua","GUI.lua","Presence.lua","KeySystem.lua","LoadingScreen.lua","Logger.lua","NPC.lua","Scythe.lua","SpyAdapter.lua","Teleport.lua","ThanksgivingScanner.lua","FightOnABaseplateScanner.lua", "FightOnABaseplateInspector.lua","FightOnABaseplateStructureScanner.lua"]);
 function cors(){return {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET, POST, PATCH, OPTIONS","Access-Control-Allow-Headers":"Content-Type, x-upload-key, x-read-key","Access-Control-Max-Age":"86400"};}
 function reply(body,status=200,headers={}){return new Response(typeof body==="string"?body:JSON.stringify(body),{status,headers:{...cors(),"Content-Type":"application/json; charset=utf-8",...headers}});}
 function b64utf8(s){const b=new TextEncoder().encode(s);let v="";for(let i=0;i<b.length;i++)v+=String.fromCharCode(b[i]);return btoa(v);}
