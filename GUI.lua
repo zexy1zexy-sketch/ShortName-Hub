@@ -387,6 +387,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             if outline then
                 Tween(outline, { Color = active and PurpleLight or Border, Transparency = active and 0 or 0.18, Thickness = active and 1.35 or 1 })
             end
+            if ThemeModule and type(ThemeModule.ApplyGlow) == "function" then
+                ThemeModule.ApplyGlow(button, CurrentAccent.Color, active)
+            end
             button.TextColor3 = active
             and Color3.fromRGB(255, 255, 255)
             or Grey
@@ -458,10 +461,16 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local function ApplyAccent(preset)
         local oldAccent = CurrentAccent
         local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
-        local nextDark = AccentBaseDark:Lerp(preset.Color, 0.14)
-        local nextPanel = AccentBasePanel:Lerp(preset.Color, 0.19)
-        local nextButton = AccentBaseButton:Lerp(preset.Color, 0.24)
-        local nextBorder = AccentBaseBorder:Lerp(preset.Color, 0.45)
+        local palette = ThemeModule and type(ThemeModule.Build) == "function"
+            and ThemeModule.Build(preset.Color) or nil
+        local nextDark = palette and palette.Dark or AccentBaseDark:Lerp(preset.Color, 0.14)
+        local nextPanel = palette and palette.Panel or AccentBasePanel:Lerp(preset.Color, 0.19)
+        local nextButton = palette and palette.Button or AccentBaseButton:Lerp(preset.Color, 0.24)
+        local nextBorder = palette and palette.Border or AccentBaseBorder:Lerp(preset.Color, 0.45)
+        if palette then
+            preset.Light = palette.Light
+            preset.Active = palette.Active
+        end
         for _, obj in ipairs(ScreenGui:GetDescendants()) do
             if obj:IsA("GuiObject") then
                 local bg = obj.BackgroundColor3
