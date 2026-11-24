@@ -2386,6 +2386,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             pcall(function() if type(getgenv) == "function" then sharedEnv = getgenv() end end)
             local OwnerSession = type(sharedEnv.__SHORTNAME_OWNER_SESSION) == "string" and sharedEnv.__SHORTNAME_OWNER_SESSION or ""
             local OwnerSecret = ""
+            local RefreshRoster
             local RosterStatus = Label(PlayerAdminUI.Page, OwnerSession ~= "" and "OWNER SESSION: CACHED (MAY EXPIRE)" or "OWNER SESSION: NOT VERIFIED", 10, 24, Grey)
             Label(PlayerAdminUI.Page, "OWNER SIGN-IN: enter the Worker OWNER_SECRET you configured. It is sent only to the HTTPS Worker endpoint; never paste it into chat or GitHub.", 10, 48, Grey).TextWrapped = true
             local KeyBox = MakeBox(PlayerAdminUI.Page, "OWNER SECRET", "", function(value)
@@ -2509,7 +2510,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                 RosterStatus.Text = "ROSTER: " .. tostring(#cachedPlayers) .. " REGISTERED USERS  •  SHOWING " .. tostring(shown)
             end
             SearchBox:GetPropertyChangedSignal("Text"):Connect(RenderRoster)
-            local function RefreshRoster()
+            RefreshRoster = function()
                 if not IsCreator then return end
                 if not PresenceModule or type(PresenceModule.GetPlayers) ~= "function" then
                     RosterStatus.Text = "ROSTER: PRESENCE MODULE UNAVAILABLE"
