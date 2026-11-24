@@ -359,4 +359,100 @@ function Scanner:UploadReport(uploadKey)
     return true, "UPLOADED TO GITHUB"
 end
 
+
+-- Turkey Finder: locate client-visible turkey objects without changing game state.
+local function turkeyPosition(instance)
+    local className = safeGet(instance, "ClassName", "")
+    if className == "Model" then
+        local ok, pivot = pcall(function() return instance:GetPivot() end)
+        if ok then return pivot.Position end
+    elseif className == "BasePart" then
+        return safeGet(instance, "Position")
+    end
+    return nil
+end
+
+function Scanner:ScanTurkeys()
+    self:ClearTurkeyHighlights()
+    self._turkeyResults = {}
+    local seen = {}
+    local ok, descendants = pcall(function() return Workspace:GetDescendants() end)
+    if not ok or type(descendants) ~= "table" then
+        return false, "Could not inspect Workspace"
+    end
+    for _, instance in ipairs(descendants) do
+        local name = safeGet(instance, "Name", "")
+        local className = safeGet(instance, "ClassName", "")
+        local lower = string.lower(tostring(name))
+        if string.find(lower, "turkey", 1, true) and (className == "Model" or className == "BasePart") then
+            local path = safeFullName(instance)
+            if not seen[path] and #self._turkeyResults < 30 then
+                seen[path] = true
+                table.insert(self._turkeyResults, {
+                    name = tostring(name),
+                    path = path,
+                    instance = instance,
+                    position = turkeyPosition(instance),
+                })
+            end
+        end
+    end
+    table.sort(self._turkeyResults, function(a, b)
+        return string.lower(a.path) < string.lower(b.path)
+    end)
+    return true, #self._turkeyResults
+end
+
+function Scanner:GetTurkeyResults()
+    return self._turkeyResults or {}
+end
+
+function Scanner:GetTurkeyReport()
+    local results = self._turkeyResults or {}
+    local lines = {
+        "SHORTNAME HUB - THANKSGIVING TURKEY FINDER",
+        "Located: " .. tostring(#results) .. "/30",
+        "Note: located means the object is visible to the client; it does not confirm collection.",
+        "----------------------------------------",
+    }
+    for i, result in ipairs(results) do
+        table.insert(lines, string.format("%02d. %s | %s", i, result.name, result.path))
+    end
+    if #results == 0 then
+        table.insert(lines, "No client-visible objects with 'turkey' in their name were found.")
+    end
+    return table.concat(lines, "\n")
+end
+
+function Scanner:HighlightTurkeys()
+    self:ClearTurkeyHighlights()
+    self._turkeyHighlights = {}
+    for _, result in ipairs(self._turkeyResults or {}) do
+        local instance = result.instance
+        if instance and instance.Parent then
+            local ok, highlight = pcall(function()
+                local item = Instance.new("Highlight")
+                item.Name = "ShortNameTurkeyHighlight"
+                item.Adornee = instance
+                item.FillColor = Color3.fromRGB(255, 190, 55)
+                item.OutlineColor = Color3.fromRGB(255, 245, 190)
+                item.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                item.Parent = Workspace
+                return item
+            end)
+            if ok and highlight then table.insert(self._turkeyHighlights, highlight) end
+        end
+    end
+    return #self._turkeyHighlights
+end
+
+function Scanner:ClearTurkeyHighlights()
+    for _, highlight in ipairs(self._turkeyHighlights or {}) do
+        pcall(function() highlight:Destroy() end)
+    end
+    self._turkeyHighlights = {}
+    return true
+end
+
+
 return Scanner
