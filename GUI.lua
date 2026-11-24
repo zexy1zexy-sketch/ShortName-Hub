@@ -2584,6 +2584,59 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         TurkeyFinderStatus.Text = copied and "TURKEY REPORT COPIED" or "CLIPBOARD UNAVAILABLE"
     end)
 
+    -- AUTO-FIND: visit the exact HiddenTurkey_1 through HiddenTurkey_30 parts.
+    -- This is manually started and bounded; it never runs in the background.
+    local AutoTurkeyRunning = false
+    local AutoTurkeyStatus = Label(TurkeyFinderFolder, "AUTO FINDER: READY", 10, 24, Grey)
+    local AutoTurkeyStartButton = MakeButton(TurkeyFinderFolder, "AUTO-FIND & VISIT HIDDEN TURKEYS", function()
+        if AutoTurkeyRunning then
+            AutoTurkeyStatus.Text = "AUTO FINDER: ALREADY RUNNING"
+            return
+        end
+        AutoTurkeyRunning = true
+        AutoTurkeyStatus.Text = "AUTO FINDER: STARTING..."
+        task.spawn(function()
+            local moved, missing, invalid = 0, 0, 0
+            for i = 1, 30 do
+                if not AutoTurkeyRunning or not ScreenGui.Parent then break end
+                local turkeyName = "HiddenTurkey_" .. i
+                local turkey = workspace:FindFirstChild(turkeyName, true)
+                if turkey and turkey:IsA("BasePart") then
+                    local character = LocalPlayer and LocalPlayer.Character
+                    local root = character and character:FindFirstChild("HumanoidRootPart")
+                    if not root and character then
+                        root = character:WaitForChild("HumanoidRootPart", 2)
+                    end
+                    if root and root:IsA("BasePart") then
+                        local ok = pcall(function()
+                            root.CFrame = turkey.CFrame + Vector3.new(0, 3, 0)
+                        end)
+                        if ok then
+                            moved = moved + 1
+                            AutoTurkeyStatus.Text = string.format("AUTO FINDER: %d/30 VISITED", moved)
+                        else
+                            invalid = invalid + 1
+                        end
+                    else
+                        invalid = invalid + 1
+                    end
+                else
+                    missing = missing + 1
+                end
+                task.wait(0.2)
+            end
+            AutoTurkeyRunning = false
+            if ScreenGui.Parent then
+                AutoTurkeyStatus.Text = string.format("AUTO FINDER: DONE — %d VISITED, %d MISSING, %d SKIPPED", moved, missing, invalid)
+            end
+        end)
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(TurkeyFinderFolder, "STOP AUTO TURKEY FINDER", function()
+        AutoTurkeyRunning = false
+        AutoTurkeyStatus.Text = "AUTO FINDER: STOPPING..."
+    end, Color3.fromRGB(125, 75, 55))
+
     local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder, false)
 
     Label(ThanksgivingScannerFolder, "THANKSGIVING EVENT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
