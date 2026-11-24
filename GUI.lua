@@ -4312,7 +4312,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return Character:FindFirstChild("HumanoidRootPart")
     end
 
-    local function TeleportToHouse(houseName)
+    HubExtras.TeleportToHouse = function(houseName)
         local position = HousePositions[houseName]
         if not position then
             SetStatus("INVALID HOUSE")
@@ -4402,13 +4402,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(HouseFolder, "TELEPORT TO THE HALLOWEEN EVENT HOUSES", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
     Label(HouseFolder, "Choose a house to teleport to, or enable automatic cycling.", 10, 34, Grey)
     MakeButton(HouseFolder, "TELEPORT TO HOUSE 1", function()
-        TeleportToHouse("1")
+        HubExtras.TeleportToHouse("1")
     end)
     MakeButton(HouseFolder, "TELEPORT TO HOUSE 2", function()
-        TeleportToHouse("2")
+        HubExtras.TeleportToHouse("2")
     end)
     MakeButton(HouseFolder, "TELEPORT TO HOUSE 4", function()
-        TeleportToHouse("4")
+        HubExtras.TeleportToHouse("4")
     end)
 
     local HouseAutoButton
@@ -4436,7 +4436,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                         then
                             break
                         end
-                        TeleportToHouse(houseName)
+                        HubExtras.TeleportToHouse(houseName)
                         task.wait(HouseTeleportDelay)
                     end
                 end
