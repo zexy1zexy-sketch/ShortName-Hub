@@ -446,8 +446,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackSend.Parent = FeedbackPanel
     FeedbackSend.ZIndex = 21
     Corner(FeedbackSend, 7)
-    FeedbackButton.Visible = false
-    FeedbackButton.Active = false
+    FeedbackButton.Visible = true
+    FeedbackButton.Active = true
     FeedbackClose.Activated:Connect(function()
         FeedbackPanel.Visible = false
     end)
@@ -906,6 +906,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CrownButton.Activated:Connect(function()
         CommunityPanel.Visible = not CommunityPanel.Visible
         FeedbackPanel.Visible = false
+    end)
+    FeedbackButton.Activated:Connect(function()
+        CommunityPanel.Visible = false
+        SelectPage("Soon")
+        task.spawn(function()
+            task.wait()
+            if FeedbackPanel.Parent == SoonPage then
+                local offset = FeedbackPanel.AbsolutePosition.Y - SoonPage.AbsolutePosition.Y + SoonPage.CanvasPosition.Y
+                SoonPage.CanvasPosition = Vector2.new(0, math.max(0, offset))
+            end
+        end)
     end)
     if GearButton then
         GearButton.Activated:Connect(function()
