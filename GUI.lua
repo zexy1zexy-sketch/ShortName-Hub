@@ -3760,6 +3760,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end
 
+    do -- Scope settings widgets to keep Luau local-register usage below the compiler limit.
     Label(SettingsPage, "PLAYER DIRECTORY", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(SettingsPage, "Live roster. Select a player to copy their username; no character movement.", 10, 32, Grey)
     local DirectorySearch = MakeBox(SettingsPage, "FILTER PLAYERS", "", function() end)
@@ -3974,6 +3975,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         ProfileStatus.Text = "PROFILE: LOADED " .. path
         Notify("Profile loaded")
     end)
+
+    end -- End scoped settings widgets.
 
     -- A compact menu in the header gives one-click access to common pages and HUD.
     local QuickMenuButton = Instance.new("TextButton")
