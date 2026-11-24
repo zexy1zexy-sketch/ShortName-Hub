@@ -2591,6 +2591,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local AutoTurkeyPending = {}
     local AutoTurkeyQueue = {}
     local AutoTurkeyConnections = {}
+    local AutoTurkeyWorkspaceConnection = nil
     local AutoTurkeyFolder = nil
     local AutoTurkeyMoved = 0
     local AutoTurkeyStatus = Label(TurkeyFinderFolder, "AUTO FINDER: READY", 10, 24, Grey)
@@ -2637,6 +2638,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local function StopAutoTurkeyFinder()
         AutoTurkeyRunning = false
         DisconnectAutoTurkeyWatchers()
+        if AutoTurkeyWorkspaceConnection then
+            AutoTurkeyWorkspaceConnection:Disconnect()
+            AutoTurkeyWorkspaceConnection = nil
+        end
         table.clear(AutoTurkeyQueue)
         table.clear(AutoTurkeyPending)
         AutoTurkeyStatus.Text = "AUTO FINDER: STOPPED (" .. tostring(AutoTurkeyMoved) .. " VISITED)"
@@ -2652,17 +2657,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AutoTurkeyStatus.Text = "AUTO FINDER: SEARCHING..."
         local existingFolder = workspace:FindFirstChild("HiddenTurkeys")
         if existingFolder then BindHiddenTurkeyFolder(existingFolder) end
-        table.insert(AutoTurkeyConnections, workspace.ChildAdded:Connect(function(child)
+        AutoTurkeyWorkspaceConnection = workspace.ChildAdded:Connect(function(child)
             if child.Name == "HiddenTurkeys" then BindHiddenTurkeyFolder(child) end
-        end))
+        end)
 
         -- Periodic rescans catch anything that existed before listeners attached.
         task.spawn(function()
             while AutoTurkeyRunning and ScreenGui.Parent do
-                local folder = AutoTurkeyFolder or workspace:FindFirstChild("HiddenTurkeys")
+                local folder = workspace:FindFirstChild("HiddenTurkeys")
                 if folder then
                     if folder ~= AutoTurkeyFolder then BindHiddenTurkeyFolder(folder) end
                     ScanHiddenTurkeyFolder()
+                elseif AutoTurkeyFolder then
+                    DisconnectAutoTurkeyWatchers()
                 end
                 task.wait(1)
             end
