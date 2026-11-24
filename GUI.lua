@@ -2584,58 +2584,126 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         TurkeyFinderStatus.Text = copied and "TURKEY REPORT COPIED" or "CLIPBOARD UNAVAILABLE"
     end)
 
-    -- AUTO-FIND: visit the exact HiddenTurkey_1 through HiddenTurkey_30 parts.
-    -- This is manually started and bounded; it never runs in the background.
+    -- LIVE AUTO-FINDER: watches Workspace.HiddenTurkeys for parts that spawn later.
+    -- Manually started, with a stop control and per-instance visited tracking.
     local AutoTurkeyRunning = false
+    local AutoTurkeyVisited = {}
+    local AutoTurkeyPending = {}
+    local AutoTurkeyQueue = {}
+    local AutoTurkeyConnections = {}
+    local AutoTurkeyFolder = nil
+    local AutoTurkeyMoved = 0
     local AutoTurkeyStatus = Label(TurkeyFinderFolder, "AUTO FINDER: READY", 10, 24, Grey)
-    MakeButton(TurkeyFinderFolder, "AUTO-FIND & VISIT HIDDEN TURKEYS", function()
+
+    local function DisconnectAutoTurkeyWatchers()
+        for _, connection in ipairs(AutoTurkeyConnections) do
+            pcall(function() connection:Disconnect() end)
+        end
+        table.clear(AutoTurkeyConnections)
+        AutoTurkeyFolder = nil
+    end
+
+    local function QueueHiddenTurkey(instance)
+        if not AutoTurkeyRunning or not instance or not instance:IsA("BasePart") then return end
+        if not string.match(instance.Name, "^HiddenTurkey_%d+$") then return end
+        if not AutoTurkeyFolder or not instance:IsDescendantOf(AutoTurkeyFolder) then return end
+        if AutoTurkeyVisited[instance] or AutoTurkeyPending[instance] then return end
+        AutoTurkeyPending[instance] = true
+        table.insert(AutoTurkeyQueue, instance)
+    end
+
+    local function ScanHiddenTurkeyFolder()
+        local folder = AutoTurkeyFolder
+        if not folder or not folder.Parent then return end
+        for _, instance in ipairs(folder:GetDescendants()) do
+            QueueHiddenTurkey(instance)
+        end
+        for _, instance in ipairs(folder:GetChildren()) do
+            QueueHiddenTurkey(instance)
+        end
+    end
+
+    local function BindHiddenTurkeyFolder(folder)
+        if not AutoTurkeyRunning or not folder or folder.Name ~= "HiddenTurkeys" then return end
+        if AutoTurkeyFolder == folder then return end
+        DisconnectAutoTurkeyWatchers()
+        AutoTurkeyFolder = folder
+        table.insert(AutoTurkeyConnections, folder.ChildAdded:Connect(QueueHiddenTurkey))
+        table.insert(AutoTurkeyConnections, folder.DescendantAdded:Connect(QueueHiddenTurkey))
+        ScanHiddenTurkeyFolder()
+        AutoTurkeyStatus.Text = "AUTO FINDER: WATCHING HIDDENTURKEYS"
+    end
+
+    local function StopAutoTurkeyFinder()
+        AutoTurkeyRunning = false
+        DisconnectAutoTurkeyWatchers()
+        table.clear(AutoTurkeyQueue)
+        table.clear(AutoTurkeyPending)
+        AutoTurkeyStatus.Text = "AUTO FINDER: STOPPED (" .. tostring(AutoTurkeyMoved) .. " VISITED)"
+    end
+
+    MakeButton(TurkeyFinderFolder, "START LIVE AUTO TURKEY FINDER", function()
         if AutoTurkeyRunning then
             AutoTurkeyStatus.Text = "AUTO FINDER: ALREADY RUNNING"
             return
         end
         AutoTurkeyRunning = true
-        AutoTurkeyStatus.Text = "AUTO FINDER: STARTING..."
+        AutoTurkeyMoved = 0
+        AutoTurkeyStatus.Text = "AUTO FINDER: SEARCHING..."
+        local existingFolder = workspace:FindFirstChild("HiddenTurkeys")
+        if existingFolder then BindHiddenTurkeyFolder(existingFolder) end
+        table.insert(AutoTurkeyConnections, workspace.ChildAdded:Connect(function(child)
+            if child.Name == "HiddenTurkeys" then BindHiddenTurkeyFolder(child) end
+        end))
+
+        -- Periodic rescans catch anything that existed before listeners attached.
         task.spawn(function()
-            local moved, missing, invalid = 0, 0, 0
-            for i = 1, 30 do
-                if not AutoTurkeyRunning or not ScreenGui.Parent then break end
-                local turkeyName = "HiddenTurkey_" .. i
-                local turkey = workspace:FindFirstChild(turkeyName, true)
-                if turkey and turkey:IsA("BasePart") then
-                    local character = LocalPlayer and LocalPlayer.Character
-                    local root = character and character:FindFirstChild("HumanoidRootPart")
-                    if not root and character then
-                        root = character:WaitForChild("HumanoidRootPart", 2)
-                    end
-                    if root and root:IsA("BasePart") then
-                        local ok = pcall(function()
-                            root.CFrame = turkey.CFrame + Vector3.new(0, 3, 0)
-                        end)
-                        if ok then
-                            moved = moved + 1
-                            AutoTurkeyStatus.Text = string.format("AUTO FINDER: %d/30 VISITED", moved)
-                        else
-                            invalid = invalid + 1
-                        end
-                    else
-                        invalid = invalid + 1
-                    end
-                else
-                    missing = missing + 1
+            while AutoTurkeyRunning and ScreenGui.Parent do
+                local folder = AutoTurkeyFolder or workspace:FindFirstChild("HiddenTurkeys")
+                if folder then
+                    if folder ~= AutoTurkeyFolder then BindHiddenTurkeyFolder(folder) end
+                    ScanHiddenTurkeyFolder()
                 end
-                task.wait(0.2)
+                task.wait(1)
             end
-            AutoTurkeyRunning = false
-            if ScreenGui.Parent then
-                AutoTurkeyStatus.Text = string.format("AUTO FINDER: DONE — %d VISITED, %d MISSING, %d SKIPPED", moved, missing, invalid)
+        end)
+
+        -- One queue worker prevents simultaneous teleports and spaces them out.
+        task.spawn(function()
+            while AutoTurkeyRunning and ScreenGui.Parent do
+                local turkey = table.remove(AutoTurkeyQueue, 1)
+                if turkey then
+                    AutoTurkeyPending[turkey] = nil
+                    local folder = AutoTurkeyFolder
+                    if turkey.Parent and folder and turkey:IsDescendantOf(folder) and not AutoTurkeyVisited[turkey] then
+                        local character = LocalPlayer and LocalPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if not root and character then
+                            root = character:WaitForChild("HumanoidRootPart", 2)
+                        end
+                        -- Recheck after waiting: the turkey may have despawned meanwhile.
+                        if AutoTurkeyRunning and turkey.Parent and AutoTurkeyFolder
+                            and turkey:IsDescendantOf(AutoTurkeyFolder)
+                            and root and root.Parent then
+                            local ok = pcall(function()
+                                root.CFrame = turkey.CFrame + Vector3.new(0, 3, 0)
+                            end)
+                            if ok then
+                                AutoTurkeyVisited[turkey] = true
+                                AutoTurkeyMoved = AutoTurkeyMoved + 1
+                                AutoTurkeyStatus.Text = "AUTO FINDER: " .. tostring(AutoTurkeyMoved) .. " VISITED"
+                            end
+                        end
+                    end
+                    task.wait(0.2)
+                else
+                    task.wait(0.1)
+                end
             end
         end)
     end, Color3.fromRGB(45, 115, 75))
 
-    MakeButton(TurkeyFinderFolder, "STOP AUTO TURKEY FINDER", function()
-        AutoTurkeyRunning = false
-        AutoTurkeyStatus.Text = "AUTO FINDER: STOPPING..."
-    end, Color3.fromRGB(125, 75, 55))
+    MakeButton(TurkeyFinderFolder, "STOP LIVE AUTO TURKEY FINDER", StopAutoTurkeyFinder, Color3.fromRGB(125, 75, 55))
 
     local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder, false)
 
