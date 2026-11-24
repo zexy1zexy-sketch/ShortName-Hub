@@ -4411,19 +4411,19 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         HubExtras.TeleportToHouse("4")
     end)
 
-    local HouseAutoButton
-    HouseAutoButton = MakeButton(HouseFolder, "AUTO TELEPORT: OFF", function()
+    local HubExtras.HouseAutoButton
+    HubExtras.HouseAutoButton = MakeButton(HouseFolder, "AUTO TELEPORT: OFF", function()
         if HouseAutoEnabled then
             HouseAutoEnabled = false
             HouseLoopToken = HouseLoopToken + 1
-            HouseAutoButton.Text = "AUTO TELEPORT: OFF"
+            HubExtras.HouseAutoButton.Text = "AUTO TELEPORT: OFF"
             SetStatus("HOUSE AUTO TELEPORT STOPPED")
 
         else
             HouseAutoEnabled = true
             HouseLoopToken = HouseLoopToken + 1
             local thisToken = HouseLoopToken
-            HouseAutoButton.Text = "AUTO TELEPORT: ON"
+            HubExtras.HouseAutoButton.Text = "AUTO TELEPORT: ON"
             SetStatus("HOUSE AUTO TELEPORT RUNNING")
 
             task.spawn(function()
