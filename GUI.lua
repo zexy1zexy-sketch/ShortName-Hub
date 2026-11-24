@@ -1468,9 +1468,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             ["PLAYER TOOLS"] = "🛠️",
             ["DETECTORS"] = "🧭",
             ["DETECTION & OBSERVATION"] = "🧭",
-            ["GAME OBJECT SCANNER"] = "🎮",
-            ["COMBAT SYSTEM FINDER"] = "🛡️",
-            ["COMBAT STRUCTURE FINDER"] = "🏗️",
+            ["UNIVERSAL OBJECT SCANNER"] = "🎮",
+            ["UNIVERSAL INSTANCE INSPECTOR"] = "🛡️",
+            ["UNIVERSAL STRUCTURE FINDER"] = "🏗️",
             ["NPC & TELEPORT"] = "🧍",
             ["REMOTES"] = "📡",
             ["HOUSE TELEPORT"] = "🏠",
@@ -3062,7 +3062,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
     if DetectionPage then
         Label(DetectionPage, "DETECTION & OBSERVATION", 17, 30).Font = Enum.Font.GothamBold
-        Label(DetectionPage, "Owner-only tools for scanning game objects, inspecting combat structures, and recording observations.", 11, 34, Grey)
+        Label(DetectionPage, "Owner-only, game-independent tools for inspecting client-visible objects and recording observations in any Roblox experience.", 11, 34, Grey)
     end
     local FightDetectorsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or FightPage, false)
 
@@ -3172,12 +3172,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     if ThanksgivingScannerFolder and ThanksgivingScannerFolder.Parent then
         ThanksgivingScannerFolder.Parent.Parent = FightDetectorsFolder
     end
-    local FightScannerFolder = MakeFolder("GAME OBJECT SCANNER", FightDetectorsFolder, false)
+    local FightScannerFolder = MakeFolder("UNIVERSAL OBJECT SCANNER", FightDetectorsFolder, false)
 
-    Label(FightScannerFolder, "GAME OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(FightScannerFolder, "UNIVERSAL OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightScannerFolder,
-        "Scans locally replicated game objects and visible UI for combat-related names and text.",
+        "Scans client-visible objects and UI across any Roblox experience for gameplay, interface, progression, economy, social, and system signals.",
         10,
         38,
         Grey
@@ -3319,11 +3319,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
 
 
     -- READ-ONLY COMBAT SYSTEM INSPECTOR
-    local FightInspectorFolder = MakeFolder("COMBAT SYSTEM FINDER", FightDetectorsFolder, false)
-    Label(FightInspectorFolder, "COMBAT SYSTEM FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    local FightInspectorFolder = MakeFolder("UNIVERSAL INSTANCE INSPECTOR", FightDetectorsFolder, false)
+    Label(FightInspectorFolder, "UNIVERSAL INSTANCE INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightInspectorFolder,
-        "Inspects selected combat-related instances, their classes, paths, and child structure. It never calls remotes or reads script source.",
+        "Inspects client-visible instances across any experience, including class counts, remotes, script/module names, and UI metadata. It never calls remotes or reads script source.",
         10,
         48,
         Grey
@@ -3344,7 +3344,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end
 
-    MakeButton(FightInspectorFolder, "INSPECT COMBAT SYSTEMS", function()
+    MakeButton(FightInspectorFolder, "INSPECT ALL VISIBLE SYSTEMS", function()
         if not FightInspector or type(FightInspector.Inspect) ~= "function" then
             UpdateInspectorDisplay("MODULE NOT LOADED", nil)
             return
@@ -3366,7 +3366,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end, Color3.fromRGB(45, 115, 75))
 
-    MakeButton(FightInspectorFolder, "COPY INSPECTION REPORT", function()
+    MakeButton(FightInspectorFolder, "COPY UNIVERSAL INSPECTION", function()
         if not FightInspector or type(FightInspector.GetReport) ~= "function" then
             UpdateInspectorDisplay("MODULE NOT LOADED", nil)
             return
@@ -3395,12 +3395,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(85, 75, 105))
 
-    -- PASSIVE COMBAT STRUCTURE SCANNER
-    local FightStructureFolder = MakeFolder("COMBAT STRUCTURE FINDER", FightDetectorsFolder, false)
-    Label(FightStructureFolder, "COMBAT STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    -- PASSIVE UNIVERSAL STRUCTURE SCANNER
+    local FightStructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", FightDetectorsFolder, false)
+    Label(FightStructureFolder, "UNIVERSAL STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(
         FightStructureFolder,
-        "Inventories client-visible combat-related objects and RemoteEvent/RemoteFunction names and paths. It never invokes them or reads script source.",
+        "Inventories client-visible systems and RemoteEvent/RemoteFunction names and paths across any experience. It never invokes them or reads script source.",
         10,
         50,
         Grey
@@ -3427,7 +3427,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         UploadKeyCache.__SHORTNAME_UPLOAD_KEY = StructureUploadKey
     end)
 
-    MakeButton(FightStructureFolder, "UPLOAD STRUCTURE REPORT", function()
+    MakeButton(FightStructureFolder, "UPLOAD UNIVERSAL STRUCTURE REPORT", function()
         if not FightStructureScanner or type(FightStructureScanner.UploadReport) ~= "function" then
             UpdateStructureDisplay("UPLOAD MODULE NOT LOADED", nil)
             return
@@ -3451,7 +3451,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end, Color3.fromRGB(45, 105, 145))
 
-    MakeButton(FightStructureFolder, "START STRUCTURE SCAN", function()
+    MakeButton(FightStructureFolder, "START UNIVERSAL STRUCTURE SCAN", function()
         if not FightStructureScanner or type(FightStructureScanner.Start) ~= "function" then
             UpdateStructureDisplay("MODULE NOT LOADED", nil)
             return
@@ -3478,7 +3478,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(125, 75, 55))
 
-    MakeButton(FightStructureFolder, "COPY STRUCTURE REPORT", function()
+    MakeButton(FightStructureFolder, "COPY UNIVERSAL STRUCTURE REPORT", function()
         if not FightStructureScanner or type(FightStructureScanner.GetReport) ~= "function" then
             UpdateStructureDisplay("MODULE NOT LOADED", nil)
             return
@@ -3498,7 +3498,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         UpdateStructureDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
     end)
 
-    MakeButton(FightStructureFolder, "CLEAR STRUCTURE REPORT", function()
+    MakeButton(FightStructureFolder, "CLEAR UNIVERSAL STRUCTURE REPORT", function()
         if FightStructureScanner and type(FightStructureScanner.Clear) == "function" then
             local ok = pcall(function() FightStructureScanner:Clear() end)
             UpdateStructureDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
