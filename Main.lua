@@ -306,8 +306,13 @@ local function LoadModule(name)
 
     local response
     local success, requestError = pcall(function()
-        response = RequestFunction({
-            Url = MODULE_ENDPOINT .. name,
+        local moduleUrl = MODULE_ENDPOINT .. name
+    if name == "GUI.lua" then
+        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/gui-complete-fix/GUI.lua"
+        AddDiagnostic("Loading GUI.lua directly from gui-complete-fix test branch.")
+    end
+    response = RequestFunction({
+            Url = moduleUrl,
             Method = "GET",
             Headers = {
                 ["Cache-Control"] = "no-cache",
@@ -422,9 +427,6 @@ local function StopRuntime(runtime)
         end
     end)
     pcall(function()
-        if runtime.Scanner and type(runtime.Scanner.Stop) == "function" then
-            runtime.Scanner:Stop()
-        end
     end)
     pcall(function()
         if runtime.FightScanner and type(runtime.FightScanner.Stop) == "function" then
@@ -492,7 +494,7 @@ StartHub = function(skipKey)
     end
 
     local completed = 0
-    local total = 20
+    local total = 18
     local function Step(message)
         completed = completed + 1
         if Loading and type(Loading.SetProgress) == "function" then
@@ -544,7 +546,6 @@ StartHub = function(skipKey)
             Step("Presence service unavailable")
         end
         local ScytheModule = LoadTracked("Scythe.lua", "Loaded weapon systems")
-        local ThanksgivingScanner = LoadTracked("ThanksgivingScanner.lua", "Loaded event scanner")
         local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded universal object scanner")
         local FightInspectorModule = LoadTracked("FightOnABaseplateInspector.lua", "Loaded universal instance inspector")
         local FightStructureScannerModule = LoadTracked("FightOnABaseplateStructureScanner.lua", "Loaded universal structure scanner")
@@ -563,8 +564,6 @@ StartHub = function(skipKey)
 
         local Scythe = ScytheModule.new()
         Step("Initialized weapon systems")
-        local Scanner = ThanksgivingScanner.new()
-        Step("Initialized event scanner")
         local FightScanner = FightScannerModule.new()
         Step("Initialized combat scanner")
         local FightInspector = FightInspectorModule.new()
@@ -579,7 +578,6 @@ StartHub = function(skipKey)
                 Config,
                 Controller,
                 Scythe,
-                Scanner,
                 FightScanner,
                 FightInspector,
                 FightStructureScanner,
@@ -594,7 +592,6 @@ StartHub = function(skipKey)
             StopRuntime({
                 Controller = Controller,
                 Scythe = Scythe,
-                Scanner = Scanner,
                 FightScanner = FightScanner,
                 FightInspector = FightInspector,
                 FightStructureScanner = FightStructureScanner,
@@ -610,7 +607,6 @@ StartHub = function(skipKey)
         CurrentRuntime = {
             Controller = Controller,
             Scythe = Scythe,
-            Scanner = Scanner,
             FightScanner = FightScanner,
             FightInspector = FightInspector,
             FightStructureScanner = FightStructureScanner,
