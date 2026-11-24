@@ -59,6 +59,21 @@ local function isBindable(className)
     return className == "BindableEvent" or className == "BindableFunction"
 end
 
+local function isValue(className)
+    return className == "StringValue" or className == "BoolValue"
+        or className == "IntValue" or className == "NumberValue"
+end
+
+local function isUiText(className)
+    return className == "TextLabel" or className == "TextButton"
+        or className == "TextBox"
+end
+
+local function cleanText(value, limit)
+    local text = tostring(value or ""):gsub("[%c]", " ")
+    return text:sub(1, limit or 120)
+end
+
 local function formatAttributes(instance)
     local ok, attributes = pcall(function() return instance:GetAttributes() end)
     if not ok or type(attributes) ~= "table" then return "Attributes=unavailable" end
@@ -87,20 +102,6 @@ local function formatAttributes(instance)
     return "Attributes={" .. table.concat(entries, "; ") .. "}" .. suffix
 end
 
-local function isValue(className)
-    return className == "StringValue" or className == "BoolValue"
-        or className == "IntValue" or className == "NumberValue"
-end
-
-local function isUiText(className)
-    return className == "TextLabel" or className == "TextButton"
-        or className == "TextBox"
-end
-
-local function cleanText(value, limit)
-    local text = tostring(value or ""):gsub("[%c]", " ")
-    return text:sub(1, limit or 120)
-end
 
 local function shouldSkipPath(path)
     return string.find(path, ".Assets.", 1, true) ~= nil
