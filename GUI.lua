@@ -4411,7 +4411,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         HubExtras.TeleportToHouse("4")
     end)
 
-    HubExtras.HouseAutoButton
     HubExtras.HouseAutoButton = MakeButton(HouseFolder, "AUTO TELEPORT: OFF", function()
         if HouseAutoEnabled then
             HouseAutoEnabled = false
