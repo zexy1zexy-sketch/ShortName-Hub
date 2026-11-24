@@ -280,6 +280,9 @@ function Scanner:Start(onUpdate)
         self._scanned = scanned
         self._count = #remotes + #modules + #matches + #values + #ui + #prompts
         self._report = table.concat(lines, "\n")
+        if #self._report > 90000 then
+            self._report = string.sub(self._report, 1, 89000) .. "\n[REPORT TRUNCATED TO STAY WITHIN UPLOAD SIZE LIMIT]"
+        end
         notify(scanned >= MAX_SCAN and "SCAN LIMIT REACHED" or "SCAN COMPLETE")
     end)
     return "SCANNING"
