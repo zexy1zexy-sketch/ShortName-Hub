@@ -1,1 +1,4 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-24 10:18:26 UTC\n\n04:18:16  Diagnostic console initialized before loading modules.\n04:18:16  Executor HTTP request API: available\n04:18:18  COMPILE ERROR in GUI.lua: [string "OmTrZUinFpfDLIFAUEIB"]:4505: Out of local registers when trying to allocate HitboxStatus: exceeded limit 200\n04:18:18  STARTUP FAILED: [string "HZgVgBrmahRSrcnnVYIR"]:337: Could not compile GUI.lua: [string "OmTrZUinFpfDLIFAUEIB"]:4505: Out of local registers when trying to allocate HitboxStatus: exceeded limit 200\n04:18:18  FATAL LOADER ERROR: [string "HZgVgBrmahRSrcnnVYIR"]:607: [string "HZgVgBrmahRSrcnnVYIR"]:337: Could not compile GUI.lua: [string "OmTrZUinFpfDLIFAUEIB"]:4505: Out of local registers when trying to allocate HitboxStatus: exceeded limit 200
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-24 10:23:39 UTC\n\n04:23:07  Diagnostic console initialized before loading modules.\n04:23:07  Executor HTTP request API: available\n04:23:11  Startup completed successfully.\n04:23:27  ERROR: [string "CsVrYLMfneDLOYWlWlYd"]:2407: attempt to call a nil value
+    Stack Begin
+    Script 'LocalScript', Line 2407
+    Stack End
