@@ -164,6 +164,7 @@ end
 function Scanner:Stop()
     self._running = false
     self._scanId += 1
+    self:ClearTurkeyHighlights()
     return true
 end
 
