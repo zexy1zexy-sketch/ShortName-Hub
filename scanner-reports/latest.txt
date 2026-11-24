@@ -1,1 +1,742 @@
-No structure scan run yet.
+SHORTNAME HUB - UNIVERSAL STRUCTURE SCAN
+Mode: PASSIVE / READ-ONLY
+Objects inspected: 50000
+RemoteEvents/RemoteFunctions found: 71
+Universal system name/path matches: 400
+Targeted structure entries: 250
+Scan limit: 50000
+----------------------------------------
+REMOTE INVENTORY (NAMES AND PATHS ONLY)
+1. [RemoteFunction] ReplicatedStorage.CmdrClient.CmdrFunction
+2. [RemoteEvent] ReplicatedStorage.CmdrClient.CmdrEvent
+3. [RemoteEvent] ReplicatedStorage.Assets.NoobModels.Poseidon.PoseidonsQuakeTrident.Remote
+4. [RemoteEvent] ReplicatedStorage.__Net.AlienTycoonDrop
+5. [RemoteFunction] ReplicatedStorage.__Net.GetPendingGuildInvites
+6. [RemoteEvent] ReplicatedStorage.__Net.GoalScored
+7. [RemoteEvent] ReplicatedStorage.__Net.GameVFX
+8. [RemoteEvent] ReplicatedStorage.__Net.TridentTargets
+9. [RemoteEvent] ReplicatedStorage.__Net.BubbleBlown
+10. [RemoteEvent] ReplicatedStorage.__Net.TrenchOysterCollected
+11. [RemoteEvent] ReplicatedStorage.__Net.RunePopup
+12. [RemoteEvent] ReplicatedStorage.__Net.Teleport
+13. [RemoteEvent] ReplicatedStorage.__Net.EnchantWarning
+14. [RemoteFunction] ReplicatedStorage.__Net.GetPlayerData
+15. [RemoteEvent] ReplicatedStorage.__Net.WheatHarvest
+16. [RemoteEvent] ReplicatedStorage.__Net.MinionCapsuleOpened
+17. [RemoteEvent] ReplicatedStorage.__Net.TrashUpdate
+18. [RemoteEvent] ReplicatedStorage.__Net.CurrencyAwarded
+19. [RemoteEvent] ReplicatedStorage.__Net.DonationLeaderboardUpdated
+20. [RemoteEvent] ReplicatedStorage.__Net.ScytheEnchantRolled
+21. [RemoteFunction] ReplicatedStorage.__Net.GetGuildLeaderboard
+22. [RemoteEvent] ReplicatedStorage.__Net.PlaySpatialSound
+23. [RemoteEvent] ReplicatedStorage.__Net.MainRemote
+24. [RemoteEvent] ReplicatedStorage.__Net.EnchantRolled
+25. [RemoteFunction] ReplicatedStorage.__Net.GetInvitablePlayers
+26. [RemoteEvent] ReplicatedStorage.__Net.TrenchDescentStarted
+27. [RemoteFunction] ReplicatedStorage.__Net.GetDonationLeaderboard
+28. [RemoteEvent] ReplicatedStorage.__Net.ShowPopup
+29. [RemoteFunction] ReplicatedStorage.__Net.GetMyGuildWeeklyRewards
+30. [RemoteEvent] ReplicatedStorage.__Net.StarUpdate
+31. [RemoteEvent] ReplicatedStorage.__Net.SisyphusCrushed
+32. [RemoteEvent] ReplicatedStorage.__Net.BlackholeUpdate
+33. [RemoteEvent] ReplicatedStorage.__Net.SwordEnchantWarning
+34. [RemoteEvent] ReplicatedStorage.__Net.RefreshGuildUI
+35. [RemoteEvent] ReplicatedStorage.__Net.SpookyNoobEnchantRolled
+36. [RemoteFunction] ReplicatedStorage.__Net.GetAPlayerData
+37. [RemoteEvent] ReplicatedStorage.__Net.ToggleUI
+38. [RemoteFunction] ReplicatedStorage.__Net.ClaimGuildWeeklyReward
+39. [RemoteEvent] ReplicatedStorage.__Net.TycoonDrop
+40. [RemoteEvent] ReplicatedStorage.__Net.GuildLBRefreshed
+41. [RemoteFunction] ReplicatedStorage.__Net.GetMasteryRecords
+42. [RemoteFunction] ReplicatedStorage.__Net.GetFootballTeamPopulations
+43. [RemoteEvent] ReplicatedStorage.__Net.SpecialPopup
+44. [RemoteFunction] ReplicatedStorage.__Net.GetVerifiedBadge
+45. [RemoteFunction] ReplicatedStorage.__Net.SearchGuild
+46. [RemoteEvent] ReplicatedStorage.__Net.ChatMessage
+47. [RemoteEvent] ReplicatedStorage.__Net.FootballBallReset
+48. [RemoteFunction] ReplicatedStorage.__Net.ClaimAllGuildWeeklyRewards
+49. [RemoteEvent] ReplicatedStorage.__Net.ReaperUpdate
+50. [RemoteFunction] ReplicatedStorage.__Net.GetMyGuildView
+51. [RemoteFunction] ReplicatedStorage.__Net.MeasurePing
+52. [RemoteEvent] ReplicatedStorage.__Net.ThanksgivingNoobEnchantWarning
+53. [RemoteEvent] ReplicatedStorage.__Net.OilDrill
+54. [RemoteEvent] ReplicatedStorage.__Net.ThanksgivingNoobEnchantRolled
+55. [RemoteEvent] ReplicatedStorage.__Net.ServerStatsUpdate
+56. [RemoteEvent] ReplicatedStorage.__Net.SpookyNoobEnchantWarning
+57. [RemoteEvent] ReplicatedStorage.__Net.ColosseumUpdate
+58. [RemoteEvent] ReplicatedStorage.__Net.SwordEnchantRolled
+59. [RemoteEvent] ReplicatedStorage.__Net.TrenchOysters
+60. [RemoteEvent] ReplicatedStorage.__Net.ChipCollected
+61. [RemoteEvent] ReplicatedStorage.__Net.TrenchDescentEnded
+62. [RemoteEvent] ReplicatedStorage.__Net.LeaderboardRankUpdate
+63. [RemoteEvent] ReplicatedStorage.__Net.PlaySound
+64. [RemoteEvent] ReplicatedStorage.__Net.ChestOpened
+65. [RemoteEvent] ReplicatedStorage.__Net.AutoKick
+66. [RemoteFunction] ReplicatedStorage.__Net.GetGuildById
+67. [RemoteEvent] ReplicatedStorage.__Net.CardRolled
+68. [RemoteEvent] ReplicatedStorage.__Net.GlobalPopup
+69. [RemoteEvent] ReplicatedStorage.__Net.FeedbackFiltered
+70. [RemoteEvent] ReplicatedStorage.__Net.OreHit
+71. [RemoteEvent] ReplicatedStorage.__Net.PromptNotification
+
+UNIVERSAL SYSTEM INSTANCE MATCHES
+1. [ModuleScript] term=replicate children=2 | ReplicatedStorage.Framework
+2. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Framework.Client
+3. [ModuleScript] term=replicate children=0 | ReplicatedStorage.Framework.Server
+4. [ModuleScript] term=replicate children=7 | ReplicatedStorage.CmdrClient
+5. [ModuleScript] term=interface children=2 | ReplicatedStorage.CmdrClient.CmdrInterface
+6. [ModuleScript] term=interface children=0 | ReplicatedStorage.CmdrClient.CmdrInterface.AutoComplete
+7. [ModuleScript] term=interface children=0 | ReplicatedStorage.CmdrClient.CmdrInterface.Window
+8. [ModuleScript] term=handler children=0 | ReplicatedStorage.CmdrClient.DefaultEventHandlers
+9. [Folder] term=replicate children=5 | ReplicatedStorage.CmdrClient.Shared
+10. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Shared.Argument
+11. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Shared.Command
+12. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Shared.Dispatcher
+13. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Shared.Registry
+14. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Shared.Util
+15. [Folder] term=replicate children=149 | ReplicatedStorage.CmdrClient.Commands
+16. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.help
+17. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.GlobalAnnouncements
+18. [ModuleScript] term=currency children=0 | ReplicatedStorage.CmdrClient.Commands.SetCurrency
+19. [ModuleScript] term=currency children=0 | ReplicatedStorage.CmdrClient.Commands.AddCurrency
+20. [ModuleScript] term=currency children=0 | ReplicatedStorage.CmdrClient.Commands.ResetCurrency
+21. [ModuleScript] term=data children=0 | ReplicatedStorage.CmdrClient.Commands.ResetData
+22. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetNoobEnchant
+23. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetAnimalProduct
+24. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddAnimalProduct
+25. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetTier
+26. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetMineral
+27. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddMineral
+28. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.GiveMinion
+29. [ModuleScript] term=equipment children=0 | ReplicatedStorage.CmdrClient.Commands.GiveEquipment
+30. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetPrestige
+31. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetRuneCount
+32. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddRuneCount
+33. [ModuleScript] term=gui children=0 | ReplicatedStorage.CmdrClient.Commands.GuildStatus
+34. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.RollRunesForTime
+35. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.TimeWarp
+36. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddFactory
+37. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetFactory
+38. [ModuleScript] term=data children=0 | ReplicatedStorage.CmdrClient.Commands.CopyData
+39. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddMutation
+40. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetMutation
+41. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.GiveAura
+42. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.MaxAllTree
+43. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetLevelNoob
+44. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetWoodRank
+45. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetPickaxeOwned
+46. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetAxeOwned
+47. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetAura
+48. [ModuleScript] term=upgrade children=0 | ReplicatedStorage.CmdrClient.Commands.ResetUpgradeTree
+49. [ModuleScript] term=save children=0 | ReplicatedStorage.CmdrClient.Commands.SaveTemplate
+50. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ApplyTemplate
+51. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ListTemplates
+52. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetTrophy
+53. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetFootballRank
+54. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetWaterBucket
+55. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.GiveSword
+56. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetSwordEnchant
+57. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetTreeLevel
+58. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetSandLayer
+59. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetExcavationRank
+60. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetShovelLevel
+61. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetOofMilestone
+62. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetBoneMilestone
+63. [ModuleScript] term=teleport children=0 | ReplicatedStorage.CmdrClient.Commands.TeleportToRealm
+64. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SummonSandstorm
+65. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddTimeExpedition
+66. [ModuleScript] term=inventory children=0 | ReplicatedStorage.CmdrClient.Commands.ClearSwordInventory
+67. [ModuleScript] term=inventory children=0 | ReplicatedStorage.CmdrClient.Commands.ClearMinionInventory
+68. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetMobKill
+69. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.MaxAllRunes
+70. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.TestAntiAfk
+71. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.RuneDiagnostics
+72. [ModuleScript] term=zone children=0 | ReplicatedStorage.CmdrClient.Commands.TestZonePause
+73. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetRuneBulk
+74. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetRuneLuck
+75. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetSpaceLevel
+76. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetSpaceshipRank
+77. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetAlienMutation
+78. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetStarMutation
+79. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetTycoonReset
+80. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetAlienTycoonReset
+81. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetAlienDropperLevel
+82. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetPlanetLevel
+83. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.Shutdown
+84. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.GiveCard
+85. [ModuleScript] term=inventory children=0 | ReplicatedStorage.CmdrClient.Commands.ClearCardsInventory
+86. [ModuleScript] term=reward children=0 | ReplicatedStorage.CmdrClient.Commands.SimulateFootballRewards
+87. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SimulateCardsFeatured
+88. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.OofDiagnostics
+89. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetMasteryLevel
+90. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetUFOLevel
+91. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetHighestTrialWave
+92. [ModuleScript] term=upgrade children=0 | ReplicatedStorage.CmdrClient.Commands.MaxAllUpgrades
+93. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.CompleteResearch
+94. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.GiveTitle
+95. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddPlayTime
+96. [ModuleScript] term=gui children=0 | ReplicatedStorage.CmdrClient.Commands.SetGuildVault
+97. [ModuleScript] term=gui children=0 | ReplicatedStorage.CmdrClient.Commands.SetGuildPoints
+98. [ModuleScript] term=data children=0 | ReplicatedStorage.CmdrClient.Commands.PrintData
+99. [ModuleScript] term=upgrade children=0 | ReplicatedStorage.CmdrClient.Commands.ResetUpgradeType
+100. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetRealm5
+101. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetTridentRank
+102. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetAuraEvolution
+103. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SimulateAuraRoll
+104. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetSisyphus
+105. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetColosseum
+106. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddCardPity
+107. [ModuleScript] term=game children=0 | ReplicatedStorage.CmdrClient.Commands.GiveGamepass
+108. [ModuleScript] term=game children=0 | ReplicatedStorage.CmdrClient.Commands.RemoveGamepass
+109. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.RemoveBundle
+110. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetRuneOpened
+111. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetChariot
+112. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetSunTemple
+113. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetConstellations
+114. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetUITree
+115. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.CompareRuneStats
+116. [ModuleScript] term=upgrade children=0 | ReplicatedStorage.CmdrClient.Commands.MaxUpgradeTree
+117. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetChariotRank
+118. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetTierLuck
+119. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.BoostDiagnostics
+120. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.AddBlessing
+121. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetCouncilSeatLevel
+122. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetColosseumWave
+123. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetColosseumKills
+124. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetChariotDistance
+125. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetChariotLaps
+126. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetBoulderRank
+127. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetBurdenMilestones
+128. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetSunPillarRank
+129. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetSunPillarLevel
+130. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetConstellationRank
+131. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetStarlightMilestones
+132. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetCronusRank
+133. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetCouncilRank
+134. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetBlessing
+135. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetBlessings
+136. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.CompleteLaw
+137. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetLaws
+138. [ModuleScript] term=teleport children=0 | ReplicatedStorage.CmdrClient.Commands.SimulateTeleport
+139. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetPumpkinLevel
+140. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetPumpkinRank
+141. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetPumpkins
+142. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.ResetTrickOrTreat
+143. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetHalloweenMastery
+144. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetSpookyNoobEnchant
+145. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetScytheEnchant
+146. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetWitchRank
+147. [ModuleScript] term=item children=0 | ReplicatedStorage.CmdrClient.Commands.AddWitchItem
+148. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetSpell
+149. [ModuleScript] term=network children=0 | ReplicatedStorage.CmdrClient.Commands.NetworkDiagnostics
+150. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetGeneratorLevel
+151. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetReaperRank
+152. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetSpellLuck
+153. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetSpellBulk
+154. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetHarvestRank
+155. [ModuleScript] term=rank children=0 | ReplicatedStorage.CmdrClient.Commands.SetThanksONoobRank
+156. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetThanksgivingNoob
+157. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetThanksgivingNoobEnchant
+158. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetTurkeyOofMilestone
+159. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetHiddenTurkey
+160. [ModuleScript] term=challenge children=0 | ReplicatedStorage.CmdrClient.Commands.SetFastingChallenge
+161. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetFeathersMilestone
+162. [ModuleScript] term=level children=0 | ReplicatedStorage.CmdrClient.Commands.SetTurkeyBossLevel
+163. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetThanksgivingRuneLuck
+164. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Commands.SetThanksgivingRuneBulk
+165. [Folder] term=replicate children=61 | ReplicatedStorage.CmdrClient.Types
+166. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.BindableResource
+167. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.BrickColor
+168. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.Color3
+169. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.Command
+170. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.ConditionFunction
+171. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.Duration
+172. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.JSON
+173. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.MathOperator
+174. [ModuleScript] term=player children=0 | ReplicatedStorage.CmdrClient.Types.Player
+175. [ModuleScript] term=player children=0 | ReplicatedStorage.CmdrClient.Types.PlayerId
+176. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.Primitives
+177. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.StoredKey
+178. [ModuleScript] term=team children=0 | ReplicatedStorage.CmdrClient.Types.Team
+179. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.Type
+180. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.URL
+181. [ModuleScript] term=input children=0 | ReplicatedStorage.CmdrClient.Types.UserInput
+182. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.Vector
+183. [ModuleScript] term=currency children=0 | ReplicatedStorage.CmdrClient.Types.CurrencyName
+184. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.NoobName
+185. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.NoobEnchantName
+186. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.MineralName
+187. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.AnimalProductName
+188. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.PickaxeName
+189. [ModuleScript] term=equipment children=0 | ReplicatedStorage.CmdrClient.Types.EquipmentName
+190. [ModuleScript] term=equipment children=0 | ReplicatedStorage.CmdrClient.Types.EquipmentCategory
+191. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.RunePoolName
+192. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.RuneRarityName
+193. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.MinionName
+194. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.MutationName
+195. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.AuraName
+196. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.OreName
+197. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.AxeName
+198. [ModuleScript] term=upgrade children=0 | ReplicatedStorage.CmdrClient.Types.UpgradeTreeName
+199. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.SwordEnchantName
+200. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.RealmName
+201. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.SwordName
+202. [ModuleScript] term=equipment children=0 | ReplicatedStorage.CmdrClient.Types.EquipmentGiveTarget
+203. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.ExpeditionName
+204. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.MobName
+205. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.AlienMutationName
+206. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.StarMutationName
+207. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.PlanetName
+208. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.CardName
+209. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.MasteryName
+210. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.ResearchName
+211. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.TitleName
+212. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.SwordEvolution
+213. [ModuleScript] term=game children=0 | ReplicatedStorage.CmdrClient.Types.GamepassName
+214. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.BundleName
+215. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.RunePoolNameOrAll
+216. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.BlessingName
+217. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.LawName
+218. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.HalloweenNoobName
+219. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.SpookyNoobEnchantName
+220. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.ScytheEnchantName
+221. [ModuleScript] term=item children=0 | ReplicatedStorage.CmdrClient.Types.WitchItemName
+222. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.ThanksgivingNoobName
+223. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.ThanksgivingNoobEnchantName
+224. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.HiddenTurkeyName
+225. [ModuleScript] term=challenge children=0 | ReplicatedStorage.CmdrClient.Types.FastingChallengeName
+226. [ModuleScript] term=replicate children=0 | ReplicatedStorage.CmdrClient.Types.BeforeRun
+227. [Folder] term=replicate children=51 | ReplicatedStorage.Assets
+228. [BillboardGui] term=replicate children=1 | ReplicatedStorage.Assets.ColosseumEnemyBillboard
+229. [Frame] term=replicate children=3 | ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back
+230. [UICorner] term=replicate children=0 | ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.UICorner
+231. [Frame] term=replicate children=1 | ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.Fill
+232. [UICorner] term=replicate children=0 | ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.Fill.UICorner
+233. [TextLabel] term=replicate children=0 | ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.Text
+234. [Folder] term=character children=15 | ReplicatedStorage.Assets.GuildRoomCharacters
+235. [Folder] term=character children=2 | ReplicatedStorage.Assets.GuildRoomCharacters.2
+236. [Model] term=character children=17 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15
+237. [Humanoid] term=humanoid children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Humanoid
+238. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm
+239. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftElbow
+240. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftElbowRigAttachment
+241. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftElbowRigAttachment.OriginalPosition
+242. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftWristRigAttachment
+243. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftWristRigAttachment.OriginalPosition
+244. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.OriginalSize
+245. [MeshPart] term=character children=5 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm
+246. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulder
+247. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderRigAttachment
+248. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderRigAttachment.OriginalPosition
+249. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderAttachment
+250. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderAttachment.OriginalPosition
+251. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftElbowRigAttachment
+252. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftElbowRigAttachment.OriginalPosition
+253. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.OriginalSize
+254. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand
+255. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.OriginalSize
+256. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftWrist
+257. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftGripAttachment
+258. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftGripAttachment.OriginalPosition
+259. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftWristRigAttachment
+260. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftWristRigAttachment.OriginalPosition
+261. [MeshPart] term=character children=5 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm
+262. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulder
+263. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderRigAttachment
+264. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderRigAttachment.OriginalPosition
+265. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderAttachment
+266. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderAttachment.OriginalPosition
+267. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightElbowRigAttachment
+268. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightElbowRigAttachment.OriginalPosition
+269. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.OriginalSize
+270. [MeshPart] term=character children=11 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso
+271. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftCollarAttachment
+272. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftCollarAttachment.OriginalPosition
+273. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyBackAttachment
+274. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyBackAttachment.OriginalPosition
+275. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckAttachment
+276. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckAttachment.OriginalPosition
+277. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightCollarAttachment
+278. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightCollarAttachment.OriginalPosition
+279. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckRigAttachment
+280. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckRigAttachment.OriginalPosition
+281. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.WaistRigAttachment
+282. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.WaistRigAttachment.OriginalPosition
+283. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyFrontAttachment
+284. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyFrontAttachment.OriginalPosition
+285. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightShoulderRigAttachment
+286. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightShoulderRigAttachment.OriginalPosition
+287. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftShoulderRigAttachment
+288. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftShoulderRigAttachment.OriginalPosition
+289. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.Waist
+290. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.OriginalSize
+291. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand
+292. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightWrist
+293. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightGripAttachment
+294. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightGripAttachment.OriginalPosition
+295. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightWristRigAttachment
+296. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightWristRigAttachment.OriginalPosition
+297. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.OriginalSize
+298. [Part] term=character children=9 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head
+299. [Decal] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.face
+300. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.Neck
+301. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceCenterAttachment
+302. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceCenterAttachment.OriginalPosition
+303. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.OriginalSize
+304. [SpecialMesh] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.Mesh
+305. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.NeckRigAttachment
+306. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.NeckRigAttachment.OriginalPosition
+307. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceFrontAttachment
+308. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceFrontAttachment.OriginalPosition
+309. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HairAttachment
+310. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HairAttachment.OriginalPosition
+311. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HatAttachment
+312. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HatAttachment.OriginalPosition
+313. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm
+314. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightElbow
+315. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightWristRigAttachment
+316. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightWristRigAttachment.OriginalPosition
+317. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightElbowRigAttachment
+318. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightElbowRigAttachment.OriginalPosition
+319. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.OriginalSize
+320. [Part] term=humanoid children=2 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart
+321. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart.RootRigAttachment
+322. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart.RootRigAttachment.OriginalPosition
+323. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart.OriginalSize
+324. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg
+325. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftKneeRigAttachment
+326. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftKneeRigAttachment.OriginalPosition
+327. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftHipRigAttachment
+328. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftHipRigAttachment.OriginalPosition
+329. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftHip
+330. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.OriginalSize
+331. [MeshPart] term=character children=3 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot
+332. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.RightAnkleRigAttachment
+333. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.RightAnkleRigAttachment.OriginalPosition
+334. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.RightAnkle
+335. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.OriginalSize
+336. [MeshPart] term=character children=3 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot
+337. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.LeftAnkleRigAttachment
+338. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.LeftAnkleRigAttachment.OriginalPosition
+339. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.LeftAnkle
+340. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.OriginalSize
+341. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg
+342. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftKneeRigAttachment
+343. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftKneeRigAttachment.OriginalPosition
+344. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftAnkleRigAttachment
+345. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftAnkleRigAttachment.OriginalPosition
+346. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftKnee
+347. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.OriginalSize
+348. [MeshPart] term=character children=9 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso
+349. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.Root
+350. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistBackAttachment
+351. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistBackAttachment.OriginalPosition
+352. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistCenterAttachment
+353. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistCenterAttachment.OriginalPosition
+354. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistFrontAttachment
+355. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistFrontAttachment.OriginalPosition
+356. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.LeftHipRigAttachment
+357. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.LeftHipRigAttachment.OriginalPosition
+358. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RightHipRigAttachment
+359. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RightHipRigAttachment.OriginalPosition
+360. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.OriginalSize
+361. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RootRigAttachment
+362. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RootRigAttachment.OriginalPosition
+363. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistRigAttachment
+364. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistRigAttachment.OriginalPosition
+365. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg
+366. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightKneeRigAttachment
+367. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightKneeRigAttachment.OriginalPosition
+368. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightAnkleRigAttachment
+369. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightAnkleRigAttachment.OriginalPosition
+370. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightKnee
+371. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.OriginalSize
+372. [MeshPart] term=character children=4 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg
+373. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightHipRigAttachment
+374. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightHipRigAttachment.OriginalPosition
+375. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightHip
+376. [Attachment] term=character children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightKneeRigAttachment
+377. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightKneeRigAttachment.OriginalPosition
+378. [Vector3Value] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.OriginalSize
+379. [Model] term=character children=8 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6
+380. [Humanoid] term=humanoid children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Humanoid
+381. [Part] term=humanoid children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.HumanoidRootPart
+382. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.HumanoidRootPart.Root Hip
+383. [Part] term=character children=5 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso
+384. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Left Hip
+385. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Right Hip
+386. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Left Shoulder
+387. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Right Shoulder
+388. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Neck
+389. [Part] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Left Leg
+390. [Part] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Right Leg
+391. [Part] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Left Arm
+392. [Part] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Right Arm
+393. [Part] term=character children=2 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Head
+394. [Decal] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Head.Face
+395. [SpecialMesh] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Head.Mesh
+396. [Folder] term=character children=2 | ReplicatedStorage.Assets.GuildRoomCharacters.1
+397. [Model] term=character children=8 | ReplicatedStorage.Assets.GuildRoomCharacters.1.R6
+398. [Humanoid] term=humanoid children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Humanoid
+399. [Part] term=humanoid children=1 | ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.HumanoidRootPart
+400. [Motor6D] term=character children=0 | ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.HumanoidRootPart.Root Hip
+
+SELECTED SYSTEM / ASSET METADATA
+Targets: common gameplay, interface, networking, progression, and system metadata
+1. [Folder] ReplicatedStorage.Assets
+2. [BillboardGui] ReplicatedStorage.Assets.ColosseumEnemyBillboard
+3. [Frame] ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back
+4. [UICorner] ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.UICorner
+5. [Frame] ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.Fill
+6. [UICorner] ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.Fill.UICorner
+7. [TextLabel] ReplicatedStorage.Assets.ColosseumEnemyBillboard.Back.Text
+8. [Folder] ReplicatedStorage.Assets.GuildRoomCharacters
+9. [Folder] ReplicatedStorage.Assets.GuildRoomCharacters.2
+10. [Model] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15
+11. [Humanoid] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Humanoid
+12. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm | MeshId=rbxassetid://16447756945
+13. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftElbow
+14. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftElbowRigAttachment
+15. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftElbowRigAttachment.OriginalPosition
+16. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftWristRigAttachment
+17. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.LeftWristRigAttachment.OriginalPosition
+18. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerArm.OriginalSize
+19. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm | MeshId=rbxassetid://16447756946
+20. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulder
+21. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderRigAttachment
+22. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderRigAttachment.OriginalPosition
+23. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderAttachment
+24. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftShoulderAttachment.OriginalPosition
+25. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftElbowRigAttachment
+26. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.LeftElbowRigAttachment.OriginalPosition
+27. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperArm.OriginalSize
+28. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand | MeshId=rbxassetid://16447756941
+29. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.OriginalSize
+30. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftWrist
+31. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftGripAttachment
+32. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftGripAttachment.OriginalPosition
+33. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftWristRigAttachment
+34. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftHand.LeftWristRigAttachment.OriginalPosition
+35. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm | MeshId=rbxassetid://16447756942
+36. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulder
+37. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderRigAttachment
+38. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderRigAttachment.OriginalPosition
+39. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderAttachment
+40. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightShoulderAttachment.OriginalPosition
+41. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightElbowRigAttachment
+42. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.RightElbowRigAttachment.OriginalPosition
+43. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperArm.OriginalSize
+44. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso | MeshId=rbxassetid://16447756958
+45. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftCollarAttachment
+46. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftCollarAttachment.OriginalPosition
+47. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyBackAttachment
+48. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyBackAttachment.OriginalPosition
+49. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckAttachment
+50. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckAttachment.OriginalPosition
+51. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightCollarAttachment
+52. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightCollarAttachment.OriginalPosition
+53. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckRigAttachment
+54. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.NeckRigAttachment.OriginalPosition
+55. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.WaistRigAttachment
+56. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.WaistRigAttachment.OriginalPosition
+57. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyFrontAttachment
+58. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.BodyFrontAttachment.OriginalPosition
+59. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightShoulderRigAttachment
+60. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.RightShoulderRigAttachment.OriginalPosition
+61. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftShoulderRigAttachment
+62. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.LeftShoulderRigAttachment.OriginalPosition
+63. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.Waist
+64. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.UpperTorso.OriginalSize
+65. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand | MeshId=rbxassetid://16447756943
+66. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightWrist
+67. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightGripAttachment
+68. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightGripAttachment.OriginalPosition
+69. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightWristRigAttachment
+70. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.RightWristRigAttachment.OriginalPosition
+71. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightHand.OriginalSize
+72. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head
+73. [Decal] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.face
+74. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.Neck
+75. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceCenterAttachment
+76. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceCenterAttachment.OriginalPosition
+77. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.OriginalSize
+78. [SpecialMesh] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.Mesh
+79. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.NeckRigAttachment
+80. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.NeckRigAttachment.OriginalPosition
+81. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceFrontAttachment
+82. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.FaceFrontAttachment.OriginalPosition
+83. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HairAttachment
+84. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HairAttachment.OriginalPosition
+85. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HatAttachment
+86. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.Head.HatAttachment.OriginalPosition
+87. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm | MeshId=rbxassetid://16447756947
+88. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightElbow
+89. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightWristRigAttachment
+90. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightWristRigAttachment.OriginalPosition
+91. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightElbowRigAttachment
+92. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.RightElbowRigAttachment.OriginalPosition
+93. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerArm.OriginalSize
+94. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart
+95. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart.RootRigAttachment
+96. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart.RootRigAttachment.OriginalPosition
+97. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.HumanoidRootPart.OriginalSize
+98. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg | MeshId=rbxassetid://16447756964
+99. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftKneeRigAttachment
+100. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftKneeRigAttachment.OriginalPosition
+101. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftHipRigAttachment
+102. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftHipRigAttachment.OriginalPosition
+103. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.LeftHip
+104. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftUpperLeg.OriginalSize
+105. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot | MeshId=rbxassetid://16447756962
+106. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.RightAnkleRigAttachment
+107. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.RightAnkleRigAttachment.OriginalPosition
+108. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.RightAnkle
+109. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightFoot.OriginalSize
+110. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot | MeshId=rbxassetid://16447756960
+111. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.LeftAnkleRigAttachment
+112. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.LeftAnkleRigAttachment.OriginalPosition
+113. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.LeftAnkle
+114. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftFoot.OriginalSize
+115. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg | MeshId=rbxassetid://16447756953
+116. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftKneeRigAttachment
+117. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftKneeRigAttachment.OriginalPosition
+118. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftAnkleRigAttachment
+119. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftAnkleRigAttachment.OriginalPosition
+120. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.LeftKnee
+121. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LeftLowerLeg.OriginalSize
+122. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso | MeshId=rbxassetid://16447756940
+123. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.Root
+124. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistBackAttachment
+125. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistBackAttachment.OriginalPosition
+126. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistCenterAttachment
+127. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistCenterAttachment.OriginalPosition
+128. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistFrontAttachment
+129. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistFrontAttachment.OriginalPosition
+130. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.LeftHipRigAttachment
+131. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.LeftHipRigAttachment.OriginalPosition
+132. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RightHipRigAttachment
+133. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RightHipRigAttachment.OriginalPosition
+134. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.OriginalSize
+135. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RootRigAttachment
+136. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.RootRigAttachment.OriginalPosition
+137. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistRigAttachment
+138. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.LowerTorso.WaistRigAttachment.OriginalPosition
+139. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg | MeshId=rbxassetid://16447756965
+140. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightKneeRigAttachment
+141. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightKneeRigAttachment.OriginalPosition
+142. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightAnkleRigAttachment
+143. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightAnkleRigAttachment.OriginalPosition
+144. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.RightKnee
+145. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightLowerLeg.OriginalSize
+146. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg | MeshId=rbxassetid://16447756933
+147. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightHipRigAttachment
+148. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightHipRigAttachment.OriginalPosition
+149. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightHip
+150. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightKneeRigAttachment
+151. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.RightKneeRigAttachment.OriginalPosition
+152. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.2.R15.RightUpperLeg.OriginalSize
+153. [Model] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6
+154. [Humanoid] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Humanoid
+155. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.HumanoidRootPart
+156. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.HumanoidRootPart.Root Hip
+157. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso
+158. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Left Hip
+159. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Right Hip
+160. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Left Shoulder
+161. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Right Shoulder
+162. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Torso.Neck
+163. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Left Leg
+164. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Right Leg
+165. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Left Arm
+166. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Right Arm
+167. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Head
+168. [Decal] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Head.Face
+169. [SpecialMesh] ReplicatedStorage.Assets.GuildRoomCharacters.2.R6.Head.Mesh
+170. [Folder] ReplicatedStorage.Assets.GuildRoomCharacters.1
+171. [Model] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6
+172. [Humanoid] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Humanoid
+173. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.HumanoidRootPart
+174. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.HumanoidRootPart.Root Hip
+175. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Torso
+176. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Torso.Left Hip
+177. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Torso.Right Hip
+178. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Torso.Left Shoulder
+179. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Torso.Right Shoulder
+180. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Torso.Neck
+181. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Left Leg
+182. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Right Leg
+183. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Left Arm
+184. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Right Arm
+185. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Head
+186. [Decal] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Head.Face
+187. [SpecialMesh] ReplicatedStorage.Assets.GuildRoomCharacters.1.R6.Head.Mesh
+188. [Model] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15
+189. [Humanoid] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.Humanoid
+190. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm | MeshId=rbxassetid://16447756945
+191. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm.LeftElbow
+192. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm.LeftElbowRigAttachment
+193. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm.LeftElbowRigAttachment.OriginalPosition
+194. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm.LeftWristRigAttachment
+195. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm.LeftWristRigAttachment.OriginalPosition
+196. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftLowerArm.OriginalSize
+197. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm | MeshId=rbxassetid://16447756946
+198. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftShoulder
+199. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftShoulderRigAttachment
+200. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftShoulderRigAttachment.OriginalPosition
+201. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftShoulderAttachment
+202. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftShoulderAttachment.OriginalPosition
+203. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftElbowRigAttachment
+204. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.LeftElbowRigAttachment.OriginalPosition
+205. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftUpperArm.OriginalSize
+206. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand | MeshId=rbxassetid://16447756941
+207. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand.OriginalSize
+208. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand.LeftWrist
+209. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand.LeftGripAttachment
+210. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand.LeftGripAttachment.OriginalPosition
+211. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand.LeftWristRigAttachment
+212. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.LeftHand.LeftWristRigAttachment.OriginalPosition
+213. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm | MeshId=rbxassetid://16447756942
+214. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightShoulder
+215. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightShoulderRigAttachment
+216. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightShoulderRigAttachment.OriginalPosition
+217. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightShoulderAttachment
+218. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightShoulderAttachment.OriginalPosition
+219. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightElbowRigAttachment
+220. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.RightElbowRigAttachment.OriginalPosition
+221. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightUpperArm.OriginalSize
+222. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso | MeshId=rbxassetid://16447756958
+223. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.LeftCollarAttachment
+224. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.LeftCollarAttachment.OriginalPosition
+225. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.BodyBackAttachment
+226. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.BodyBackAttachment.OriginalPosition
+227. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.NeckAttachment
+228. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.NeckAttachment.OriginalPosition
+229. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.RightCollarAttachment
+230. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.RightCollarAttachment.OriginalPosition
+231. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.NeckRigAttachment
+232. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.NeckRigAttachment.OriginalPosition
+233. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.WaistRigAttachment
+234. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.WaistRigAttachment.OriginalPosition
+235. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.BodyFrontAttachment
+236. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.BodyFrontAttachment.OriginalPosition
+237. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.RightShoulderRigAttachment
+238. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.RightShoulderRigAttachment.OriginalPosition
+239. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.LeftShoulderRigAttachment
+240. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.LeftShoulderRigAttachment.OriginalPosition
+241. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.Waist
+242. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.UpperTorso.OriginalSize
+243. [MeshPart] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand | MeshId=rbxassetid://16447756943
+244. [Motor6D] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand.RightWrist
+245. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand.RightGripAttachment
+246. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand.RightGripAttachment.OriginalPosition
+247. [Attachment] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand.RightWristRigAttachment
+248. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand.RightWristRigAttachment.OriginalPosition
+249. [Vector3Value] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.RightHand.OriginalSize
+250. [Part] ReplicatedStorage.Assets.GuildRoomCharacters.1.R15.Head
+----------------------------------------
+Safety notes:
+- No RemoteEvent, RemoteFunction, BindableEvent, or BindableFunction is invoked.
+- Script source is not read or executed.
+- Targeted asset IDs are read as metadata only; assets are not downloaded or executed.
+- Only names, classes, paths, direct-child counts, and selected asset ID properties are inspected.
+- Results are limited to objects replicated to this client.
