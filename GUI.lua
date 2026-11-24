@@ -359,7 +359,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     AddHover(FeedbackButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
     local CommunityPanel = Instance.new("Frame")
-    CommunityPanel.Size = UDim2.fromOffset(244, 88)
+    CommunityPanel.Size = UDim2.fromOffset(244, 132)
     CommunityPanel.Position = UDim2.new(1, -254, 0, 56)
     CommunityPanel.BackgroundColor3 = Panel
     CommunityPanel.BorderSizePixel = 0
@@ -372,9 +372,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     CommunityTitle.Font = Enum.Font.GothamBold
     CommunityTitle.Position = UDim2.fromOffset(8, 4)
     CommunityTitle.ZIndex = 21
-    local CreatorLine = Label(CommunityPanel, "  shortname_zen", 11, 28, White)
+    local CreatorLine = Label(CommunityPanel, "  shortname_zen  -  CREATOR", 11, 28, White)
     CreatorLine.Position = UDim2.fromOffset(8, 36)
     CreatorLine.ZIndex = 21
+    local CommunityNote = Label(CommunityPanel, "  More contributors will be listed here as they join.", 9, 38, Grey)
+    CommunityNote.Position = UDim2.fromOffset(8, 68)
+    CommunityNote.TextWrapped = true
+    CommunityNote.ZIndex = 21
     local CommunityClose = Instance.new("TextButton")
     CommunityClose.Size = UDim2.fromOffset(24, 24)
     CommunityClose.Position = UDim2.new(1, -29, 0, 4)
