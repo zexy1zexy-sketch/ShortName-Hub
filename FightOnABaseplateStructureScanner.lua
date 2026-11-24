@@ -13,7 +13,8 @@ local StarterGui = game:GetService("StarterGui")
 local StarterPlayer = game:GetService("StarterPlayer")
 
 local MAX_SCAN = 18000
-local MAX_REMOTE = 250
+local MAX_REMOTE = 350
+local MAX_BINDABLE = 250
 local MAX_MODULE = 180
 local MAX_MATCH = 250
 local MAX_VALUE = 350
@@ -52,6 +53,38 @@ end
 local function isRemote(className)
     return className == "RemoteEvent" or className == "RemoteFunction"
         or className == "UnreliableRemoteEvent"
+end
+
+local function isBindable(className)
+    return className == "BindableEvent" or className == "BindableFunction"
+end
+
+local function formatAttributes(instance)
+    local ok, attributes = pcall(function() return instance:GetAttributes() end)
+    if not ok or type(attributes) ~= "table" then return "Attributes=unavailable" end
+    local entries, count = {}, 0
+    for key, value in pairs(attributes) do
+        count += 1
+        if #entries < 8 then
+            local keyText = cleanText(key, 40)
+            local lowerKey = string.lower(keyText)
+            local valueText = tostring(value)
+            if string.find(lowerKey, "token", 1, true)
+                or string.find(lowerKey, "secret", 1, true)
+                or string.find(lowerKey, "password", 1, true)
+                or string.find(lowerKey, "key", 1, true) then
+                valueText = "[REDACTED]"
+            elseif type(value) == "string" then
+                valueText = cleanText(value, 80)
+            else
+                valueText = cleanText(valueText, 80)
+            end
+            table.insert(entries, keyText .. "=" .. valueText)
+        end
+    end
+    if #entries == 0 then return "Attributes=none" end
+    local suffix = count > #entries and " | +" .. tostring(count - #entries) .. " more" or ""
+    return "Attributes={" .. table.concat(entries, "; ") .. "}" .. suffix
 end
 
 local function isValue(className)
@@ -129,7 +162,7 @@ function Scanner:Start(onUpdate)
         addRoot(StarterGui)
         addRoot(StarterPlayer)
 
-        local remotes, modules, matches, values, ui, prompts = {}, {}, {}, {}, {}, {}
+        local remotes, bindables, modules, matches, values, ui, prompts = {}, {}, {}, {}, {}, {}, {}
         local seen = {}
         local scanned = 0
 
@@ -146,7 +179,9 @@ function Scanner:Start(onUpdate)
             if shouldSkipPath(path) then return end
 
             if isRemote(className) and #remotes < MAX_REMOTE then
-                table.insert(remotes, "[" .. className .. "] " .. path)
+                table.insert(remotes, "[" .. className .. "] " .. path .. " | " .. formatAttributes(item))
+            elseif isBindable(className) and #bindables < MAX_BINDABLE then
+                table.insert(bindables, "[" .. className .. "] " .. path .. " | " .. formatAttributes(item))
             elseif className == "ModuleScript" and #modules < MAX_MODULE then
                 local term = containsTerm(name) or containsTerm(path)
                 if term then
@@ -237,7 +272,8 @@ function Scanner:Start(onUpdate)
             "Player: " .. tostring(player and player.Name or "Unknown"),
             "Objects inspected: " .. tostring(scanned),
             "Scan limit: " .. tostring(MAX_SCAN),
-            "Remote objects: " .. tostring(#remotes),
+            "RemoteEvents / RemoteFunctions / UnreliableRemoteEvents: " .. tostring(#remotes),
+            "BindableEvents / BindableFunctions: " .. tostring(#bindables),
             "Relevant modules: " .. tostring(#modules),
             "System matches: " .. tostring(#matches),
             "Value objects: " .. tostring(#values),
@@ -248,6 +284,11 @@ function Scanner:Start(onUpdate)
         }
         for i, item in ipairs(remotes) do table.insert(lines, tostring(i) .. ". " .. item) end
         if #remotes == 0 then table.insert(lines, "No client-visible remotes found.") end
+
+        table.insert(lines, "")
+        table.insert(lines, "BINDABLE INVENTORY (NO FUNCTIONS INVOKED)")
+        for i, item in ipairs(bindables) do table.insert(lines, tostring(i) .. ". " .. item) end
+        if #bindables == 0 then table.insert(lines, "No client-visible bindables found.") end
 
         table.insert(lines, "")
         table.insert(lines, "RELEVANT MODULE INVENTORY (SOURCE NOT READ)")
@@ -273,12 +314,12 @@ function Scanner:Start(onUpdate)
         table.insert(lines, "COVERAGE / SAFETY")
         table.insert(lines, "- Prioritizes PlayerGui, PlayerScripts, Backpack, Character, and ReplicatedStorage network folders.")
         table.insert(lines, "- Large replicated asset folders and CmdrClient command-definition folders are skipped to reduce noise.")
-        table.insert(lines, "- No remote or bindable is invoked; no script source is read or executed.")
+        table.insert(lines, "- RemoteEvents, RemoteFunctions, UnreliableRemoteEvents, BindableEvents, and BindableFunctions are inventoried only; none are invoked. No script source is read or executed.")
         table.insert(lines, "- Only client-visible objects are inspected; server-only logic and data are unavailable.")
         table.insert(lines, "- String values with token/secret/password/key names are redacted.")
         table.insert(lines, "- A reached scan limit means later objects may not be included.")
         self._scanned = scanned
-        self._count = #remotes + #modules + #matches + #values + #ui + #prompts
+        self._count = #remotes + #bindables + #modules + #matches + #values + #ui + #prompts
         self._report = table.concat(lines, "\n")
         if #self._report > 90000 then
             self._report = string.sub(self._report, 1, 89000) .. "\n[REPORT TRUNCATED TO STAY WITHIN UPLOAD SIZE LIMIT]"
