@@ -51,20 +51,20 @@ async function saveFeedback(message,username,userId,env){
 
 const PRESENCE_PREFIX="presence:";
 async function createOwnerPair(request,env){
- if(!env.OWNER_SECRET)return reply({ok:false,error:"OWNER_SECRET is not configured in Worker secrets"},503);
+ const supplied=request.headers.get("x-owner-secret")||"";
  const ip=request.headers.get("CF-Connecting-IP")||"unknown";
  const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(ip));
  const ipHash=Array.from(new Uint8Array(digest)).map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,24);
- const attemptsKey="owner-login-attempts:"+ipHash;
- const lock=await env.REPORTS.get(attemptsKey,"json");
- if(lock&&Number(lock.count||0)>=5)return reply({ok:false,error:"Too many owner login attempts. Wait 15 minutes and try again."},429);
- const supplied=request.headers.get("x-owner-secret")||"";
+ const attemptKey="owner-login-attempts:"+ipHash;
+ const attempts=await env.REPORTS.get(attemptKey,"json")||{count:0,blockedUntil:0};
+ if(Number(attempts.blockedUntil||0)>Date.now())return reply({ok:false,error:"Too many failed owner login attempts. Try again later."},429);
  if(!(await secretMatches(supplied,env.OWNER_SECRET))){
-  await env.REPORTS.put(attemptsKey,JSON.stringify({count:Number(lock?.count||0)+1}),{expirationTtl:900});
-  await rejectAdminAttempt(request,env);
-  return reply({ok:false,error:"Owner secret is incorrect"},401);
+  const count=Number(attempts.count||0)+1;
+  const blockedUntil=count>=5?Date.now()+900000:0;
+  await env.REPORTS.put(attemptKey,JSON.stringify({count,blockedUntil}),{expirationTtl:900});
+  return reply({ok:false,error:"Invalid owner secret"},401);
  }
- await env.REPORTS.delete(attemptsKey);
+ await env.REPORTS.delete(attemptKey);
  const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,"0")).join("");
  await env.REPORTS.put("owner-session:"+token,JSON.stringify({owner:true,createdAt:Date.now()}),{expirationTtl:1800});
  return reply({ok:true,session:token,expiresInSeconds:1800},200,{"Cache-Control":"no-store"});
