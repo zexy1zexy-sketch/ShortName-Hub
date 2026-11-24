@@ -545,8 +545,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    -- Keep every supported experience visible in every game. Game tabs are
-    -- grouped first; general and owner-only tabs follow underneath.
+    -- All game tabs remain available in every experience. When the current
+    -- experience matches one of them, move that tab to the top automatically.
     local GameNav = MakeNav("🎮  Noob Incremental", 1)
     GUI.GuessSlapperNav = MakeNav("🖐️  Guess the Slapper", 2)
     local FightNav = MakeNav("⚔️  Fight on a Baseplate", 3)
@@ -555,6 +555,43 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local SoonNav = MakeNav("➕  Coming Soon", 6)
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 7) end
     DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 8) or nil
+
+    local CurrentExperienceName = tostring(game.Name or "")
+    pcall(function()
+        local info = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+        if info and type(info.Name) == "string" and info.Name ~= "" then
+            CurrentExperienceName = info.Name
+        end
+    end)
+    local experienceKey = CurrentExperienceName:lower()
+    local activeGameNav
+    if game.PlaceId == 106683702021527 or game.GameId == 9449993534
+        or experienceKey:find("guess the slapper", 1, true)
+        or experienceKey:find("slapper", 1, true) then
+        activeGameNav = GUI.GuessSlapperNav
+    elseif experienceKey:find("fight on a baseplate", 1, true)
+        or experienceKey:find("baseplate", 1, true) then
+        activeGameNav = FightNav
+    elseif experienceKey:find("noob incremental", 1, true)
+        or experienceKey:find("noob", 1, true) then
+        activeGameNav = GameNav
+    end
+    if activeGameNav then
+        local gameTabs = { GameNav, GUI.GuessSlapperNav, FightNav }
+        activeGameNav.LayoutOrder = 1
+        local nextOrder = 2
+        for _, nav in ipairs(gameTabs) do
+            if nav ~= activeGameNav then
+                nav.LayoutOrder = nextOrder
+                nextOrder = nextOrder + 1
+            end
+        end
+        GUI.UpdatesNav.LayoutOrder = 4
+        PlayerToolsNav.LayoutOrder = 5
+        SoonNav.LayoutOrder = 6
+        if PlayerAdminUI.Nav then PlayerAdminUI.Nav.LayoutOrder = 7 end
+        if DetectionNav then DetectionNav.LayoutOrder = 8 end
+    end
 
     local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, DetectionNav, SoonNav }
     local function FilterSidebar(query)
