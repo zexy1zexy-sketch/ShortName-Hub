@@ -1,606 +1,568 @@
-SHORTNAME HUB - UNIVERSAL GAME OBJECT SCAN REPORT
-Results: 500
-Objects inspected: 50000
-Remote objects found: 5
-Script/module objects found: 38
-Scan limit: 50000
+SHORTNAME HUB - UNIVERSAL GAME DISCOVERY REPORT
+Mode: PASSIVE / READ-ONLY
+Game: Ugc
+PlaceId: 76911729991355
+UniverseId: 9965411707
+Player: shortname_zen
+Objects inspected: 18000
+Scan limit: 18000
+RemoteEvents / RemoteFunctions / UnreliableRemoteEvents: 2
+BindableEvents / BindableFunctions: 0
+Relevant modules: 0
+System matches: 250
+Value objects: 58
+Visible UI text entries: 220
+Interactable prompts: 0
 ----------------------------------------
-1. [remote] (REMOTE EVENT) ReplicatedStorage.Assets.NoobModels.Poseidon.PoseidonsQuakeTrident.Remote
-2. [remote] (REMOTE FUNCTION) ReplicatedStorage.CmdrClient.CmdrFunction
-3. [remote] (REMOTE EVENT) ReplicatedStorage.CmdrClient.CmdrEvent
-4. [remote] (BINDABLE FUNCTION) Workspace.LBDisplayCharacter_Oof.Animate.PlayEmote
-5. [remote] (BINDABLE FUNCTION) Workspace.shortname_zen.Animate.PlayEmote
-6. [boss] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetTurkeyBossLevel
-7. [hit] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.AddWitchItem
-8. [teleport] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SimulateTeleport
-9. [kill] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetColosseumKills
-10. [upgrade] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.MaxUpgradeTree
-11. [car] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.AddCardPity
-12. [roll] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SimulateAuraRoll
-13. [upgrade] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ResetUpgradeType
-14. [ult] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetGuildVault
-15. [upgrade] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.MaxAllUpgrades
-16. [car] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SimulateCardsFeatured
-17. [reward] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SimulateFootballRewards
-18. [inventory] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ClearCardsInventory
-19. [car] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.GiveCard
-20. [zone] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.TestZonePause
-21. [kill] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetMobKill
-22. [inventory] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ClearMinionInventory
-23. [sword] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ClearSwordInventory
-24. [teleport] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.TeleportToRealm
-25. [sword] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetSwordEnchant
-26. [sword] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.GiveSword
-27. [upgrade] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ResetUpgradeTree
-28. [roll] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.RollRunesForTime
-29. [currency] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.ResetCurrency
-30. [currency] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.AddCurrency
-31. [currency] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Commands.SetCurrency
-32. [hit] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.WitchItemName
-33. [sword] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.SwordEvolution
-34. [car] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.CardName
-35. [target] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.EquipmentGiveTarget
-36. [sword] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.SwordName
-37. [sword] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.SwordEnchantName
-38. [upgrade] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.UpgradeTreeName
-39. [currency] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.CurrencyName
-40. [team] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.Team
-41. [store] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.Types.StoredKey
-42. [ult] (MODULE SCRIPT) ReplicatedStorage.CmdrClient.DefaultEventHandlers
-43. [health] (SCRIPT) Workspace.shortname_zen.Health
-44. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Striker._Zone_Buy_Noob
-45. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Striker.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-46. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Soldier._Zone_Buy_Noob
-47. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Soldier.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-48. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Hacker 2.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-49. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Hacker 2._Zone_Buy_Noob
-50. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Hacker 4.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-51. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Hacker 4._Zone_Buy_Noob
-52. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Archer._Zone_Buy_Noob
-53. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Archer.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-54. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.Archer.UpgradeUIPart
-55. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.LeftWing.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-56. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.LeftWing._Zone_Buy_Noob
-57. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.AttackingMid.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-58. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.AttackingMid._Zone_Buy_Noob
-59. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.RightCenterBack.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-60. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.RightCenterBack._Zone_Buy_Noob
-61. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.RightCenterBack.UpgradeUIPart
-62. [ult] (Accessory) Workspace.__GAME_CONTENT.Noobs.RightCenterBack.Model.Character.Ultra-Fabulous Hair
-63. [ult] (MeshPart) Workspace.__GAME_CONTENT.Noobs.RightCenterBack.Model.Character.Ultra-Fabulous Hair.Handle
-64. [ult] (Weld) Workspace.__GAME_CONTENT.Noobs.RightCenterBack.Model.Character.Ultra-Fabulous Hair.Handle.AccessoryWeld
-65. [ult] (Attachment) Workspace.__GAME_CONTENT.Noobs.RightCenterBack.Model.Character.Ultra-Fabulous Hair.Handle.HairAttachment
-66. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Hacker 1.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-67. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Hacker 1._Zone_Buy_Noob
-68. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Hacker 5.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-69. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Hacker 5._Zone_Buy_Noob
-70. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.LeftDefensiveMid.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-71. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.LeftDefensiveMid._Zone_Buy_Noob
-72. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid._Zone_Buy_Noob
-73. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid.UpgradeUIPart
-74. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-75. [ult] (Accessory) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid.Model.Character.Ultra-Fabulous Hair
-76. [ult] (MeshPart) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid.Model.Character.Ultra-Fabulous Hair.Handle
-77. [ult] (Attachment) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid.Model.Character.Ultra-Fabulous Hair.Handle.HairAttachment
-78. [ult] (Weld) Workspace.__GAME_CONTENT.Noobs.RightDefensiveMid.Model.Character.Ultra-Fabulous Hair.Handle.AccessoryWeld
-79. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack._Zone_Buy_Noob
-80. [ult] (Accessory) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack.Model.Character.Ultra-Fabulous Hair
-81. [ult] (MeshPart) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack.Model.Character.Ultra-Fabulous Hair.Handle
-82. [ult] (Attachment) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack.Model.Character.Ultra-Fabulous Hair.Handle.HairAttachment
-83. [ult] (Weld) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack.Model.Character.Ultra-Fabulous Hair.Handle.AccessoryWeld
-84. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-85. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.LeftCenterBack.UpgradeUIPart
-86. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Starter._Zone_Buy_Noob
-87. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Starter.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-88. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.Starter.UpgradeUIPart
-89. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Farmer.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-90. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Farmer._Zone_Buy_Noob
-91. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.Farmer.UpgradeUIPart
-92. [target] (ObjectValue) Workspace.__GAME_CONTENT.Noobs.Farmer.Model.Character.Farmer.Accessory (MeshPart).ThumbnailConfiguration.ThumbnailCameraTarget
-93. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Cooker._Zone_Buy_Noob
-94. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Cooker.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-95. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.Cooker.UpgradeUIPart
-96. [ult] (Accessory) Workspace.__GAME_CONTENT.Noobs.LeftBack.Model.Character.Ultra-Fabulous Hair
-97. [ult] (MeshPart) Workspace.__GAME_CONTENT.Noobs.LeftBack.Model.Character.Ultra-Fabulous Hair.Handle
-98. [ult] (Weld) Workspace.__GAME_CONTENT.Noobs.LeftBack.Model.Character.Ultra-Fabulous Hair.Handle.AccessoryWeld
-99. [ult] (Attachment) Workspace.__GAME_CONTENT.Noobs.LeftBack.Model.Character.Ultra-Fabulous Hair.Handle.HairAttachment
-100. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.LeftBack.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-101. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.LeftBack.UpgradeUIPart
-102. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.LeftBack._Zone_Buy_Noob
-103. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Goalkeeper._Zone_Buy_Noob
-104. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Goalkeeper.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-105. [ult] (Accessory) Workspace.__GAME_CONTENT.Noobs.Goalkeeper.Model.Character.Ultra-Fabulous Hair
-106. [ult] (MeshPart) Workspace.__GAME_CONTENT.Noobs.Goalkeeper.Model.Character.Ultra-Fabulous Hair.Handle
-107. [ult] (Attachment) Workspace.__GAME_CONTENT.Noobs.Goalkeeper.Model.Character.Ultra-Fabulous Hair.Handle.HairAttachment
-108. [ult] (Weld) Workspace.__GAME_CONTENT.Noobs.Goalkeeper.Model.Character.Ultra-Fabulous Hair.Handle.AccessoryWeld
-109. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.Goalkeeper.UpgradeUIPart
-110. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.Hacker 3._Zone_Buy_Noob
-111. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.Hacker 3.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-112. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.RightBack.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-113. [upgrade] (Part) Workspace.__GAME_CONTENT.Noobs.RightBack.UpgradeUIPart
-114. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.RightBack._Zone_Buy_Noob
-115. [ult] (Accessory) Workspace.__GAME_CONTENT.Noobs.RightBack.Model.Character.Ultra-Fabulous Hair
-116. [ult] (MeshPart) Workspace.__GAME_CONTENT.Noobs.RightBack.Model.Character.Ultra-Fabulous Hair.Handle
-117. [ult] (Attachment) Workspace.__GAME_CONTENT.Noobs.RightBack.Model.Character.Ultra-Fabulous Hair.Handle.HairAttachment
-118. [ult] (Weld) Workspace.__GAME_CONTENT.Noobs.RightBack.Model.Character.Ultra-Fabulous Hair.Handle.AccessoryWeld
-119. [zone] (Part) Workspace.__GAME_CONTENT.Noobs.RightWing._Zone_Buy_Noob
-120. [cooldown] (TextLabel) Workspace.__GAME_CONTENT.Noobs.RightWing.NoobUIPart.BillboardGui.Production Speed
-   Text: LOADING Sec Cooldown
-121. [upgrade] (Folder) Workspace.__GAME_CONTENT.Upgrades
-122. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Planks
-123. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Planks.LOCKED_Part
-124. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Planks.LOCKED_Part.LOCKED
-125. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Planks.LOCKED_Part.LOCKED.Text
-126. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Planks.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-127. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Planks.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 9
-128. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Planks.LOCKED_Part.Model
-129. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Oof
-130. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Oof.Display
-131. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Oof.Display.Display
-132. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Oof.Display.Display.Amount
-133. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Oof.Display.Display.Amount.Icon
-134. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Oof.Display.Display.Amount.Text
-   Text: 2.0e782
-135. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Oof.Upgrades
-136. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Oof.Upgrades.Spcs2
-137. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Oof.Upgrades.shards
-138. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Oof.Design
-139. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Oof.Design.SurfaceGui
-140. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Oof.Design.SurfaceGui.ImageLabel
-141. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Sand
-142. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Sand.LOCKED_Part
-143. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Sand.LOCKED_Part.LOCKED
-144. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Sand.LOCKED_Part.LOCKED.Text
-145. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Sand.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-146. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Sand.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 14
-147. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Sand.LOCKED_Part.Part
-148. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Glory
-149. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Glory.LOCKED_Part
-150. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Glory.LOCKED_Part.LOCKED
-151. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Glory.LOCKED_Part.LOCKED.Text
-152. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Glory.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 24
-153. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Glory.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-154. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Bubbles
-155. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Bubbles.LOCKED_Part
-156. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Bubbles.LOCKED_Part.LOCKED
-157. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Bubbles.LOCKED_Part.LOCKED.Text
-158. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Bubbles.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-159. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Bubbles.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 19
-160. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Pies
-161. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Pearl
-162. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Pearl.LOCKED_Part
-163. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Pearl.LOCKED_Part.LOCKED
-164. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Pearl.LOCKED_Part.LOCKED.Text
-165. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Pearl.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-166. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Pearl.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 20
-167. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals
-168. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Display
-169. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Display.Display
-170. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Display.Display.Amount
-171. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Display.Display.Amount.Icon
-172. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Display.Display.Amount.Text
-   Text: 0
-173. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Display.Design
-174. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Design
-175. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Design.Spcs2
-176. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Upgrades
-177. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Upgrades.shards
-178. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Upgrades.SurfaceGui
-179. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Upgrades.SurfaceGui.Title
-   Text: Sakura Petals Upgrades
-180. [upgrade] (ScrollingFrame) Workspace.__GAME_CONTENT.Upgrades.SakuraPetals.Upgrades.SurfaceGui.Main
-181. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Ice
-182. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Ice.Upgrades
-183. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Ice.Upgrades.shards
-184. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Ice.Design
-185. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Ice.Design.Spcs2
-186. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Ice.Design.SurfaceGui
-187. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Ice.Design.SurfaceGui.ImageLabel
-188. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Ice.Display
-189. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Ice.Display.Display
-190. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Ice.Display.Display.Amount
-191. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Ice.Display.Display.Amount.Icon
-192. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Ice.Display.Display.Amount.Text
-   Text: 0
-193. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Ice.Display.Design
-194. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.SeaPoints
-195. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.SeaPoints.LOCKED_Part
-196. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.SeaPoints.LOCKED_Part.LOCKED
-197. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.SeaPoints.LOCKED_Part.LOCKED.Text
-198. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.SeaPoints.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-199. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.SeaPoints.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 21
-200. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Moon
-201. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Moon.LOCKED_Part
-202. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Moon.LOCKED_Part.LOCKED
-203. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Moon.LOCKED_Part.LOCKED.Text
-204. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Moon.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-205. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Moon.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 15
-206. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Burden
-207. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Burden.LOCKED_Part
-208. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Burden.LOCKED_Part.LOCKED
-209. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Burden.LOCKED_Part.LOCKED.Text
-210. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Burden.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 23
-211. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Burden.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-212. [cash] (Model) Workspace.__GAME_CONTENT.Upgrades.AlienCash
-213. [cash] (Part) Workspace.__GAME_CONTENT.Upgrades.AlienCash.LOCKED_Part
-214. [cash] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.AlienCash.LOCKED_Part.LOCKED
-215. [cash] (Frame) Workspace.__GAME_CONTENT.Upgrades.AlienCash.LOCKED_Part.LOCKED.Text
-216. [cash] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.AlienCash.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-217. [cash] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.AlienCash.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 17
-218. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Oil
-219. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Oil.LOCKED_Part
-220. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Oil.LOCKED_Part.LOCKED
-221. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Oil.LOCKED_Part.LOCKED.Text
-222. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Oil.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-223. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Oil.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 20
-224. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Meat
-225. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Sweets
-226. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Sweets.Upgrades
-227. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Sweets.Upgrades.shards
-228. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Sweets.Display
-229. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Sweets.Display.Design
-230. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Sweets.Display.Display
-231. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Sweets.Display.Display.Amount
-232. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Sweets.Display.Display.Amount.Icon
-233. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Sweets.Display.Display.Amount.Text
-   Text: 183TVt
-234. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Sweets.Design
-235. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Sweets.Design.Spcs2
-236. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Feathers
-237. [cash] (Model) Workspace.__GAME_CONTENT.Upgrades.Cash
-238. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Cash.Upgrades
-239. [cash] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Cash.Upgrades.shards
-240. [cash] (Part) Workspace.__GAME_CONTENT.Upgrades.Cash.Display
-241. [cash] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Cash.Display.Design
-242. [cash] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Cash.Display.Display
-243. [cash] (Frame) Workspace.__GAME_CONTENT.Upgrades.Cash.Display.Display.Amount
-244. [cash] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Cash.Display.Display.Amount.Icon
-245. [cash] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Cash.Display.Display.Amount.Text
-   Text: 19.7SpVt
-246. [cash] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Cash.Design
-247. [cash] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Cash.Design.SurfaceGui
-248. [cash] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Cash.Design.SurfaceGui.ImageLabel
-249. [cash] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Cash.Design.Spcs2
-250. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Yang
-251. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Coin
-252. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Coin.Display
-253. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Coin.Display.Design
-254. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Coin.Display.Display
-255. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Coin.Display.Display.Amount
-256. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Coin.Display.Display.Amount.Icon
-257. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Coin.Display.Display.Amount.Text
-   Text: 0
-258. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Coin.Design
-259. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Coin.Design.SurfaceGui
-260. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Coin.Design.SurfaceGui.ImageLabel
-261. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Coin.Upgrades
-262. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Coin.Upgrades.shards
-263. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Coin.Upgrades.Spcs2
-264. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Starlight
-265. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Starlight.LOCKED_Part
-266. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Starlight.LOCKED_Part.LOCKED
-267. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Starlight.LOCKED_Part.LOCKED.Text
-268. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Starlight.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 25
-269. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Starlight.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-270. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Knowledge
-271. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part
-272. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED_Part
-273. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED_Part.LOCKED
-274. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED_Part.LOCKED.Text
-275. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-276. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 17
-277. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED
-278. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED.Text
-279. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-280. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Knowledge.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 17
-281. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Thunder
-282. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Thunder.LOCKED_Part
-283. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Thunder.LOCKED_Part.LOCKED
-284. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Thunder.LOCKED_Part.LOCKED.Text
-285. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Thunder.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 26
-286. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Thunder.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-287. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Blaze
-288. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Blaze.Upgrades
-289. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Blaze.Upgrades.shards
-290. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Blaze.Design
-291. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Blaze.Design.Spcs2
-292. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Blaze.Design.SurfaceGui
-293. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Blaze.Design.SurfaceGui.ImageLabel
-294. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Blaze.Display
-295. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Blaze.Display.Design
-296. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Blaze.Display.Display
-297. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Blaze.Display.Display.Amount
-298. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Blaze.Display.Display.Amount.Icon
-299. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Blaze.Display.Display.Amount.Text
-   Text: 5.67DTg
-300. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.SpookyOof
-301. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Upgrades
-302. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Upgrades.shards
-303. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Design
-304. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Design.Spcs2
-305. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Display
-306. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Display.Design
-307. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Display.Display
-308. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Display.Display.Amount
-309. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Display.Display.Amount.Icon
-310. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.SpookyOof.Display.Display.Amount.Text
-   Text: 2.8e410
-311. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Wood
-312. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Wood.LOCKED_Part
-313. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Wood.LOCKED_Part.LOCKED
-314. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Wood.LOCKED_Part.LOCKED.Text
-315. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Wood.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-316. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Wood.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 9
-317. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Goals
-318. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Goals.Design
-319. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Goals.Design.Spcs2
-320. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Goals.Display
-321. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Goals.Display.Design
-322. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Goals.Display.Display
-323. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Goals.Display.Display.Amount
-324. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Goals.Display.Display.Amount.Icon
-325. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Goals.Display.Display.Amount.Text
-   Text: 4.12Oc
-326. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Goals.Upgrades
-327. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Goals.Upgrades.shards
-328. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Water
-329. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Water.Display
-330. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Water.Display.Display
-331. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Water.Display.Display.Amount
-332. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Water.Display.Display.Amount.Icon
-333. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Water.Display.Display.Amount.Text
-   Text: 0
-334. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Water.Display.Design
-335. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Water.Design
-336. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Water.Design.Spcs2
-337. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Water.Design.SurfaceGui
-338. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Water.Design.SurfaceGui.ImageLabel
-339. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Water.Upgrades
-340. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Water.Upgrades.shards
-341. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Planets
-342. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Planets.LOCKED_Part
-343. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Planets.LOCKED_Part.LOCKED
-344. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Planets.LOCKED_Part.LOCKED.Text
-345. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Planets.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-346. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Planets.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 15
-347. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Oof.Design.Spcs2
-348. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Pumpkin
-349. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Upgrades
-350. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Upgrades.shards
-351. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display
-352. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display
-353. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount
-354. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Icon
-355. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Display.Amount.Text
-   Text: 1.4e153
-356. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Display.Design
-357. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Design
-358. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Pumpkin.Design.Spcs2
-359. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Radiance
-360. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Radiance.LOCKED_Part
-361. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Radiance.LOCKED_Part.LOCKED
-362. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Radiance.LOCKED_Part.LOCKED.Text
-363. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Radiance.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 25
-364. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Radiance.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-365. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Rebirth
-366. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Upgrades
-367. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Upgrades.Spcs2
-368. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Upgrades.shards
-369. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Design
-370. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Design.SurfaceGui
-371. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Design.SurfaceGui.ImageLabel
-372. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Display
-373. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Display.Display
-374. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Display.Display.Amount
-375. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Display.Display.Amount.Icon
-376. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Rebirth.Display.Display.Amount.Text
-   Text: 1.1e838
-377. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Stars
-378. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Gem
-379. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Gem.LOCKED_Part
-380. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Gem.LOCKED_Part.LOCKED
-381. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Gem.LOCKED_Part.LOCKED.Text
-382. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Gem.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-383. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Gem.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 10
-384. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Bread
-385. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Bread.Design
-386. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Bread.Design.SurfaceGui
-387. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Bread.Design.SurfaceGui.ImageLabel
-388. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Bread.Upgrades
-389. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Bread.Upgrades.Spcs2
-390. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Bread.Upgrades.shards
-391. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Bread.Display
-392. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Bread.Display.Display
-393. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Bread.Display.Display.Amount
-394. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Bread.Display.Display.Amount.Icon
-395. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Bread.Display.Display.Amount.Text
-   Text: 7.74De
-396. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Bread.Display.Design
-397. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Authority
-398. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Authority.LOCKED_Part
-399. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Authority.LOCKED_Part.LOCKED
-400. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Authority.LOCKED_Part.LOCKED.Text
-401. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Authority.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 26
-402. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Authority.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-403. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Wheat
-404. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Air
-405. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Air.LOCKED_Part
-406. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Air.LOCKED_Part.LOCKED
-407. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Air.LOCKED_Part.LOCKED.Text
-408. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Air.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 19
-409. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Air.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-410. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Chips
-411. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part
-412. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED
-413. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED.Text
-414. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-415. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 18
-416. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED_Part
-417. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED_Part.LOCKED
-418. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED_Part.LOCKED.Text
-419. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-420. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Chips.LOCKED_Part.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 18
-421. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.HackPoints
-422. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Spells
-423. [cash] (Model) Workspace.__GAME_CONTENT.Upgrades.TrashCash
-424. [cash] (Part) Workspace.__GAME_CONTENT.Upgrades.TrashCash.LOCKED_Part
-425. [cash] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.TrashCash.LOCKED_Part.LOCKED
-426. [cash] (Frame) Workspace.__GAME_CONTENT.Upgrades.TrashCash.LOCKED_Part.LOCKED.Text
-427. [cash] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.TrashCash.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-428. [cash] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.TrashCash.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 21
-429. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof
-430. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display
-431. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display
-432. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount
-433. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Icon
-434. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Display.Amount.Text
-   Text: 471M
-435. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Display.Design
-436. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Design
-437. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Design.Spcs2
-438. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Upgrades
-439. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.TurkeyOof.Upgrades.shards
-440. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Souls
-441. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Souls.LOCKED_Part
-442. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Souls.LOCKED_Part.LOCKED
-443. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Souls.LOCKED_Part.LOCKED.Text
-444. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Souls.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-445. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Souls.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 13
-446. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Coral
-447. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Coral.LOCKED_Part
-448. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Coral.LOCKED_Part.LOCKED
-449. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Coral.LOCKED_Part.LOCKED.Text
-450. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Coral.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-451. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Coral.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 19
-452. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.SpacePoints
-453. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.DarkMagic
-454. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Fire
-455. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Fire.Design
-456. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Fire.Design.Spcs2
-457. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Fire.Design.SurfaceGui
-458. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Fire.Design.SurfaceGui.ImageLabel
-459. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Fire.Display
-460. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Fire.Display.Display
-461. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Fire.Display.Display.Amount
-462. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Fire.Display.Display.Amount.Icon
-463. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Fire.Display.Display.Amount.Text
-   Text: 542QdVt
-464. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Fire.Display.Design
-465. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Fire.Upgrades
-466. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Fire.Upgrades.shards
-467. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Bones
-468. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Bones.LOCKED_Part
-469. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Bones.LOCKED_Part.LOCKED
-470. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Bones.LOCKED_Part.LOCKED.Text
-471. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Bones.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-472. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Bones.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 12
-473. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Momentum
-474. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Momentum.LOCKED_Part
-475. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Momentum.LOCKED_Part.LOCKED
-476. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Momentum.LOCKED_Part.LOCKED.Text
-477. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Momentum.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 24
-478. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Momentum.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-479. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Ghost
-480. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Ghost.Display
-481. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Ghost.Display.Display
-482. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Ghost.Display.Display.Amount
-483. [upgrade] (ImageLabel) Workspace.__GAME_CONTENT.Upgrades.Ghost.Display.Display.Amount.Icon
-484. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Ghost.Display.Display.Amount.Text
-   Text: 2.5e199
-485. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Ghost.Display.Design
-486. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.Upgrades.Ghost.Design
-487. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Ghost.Design.Spcs2
-488. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Ghost.Upgrades
-489. [upgrade] (ParticleEmitter) Workspace.__GAME_CONTENT.Upgrades.Ghost.Upgrades.shards
-490. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Blackholes
-491. [upgrade] (Part) Workspace.__GAME_CONTENT.Upgrades.Blackholes.LOCKED_Part
-492. [upgrade] (SurfaceGui) Workspace.__GAME_CONTENT.Upgrades.Blackholes.LOCKED_Part.LOCKED
-493. [upgrade] (Frame) Workspace.__GAME_CONTENT.Upgrades.Blackholes.LOCKED_Part.LOCKED.Text
-494. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Blackholes.LOCKED_Part.LOCKED.Text..
-   Text: Unlock at
-495. [upgrade] (TextLabel) Workspace.__GAME_CONTENT.Upgrades.Blackholes.LOCKED_Part.LOCKED.Text.Text
-   Text: Prestige 16
-496. [upgrade] (Model) Workspace.__GAME_CONTENT.Upgrades.Yin
-497. [upgrade] (Folder) Workspace.__GAME_CONTENT.UpgradeTree
-498. [upgrade] (Folder) Workspace.__GAME_CONTENT.UpgradeTree.StarterTree
-499. [upgrade] (Model) Workspace.__GAME_CONTENT.UpgradeTree.StarterTree.MoreTierBulk
-500. [upgrade] (MeshPart) Workspace.__GAME_CONTENT.UpgradeTree.StarterTree.MoreTierBulk.Light
-----------------------------------------
-Notes:
-- Remote objects are listed by name and path only; they are not called.
-- Script source is not read or executed.
-- Only client-visible/locally replicated content can be found.
+REMOTE INVENTORY (NAMES / PATHS ONLY)
+1. [RemoteEvent] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Poseidon.ViewportFrame.WorldModel.Poseidon.PoseidonsQuakeTrident.Remote | Attributes=none
+2. [RemoteEvent] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Poseidon.ViewportFrame.WorldModel.Poseidon.PoseidonsQuakeTrident.Remote | Attributes=none
+
+BINDABLE INVENTORY (NO FUNCTIONS INVOKED)
+No client-visible bindables found.
+
+RELEVANT MODULE INVENTORY (SOURCE NOT READ)
+
+PROGRESSION / SYSTEM PATH MATCHES
+1. [TextButton] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade
+2. [UIGradient] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.CANT
+3. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.UIStroke
+4. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.UIStroke
+5. [UICorner] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.UICorner
+6. [TextLabel] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.Title
+7. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.Title.UIStroke
+8. [UIGradient] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.CAN
+9. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelCount
+10. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelCount.UIStroke
+11. [TextButton] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp
+12. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.UIStroke
+13. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.UIStroke
+14. [UICorner] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.UICorner
+15. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.Cost
+16. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.Cost.UIStroke
+17. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.Title
+18. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.Title.UIStroke
+19. [UIGradient] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.CAN
+20. [UIGradient] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.CANT
+21. [TextButton] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade
+22. [UIGradient] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.CANT
+23. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.UIStroke
+24. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.UIStroke
+25. [UICorner] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.UICorner
+26. [TextLabel] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.Title
+27. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.Title.UIStroke
+28. [UIGradient] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.CAN
+29. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelCount
+30. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelCount.UIStroke
+31. [TextButton] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp
+32. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.UIStroke
+33. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.UIStroke
+34. [UICorner] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.UICorner
+35. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.Cost
+36. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.Cost.UIStroke
+37. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.Title
+38. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.Title.UIStroke
+39. [UIGradient] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.CAN
+40. [UIGradient] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.CANT
+41. [TextButton] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade
+42. [UIGradient] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.CANT
+43. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.UIStroke
+44. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.UIStroke
+45. [UICorner] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.UICorner
+46. [TextLabel] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.Title
+47. [UIStroke] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.Title.UIStroke
+48. [UIGradient] term=upgrade | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.CAN
+49. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelCount
+50. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelCount.UIStroke
+51. [TextButton] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp
+52. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.UIStroke
+53. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.UIStroke
+54. [UICorner] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.UICorner
+55. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.Cost
+56. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.Cost.UIStroke
+57. [TextLabel] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.Title
+58. [UIStroke] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.Title.UIStroke
+59. [UIGradient] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.CAN
+60. [UIGradient] term=level | Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.CANT
+61. [ScreenGui] term=playerdata | Players.shortname_zen.PlayerGui.PlayerDataMirror
+62. [ImageButton] term=profile | Players.shortname_zen.PlayerGui.HUD.Buttons.Profile
+63. [UIGradient] term=profile | Players.shortname_zen.PlayerGui.HUD.Buttons.Profile.UIGradient
+64. [ImageLabel] term=profile | Players.shortname_zen.PlayerGui.HUD.Buttons.Profile.Icon
+65. [UIAspectRatioConstraint] term=profile | Players.shortname_zen.PlayerGui.HUD.Buttons.Profile.Icon.RatioConstraint
+66. [ImageLabel] term=profile | Players.shortname_zen.PlayerGui.HUD.Buttons.Profile.Glow
+67. [ImageButton] term=teleport | Players.shortname_zen.PlayerGui.HUD.Buttons.Teleporter
+68. [UIGradient] term=teleport | Players.shortname_zen.PlayerGui.HUD.Buttons.Teleporter.UIGradient
+69. [ImageLabel] term=teleport | Players.shortname_zen.PlayerGui.HUD.Buttons.Teleporter.Glow
+70. [ImageLabel] term=teleport | Players.shortname_zen.PlayerGui.HUD.Buttons.Teleporter.Icon
+71. [Frame] term=rune | Players.shortname_zen.PlayerGui.HUD.RunePopup
+72. [UIGridLayout] term=rune | Players.shortname_zen.PlayerGui.HUD.RunePopup.UIGridLayout
+73. [UIAspectRatioConstraint] term=rune | Players.shortname_zen.PlayerGui.HUD.RunePopup.UIAspectRatioConstraint
+74. [ImageButton] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Luck
+75. [TextLabel] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Luck.Boost
+76. [UIStroke] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Luck.Boost.UIStroke
+77. [ImageButton] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Speed
+78. [TextLabel] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Speed.Boost
+79. [UIStroke] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Speed.Boost.UIStroke
+80. [ImageButton] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Bulk
+81. [TextLabel] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Bulk.Boost
+82. [UIStroke] term=rune | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Bulk.Boost.UIStroke
+83. [ImageButton] term=capsule | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Capsule Luck
+84. [TextLabel] term=capsule | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Capsule Luck.Boost
+85. [UIStroke] term=capsule | Players.shortname_zen.PlayerGui.HUD.Boosts.2x Capsule Luck.Boost.UIStroke
+86. [UIGradient] term=rune | Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost.RuneLuck
+87. [ImageButton] term=trial | Players.shortname_zen.PlayerGui.HUD.LeaveTrial
+88. [TextLabel] term=trial | Players.shortname_zen.PlayerGui.HUD.LeaveTrial.Title
+89. [UIStroke] term=trial | Players.shortname_zen.PlayerGui.HUD.LeaveTrial.Title.UIStroke
+90. [UIAspectRatioConstraint] term=trial | Players.shortname_zen.PlayerGui.HUD.LeaveTrial.UIAspectRatioConstraint
+91. [UIGradient] term=trial | Players.shortname_zen.PlayerGui.HUD.LeaveTrial.UIGradient
+92. [Frame] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI
+93. [UIListLayout] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.UIListLayout
+94. [Frame] term=health | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth
+95. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.UIStroke
+96. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.UIStroke
+97. [Frame] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.Fill
+98. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.Fill.UIStroke
+99. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.Fill.UIGradient
+100. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.Progress
+101. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.Progress.UIStroke
+102. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.UIGradient
+103. [UIAspectRatioConstraint] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.UIAspectRatioConstraint
+104. [ImageButton] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.Leave
+105. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.Leave.Title
+106. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.Leave.Title.UIStroke
+107. [UIAspectRatioConstraint] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.Leave.UIAspectRatioConstraint
+108. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.Leave.UIGradient
+109. [Frame] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo
+110. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.UIGradient
+111. [Frame] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Title
+112. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Title.--Text
+113. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Title.--Text.UIStroke
+114. [UIListLayout] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Title.UIListLayout
+115. [Frame] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info
+116. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Text
+117. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Text.UIStroke
+118. [UIListLayout] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.UIListLayout
+119. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.Enemies
+120. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.Enemies.UIStroke
+121. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.Enemies.UIGradient
+122. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Text
+123. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Text.UIStroke
+124. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.WaveCount
+125. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.WaveCount.UIStroke
+126. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.WaveCount.UIGradient
+127. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Sep
+128. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Sep.UIStroke
+129. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Sep.UIGradient
+130. [Frame] term=star | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart
+131. [UIListLayout] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.UIListLayout
+132. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer
+133. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer.UIStroke
+134. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer.UIGradient
+135. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.--Text
+136. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.--Text.UIStroke
+137. [TextLabel] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer
+138. [UIStroke] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer.UIStroke
+139. [UIGradient] term=wave | Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer.UIGradient
+140. [Frame] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash
+141. [ImageLabel] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash.Icon
+142. [TextLabel] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash.Text
+143. [UIStroke] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash.Text.UIStroke
+144. [UIGradient] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash.Text.Cash
+145. [UIGradient] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash.UIGradient
+146. [Frame] term=oof | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs
+147. [UIGradient] term=oof | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs.UIGradient
+148. [ImageLabel] term=oof | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs.Icon
+149. [TextLabel] term=oof | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs.Text
+150. [UIStroke] term=oof | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs.Text.UIStroke
+151. [UIGradient] term=oof | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs.Text.UIGradient
+152. [Frame] term=coin | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins
+153. [ImageLabel] term=coin | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins.Icon
+154. [UIGradient] term=coin | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins.UIGradient
+155. [TextLabel] term=coin | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins.Text
+156. [UIStroke] term=coin | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins.Text.UIStroke
+157. [UIGradient] term=coin | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins.Text.Coins
+158. [Frame] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars
+159. [ImageLabel] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars.Icon
+160. [TextLabel] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars.Text
+161. [UIStroke] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars.Text.UIStroke
+162. [UIGradient] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars.Text.Stars
+163. [UIGradient] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars.UIGradient
+164. [Frame] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash
+165. [ImageLabel] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash.Icon
+166. [UIGradient] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash.UIGradient
+167. [TextLabel] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash.Text
+168. [UIStroke] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash.Text.UIStroke
+169. [UIGradient] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash.Text.AlienCash
+170. [Frame] term=chip | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips
+171. [UIGradient] term=chip | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips.UIGradient
+172. [ImageLabel] term=chip | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips.Icon
+173. [TextLabel] term=chip | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips.Text
+174. [UIStroke] term=chip | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips.Text.UIStroke
+175. [UIGradient] term=chip | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips.Text.Chips
+176. [Frame] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash
+177. [ImageLabel] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash.Icon
+178. [TextLabel] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash.TrashCash
+179. [UIStroke] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash.TrashCash.UIStroke
+180. [UIGradient] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash.TrashCash.TrashCash
+181. [UIGradient] term=cash | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash.UIGradient
+182. [Frame] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight
+183. [ImageLabel] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight.Icon
+184. [TextLabel] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight.Text
+185. [UIStroke] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight.Text.UIStroke
+186. [UIGradient] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight.Text.Starlight
+187. [UIGradient] term=star | Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight.UIGradient
+188. [Frame] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar
+189. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.UIStroke
+190. [Frame] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Fill
+191. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Fill.UIStroke
+192. [UIGradient] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Fill.UIGradient
+193. [TextLabel] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Progress
+194. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Progress.UIStroke
+195. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.UIStroke
+196. [TextLabel] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Percent
+197. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Percent.UIStroke
+198. [TextLabel] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CantPrestige
+199. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CantPrestige.UIStroke
+200. [TextLabel] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CanPrestige
+201. [UIStroke] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CanPrestige.UIStroke
+202. [UIGradient] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CanPrestige.UIGradient
+203. [UIGradient] term=prestige | Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.UIGradient
+204. [ImageButton] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory
+205. [UIGradient] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.UIGradient
+206. [TextLabel] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Title
+207. [UIStroke] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Title.UIStroke
+208. [ImageLabel] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Icon
+209. [UIAspectRatioConstraint] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Icon.RatioConstraint
+210. [ImageLabel] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Glow
+211. [TextLabel] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Notification
+212. [UIStroke] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Notification.Outer
+213. [UIGradient] term=inventory | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Notification.UIGradient
+214. [ImageButton] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile
+215. [UIGradient] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.UIGradient
+216. [TextLabel] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.Title
+217. [UIStroke] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.Title.UIStroke
+218. [ImageLabel] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.Icon
+219. [UIAspectRatioConstraint] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.Icon.RatioConstraint
+220. [ImageLabel] term=profile | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.Glow
+221. [ImageButton] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests
+222. [UIGradient] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.UIGradient
+223. [TextLabel] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Title
+224. [UIStroke] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Title.UIStroke
+225. [ImageLabel] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Icon
+226. [UIAspectRatioConstraint] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Icon.RatioConstraint
+227. [ImageLabel] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Glow
+228. [TextLabel] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Notification
+229. [UIStroke] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Notification.Outer
+230. [UIGradient] term=quest | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Notification.UIGradient
+231. [ImageButton] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes
+232. [UIGradient] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.UIGradient
+233. [TextLabel] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.Title
+234. [UIStroke] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.Title.UIStroke
+235. [ImageLabel] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.Icon
+236. [UIAspectRatioConstraint] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.Icon.RatioConstraint
+237. [ImageLabel] term=rune | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.Glow
+238. [ImageButton] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop
+239. [UIGradient] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.UIGradient
+240. [TextLabel] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.Title
+241. [UIStroke] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.Title.UIStroke
+242. [ImageLabel] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.Icon
+243. [UIAspectRatioConstraint] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.Icon.RatioConstraint
+244. [ImageLabel] term=shop | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.Glow
+245. [ImageButton] term=tree | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree
+246. [UIGradient] term=tree | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.UIGradient
+247. [TextLabel] term=tree | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.Title
+248. [UIStroke] term=tree | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.Title.UIStroke
+249. [ImageLabel] term=tree | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.Icon
+250. [UIAspectRatioConstraint] term=tree | Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.Icon.RatioConstraint
+
+VISIBLE VALUE OBJECTS
+1. [NumberValue] Players.shortname_zen.PlayerGui.TopbarStandard.Holders.Left.OverflowLeft.IconButton.Menu.IconSpot.Contents.IconImage.IconImageScale = 0.5
+2. [NumberValue] Players.shortname_zen.PlayerGui.TopbarStandard.Holders.Right.Widget.IconButton.Menu.IconSpot.Contents.IconImage.IconImageScale = 0.5
+3. [NumberValue] Players.shortname_zen.PlayerGui.TopbarStandard.Holders.Right.Widget.IconButton.Menu.IconSpot.Contents.IconImage.IconImageScale = 0.5
+4. [NumberValue] Players.shortname_zen.PlayerGui.TopbarStandard.Holders.Right.OverflowRight.IconButton.Menu.IconSpot.Contents.IconImage.IconImageScale = 0.5
+5. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Farmer.ViewportFrame.WorldModel.Farmer.Accessory (MeshPart).Handle.AvatarPartScaleType = Classic
+6. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Soldier.ViewportFrame.WorldModel.Soldier.Accessory (Helmet  Cover).Handle.AvatarPartScaleType = Classic
+7. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Fisherman.ViewportFrame.WorldModel.Fisherman.Accessory (Beige Fisherman Hat).Handle.AvatarPartScaleType = Classic
+8. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Knight.ViewportFrame.WorldModel.Knight.Accessory (HelmetAccessory).Handle.AvatarPartScaleType = Classic
+9. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Explorer.ViewportFrame.WorldModel.Explorer.Accessory (backpackBODY_low.001).Handle.AvatarPartScaleType = Classic
+10. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Explorer.ViewportFrame.WorldModel.Explorer.1.Handle.AvatarPartScaleType = Classic
+11. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Magician.ViewportFrame.WorldModel.Magician.Meshes/MagicianHat (1)Accessory.Handle.AvatarPartScaleType = Classic
+12. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Magician.ViewportFrame.WorldModel.Magician.Accessory (Meshes/sung cloak UGC_Head.011Accessory).Handle.AvatarPartScaleType = Classic
+13. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Merchant.ViewportFrame.WorldModel.Merchant.Accessory (Meshes/FORHTELOVEOFGODWORKAccessory).Handle.AvatarPartScaleType = Classic
+14. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Pharaoh.ViewportFrame.WorldModel.Pharaoh.Accessory (Pharaoh royal crown).Handle.AvatarPartScaleType = Classic
+15. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.Accessory (Demonic Horns).Handle.AvatarPartScaleType = Classic
+16. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.Accessory (Demon Tail Red).Handle.AvatarPartScaleType = Classic
+17. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.MeshPartAccessory.Handle.AvatarPartScaleType = Classic
+18. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.Accessory (MeshPart).Handle.AvatarPartScaleType = Classic
+19. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Astronaut.ViewportFrame.WorldModel.Astronaut.AstronautBackpack.Handle.AvatarPartScaleType = Classic
+20. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Astronaut.ViewportFrame.WorldModel.Astronaut.MeshPart.Handle.AvatarPartScaleType = Classic
+21. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Astronaut.ViewportFrame.WorldModel.Astronaut.Flag.Handle.AvatarPartScaleType = Classic
+22. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Diver.ViewportFrame.WorldModel.Diver.DiversDualScubaTank.Handle.AvatarPartScaleType = Classic
+23. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Diver.ViewportFrame.WorldModel.Diver.DiversMask.Handle.AvatarPartScaleType = Classic
+24. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Orca.ViewportFrame.WorldModel.Orca.OrcaHead.Handle.AvatarPartScaleType = Classic
+25. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Orca.ViewportFrame.WorldModel.Orca.OrcaTail_whale.Handle.AvatarPartScaleType = Classic
+26. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Sisyphus.ViewportFrame.WorldModel.Sisyphus.Accessory (Cape).Handle.AvatarPartScaleType = Classic
+27. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Sisyphus.ViewportFrame.WorldModel.Sisyphus.Accessory (curlblack).Handle.AvatarPartScaleType = Classic
+28. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Ares.ViewportFrame.WorldModel.Ares.Accessory (Aries_helmet).Handle.AvatarPartScaleType = Classic
+29. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Ares.ViewportFrame.WorldModel.Ares.MeshPartAccessory.Handle.AvatarPartScaleType = Classic
+30. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Ares.ViewportFrame.WorldModel.Ares.MeshPartAccessory.Handle.AvatarPartScaleType = Classic
+31. [StringValue] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Apollo.ViewportFrame.WorldModel.Apollo.Accessory (greeenelool2).Handle.AvatarPartScaleType = Classic
+32. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Farmer.ViewportFrame.WorldModel.Farmer.Accessory (MeshPart).Handle.AvatarPartScaleType = Classic
+33. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Soldier.ViewportFrame.WorldModel.Soldier.Accessory (Helmet  Cover).Handle.AvatarPartScaleType = Classic
+34. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Fisherman.ViewportFrame.WorldModel.Fisherman.Accessory (Beige Fisherman Hat).Handle.AvatarPartScaleType = Classic
+35. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Knight.ViewportFrame.WorldModel.Knight.Accessory (HelmetAccessory).Handle.AvatarPartScaleType = Classic
+36. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Explorer.ViewportFrame.WorldModel.Explorer.Accessory (backpackBODY_low.001).Handle.AvatarPartScaleType = Classic
+37. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Explorer.ViewportFrame.WorldModel.Explorer.1.Handle.AvatarPartScaleType = Classic
+38. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Magician.ViewportFrame.WorldModel.Magician.Meshes/MagicianHat (1)Accessory.Handle.AvatarPartScaleType = Classic
+39. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Magician.ViewportFrame.WorldModel.Magician.Accessory (Meshes/sung cloak UGC_Head.011Accessory).Handle.AvatarPartScaleType = Classic
+40. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Merchant.ViewportFrame.WorldModel.Merchant.Accessory (Meshes/FORHTELOVEOFGODWORKAccessory).Handle.AvatarPartScaleType = Classic
+41. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Pharaoh.ViewportFrame.WorldModel.Pharaoh.Accessory (Pharaoh royal crown).Handle.AvatarPartScaleType = Classic
+42. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.Accessory (Demonic Horns).Handle.AvatarPartScaleType = Classic
+43. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.Accessory (Demon Tail Red).Handle.AvatarPartScaleType = Classic
+44. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.MeshPartAccessory.Handle.AvatarPartScaleType = Classic
+45. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Demon.ViewportFrame.WorldModel.Demon.Accessory (MeshPart).Handle.AvatarPartScaleType = Classic
+46. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Astronaut.ViewportFrame.WorldModel.Astronaut.AstronautBackpack.Handle.AvatarPartScaleType = Classic
+47. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Astronaut.ViewportFrame.WorldModel.Astronaut.MeshPart.Handle.AvatarPartScaleType = Classic
+48. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Astronaut.ViewportFrame.WorldModel.Astronaut.Flag.Handle.AvatarPartScaleType = Classic
+49. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Diver.ViewportFrame.WorldModel.Diver.DiversDualScubaTank.Handle.AvatarPartScaleType = Classic
+50. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Diver.ViewportFrame.WorldModel.Diver.DiversMask.Handle.AvatarPartScaleType = Classic
+51. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Orca.ViewportFrame.WorldModel.Orca.OrcaHead.Handle.AvatarPartScaleType = Classic
+52. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Orca.ViewportFrame.WorldModel.Orca.OrcaTail_whale.Handle.AvatarPartScaleType = Classic
+53. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Sisyphus.ViewportFrame.WorldModel.Sisyphus.Accessory (Cape).Handle.AvatarPartScaleType = Classic
+54. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Sisyphus.ViewportFrame.WorldModel.Sisyphus.Accessory (curlblack).Handle.AvatarPartScaleType = Classic
+55. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Ares.ViewportFrame.WorldModel.Ares.Accessory (Aries_helmet).Handle.AvatarPartScaleType = Classic
+56. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Ares.ViewportFrame.WorldModel.Ares.MeshPartAccessory.Handle.AvatarPartScaleType = Classic
+57. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Ares.ViewportFrame.WorldModel.Ares.MeshPartAccessory.Handle.AvatarPartScaleType = Classic
+58. [StringValue] Players.shortname_zen.PlayerGui.Expedition.Main.Noobs.Frame.Noobs.ScrollingFrame.Apollo.ViewportFrame.WorldModel.Apollo.Accessory (greeenelool2).Handle.AvatarPartScaleType = Classic
+
+VISIBLE UI TEXT
+1. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Title | Chicken
+2. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Owned | You have 102
+3. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Cost.Amount | 58.3No
+4. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Cost.Title | Bread
+5. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Max.Title | Max
+6. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Upgrade.Title | Buy
+7. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Production.PerSec | /s
+8. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.Production.Amount | 870 Egg
+9. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelCount | Level 249
+10. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.Cost | 67.5No Bread
+11. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Chicken.LevelUp.Title | Level Up
+12. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Title | Pig
+13. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Owned | You have 0
+14. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Cost.Amount | 1.0e298
+15. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Cost.Title | HackPoints
+16. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Max.Title | Max
+17. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Upgrade.Title | Buy
+18. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Production.PerSec | /s
+19. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.Production.Amount | 1 Bacon
+20. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelCount | Level 0
+21. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.Cost | 5.0e306 HackPoints
+22. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Pig.LevelUp.Title | Level Up
+23. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Title | Cow
+24. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Owned | You have 93
+25. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Cost.Amount | 508Sx
+26. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Cost.Title | Wheat
+27. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Max.Title | Max
+28. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Upgrade.Title | Buy
+29. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Production.PerSec | /s
+30. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.Production.Amount | 816 Milk
+31. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelCount | Level 210
+32. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.Cost | 425Sx Wheat
+33. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Main.Cow.LevelUp.Title | Level Up
+34. [TextLabel] Players.shortname_zen.PlayerGui.SurfaceGui.Title | Animals
+35. [TextLabel] Players.shortname_zen.PlayerGui.TopbarStandard.Holders.Right.Widget.IconButton.Menu.IconSpot.Contents.IconLabelContainer.IconLabel | v713
+36. [TextLabel] Players.shortname_zen.PlayerGui.TopbarStandard.Holders.Right.Widget.IconButton.Menu.IconSpot.Contents.IconLabelContainer.IconLabel | 57 FPS
+37. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Prisms.Amount | 20.2M
+38. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Prisms.Gain.Text | +565k
+39. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Prisms.Gain.Timer | [20s]
+40. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Prisms.PrismProducts.Title | +
+41. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Buttons.Guilds.Notification | !!
+42. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.FriendBoost.State | +0%
+43. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.+....Timer | +
+44. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.-....Timer | -
+45. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Luck.Boost | 24:24:24
+46. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Speed.Boost | 24:24:24
+47. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Rune Bulk.Boost | 24:24:24
+48. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.RobloxPlus.State | Inactive
+49. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.RobloxPlus.Unicode | 
+50. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Expedition Luck.Boost | 24:24:24
+51. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Capsule Luck.Boost | 24:24:24
+52. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Drops Luck.Boost | 24:24:24
+53. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Mastery XP.Boost | 24:24:24
+54. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Boosts.2x Aura Luck.Boost | 24:24:24
+55. [TextLabel] Players.shortname_zen.PlayerGui.HUD.BoostHovering.Title | Boost Name
+56. [TextLabel] Players.shortname_zen.PlayerGui.HUD.BoostHovering.State | Active
+57. [TextLabel] Players.shortname_zen.PlayerGui.HUD.BoostHovering.Duration | 15mins
+58. [TextLabel] Players.shortname_zen.PlayerGui.HUD.HackerPoints.Amount | 0
+59. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Title | Weekend Boost
+60. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | x1.5 Prisms
+61. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Text | ◆ 
+62. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | x1.5 Minion Luck
+63. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Text | ◆ 
+64. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | x2 Expedition Luck
+65. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Text | ◆ 
+66. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | x2 Hacker Points
+67. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Text | ◆ 
+68. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | x2 Realm 1 - 5
+69. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Text | ◆ 
+70. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | Currencies
+71. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Timer.Boost | 0 sec
+72. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Timer.Text | Ends in
+73. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Boost | x1.5 Aura Luck
+74. [TextLabel] Players.shortname_zen.PlayerGui.HUD.EventBoosts.Boost.Text | ◆ 
+75. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Goals.Amount | 4.18Oc
+76. [TextLabel] Players.shortname_zen.PlayerGui.HUD.BackToSurface.Title | Back to surface
+77. [TextLabel] Players.shortname_zen.PlayerGui.HUD.LeaveTrial.Title | Leave Trial
+78. [TextLabel] Players.shortname_zen.PlayerGui.HUD.BackToEntry.Title | Back to entry
+79. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yin.Amount | 0
+80. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yin.Gain.Text | +6.54
+81. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yin.Gain.Timer | /s
+82. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yin.Gain.Title | Yin
+83. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yang.Amount | 0
+84. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yang.Gain.Text | +6.54
+85. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yang.Gain.Timer | /s
+86. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Yang.Gain.Title | Yang
+87. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Diving.Air.Progress | (0/60) Air
+88. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Diving.Oysters.. | Oysters
+89. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Diving.Oysters.Amount | 0/10
+90. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Diving.BackToSurface.Title | Back to surface
+91. [TextLabel] Players.shortname_zen.PlayerGui.HUD.Trash.TrashBackpack.Progress | (0KG/100KG) Trash
+92. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.PlayerHealth.Progress | LOADING/LOADING HP
+93. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.Leave.Title | Leave
+94. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Title.--Text | Colosseum
+95. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Text | Enemies Left
+96. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.Enemies | 30
+97. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Text | Wave
+98. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.WaveCount | 3
+99. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.Info.--Sep | /
+100. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer | 24:24:24
+101. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.--Text | Starting in
+102. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ColosseumWavesUI.ColosseumInfo.TimerToStart.Timer | Wave XXX
+103. [TextLabel] Players.shortname_zen.PlayerGui.HUD.ConstellationBack.Title | Back
+104. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Blaze.Text | 5.94DTg
+105. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Bread.Text | 7.95De
+106. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Cash.Text | 24SpVt
+107. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Fire.Text | 556QdVt
+108. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oofs.Text | 2.1e782
+109. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Rebirth.Text | 1.3e838
+110. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Wheat.Text | 204Sx
+111. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coins.Text | LOADING
+112. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Water.Text | LOADING
+113. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Wood.Text | LOADING
+114. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Gems.Text | LOADING
+115. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Ice.Text | LOADING
+116. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Planks.Text | LOADING
+117. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Ash.Text | LOADING
+118. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Meat.Text | LOADING
+119. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Bones.Text | LOADING
+120. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Souls.Text | LOADING
+121. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Sand.Text | LOADING
+122. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Stars.Text | LOADING
+123. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.SpacePoints.Text | LOADING
+124. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Moon.Text | LOADING
+125. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Planets.Text | LOADING
+126. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Blackholes.Text | LOADING
+127. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.AlienCash.Text | LOADING
+128. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Knowledge.Text | LOADING
+129. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Chips.Text | LOADING
+130. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.HackPoints.Text | LOADING
+131. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Yin.Text | LOADING
+132. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Yang.Text | LOADING
+133. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Bubbles.Text | LOADING
+134. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Air.Text | LOADING
+135. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Coral.Text | LOADING
+136. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Pearl.Text | LOADING
+137. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Oil.Text | LOADING
+138. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.TrashCash.TrashCash | LOADING
+139. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.SeaPoints.Text | LOADING
+140. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Burden.Text | LOADING
+141. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Glory.Text | LOADING
+142. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Momentum.Text | LOADING
+143. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Radiance.Text | LOADING
+144. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Starlight.Text | LOADING
+145. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Thunder.Text | LOADING
+146. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Currencies.ScrollingFrame.Authority.Text | LOADING
+147. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Progress | 2.1e782/1.0e900 Oofs
+148. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.Percent | 86%
+149. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CantPrestige | Progress for Prestige 8
+150. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.PrestigeBar.CanPrestige | You can prestige now !!
+151. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Feedback.Title | Feedback
+152. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Title | Inventory
+153. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Inventory.Notification | +1.5K
+154. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Masteries.Title | Masteries
+155. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Profile.Title | Profile
+156. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Title | Quests
+157. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Quests.Notification | !!
+158. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Runes.Title | Runes
+159. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Settings.Title | Settings
+160. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Shop.Title | Shop
+161. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.Title | Tree
+162. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.Tree.Notification | !!
+163. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.HackerTree.Title | H.Tree
+164. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.HackerTree.Notification | !!
+165. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.FootballTree.Title | F.Tree
+166. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.FootballTree.Notification | !!
+167. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.MobsIndex.Title | Mob Index
+168. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.HalloweenMasteries.Title | H. Masteries
+169. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.HalloweenTree.Title | H.Tree
+170. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Buttons.HalloweenTree.Notification | !!
+171. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Title.--Text | TRIAL
+172. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Title.Difficulty | EASY
+173. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.--Text | Enemies Left
+174. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.Enemies | 30
+175. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.--Sep | /
+176. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.--Text | Time Remaining
+177. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.Timer | 29:29:29
+178. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.--Text | Wave
+179. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.WaveCount | 3
+180. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.Info.--Sep | /
+181. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.TimerToStart.Timer | 24:24:24
+182. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TrialUI.TimerToStart.--Text | Starting in
+183. [TextLabel] Players.shortname_zen.PlayerGui.FullScreen.Popups.TPToTrial.Title | TP To Trial
+184. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.Close.Title | X
+185. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.Header.Title | Are you sure ?
+186. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.Buttons.Reroll.Title | Reroll
+187. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.Buttons.Cancel.Title | Cancel
+188. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.Title | Are you sure you want to reroll
+189. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.EnchantName | "Godly"
+190. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.Warning.Frame.Title | Enchant? This can't be undone
+191. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Close.Title | X
+192. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Header.Title | Pick A Noob
+193. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Starter.Title | Starter
+194. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Cooker.Title | Cooker
+195. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Farmer.Title | Farmer
+196. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Archer.Title | Archer
+197. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Soldier.Title | Soldier
+198. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Fisherman.Title | Fisherman
+199. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Knight.Title | Knight
+200. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Explorer.Title | Explorer
+201. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Magician.Title | Magician
+202. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Merchant.Title | Merchant
+203. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Mummy.Title | Mummy
+204. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Pharaoh.Title | Pharaoh
+205. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Alien.Title | Alien
+206. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Demon.Title | Demon
+207. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Astronaut.Title | Astronaut
+208. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Diver.Title | Diver
+209. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Orca.Title | Orca
+210. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Poseidon.Title | Poseidon
+211. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Sisyphus.Title | Sisyphus
+212. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Ares.Title | Ares
+213. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Apollo.Title | Apollo
+214. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.SELECTION.Noobs.Frame.Container.ScrollingFrame.Zeus.Title | Zeus
+215. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.BASIS.EnchantTokens.Text | 491
+216. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.BASIS.EnchantTokens.EnchantTokenProducts.Title | +
+217. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.ENCHANTS.Noobs.Frame.Header.Title | Enchants
+218. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.ENCHANTS.Noobs.Frame.Noob.Plus | +
+219. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.ENCHANTS.Noobs.Frame.Noob.ClickText | Click to select a Noob
+220. [TextLabel] Players.shortname_zen.PlayerGui.Enchants.Main.ENCHANTS.Noobs.Frame.Buttons.Roll.Title | Reroll
+
+INTERACTABLES
+
+COVERAGE / SAFETY
+- Prioritizes PlayerGui, PlayerScripts, Backpack, Character, and ReplicatedStorage network folders.
+- Large replicated asset folders and CmdrClient command-definition folders are skipped to reduce noise.
+- RemoteEvents, RemoteFunctions, UnreliableRemoteEvents, BindableEvents, and BindableFunctions are inventoried only; none are invoked. No script source is read or executed.
+- Only client-visible objects are inspected; server-only logic and data are unavailable.
+- String values with token/secret/password/key names are redacted.
+- A reached scan limit means later objects may not be included.
