@@ -1419,6 +1419,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             ["HALLOWEEN EVENT"] = "🎃",
             ["THANKSGIVING EVENT"] = "🦃",
             ["EVENT SCANNER"] = "🔎",
+            ["TURKEY FINDER"] = "🦃",
             ["FIGHT ON A BASEPLATE"] = "⚔️",
             ["PLAYER TOOLS"] = "🛠️",
             ["DETECTORS"] = "🧭",
@@ -2613,8 +2614,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local results = ThanksgivingScanner and ThanksgivingScanner:GetTurkeyResults() or {}
         TurkeyFinderStatus.Text = "LOCATED: " .. tostring(#results) .. "/30"
         for index, result in ipairs(results) do
-            local row = Label(TurkeyResultsFrame, string.format("%02d. %s", index, result.name), 10, 20, White)
-            row.TextTruncate = Enum.TextTruncate.AtEnd
+            local row = Label(TurkeyResultsFrame, string.format("%02d. %s | %s", index, result.name, result.path), 9, 32, White)
+            row.TextWrapped = true
             row.LayoutOrder = index
         end
         if #results == 0 then
