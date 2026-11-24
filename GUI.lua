@@ -3302,15 +3302,17 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             local ok, count = pcall(function() return LiveObserver:GetCount() end)
             if ok then watched = count end
         end
-        if changes == nil and LiveObserver and type(LiveObserver.GetReport) == "function" then
-            local ok, report = pcall(function() return LiveObserver:GetReport() end)
-            if ok and type(report) == "string" then
-                local _, count = report:gsub("\n%d+%. ", "")
-                changes = count
-            end
+        if changes == nil and LiveObserver and type(LiveObserver.GetChangeCount) == "function" then
+            local ok, count = pcall(function() return LiveObserver:GetChangeCount() end)
+            if ok then changes = count end
         end
         LiveObserverCount.Text = "WATCHING: " .. tostring(watched or 0) .. " | CHANGES: " .. tostring(changes or 0)
     end
+    local LiveObserverUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+    MakeBox(LiveObserverFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", LiveObserverUploadKey, function(value)
+        LiveObserverUploadKey = tostring(value or "")
+        UploadKeyCache.__SHORTNAME_UPLOAD_KEY = LiveObserverUploadKey
+    end)
 
     MakeButton(LiveObserverFolder, "START UNIVERSAL LIVE OBSERVER", function()
         if not LiveObserver or type(LiveObserver.Start) ~= "function" then
@@ -3333,6 +3335,30 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             UpdateLiveObserver("MODULE NOT LOADED")
         end
     end, Color3.fromRGB(125, 75, 55))
+
+    MakeButton(LiveObserverFolder, "UPLOAD LIVE OBSERVATION REPORT", function()
+        if not LiveObserver or type(LiveObserver.UploadReport) ~= "function" then
+            UpdateLiveObserver("MODULE NOT LOADED")
+            return
+        end
+        if LiveObserverUploadKey == "" then
+            UpdateLiveObserver("ENTER UPLOAD KEY FIRST")
+            return
+        end
+        UpdateLiveObserver("UPLOADING REPORT...")
+        task.spawn(function()
+            local ok, success, message = pcall(function()
+                return LiveObserver:UploadReport(LiveObserverUploadKey)
+            end)
+            if not ok then
+                UpdateLiveObserver("UPLOAD ERROR: " .. tostring(success))
+            elseif success then
+                UpdateLiveObserver(message or "REPORT UPLOADED")
+            else
+                UpdateLiveObserver("UPLOAD FAILED: " .. tostring(message))
+            end
+        end)
+    end, Color3.fromRGB(45, 105, 145))
 
     MakeButton(LiveObserverFolder, "COPY LIVE OBSERVATION REPORT", function()
         if not LiveObserver or type(LiveObserver.GetReport) ~= "function" then
