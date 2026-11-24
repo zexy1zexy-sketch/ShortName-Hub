@@ -239,7 +239,7 @@ end
 
 function Scanner:GetReport()
     local lines = {
-        "SHORTNAME HUB - FIGHT ON A BASEPLATE SCAN REPORT",
+        "SHORTNAME HUB - UNIVERSAL GAME OBJECT SCAN REPORT",
         "Results: " .. tostring(#self._results),
         "Objects inspected: " .. tostring(self._scanned),
         "Remote objects found: " .. tostring(self._remoteCount),
