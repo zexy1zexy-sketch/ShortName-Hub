@@ -1,5 +1,5 @@
--- FightOnABaseplateStructureScanner.lua
--- Passive inventory of client-visible combat-related instances and remotes.
+-- UniversalStructureScanner.lua (legacy filename)
+-- Passive inventory of client-visible systems, instances, and remotes across any experience.
 -- Never reads/executes script source and never invokes any remote or bindable.
 
 local Scanner = {}
@@ -12,12 +12,18 @@ local roots = {
 }
 
 local TERMS = {
-    "combat", "fight", "attack", "hitbox", "hurtbox", "damage", "melee",
-    "weapon", "sword", "punch", "kick", "block", "parry", "guard",
-    "stun", "ragdoll", "knockback", "dash", "dodge", "roll", "combo",
-    "cooldown", "ability", "skill", "ultimate", "lockon", "lock on",
-    "target", "aim", "projectile", "bullet", "health", "shield",
-    "arm", "swing", "slash", "hit", "anim", "replicate", "packet"
+    "game", "system", "manager", "controller", "service", "handler", "config",
+    "player", "character", "humanoid", "avatar", "spawn", "respawn", "team",
+    "round", "match", "level", "stage", "world", "map", "zone", "checkpoint",
+    "quest", "mission", "objective", "task", "achievement", "badge", "reward",
+    "inventory", "item", "tool", "equipment", "weapon", "ability", "skill",
+    "upgrade", "progress", "experience", "currency", "coin", "cash", "shop",
+    "trade", "pet", "companion", "mount", "vehicle", "craft", "collect",
+    "event", "season", "daily", "challenge", "leaderboard", "rank", "class",
+    "health", "damage", "attack", "hitbox", "projectile", "gameplay", "physics",
+    "movement", "teleport", "camera", "input", "interaction", "prompt",
+    "gui", "hud", "menu", "interface", "notification", "dialog", "tutorial",
+    "remote", "replicate", "packet", "network", "data", "profile", "save"
 }
 local MAX_SCAN = 50000
 local MAX_REMOTE = 300
@@ -161,11 +167,11 @@ function Scanner:Start(onUpdate)
         if self._scanId ~= scanId then return end
         self._running = false
         local lines = {
-            "SHORTNAME HUB - FIGHT ON A BASEPLATE STRUCTURE SCAN",
+            "SHORTNAME HUB - UNIVERSAL STRUCTURE SCAN",
             "Mode: PASSIVE / READ-ONLY",
             "Objects inspected: " .. tostring(scanned),
             "RemoteEvents/RemoteFunctions found: " .. tostring(#remotes),
-            "Combat-related name/path matches: " .. tostring(#matches),
+            "Universal system name/path matches: " .. tostring(#matches),
             "Targeted structure entries: " .. tostring(#deep),
             "Scan limit: " .. tostring(MAX_SCAN),
             "----------------------------------------",
@@ -176,7 +182,7 @@ function Scanner:Start(onUpdate)
         end
         if #remotes == 0 then table.insert(lines, "No RemoteEvents or RemoteFunctions found in scanned roots.") end
         table.insert(lines, "")
-        table.insert(lines, "COMBAT-RELATED INSTANCE MATCHES")
+        table.insert(lines, "UNIVERSAL SYSTEM INSTANCE MATCHES")
         for i, item in ipairs(matches) do
             table.insert(lines, string.format(
                 "%d. [%s] term=%s children=%d | %s",
@@ -185,8 +191,8 @@ function Scanner:Start(onUpdate)
         end
         if #matches == 0 then table.insert(lines, "No combat-related name/path matches found.") end
         table.insert(lines, "")
-        table.insert(lines, "TARGETED COMBAT MODULE / ASSET STRUCTURE")
-        table.insert(lines, "Targets: RaycastHitboxV4, Packet, StyleWeapons, Flying, SFX, AimScript, LockOn, CameraShake")
+        table.insert(lines, "SELECTED SYSTEM / ASSET METADATA")
+        table.insert(lines, "Targets: common gameplay, interface, networking, progression, and system metadata")
         for i, item in ipairs(deep) do
             local detail = string.format("%d. [%s] %s", i, item.className, item.path)
             if item.assetId and item.assetId ~= "" then
