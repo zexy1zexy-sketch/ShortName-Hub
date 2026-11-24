@@ -1,0 +1,9 @@
+SHORTNAME HUB GAME REPORT
+Detected: 2026-11-24 08:52:57 UTC
+Game: [EVENT🦃] Noob Incremental
+PlaceId: 76911729991355
+UniverseId: 9965411707
+Source: Roblox client game metadata
+Note: This report was manually approved for upload.
+
+Received by ShortName Hub: 2026-11-24T08:52:59.637Z
