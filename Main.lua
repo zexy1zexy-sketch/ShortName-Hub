@@ -463,7 +463,7 @@ StartHub = function(skipKey)
     end
 
     local completed = 0
-    local total = 19
+    local total = 20
     local function Step(message)
         completed = completed + 1
         if Loading and type(Loading.SetProgress) == "function" then
