@@ -1621,28 +1621,47 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             RedeemAllButton.Active = false
             RetryButton.Active = false
             local attemptedNow, skipped, failed = 0, 0, 0
-            for index, code in ipairs(CodesToRedeem) do
-                if retryOnly and CodeAttempted[code] then
-                    skipped = skipped + 1
-                else
-                    CodeStatus.Text = "ATTEMPTING " .. tostring(index) .. "/" .. tostring(#CodesToRedeem) .. ": " .. code
-                    local ok, reason = RedeemOne(code)
-                    if ok then
-                        attemptedNow = attemptedNow + 1
+            local lastError = nil
+
+            local batchOk, batchError = xpcall(function()
+                for index, code in ipairs(CodesToRedeem) do
+                    if retryOnly and CodeAttempted[code] then
+                        skipped = skipped + 1
                     else
-                        failed = failed + 1
-                        CodeStatus.Text = "WAITING: " .. tostring(reason)
-                        if tostring(reason):find("Shop", 1, true) then break end
+                        CodeStatus.Text = "CHECKING SHOP UI — " .. code
+                        local ok, reason = RedeemOne(code)
+                        if ok then
+                            attemptedNow = attemptedNow + 1
+                            CodeStatus.Text = "SUBMITTED " .. tostring(index) .. "/" .. tostring(#CodesToRedeem) .. ": " .. code
+                        else
+                            failed = failed + 1
+                            lastError = tostring(reason or "Unknown redemption error")
+                            CodeStatus.Text = "FAILED: " .. code .. " | " .. lastError
+                            if lastError:find("Shop", 1, true) then break end
+                        end
+                        task.wait(1.25)
                     end
-                    task.wait(1.25)
                 end
+            end, function(err)
+                return debug.traceback(tostring(err), 2)
+            end)
+
+            if not batchOk then
+                lastError = tostring(batchError)
             end
-            CodeStatus.Text = "FINISHED — attempted: " .. attemptedNow .. " | skipped: " .. skipped .. " | errors: " .. failed
+
+            if not batchOk then
+                CodeStatus.Text = "SCRIPT ERROR: " .. tostring(lastError):sub(1, 220)
+            elseif failed > 0 then
+                CodeStatus.Text = "DONE — submitted: " .. attemptedNow .. " | failed: " .. failed .. " | last: " .. tostring(lastError):sub(1, 160)
+            else
+                CodeStatus.Text = "DONE — submitted: " .. attemptedNow .. " | skipped: " .. skipped .. " | errors: 0"
+            end
+
             RedeemAllButton.Active = true
             RetryButton.Active = true
             CodeRunning = false
         end
-
         RedeemAllButton.Activated:Connect(function()
             task.spawn(function() RunCodeBatch(false) end)
         end)
