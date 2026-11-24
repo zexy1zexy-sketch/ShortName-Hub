@@ -1,5 +1,5 @@
--- FightOnABaseplateScanner.lua
--- Read-only game systems scanner. It inspects client-visible instances only.
+-- UniversalObjectScanner.lua (legacy filename)
+-- Read-only, game-independent discovery of client-visible gameplay systems.
 -- It does not fire remotes, purchase items, or modify game state.
 
 local Scanner = {}
@@ -11,8 +11,8 @@ local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Workspace = game:GetService("Workspace")
 
 local KEYWORDS = {
-    "fight on a baseplate",
-    "baseplate",
+    "gameplay",
+    "experience",
     "combat",
     "fight",
     "fighting",
