@@ -169,7 +169,7 @@ function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent,
     return holder, function(value) setValue(value, false) end
 end
 
-function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, RefreshCallback, PresenceModule, ThemeModule)
+function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanner, FightInspector, FightStructureScanner, LiveObserver, RefreshCallback, PresenceModule, ThemeModule)
     GUI.AnimationsEnabled = true
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -2929,6 +2929,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end, Color3.fromRGB(45, 105, 75))
 
     ScreenGui.Destroying:Connect(function()
+        if LiveObserver and type(LiveObserver.Stop) == "function" then
+            pcall(function() LiveObserver:Stop() end)
+        end
         StopAutoReset()
         StopPlayerTracker()
         if TeleportTargetRemovingConnection then
@@ -3277,6 +3280,79 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             UpdateStructureDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
         else
             UpdateStructureDisplay("MODULE NOT LOADED", nil)
+        end
+    end, Color3.fromRGB(85, 75, 105))
+
+    -- UNIVERSAL LIVE CHANGE OBSERVER
+    local LiveObserverFolder = MakeFolder("UNIVERSAL LIVE OBSERVER", FightDetectorsFolder, false)
+    Label(LiveObserverFolder, "UNIVERSAL LIVE CHANGE OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(
+        LiveObserverFolder,
+        "Passively tracks changes to client-visible Value objects and UI labels/buttons in any experience. Chat, text-entry, and sensitive-looking paths are excluded.",
+        10,
+        48,
+        Grey
+    )
+    local LiveObserverStatus = Label(LiveObserverFolder, "OBSERVER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+    LiveObserverStatus.Font = Enum.Font.GothamBold
+    local LiveObserverCount = Label(LiveObserverFolder, "WATCHING: 0 | CHANGES: 0", 10, 22, Grey)
+    local function UpdateLiveObserver(status, watched, changes)
+        if status then LiveObserverStatus.Text = "OBSERVER: " .. tostring(status) end
+        if watched == nil and LiveObserver and type(LiveObserver.GetCount) == "function" then
+            local ok, count = pcall(function() return LiveObserver:GetCount() end)
+            if ok then watched = count end
+        end
+        if changes == nil and LiveObserver and type(LiveObserver.GetReport) == "function" then
+            local ok, report = pcall(function() return LiveObserver:GetReport() end)
+            if ok and type(report) == "string" then
+                local _, count = report:gsub("\n%d+%. ", "")
+                changes = count
+            end
+        end
+        LiveObserverCount.Text = "WATCHING: " .. tostring(watched or 0) .. " | CHANGES: " .. tostring(changes or 0)
+    end
+
+    MakeButton(LiveObserverFolder, "START UNIVERSAL LIVE OBSERVER", function()
+        if not LiveObserver or type(LiveObserver.Start) ~= "function" then
+            UpdateLiveObserver("MODULE NOT LOADED")
+            return
+        end
+        local ok, result = pcall(function()
+            return LiveObserver:Start(function(status, watched, changes)
+                UpdateLiveObserver(status, watched, changes)
+            end)
+        end)
+        if ok then UpdateLiveObserver(result or "STARTED") else UpdateLiveObserver("ERROR: " .. tostring(result)) end
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(LiveObserverFolder, "STOP UNIVERSAL LIVE OBSERVER", function()
+        if LiveObserver and type(LiveObserver.Stop) == "function" then
+            local ok = pcall(function() LiveObserver:Stop() end)
+            UpdateLiveObserver(ok and "STOPPED" or "STOP FAILED")
+        else
+            UpdateLiveObserver("MODULE NOT LOADED")
+        end
+    end, Color3.fromRGB(125, 75, 55))
+
+    MakeButton(LiveObserverFolder, "COPY LIVE OBSERVATION REPORT", function()
+        if not LiveObserver or type(LiveObserver.GetReport) ~= "function" then
+            UpdateLiveObserver("MODULE NOT LOADED")
+            return
+        end
+        local ok, report = pcall(function() return LiveObserver:GetReport() end)
+        if not ok then UpdateLiveObserver("REPORT ERROR"); return end
+        local copied = false
+        if type(setclipboard) == "function" then copied = pcall(function() setclipboard(report) end) end
+        if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(report) end) end
+        UpdateLiveObserver(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE")
+    end)
+
+    MakeButton(LiveObserverFolder, "CLEAR LIVE OBSERVATION HISTORY", function()
+        if LiveObserver and type(LiveObserver.Clear) == "function" then
+            local ok = pcall(function() LiveObserver:Clear() end)
+            UpdateLiveObserver(ok and "HISTORY CLEARED" or "CLEAR FAILED", nil, 0)
+        else
+            UpdateLiveObserver("MODULE NOT LOADED")
         end
     end, Color3.fromRGB(85, 75, 105))
 
