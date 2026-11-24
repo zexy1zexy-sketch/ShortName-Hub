@@ -306,8 +306,13 @@ local function LoadModule(name)
 
     local response
     local success, requestError = pcall(function()
-        response = RequestFunction({
-            Url = MODULE_ENDPOINT .. name,
+        local moduleUrl = MODULE_ENDPOINT .. name
+    if name == "GUI.lua" then
+        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/gui-complete-fix/GUI.lua"
+        AddDiagnostic("Loading GUI.lua directly from gui-complete-fix test branch.")
+    end
+    response = RequestFunction({
+            Url = moduleUrl,
             Method = "GET",
             Headers = {
                 ["Cache-Control"] = "no-cache",
