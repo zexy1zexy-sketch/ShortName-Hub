@@ -2588,7 +2588,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- This is manually started and bounded; it never runs in the background.
     local AutoTurkeyRunning = false
     local AutoTurkeyStatus = Label(TurkeyFinderFolder, "AUTO FINDER: READY", 10, 24, Grey)
-    local AutoTurkeyStartButton = MakeButton(TurkeyFinderFolder, "AUTO-FIND & VISIT HIDDEN TURKEYS", function()
+    MakeButton(TurkeyFinderFolder, "AUTO-FIND & VISIT HIDDEN TURKEYS", function()
         if AutoTurkeyRunning then
             AutoTurkeyStatus.Text = "AUTO FINDER: ALREADY RUNNING"
             return
