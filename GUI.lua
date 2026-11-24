@@ -2590,6 +2590,78 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- THANKSGIVING EVENT FOLDER
     -- Kept separate from Halloween so event features stay organized.
     local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT")
+
+    local TurkeyFinderFolder = MakeFolder("TURKEY FINDER", ThanksgivingFolder)
+    Label(TurkeyFinderFolder, "THANKSGIVING TURKEY FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+    Label(TurkeyFinderFolder, "Finds turkey-named objects currently replicated to your client. Located does not mean collected.", 10, 38, Grey).TextWrapped = true
+    local TurkeyFinderStatus = Label(TurkeyFinderFolder, "LOCATED: 0/30", 12, 24, Color3.fromRGB(170, 210, 255))
+    TurkeyFinderStatus.Font = Enum.Font.GothamBold
+    local TurkeyResultsFrame = Instance.new("Frame")
+    TurkeyResultsFrame.Size = UDim2.new(1, 0, 0, 0)
+    TurkeyResultsFrame.AutomaticSize = Enum.AutomaticSize.Y
+    TurkeyResultsFrame.BackgroundTransparency = 1
+    TurkeyResultsFrame.Parent = TurkeyFinderFolder
+    local TurkeyResultsLayout = Instance.new("UIListLayout")
+    TurkeyResultsLayout.Padding = UDim.new(0, 4)
+    TurkeyResultsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    TurkeyResultsLayout.Parent = TurkeyResultsFrame
+
+    local function RefreshTurkeyResults()
+        for _, child in ipairs(TurkeyResultsFrame:GetChildren()) do
+            if child:IsA("TextLabel") then child:Destroy() end
+        end
+        local results = ThanksgivingScanner and ThanksgivingScanner:GetTurkeyResults() or {}
+        TurkeyFinderStatus.Text = "LOCATED: " .. tostring(#results) .. "/30"
+        for index, result in ipairs(results) do
+            local row = Label(TurkeyResultsFrame, string.format("%02d. %s", index, result.name), 10, 20, White)
+            row.TextTruncate = Enum.TextTruncate.AtEnd
+            row.LayoutOrder = index
+        end
+        if #results == 0 then
+            local empty = Label(TurkeyResultsFrame, "No turkey-named objects found yet. Try scanning in the event area.", 10, 34, Grey)
+            empty.TextWrapped = true
+        end
+    end
+
+    MakeButton(TurkeyFinderFolder, "SCAN / REFRESH TURKEYS", function()
+        if not ThanksgivingScanner or type(ThanksgivingScanner.ScanTurkeys) ~= "function" then
+            TurkeyFinderStatus.Text = "FINDER MODULE UNAVAILABLE"
+            return
+        end
+        TurkeyFinderStatus.Text = "SCANNING..."
+        task.spawn(function()
+            local ok, success, count = pcall(function()
+                return ThanksgivingScanner:ScanTurkeys()
+            end)
+            if not ok or not success then
+                TurkeyFinderStatus.Text = "SCAN FAILED"
+                return
+            end
+            RefreshTurkeyResults()
+            TurkeyFinderStatus.Text = "LOCATED: " .. tostring(count) .. "/30"
+        end)
+    end, Color3.fromRGB(45, 115, 75))
+
+    MakeButton(TurkeyFinderFolder, "HIGHLIGHT LOCATED TURKEYS", function()
+        if not ThanksgivingScanner then return end
+        local count = ThanksgivingScanner:HighlightTurkeys()
+        TurkeyFinderStatus.Text = "HIGHLIGHTING: " .. tostring(count) .. " TURKEYS"
+    end, Color3.fromRGB(125, 85, 35))
+
+    MakeButton(TurkeyFinderFolder, "CLEAR TURKEY HIGHLIGHTS", function()
+        if ThanksgivingScanner then ThanksgivingScanner:ClearTurkeyHighlights() end
+        TurkeyFinderStatus.Text = "HIGHLIGHTS CLEARED"
+    end, Color3.fromRGB(85, 75, 105))
+
+    MakeButton(TurkeyFinderFolder, "COPY TURKEY REPORT", function()
+        if not ThanksgivingScanner then return end
+        local report = ThanksgivingScanner:GetTurkeyReport()
+        local copied = false
+        if type(setclipboard) == "function" then copied = pcall(function() setclipboard(report) end) end
+        if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(report) end) end
+        TurkeyFinderStatus.Text = copied and "TURKEY REPORT COPIED" or "CLIPBOARD UNAVAILABLE"
+    end)
+
     local ThanksgivingScannerFolder = MakeFolder("EVENT SCANNER", ThanksgivingFolder, false)
 
     Label(ThanksgivingScannerFolder, "THANKSGIVING EVENT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
