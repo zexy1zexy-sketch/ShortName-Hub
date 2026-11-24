@@ -408,6 +408,11 @@ local function StopRuntime(runtime)
         end
     end)
     pcall(function()
+        if runtime.LiveObserver and type(runtime.LiveObserver.Stop) == "function" then
+            runtime.LiveObserver:Stop()
+        end
+    end)
+    pcall(function()
         if runtime.Interface and runtime.Interface.ScreenGui then
             runtime.Interface.ScreenGui:Destroy()
         end
@@ -458,7 +463,7 @@ StartHub = function(skipKey)
     end
 
     local completed = 0
-    local total = 17
+    local total = 19
     local function Step(message)
         completed = completed + 1
         if Loading and type(Loading.SetProgress) == "function" then
@@ -514,6 +519,7 @@ StartHub = function(skipKey)
         local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded universal object scanner")
         local FightInspectorModule = LoadTracked("FightOnABaseplateInspector.lua", "Loaded universal instance inspector")
         local FightStructureScannerModule = LoadTracked("FightOnABaseplateStructureScanner.lua", "Loaded universal structure scanner")
+        local LiveObserverModule = LoadTracked("UniversalLiveObserver.lua", "Loaded universal live observer")
 
         if Loading and type(Loading.SetProgress) == "function" then
             Loading.SetProgress(completed, total, "Initializing hub systems...")
@@ -536,6 +542,8 @@ StartHub = function(skipKey)
         Step("Initialized combat inspector")
         local FightStructureScanner = FightStructureScannerModule.new()
         Step("Initialized structure scanner")
+        local LiveObserver = LiveObserverModule.new()
+        Step("Initialized universal live observer")
 
         local guiSuccess, guiResult = pcall(function()
             return GUI.Create(
@@ -546,6 +554,7 @@ StartHub = function(skipKey)
                 FightScanner,
                 FightInspector,
                 FightStructureScanner,
+                LiveObserver,
                 RefreshHub,
                 PresenceModule,
                 ThemeModule
@@ -559,7 +568,8 @@ StartHub = function(skipKey)
                 Scanner = Scanner,
                 FightScanner = FightScanner,
                 FightInspector = FightInspector,
-                FightStructureScanner = FightStructureScanner
+                FightStructureScanner = FightStructureScanner,
+                LiveObserver = LiveObserver
             })
             error("GUI creation failed: " .. tostring(guiResult))
         end
@@ -575,6 +585,7 @@ StartHub = function(skipKey)
             FightScanner = FightScanner,
             FightInspector = FightInspector,
             FightStructureScanner = FightStructureScanner,
+            LiveObserver = LiveObserver,
             Interface = Interface
         }
 
