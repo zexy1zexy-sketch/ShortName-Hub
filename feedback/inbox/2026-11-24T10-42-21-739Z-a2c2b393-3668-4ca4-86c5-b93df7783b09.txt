@@ -1,0 +1,9 @@
+SHORTNAME HUB FEEDBACK
+Received: 2026-11-24T10:42:21.739Z
+Username: FastUsernameHere
+User ID: 12010138103
+Identity source: Roblox client-reported
+
+this feedback tab suddenly disappears and I don't know the cause.
+
+guess the slapper tab is not shown for  members.
