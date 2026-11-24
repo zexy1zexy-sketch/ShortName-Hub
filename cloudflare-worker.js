@@ -1,7 +1,7 @@
 const OWNER="zexy1zexy-sketch", REPO="ShortName-Hub", BRANCH="main";
 const REPORT_PATH="scanner-reports/latest.txt", MAX_REPORT_CHARS=100000;
 const ALLOWED_MODULES=new Set(["Main.lua","Config.lua","GUI.lua","Theme.lua","Presence.lua","KeySystem.lua","LoadingScreen.lua","Logger.lua","NPC.lua","Scythe.lua","SpyAdapter.lua","Teleport.lua","ThanksgivingScanner.lua","FightOnABaseplateScanner.lua", "FightOnABaseplateInspector.lua","FightOnABaseplateStructureScanner.lua"]);
-function cors(){return {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET, POST, PATCH, DELETE, OPTIONS","Access-Control-Allow-Headers":"Content-Type, x-upload-key, x-read-key, x-owner-session","Access-Control-Max-Age":"86400"};}
+function cors(){return {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET, POST, PATCH, DELETE, OPTIONS","Access-Control-Allow-Headers":"Content-Type, x-upload-key, x-read-key, x-owner-session, x-owner-secret","Access-Control-Max-Age":"86400"};}
 function reply(body,status=200,headers={}){return new Response(typeof body==="string"?body:JSON.stringify(body),{status,headers:{...cors(),"Content-Type":"application/json; charset=utf-8",...headers}});}
 function b64utf8(s){const b=new TextEncoder().encode(s);let v="";for(let i=0;i<b.length;i++)v+=String.fromCharCode(b[i]);return btoa(v);}
 async function gh(path,token,options={}){return fetch("https://api.github.com"+path,{...options,headers:{"Authorization":"Bearer "+token,"User-Agent":"ShortNameHub-Worker","Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28",...(options.headers||{})}});}
@@ -50,14 +50,24 @@ async function saveFeedback(message,username,userId,env){
 }
 
 const PRESENCE_PREFIX="presence:";
-async function createOwnerPair(request,env,ctx){
- const identity=ctx?.access?await ctx.access.getIdentity():null;
- const email=String(identity?.email||"").toLowerCase();
- if(!email||email!==String(env.OWNER_EMAIL||"").toLowerCase())return reply({ok:false,error:"Cloudflare Access owner verification failed"},401);
- const bytes=crypto.getRandomValues(new Uint8Array(4));
- const code=String(((bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|bytes[3])>>>0).slice(-6).padStart(6,"0");
- await env.REPORTS.put("owner-pair:"+code,JSON.stringify({email}),{expirationTtl:180});
- return new Response(JSON.stringify({ok:true,code,expiresInSeconds:180,instructions:"Enter this one-time code in ShortName Hub. It expires in 3 minutes."}),{status:200,headers:{...cors(),"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"}});
+async function createOwnerPair(request,env){
+ const supplied=request.headers.get("x-owner-secret")||"";
+ const ip=request.headers.get("CF-Connecting-IP")||"unknown";
+ const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(ip));
+ const ipHash=Array.from(new Uint8Array(digest)).map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,24);
+ const attemptKey="owner-login-attempts:"+ipHash;
+ const attempts=await env.REPORTS.get(attemptKey,"json")||{count:0,blockedUntil:0};
+ if(Number(attempts.blockedUntil||0)>Date.now())return reply({ok:false,error:"Too many failed owner login attempts. Try again later."},429);
+ if(!(await secretMatches(supplied,env.OWNER_SECRET))){
+  const count=Number(attempts.count||0)+1;
+  const blockedUntil=count>=5?Date.now()+900000:0;
+  await env.REPORTS.put(attemptKey,JSON.stringify({count,blockedUntil}),{expirationTtl:900});
+  return reply({ok:false,error:"Invalid owner secret"},401);
+ }
+ await env.REPORTS.delete(attemptKey);
+ const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,"0")).join("");
+ await env.REPORTS.put("owner-session:"+token,JSON.stringify({owner:true,createdAt:Date.now()}),{expirationTtl:1800});
+ return reply({ok:true,session:token,expiresInSeconds:1800},200,{"Cache-Control":"no-store"});
 }
 async function exchangeOwnerPair(request,env){
  const body=await request.json().catch(()=>null);
@@ -75,7 +85,7 @@ async function requireOwnerSession(request,env){
  const token=request.headers.get("x-owner-session")||"";
  if(!/^[a-f0-9]{64}$/.test(token))return await rejectAdminAttempt(request,env);
  const session=await env.REPORTS.get("owner-session:"+token,"json");
- if(!session||String(session.email||"").toLowerCase()!==String(env.OWNER_EMAIL||"").toLowerCase())return await rejectAdminAttempt(request,env);
+ if(!session||session.owner!==true)return await rejectAdminAttempt(request,env);
  return null;
 }
 
@@ -194,7 +204,7 @@ export default {async fetch(request,env,ctx){
  const url=new URL(request.url);
  try{
   if(request.method==="GET"&&url.pathname==="/module")return await serveModule(request,env);
-   if(request.method==="GET"&&url.pathname==="/owner-pair")return await createOwnerPair(request,env,ctx);
+   if(request.method==="POST"&&url.pathname==="/owner-pair")return await createOwnerPair(request,env);
    if(request.method==="POST"&&url.pathname==="/owner-session")return await exchangeOwnerPair(request,env);
    if(request.method==="POST"&&url.pathname==="/presence"){
     const body=await request.json().catch(()=>null);

@@ -2385,26 +2385,24 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             local sharedEnv = _G
             pcall(function() if type(getgenv) == "function" then sharedEnv = getgenv() end end)
             local OwnerSession = type(sharedEnv.__SHORTNAME_OWNER_SESSION) == "string" and sharedEnv.__SHORTNAME_OWNER_SESSION or ""
-            local PairCode = ""
+            local OwnerSecret = ""
             local RosterStatus = Label(PlayerAdminUI.Page, OwnerSession ~= "" and "OWNER SESSION: CACHED (MAY EXPIRE)" or "OWNER SESSION: NOT VERIFIED", 10, 24, Grey)
-            Label(PlayerAdminUI.Page, "OWNER SIGN-IN: open the verification page in your browser, sign in with the approved email, then enter its one-time code below.", 10, 48, Grey).TextWrapped = true
-            MakeButton(PlayerAdminUI.Page, "SHOW OWNER VERIFICATION URL", function()
-                RosterStatus.Text = "OPEN IN BROWSER: https://shortname-report-receive.ryft-amv.workers.dev/owner-pair"
-            end, Color3.fromRGB(65, 58, 92))
-            local KeyBox = MakeBox(PlayerAdminUI.Page, "ONE-TIME OWNER PAIRING CODE", "", function(value)
-                PairCode = tostring(value or ""):gsub("%D", ""):sub(1, 6)
+            Label(PlayerAdminUI.Page, "OWNER SIGN-IN: enter the Worker OWNER_SECRET you configured. It is sent only to the HTTPS Worker endpoint; never paste it into chat or GitHub.", 10, 48, Grey).TextWrapped = true
+            local KeyBox = MakeBox(PlayerAdminUI.Page, "OWNER SECRET", "", function(value)
+                OwnerSecret = tostring(value or "")
             end)
-            KeyBox.PlaceholderText = "6-digit code from Cloudflare Access"
+            KeyBox.PlaceholderText = "Enter your OWNER_SECRET"
             MakeButton(PlayerAdminUI.Page, "VERIFY OWNER SESSION", function()
-                if PairCode == "" then RosterStatus.Text = "ENTER THE 6-DIGIT CODE FIRST" return end
+                if OwnerSecret == "" then RosterStatus.Text = "ENTER YOUR OWNER SECRET FIRST" return end
                 RosterStatus.Text = "VERIFYING OWNER ACCESS..."
                 task.spawn(function()
-                    local ok, sent, result = pcall(function() return PresenceModule.ExchangeOwnerCode(PairCode) end)
+                    local submittedSecret = OwnerSecret
+                    local ok, sent, result = pcall(function() return PresenceModule.LoginOwner(submittedSecret) end)
+                    OwnerSecret = ""
+                    KeyBox.Text = ""
                     if ok and sent and type(result) == "table" and type(result.session) == "string" then
                         OwnerSession = result.session
                         sharedEnv.__SHORTNAME_OWNER_SESSION = OwnerSession
-                        PairCode = ""
-                        KeyBox.Text = ""
                         RosterStatus.Text = "OWNER SESSION VERIFIED — EXPIRES IN 30 MINUTES"
                         RefreshRoster()
                     else
