@@ -545,14 +545,16 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     local PlayerAdminUI = {}
-    GUI.UpdatesNav = MakeNav("📰  Updates", 1)
-    if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 2) end
-    local PlayerToolsNav = MakeNav("🛠️  Player Tools", IsCreator and 3 or 2)
-    local GameNav = MakeNav("🎮  Noob Incremental", IsCreator and 4 or 3)
-    GUI.GuessSlapperNav = (game.PlaceId == 106683702021527 or game.GameId == 9449993534) and MakeNav("🖐️  Guess the Slapper", IsCreator and 5 or 4) or nil
-    local FightNav = MakeNav("⚔️  Fight on a Baseplate", IsCreator and 6 or 5)
-    DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 7) or nil
-    local SoonNav = MakeNav("➕  Coming Soon", IsCreator and 8 or 6)
+    -- Keep every supported experience visible in every game. Game tabs are
+    -- grouped first; general and owner-only tabs follow underneath.
+    local GameNav = MakeNav("🎮  Noob Incremental", 1)
+    GUI.GuessSlapperNav = MakeNav("🖐️  Guess the Slapper", 2)
+    local FightNav = MakeNav("⚔️  Fight on a Baseplate", 3)
+    GUI.UpdatesNav = MakeNav("📰  Updates", 4)
+    local PlayerToolsNav = MakeNav("🛠️  Player Tools", 5)
+    local SoonNav = MakeNav("➕  Coming Soon", 6)
+    if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 7) end
+    DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 8) or nil
 
     local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, DetectionNav, SoonNav }
     local function FilterSidebar(query)
