@@ -1527,6 +1527,130 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         return FolderContent
     end
 
+    -- NOOB INCREMENTAL CODE REDEEMER (Place ID 76911729991355)
+    if game.PlaceId == 76911729991355 then
+        local CodeFolder = MakeFolder("CODE REDEEMER", GamePage)
+        Label(CodeFolder, "Redeems the supplied codes through the game's own Shop UI.", 10, 30, Grey).TextWrapped = true
+        local CodesToRedeem = {
+            "THANKS4JOINING", "RELEASE", "LABUPDATE", "FOOTBALLEVENT",
+            "500KGROUPMEMBERS!!!", "SPACEREALMISOUT!", "MASTERIESAREHERE!",
+            "UNDERWATERISFINALLYHERE", "UPDATEFIX", "YINYANG",
+            "ANOTHERMINIUPDATE", "FIXINGSTUFF", "SUMMONGHOULAXGOD",
+            "ZEUSAPPEARED", "HAPPYHALLOWEEN!", "CHANGESSHUTDOWN",
+            "HAPPYHALLOWEEN2!", "MINIUPDATEAGAIN", "SHUTDOWNSORRY",
+            "HAPPYTHANKSGIVING", "HAPPYSHUTDOWN"
+        }
+        local CodeStatus = Label(CodeFolder, "READY: " .. tostring(#CodesToRedeem) .. " codes queued", 10, 28, Color3.fromRGB(170, 210, 255))
+        CodeStatus.TextWrapped = true
+        local CodeRunning = false
+        local sharedEnv = _G
+        if type(getgenv) == "function" then
+            local envOk, env = pcall(getgenv)
+            if envOk and type(env) == "table" then sharedEnv = env end
+        end
+        if type(sharedEnv.__SNH_NOOB_CODES_ATTEMPTED) ~= "table" then
+            sharedEnv.__SNH_NOOB_CODES_ATTEMPTED = {}
+        end
+        local CodeAttempted = sharedEnv.__SNH_NOOB_CODES_ATTEMPTED
+
+        local function FindCodeControls()
+            local playerGui = LocalPlayer and LocalPlayer:FindFirstChildOfClass("PlayerGui")
+            local shop = playerGui and playerGui:FindFirstChild("Shop")
+            local main = shop and shop:FindFirstChild("Main")
+            local frame = main and main:FindFirstChild("Frame")
+            local mainContent = frame and frame:FindFirstChild("MainContent")
+            local shopContent = mainContent and mainContent:FindFirstChild("Shop")
+            local scrolling = shopContent and shopContent:FindFirstChild("ScrollingFrame")
+            local codesFrame = scrolling and scrolling:FindFirstChild("Codes")
+            local redeemButton = codesFrame and codesFrame:FindFirstChild("Redeem", true)
+            if not codesFrame or not redeemButton or not redeemButton:IsA("GuiButton") then
+                return nil, nil, "Open the in-game Shop > Codes panel first."
+            end
+            local candidates = {}
+            for _, descendant in ipairs(codesFrame:GetDescendants()) do
+                if descendant:IsA("TextBox") and descendant.Visible then
+                    table.insert(candidates, descendant)
+                end
+            end
+            table.sort(candidates, function(a, b)
+                return a.AbsolutePosition.Y < b.AbsolutePosition.Y
+            end)
+            local codeBox = candidates[1]
+            if not codeBox then
+                return nil, nil, "Couldn't find the normal code input field."
+            end
+            return codeBox, redeemButton
+        end
+
+        local function RedeemOne(code)
+            local codeBox, redeemButton, reason = FindCodeControls()
+            if not codeBox then return false, reason end
+            codeBox.Text = code
+            task.wait(0.12)
+            local activated, activationError = pcall(function()
+                redeemButton:Activate()
+            end)
+            if not activated then
+                return false, "Button activation failed: " .. tostring(activationError)
+            end
+            CodeAttempted[code] = true
+            return true
+        end
+
+        local function MakeCodeAction(text)
+            local button = Instance.new("TextButton")
+            button.Size = UDim2.new(1, 0, 0, 40)
+            button.BackgroundColor3 = Color3.fromRGB(75, 55, 115)
+            button.TextColor3 = White
+            button.Text = text
+            button.TextSize = 11
+            button.Font = Enum.Font.GothamBold
+            button.Parent = CodeFolder
+            Corner(button, 9)
+            Stroke(button, Border, 1)
+            return button
+        end
+
+        local RedeemAllButton = MakeCodeAction("🎁  REDEEM ALL 21 CODES")
+        local RetryButton = MakeCodeAction("RETRY CODES NOT ATTEMPTED THIS SESSION")
+        RetryButton.BackgroundColor3 = ButtonDark
+
+        local function RunCodeBatch(retryOnly)
+            if CodeRunning then return end
+            CodeRunning = true
+            RedeemAllButton.Active = false
+            RetryButton.Active = false
+            local attemptedNow, skipped, failed = 0, 0, 0
+            for index, code in ipairs(CodesToRedeem) do
+                if retryOnly and CodeAttempted[code] then
+                    skipped = skipped + 1
+                else
+                    CodeStatus.Text = "ATTEMPTING " .. tostring(index) .. "/" .. tostring(#CodesToRedeem) .. ": " .. code
+                    local ok, reason = RedeemOne(code)
+                    if ok then
+                        attemptedNow = attemptedNow + 1
+                    else
+                        failed = failed + 1
+                        CodeStatus.Text = "WAITING: " .. tostring(reason)
+                        if tostring(reason):find("Shop", 1, true) then break end
+                    end
+                    task.wait(1.25)
+                end
+            end
+            CodeStatus.Text = "FINISHED — attempted: " .. attemptedNow .. " | skipped: " .. skipped .. " | errors: " .. failed
+            RedeemAllButton.Active = true
+            RetryButton.Active = true
+            CodeRunning = false
+        end
+
+        RedeemAllButton.Activated:Connect(function()
+            task.spawn(function() RunCodeBatch(false) end)
+        end)
+        RetryButton.Activated:Connect(function()
+            task.spawn(function() RunCodeBatch(true) end)
+        end)
+    end
+
     if OwnerViewButton then
         OwnerViewButton.Activated:Connect(function()
             if not IsCreator then return end
