@@ -511,9 +511,9 @@ StartHub = function(skipKey)
         end
         local ScytheModule = LoadTracked("Scythe.lua", "Loaded weapon systems")
         local ThanksgivingScanner = LoadTracked("ThanksgivingScanner.lua", "Loaded event scanner")
-        local FightScannerModule = LoadTracked("UniversalGameScanner.lua", "Loaded combat scanner")
-        local FightInspectorModule = LoadTracked("UniversalInstanceInspector.lua", "Loaded combat inspector")
-        local FightStructureScannerModule = LoadTracked("UniversalStructureScanner.lua", "Loaded structure scanner")
+        local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded combat scanner")
+        local FightInspectorModule = LoadTracked("FightOnABaseplateInspector.lua", "Loaded combat inspector")
+        local FightStructureScannerModule = LoadTracked("FightOnABaseplateStructureScanner.lua", "Loaded structure scanner")
 
         if Loading and type(Loading.SetProgress) == "function" then
             Loading.SetProgress(completed, total, "Initializing hub systems...")
