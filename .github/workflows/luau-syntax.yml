@@ -1,0 +1,41 @@
+name: Luau syntax validation
+
+on:
+  push:
+    branches:
+      - gui-complete-fix
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out ShortName Hub
+        uses: actions/checkout@v4
+
+      - name: Check out the official Luau compiler
+        uses: actions/checkout@v4
+        with:
+          repository: Roblox/luau
+          path: .luau-src
+
+      - name: Build Luau compiler
+        run: |
+          cmake -S .luau-src -B .luau-src/build -DCMAKE_BUILD_TYPE=Release -DLUAU_BUILD_CLI=ON
+          cmake --build .luau-src/build --parallel 2
+
+      - name: Compile every project Lua file
+        shell: bash
+        run: |
+          COMPILER="$(find .luau-src/build -type f -name luau-compile -perm -111 | head -n 1)"
+          if [ -z "$COMPILER" ]; then
+            echo "luau-compile executable was not produced"
+            exit 1
+          fi
+          find . -maxdepth 2 -type f -name '*.lua' ! -path './.luau-src/*' -print0 |
+            while IFS= read -r -d '' file; do
+              echo "Compiling $file"
+              "$COMPILER" "$file" >/dev/null
+            done
