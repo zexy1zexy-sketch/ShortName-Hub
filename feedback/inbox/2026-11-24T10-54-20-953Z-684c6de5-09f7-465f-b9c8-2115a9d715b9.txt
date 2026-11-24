@@ -1,0 +1,7 @@
+SHORTNAME HUB FEEDBACK
+Received: 2026-11-24T10:54:20.953Z
+Username: FastUsernameHere
+User ID: 12010138103
+Identity source: Roblox client-reported
+
+allow us to automatically finish the tutorial at the start of the game.
