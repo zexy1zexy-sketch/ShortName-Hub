@@ -13,6 +13,7 @@ local StarterGui = game:GetService("StarterGui")
 local StarterPlayer = game:GetService("StarterPlayer")
 
 local MAX_SCAN = 18000
+local MAX_ROOT_SCAN = 2500
 local MAX_REMOTE = 350
 local MAX_BINDABLE = 250
 local MAX_MODULE = 180
@@ -148,17 +149,18 @@ function Scanner:Start(onUpdate)
             if instance then table.insert(roots, instance) end
         end
 
-        -- High-value, smaller roots first.
+        -- Give network folders and replicated game systems first access, then
+        -- cap each root so one enormous UI/world cannot starve every other root.
+        addRoot(safe(ReplicatedStorage, "__Net"))
+        addRoot(safe(ReplicatedStorage, "Framework"))
+        addRoot(ReplicatedStorage)
+        addRoot(ReplicatedFirst)
         if player then
             addRoot(safe(player, "PlayerGui"))
             addRoot(safe(player, "PlayerScripts"))
             addRoot(safe(player, "Backpack"))
             addRoot(safe(player, "Character"))
         end
-        addRoot(safe(ReplicatedStorage, "__Net"))
-        addRoot(safe(ReplicatedStorage, "Framework"))
-        addRoot(ReplicatedStorage)
-        addRoot(ReplicatedFirst)
         addRoot(Workspace)
         addRoot(StarterGui)
         addRoot(StarterPlayer)
@@ -224,10 +226,11 @@ function Scanner:Start(onUpdate)
             end
         end
 
-        notify("SCANNING PLAYER UI / DATA")
+        notify("SCANNING REPLICATED SYSTEMS")
         for _, root in ipairs(roots) do
             if not self._running or self._scanId ~= scanId then return end
             local stack = {}
+            local rootScanned = 0
             local ok, children = pcall(function() return root:GetChildren() end)
             if ok and children then
                 for i = #children, 1, -1 do table.insert(stack, children[i]) end
@@ -239,6 +242,7 @@ function Scanner:Start(onUpdate)
                 if item and not seen[item] then
                     seen[item] = true
                     scanned += 1
+                    rootScanned += 1
                     record(item)
 
                     local path = pathOf(item)
@@ -255,7 +259,7 @@ function Scanner:Start(onUpdate)
                         notify("SCANNING")
                         task.wait(0.03)
                     end
-                    if scanned >= MAX_SCAN then break end
+                    if scanned >= MAX_SCAN or rootScanned >= MAX_ROOT_SCAN then break end
                 end
             end
             if scanned >= MAX_SCAN then break end
@@ -313,7 +317,8 @@ function Scanner:Start(onUpdate)
 
         table.insert(lines, "")
         table.insert(lines, "COVERAGE / SAFETY")
-        table.insert(lines, "- Prioritizes PlayerGui, PlayerScripts, Backpack, Character, and ReplicatedStorage network folders.")
+        table.insert(lines, "- Prioritizes ReplicatedStorage network/framework folders, then player UI/data and world roots.")
+        table.insert(lines, "- Each root has a scan budget so a large UI or Workspace cannot consume the entire scan before replicated systems are checked.")
         table.insert(lines, "- Large replicated asset folders and CmdrClient command-definition folders are skipped to reduce noise.")
         table.insert(lines, "- RemoteEvents, RemoteFunctions, UnreliableRemoteEvents, BindableEvents, and BindableFunctions are inventoried only; none are invoked. No script source is read or executed.")
         table.insert(lines, "- Only client-visible objects are inspected; server-only logic and data are unavailable.")
