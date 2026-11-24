@@ -4330,7 +4330,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     -- HOUSE TELEPORT SLIDER
-    local function MakeSlider(parent, title, minimum, maximum, initialValue, step, formatValue, callback)
+    HubExtras.MakeSlider = function(parent, title, minimum, maximum, initialValue, step, formatValue, callback)
         local Holder = Instance.new("Frame"); Holder.Size = UDim2.new(1, 0, 0, 54); Holder.BackgroundTransparency = 1
         Holder.Parent = parent; local TitleLabel = Label(Holder, title, 11, 19, Grey); TitleLabel.Position = UDim2.fromOffset(0, 0)
         TitleLabel.Size = UDim2.new(1, -65, 0, 19); local ValueLabel = Label(Holder, formatValue(initialValue), 11, 19, PurpleLight);
@@ -4444,13 +4444,13 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(45, 115, 75))
 
-    MakeSlider(HouseFolder, "TELEPORT SPEED / DELAY", 0.1, 5, HouseTeleportDelay, 0.1, function(value)
+    HubExtras.MakeSlider(HouseFolder, "TELEPORT SPEED / DELAY", 0.1, 5, HouseTeleportDelay, 0.1, function(value)
         return string.format("%.1f sec", value)
     end, function(value)
         HouseTeleportDelay = value
     end)
 
-    MakeSlider(HouseFolder, "FALL HEIGHT (STUDS)", 1, 50, HouseFallHeight, 1, function(value)
+    HubExtras.MakeSlider(HouseFolder, "FALL HEIGHT (STUDS)", 1, 50, HouseFallHeight, 1, function(value)
         return tostring(math.floor(value + 0.5)) .. " studs"
     end, function(value)
         HouseFallHeight = math.floor(value + 0.5)
