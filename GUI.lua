@@ -262,8 +262,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     AccentLine.ZIndex = 3; AccentLine.Parent = Frame; AddGradient(AccentLine, PurpleLight, Purple, 0)
     Corner(AccentLine, 2)
 
+    local Header, MinButton, ExitButton, OwnerViewButton, GearButton
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- HEADER
-    local Header = Instance.new("Frame"); Header.Size = UDim2.new(1, 0, 0, 48); Header.BackgroundColor3 = Dark
+    Header = Instance.new("Frame"); Header.Size = UDim2.new(1, 0, 0, 48); Header.BackgroundColor3 = Dark
     Header.BorderSizePixel = 0; Header.Parent = Frame; Corner(Header, 12)
     AddGradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90); local HeaderTitle = Label(Header, "  SN  SHORTNAME HUB", 15, 48); HeaderTitle.Font =
     Enum.Font.GothamBold
@@ -281,20 +283,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local HeaderSubtitle = Label(Header, "@" .. tostring(LocalPlayer and LocalPlayer.Name or "Unknown") .. "  •  " .. ReportedExecutor .. "  •  v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
     HeaderSubtitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
-    local MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
+    MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
     MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "-"; MinButton.TextColor3 = White
     MinButton.TextSize = 17; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Header
     MinButton.ZIndex = 5; Corner(MinButton, 8); Stroke(MinButton, Border, 1)
     AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
-    local ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
+    ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
     ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "X"
     ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
     ExitButton.Parent = Header; Corner(ExitButton, 8); Stroke(ExitButton, Border, 1)
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
 
     -- CREATOR-ONLY VIEW SWITCH
-    local OwnerViewButton
+    OwnerViewButton
     if IsCreator then
         OwnerViewButton = Instance.new("TextButton")
         OwnerViewButton.Size = UDim2.fromOffset(62, 28)
@@ -312,7 +314,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     -- OWNER SETTINGS SHORTCUT: sits immediately left of the owner/users switch.
-    local GearButton
+    GearButton
     do
         GearButton = Instance.new("TextButton")
         GearButton.Size = UDim2.fromOffset(28, 30)
@@ -329,8 +331,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         AddHover(GearButton, ButtonDark, Color3.fromRGB(55, 48, 69))
     end
 
+    end
+    local CrownButton, FeedbackButton, CommunityPanel, FeedbackPanel, FeedbackTitle, FeedbackClose, FeedbackBox, FeedbackStatus
+    local FeedbackSend
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- COMMUNITY SHORTCUTS
-    local CrownButton = Instance.new("TextButton")
+    CrownButton = Instance.new("TextButton")
     CrownButton.Size = UDim2.fromOffset(28, 30)
     CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
     CrownButton.BackgroundColor3 = ButtonDark
@@ -344,7 +350,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Stroke(CrownButton, Color3.fromRGB(155, 120, 65), 1)
     AddHover(CrownButton, ButtonDark, Color3.fromRGB(65, 53, 37))
 
-    local FeedbackButton = Instance.new("TextButton")
+    FeedbackButton = Instance.new("TextButton")
     FeedbackButton.Size = UDim2.fromOffset(28, 30)
     FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
     FeedbackButton.BackgroundColor3 = ButtonDark
@@ -358,7 +364,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Stroke(FeedbackButton, Border, 1)
     AddHover(FeedbackButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
-    local CommunityPanel = Instance.new("Frame")
+    CommunityPanel = Instance.new("Frame")
     CommunityPanel.Size = UDim2.fromOffset(244, 132)
     CommunityPanel.Position = UDim2.new(1, -254, 0, 56)
     CommunityPanel.BackgroundColor3 = Panel
@@ -393,7 +399,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         CommunityPanel.Visible = false
     end)
 
-    local FeedbackPanel = Instance.new("Frame")
+    FeedbackPanel = Instance.new("Frame")
     FeedbackPanel.Size = UDim2.fromOffset(244, 226)
     FeedbackPanel.Position = UDim2.new(1, -254, 0, 56)
     FeedbackPanel.BackgroundColor3 = Panel
@@ -403,11 +409,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackPanel.Parent = Frame
     Corner(FeedbackPanel, 10)
     Stroke(FeedbackPanel, PurpleLight, 1.2)
-    local FeedbackTitle = Label(FeedbackPanel, "  SEND FEEDBACK", 13, 28, PurpleLight)
+    FeedbackTitle = Label(FeedbackPanel, "  SEND FEEDBACK", 13, 28, PurpleLight)
     FeedbackTitle.Font = Enum.Font.GothamBold
     FeedbackTitle.Position = UDim2.fromOffset(8, 4)
     FeedbackTitle.ZIndex = 21
-    local FeedbackClose = Instance.new("TextButton")
+    FeedbackClose = Instance.new("TextButton")
     FeedbackClose.Size = UDim2.fromOffset(24, 24)
     FeedbackClose.Position = UDim2.new(1, -29, 0, 4)
     FeedbackClose.BackgroundColor3 = ButtonDark
@@ -417,7 +423,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackClose.Parent = FeedbackPanel
     FeedbackClose.ZIndex = 22
     Corner(FeedbackClose, 6)
-    local FeedbackBox = Instance.new("TextBox")
+    FeedbackBox = Instance.new("TextBox")
     FeedbackBox.Size = UDim2.new(1, -20, 0, 112)
     FeedbackBox.Position = UDim2.fromOffset(10, 38)
     FeedbackBox.BackgroundColor3 = ButtonDark
@@ -435,11 +441,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FeedbackBox.Parent = FeedbackPanel
     FeedbackBox.ZIndex = 21
     Corner(FeedbackBox, 7)
-    local FeedbackStatus = Label(FeedbackPanel, "Ideas go to the private hub feedback inbox.", 9, 26, Grey)
+    FeedbackStatus = Label(FeedbackPanel, "Ideas go to the private hub feedback inbox.", 9, 26, Grey)
     FeedbackStatus.Position = UDim2.fromOffset(10, 154)
     FeedbackStatus.TextWrapped = true
     FeedbackStatus.ZIndex = 21
-    local FeedbackSend = Instance.new("TextButton")
+    FeedbackSend = Instance.new("TextButton")
     FeedbackSend.Size = UDim2.new(1, -20, 0, 32)
     FeedbackSend.Position = UDim2.fromOffset(10, 188)
     FeedbackSend.BackgroundColor3 = Purple
@@ -506,8 +512,11 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end)
 
+    end
+    local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, FightNav, PlayerToolsNav, SoonNav
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- SIDEBAR
-    local SidebarWidth = math.min(166, WindowWidth * 0.28); local Sidebar = Instance.new("ScrollingFrame"); Sidebar.Name = "Sidebar"
+    SidebarWidth = math.min(166, WindowWidth * 0.28); Sidebar = Instance.new("ScrollingFrame"); Sidebar.Name = "Sidebar"
     Sidebar.Position = UDim2.fromOffset(14, 62); Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
     Sidebar.BackgroundColor3 = Panel; Sidebar.BackgroundTransparency = 1; Sidebar.BorderSizePixel = 0
     Sidebar.CanvasSize = UDim2.fromOffset(0, 0); Sidebar.AutomaticCanvasSize = Enum.AutomaticSize.None
@@ -523,7 +532,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Sidebar.CanvasSize = UDim2.fromOffset(0, SideLayout.AbsoluteContentSize.Y + 18)
     end)
 
-    local SidebarSearch = Instance.new("TextBox")
+    SidebarSearch = Instance.new("TextBox")
     SidebarSearch.Name = "SidebarSearch"; SidebarSearch.LayoutOrder = 0
     SidebarSearch.Size = UDim2.new(1, 0, 0, 34); SidebarSearch.BackgroundColor3 = ButtonDark
     SidebarSearch.BackgroundTransparency = 0.08; SidebarSearch.BorderSizePixel = 0
@@ -544,15 +553,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return b
     end
 
-    local PlayerAdminUI = {}
+    PlayerAdminUI = {}
     -- All game tabs remain available in every experience. When the current
     -- experience matches one of them, move that tab to the top automatically.
-    local GameNav = MakeNav("🎮  Noob Incremental", 1)
+    GameNav = MakeNav("🎮  Noob Incremental", 1)
     GUI.GuessSlapperNav = MakeNav("🖐️  Guess the Slapper", 2)
-    local FightNav = MakeNav("⚔️  Fight on a Baseplate", 3)
+    FightNav = MakeNav("⚔️  Fight on a Baseplate", 3)
     GUI.UpdatesNav = MakeNav("📰  Updates", 4)
-    local PlayerToolsNav = MakeNav("🛠️  Player Tools", 5)
-    local SoonNav = MakeNav("➕  Coming Soon", 6)
+    PlayerToolsNav = MakeNav("🛠️  Player Tools", 5)
+    SoonNav = MakeNav("➕  Coming Soon", 6)
     if IsCreator then PlayerAdminUI.Nav = MakeNav("👥  Players", 7) end
     DetectionNav = IsCreator and MakeNav("🧭  Detection & Observation", 8) or nil
 
@@ -607,8 +616,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         FilterSidebar(SidebarSearch.Text)
     end)
 
+    end
+    local Content, SettingsPage, PlayerToolsPage, GamePage, FightPage, DetectionPage, SoonPage, CurrentPage
+    local CurrentAccent, FloatingTabsEnabled, FloatingTabWindow, RestoreFloatingPage, SelectPage
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- CONTENT AREA
-    local Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
+    Content = Instance.new("Frame"); Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58); Content.Size = UDim2.new(1, -SidebarWidth - 30,
     1, -68)
     Content.BackgroundColor3 = Panel; Content.BackgroundTransparency = 0.18; Content.BorderSizePixel = 0; Content.Parent = Frame
     Corner(Content, 13); AddGradient(Content, Color3.fromRGB(27, 26, 37), Panel, 90); Stroke(Content, Border, 1)
@@ -660,15 +673,15 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return page
     end
 
-    GUI.UpdatesPage = MakePage("Updates"); local SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
-    local PlayerToolsPage = MakePage("PlayerTools")
-    local GamePage = MakePage("NoobIncremental")
+    GUI.UpdatesPage = MakePage("Updates"); SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
+    PlayerToolsPage = MakePage("PlayerTools")
+    GamePage = MakePage("NoobIncremental")
     GUI.GuessSlapperPage = MakePage("GuessTheSlapper")
-    local FightPage = MakePage("FightOnABaseplate"); local DetectionPage = IsCreator and MakePage("Detection") or nil; local SoonPage = MakePage("ComingSoon"); local CurrentPage = nil; local CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
+    FightPage = MakePage("FightOnABaseplate"); DetectionPage = IsCreator and MakePage("Detection") or nil; SoonPage = MakePage("ComingSoon"); CurrentPage = nil; CurrentAccent = { Color = Purple, Light = PurpleLight, Active =
     Color3.fromRGB(55, 42, 77) }
 
-    local FloatingTabsEnabled = false
-    local FloatingTabWindow = Instance.new("Frame")
+    FloatingTabsEnabled = false
+    FloatingTabWindow = Instance.new("Frame")
     FloatingTabWindow.Name = "FloatingTabWindow"
     FloatingTabWindow.Size = UDim2.new(0.68, 0, 0.72, 0)
     FloatingTabWindow.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -709,7 +722,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     FloatingBody.ZIndex = 31
     FloatingBody.Parent = FloatingTabWindow
     local CurrentFloatingPage
-    local function RestoreFloatingPage()
+    function RestoreFloatingPage()
         if CurrentFloatingPage and CurrentFloatingPage.Parent then
             CurrentFloatingPage.Parent = Content
             CurrentFloatingPage.Position = UDim2.fromOffset(8, 8)
@@ -741,7 +754,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             )
         end
     end)
-    local function SelectPage(page)
+    function SelectPage(page)
         local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
         if CurrentFloatingPage then RestoreFloatingPage() end
         local selectedPage = pages[page]
@@ -985,6 +998,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         SelectPage("Soon")
     end)
 
+    end
+    local AccentPresets, ApplyAccent, SurfacePresets, ActiveSurfacePreset, ApplySurfaceTheme
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- SETTINGS
     Label(SettingsPage, "SETTINGS", 17, 30).Font = Enum.Font.GothamBold; Label(SettingsPage, "Personalize your hub experience.", 12, 23, Grey)
     do
@@ -1029,7 +1045,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
     Label(SettingsPage, "APPEARANCE", 13, 25, PurpleLight).Font = Enum.Font.GothamBold; Label(SettingsPage, "Accent color", 11, 19, Grey)
 
-    local AccentPresets = {
+    AccentPresets = {
         { Name = "Purple", Color = Color3.fromRGB(145, 75, 255), Light = Color3.fromRGB(185, 135, 255), Active = Color3.fromRGB(55, 42, 77) },
         { Name = "Blue", Color = Color3.fromRGB(65, 145, 255), Light = Color3.fromRGB(135, 195, 255), Active = Color3.fromRGB(35, 57, 85) },
         { Name = "Red", Color = Color3.fromRGB(235, 75, 95), Light = Color3.fromRGB(255, 145, 155), Active = Color3.fromRGB(82, 39, 48) },
@@ -1055,7 +1071,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local AccentBaseButton = Color3.fromRGB(31, 31, 42)
     local AccentBaseBorder = Color3.fromRGB(54, 48, 70)
 
-    local function ApplyAccent(preset)
+    function ApplyAccent(preset)
         local oldAccent = CurrentAccent
         local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
         local palette = ThemeModule and type(ThemeModule.Build) == "function"
@@ -1187,7 +1203,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     Label(SettingsPage, "Background style", 11, 19, Grey)
-    local SurfacePresets = {
+    SurfacePresets = {
         { Name = "MIDNIGHT", Dark = Color3.fromRGB(12, 12, 17), Panel = Color3.fromRGB(23, 23, 31), Button = Color3.fromRGB(31, 31, 42), Border = Color3.fromRGB(54, 48, 70), Top = Color3.fromRGB(19, 18, 27) },
         { Name = "BLACKOUT", Dark = Color3.fromRGB(5, 5, 8), Panel = Color3.fromRGB(14, 14, 19), Button = Color3.fromRGB(23, 23, 30), Border = Color3.fromRGB(43, 43, 55), Top = Color3.fromRGB(10, 10, 15) },
         { Name = "SLATE", Dark = Color3.fromRGB(18, 22, 32), Panel = Color3.fromRGB(29, 35, 49), Button = Color3.fromRGB(39, 47, 64), Border = Color3.fromRGB(65, 76, 98), Top = Color3.fromRGB(29, 34, 48) }
@@ -1201,8 +1217,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     SurfaceLayout.Padding = UDim.new(0, 5)
     SurfaceLayout.Parent = SurfaceRow
 
-    local ActiveSurfacePreset = SurfacePresets[1]
-    local function ApplySurfaceTheme(preset)
+    ActiveSurfacePreset = SurfacePresets[1]
+    function ApplySurfaceTheme(preset)
         local oldDark, oldPanel, oldButton, oldBorder = Dark, Panel, ButtonDark, Border
         for _, obj in ipairs(ScreenGui:GetDescendants()) do
             if obj:IsA("GuiObject") then
@@ -1441,17 +1457,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end)
     end)
 
+    end
+    local SetStatus, MakeFolder, MakeBox
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- NOOB INCREMENTAL
     Label(GamePage, "NOOB INCREMENTAL", 17, 30).Font = Enum.Font.GothamBold; Label(GamePage, "Tap a folder to show or hide its features.", 12, 22,
     Grey)
     local Status = Label(GamePage, "STATUS: READY", 12, 28, Color3.fromRGB(170, 210, 255)); Status.Font = Enum.Font.GothamBold
 
-    local function SetStatus(text)
+    function SetStatus(text)
         Status.Text = "STATUS: " .. tostring(text)
     end
 
     -- FOLDER SYSTEM
-    local function MakeFolder(name, parent, visible)
+    function MakeFolder(name, parent, visible)
         local Folder = Instance.new("Frame"); Folder.Name = name:gsub("%W", "") .. "Folder"; Folder.Size = UDim2.new(1, 0, 0, 38)
         Folder.Visible = visible ~= false or OwnerViewEnabled
         if visible == false then table.insert(OwnerOnlyFolders, Folder) end
@@ -1546,7 +1565,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     -- INPUT BOXES
-    local function MakeBox(parent, label, value, callback)
+    function MakeBox(parent, label, value, callback)
         Label(parent, label, 11, 20, Grey); local box = Instance.new("TextBox"); box.Size = UDim2.new(1, 0, 0, 34)
         box.BackgroundColor3 = ButtonDark; box.TextColor3 = White; box.PlaceholderColor3 = Grey
         box.Text = tostring(value); box.TextSize = 13; box.Font = Enum.Font.Gotham
@@ -1558,6 +1577,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return box
     end
 
+    end
     -- BUTTONS
     local function MakeButton(parent, text, callback, color)
         local b = Instance.new("TextButton"); b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = color or Color3.fromRGB(75, 55, 115)
@@ -2509,6 +2529,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     -- HALLOWEEN EVENT FOLDER
     local HalloweenFolder = MakeFolder("HALLOWEEN EVENT")
 
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- THANKSGIVING EVENT FOLDER
     -- Kept separate from Halloween so event features stay organized.
     local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT")
@@ -2857,9 +2878,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(85, 75, 105))
 
+    end
+    local FightFolder, FightDetectorsFolder
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- FIGHT ON A BASEPLATE FOLDER
     -- Kept separate from the other game folders.
-    local FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
+    FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
 
     do
     -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
@@ -3073,7 +3097,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         Label(DetectionPage, "DETECTION & OBSERVATION", 17, 30).Font = Enum.Font.GothamBold
         Label(DetectionPage, "Owner-only, game-independent tools for inspecting client-visible objects and recording observations in any Roblox experience.", 11, 34, Grey)
     end
-    local FightDetectorsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or FightPage, false)
+    FightDetectorsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or FightPage, false)
 
     -- Universal tools only: game-specific scanners remain on their respective game pages.
     local FightScannerFolder = MakeFolder("UNIVERSAL OBJECT SCANNER", FightDetectorsFolder, false)
@@ -3299,6 +3323,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(85, 75, 105))
 
+    end
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- PASSIVE UNIVERSAL STRUCTURE SCANNER
     local FightStructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", FightDetectorsFolder, false)
     Label(FightStructureFolder, "UNIVERSAL STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
@@ -3411,6 +3437,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(85, 75, 105))
 
+    end
+    local HubToggleConnection, HubExtras, RunService
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- UNIVERSAL LIVE CHANGE OBSERVER
     local LiveObserverFolder = MakeFolder("UNIVERSAL LIVE OBSERVER", FightDetectorsFolder, false)
     Label(LiveObserverFolder, "UNIVERSAL LIVE CHANGE OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
@@ -3535,7 +3564,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local LocalPlayer = Players.LocalPlayer
     local TeleportService = game:GetService("TeleportService")
     local AntiAfkConnection = nil
-    local HubToggleConnection = nil
+    HubToggleConnection = nil
     local PerformanceConnection = nil
 
     local AntiAfkButton
@@ -3717,7 +3746,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
 
     -- SHORTNAME HUB EXTRAS: searchable roster, notifications, HUD, keybinds and profiles.
-    local HubExtras = {}
+    HubExtras = {}
     do
     local HttpService = game:GetService("HttpService")
     HubExtras.HubToggleKey = Enum.KeyCode.RightControl
@@ -4109,7 +4138,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     local PerformanceLabel = Label(UtilityFolder, "FPS: --  |  PING: --  |  MEMORY: -- MB", 10, 24, White)
     PerformanceLabel.TextWrapped = true
 
-    local RunService = game:GetService("RunService")
+    RunService = game:GetService("RunService")
     local StatsService = game:GetService("Stats")
     local frameCount = 0
     local lastFps = 0
@@ -4257,6 +4286,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(45, 115, 75))
 
+    end
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- REMOTES FOLDER
     local ScytheFolder = MakeFolder("REMOTES", HalloweenFolder); Config.ScytheSpeed = math.clamp(tonumber(Config.ScytheSpeed) or 1, 1, 100)
 
@@ -4290,15 +4321,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
     end, Color3.fromRGB(100, 65, 160))
 
+    end
+    local HouseFolder, HouseOrder, HouseFallHeight, HouseTeleportDelay, HouseAutoEnabled, HouseLoopToken
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- HOUSE TELEPORT FOLDER
-    local HouseFolder = MakeFolder("HOUSE TELEPORT", HalloweenFolder)
+    HouseFolder = MakeFolder("HOUSE TELEPORT", HalloweenFolder)
     local HousePositions = {
         ["1"] = Vector3.new(-14131.423, 1.804, 8644.894),
         ["2"] = Vector3.new(-14126.336, 1.739, 8901.825),
         ["4"] = Vector3.new(-14236.530, 1.687, 8784.609)
     }
-    local HouseOrder = {"1", "2", "4"}; local HouseFallHeight = 12; local HouseTeleportDelay = 1
-    local HouseAutoEnabled = false; local HouseLoopToken = 0
+    HouseOrder = {"1", "2", "4"}; HouseFallHeight = 12; HouseTeleportDelay = 1
+    HouseAutoEnabled = false; HouseLoopToken = 0
 
     local function GetHouseRoot()
         local Player = Players.LocalPlayer
@@ -4329,6 +4363,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         return true
     end
 
+    end
+    do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- HOUSE TELEPORT SLIDER
     HubExtras.MakeSlider = function(parent, title, minimum, maximum, initialValue, step, formatValue, callback)
         local Holder = Instance.new("Frame"); Holder.Size = UDim2.new(1, 0, 0, 54); Holder.BackgroundTransparency = 1
@@ -5007,6 +5043,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         if GUI.StopAttackObserver then GUI.StopAttackObserver() end
     end)
 
+    end
     -- COMING SOON PAGE
     Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey)
     GUI.SoonCard = Instance.new("Frame")
