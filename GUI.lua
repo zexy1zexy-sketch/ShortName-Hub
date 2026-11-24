@@ -296,7 +296,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     AddHover(ExitButton, ButtonDark, Color3.fromRGB(95, 43, 55))
 
     -- CREATOR-ONLY VIEW SWITCH
-    OwnerViewButton
     if IsCreator then
         OwnerViewButton = Instance.new("TextButton")
         OwnerViewButton.Size = UDim2.fromOffset(62, 28)
@@ -314,7 +313,6 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end
 
     -- OWNER SETTINGS SHORTCUT: sits immediately left of the owner/users switch.
-    GearButton
     do
         GearButton = Instance.new("TextButton")
         GearButton.Size = UDim2.fromOffset(28, 30)
@@ -2108,7 +2106,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                     end
                 end
             end
-            table.insert(lines, 1, "VISIBLE SYSTEM COUNTS — RemoteEvents: " .. counts.remoteEvents .. " | RemoteFunctions: " .. counts.remoteFunctions .. " | Modules: " .. counts.modules .. " | LocalScripts: " .. counts.scripts .. " | Matching UI: " .. counts.dodgeUi)
+            table.insert(lines, 1, "VISIBLE SYSTEM COUNTS — RemoteEvents: " .. counts.remoteEvents .. " | RemoteFunctions: " .. counts.remoteFunctions .. " | Modules: " .. counts.modules .. " | LocalScripts: " .. counts.scripts .. " | Matching UI: " .. counts.matchingUi)
             table.insert(lines, 2, "General name/path matches are listed; a remote's presence does not prove its arguments are trusted.")
             if #lines <= 2 then addLine("No matching client-visible system objects found in the scanned containers.") end
             inspectorResults.Text = table.concat(lines, "\n")
