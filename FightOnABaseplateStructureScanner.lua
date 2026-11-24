@@ -31,9 +31,10 @@ local MAX_MATCH = 400
 local MAX_DEEP = 250
 local YIELD_EVERY = 300
 local DEEP_TARGETS = {
-    RaycastHitboxV4 = true, Packet = true, StyleWeapons = true,
-    Flying = true, SFX = true, AimScript = true, LockOn = true,
-    CameraShake = true
+    PlayerData = true, Data = true, Inventory = true, Settings = true,
+    Modules = true, Controllers = true, Services = true, Events = true,
+    Remotes = true, Assets = true, UI = true, Interface = true,
+    Config = true, Configuration = true, Systems = true
 }
 
 local function safe(instance, property, fallback)
@@ -189,7 +190,7 @@ function Scanner:Start(onUpdate)
                 i, item.className, item.term, item.children, item.path
             ))
         end
-        if #matches == 0 then table.insert(lines, "No combat-related name/path matches found.") end
+        if #matches == 0 then table.insert(lines, "No universal system name/path matches found.") end
         table.insert(lines, "")
         table.insert(lines, "SELECTED SYSTEM / ASSET METADATA")
         table.insert(lines, "Targets: common gameplay, interface, networking, progression, and system metadata")
