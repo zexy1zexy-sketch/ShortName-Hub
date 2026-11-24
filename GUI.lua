@@ -913,14 +913,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     end)
     FeedbackButton.Activated:Connect(function()
         CommunityPanel.Visible = false
-        SelectPage("Soon")
-        task.spawn(function()
-            task.wait()
-            if FeedbackPanel.Parent == SoonPage then
-                local offset = FeedbackPanel.AbsolutePosition.Y - SoonPage.AbsolutePosition.Y + SoonPage.CanvasPosition.Y
-                SoonPage.CanvasPosition = Vector2.new(0, math.max(0, offset))
-            end
-        end)
+        -- Keep feedback as a floating panel so changing tabs never removes it.
+        FeedbackPanel.Visible = not FeedbackPanel.Visible
     end)
     if GearButton then
         GearButton.Activated:Connect(function()
