@@ -2020,7 +2020,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         -- GAME-SPECIFIC, OWNER-ONLY, READ-ONLY ARCHITECTURE INSPECTOR.
         local inspectorContent = MakeFolder("UNIVERSAL SYSTEM INSPECTOR", GUI.GuessSlapperPage, false)
         Label(inspectorContent, "READ-ONLY CLIENT INSPECTION", 12, 22, PurpleLight).Font = Enum.Font.GothamBold
-        local inspectorInfo = Label(inspectorContent, "Lists client-visible remotes, modules, scripts, UI prompts, and local player-state metadata across any Roblox experience. Server scripts and server validation are not visible from this client.", 10, 58, Grey)
+        local inspectorInfo = Label(inspectorContent, "Lists client-visible remotes, modules, scripts, UI prompts, and local player-state metadata across any Roblox experience. Uses manual snapshots only; no background UI watchers or permanent Heartbeat sampling run. Server scripts and server validation are not visible from this client.", 10, 58, Grey)
         inspectorInfo.TextWrapped = true
         inspectorInfo.Size = UDim2.new(1, 0, 0, 58)
         local inspectorStatus = Label(inspectorContent, "INSPECTOR: READY", 10, 22, Color3.fromRGB(130, 210, 165))
@@ -2158,122 +2158,12 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             inspectorStatus.Text = "INSPECTOR: " .. string.upper(tostring(eventType)) .. " CAPTURED (" .. #snapshotLog .. ")"
             return entry
         end
-        local watchedGuiAncestors = {}
-        local function getGuiVisibilityContext(object)
-            local current = object
-            local screenGui = nil
-            local effectivelyVisible = true
-            while current and current ~= playerGui do
-                if current:IsA("GuiObject") and not current.Visible then
-                    effectivelyVisible = false
-                elseif current:IsA("ScreenGui") then
-                    screenGui = current
-                    if not current.Enabled then effectivelyVisible = false end
-                end
-                current = current.Parent
-            end
-            return effectivelyVisible, screenGui
-        end
-        local function recordGuiObservation(object, reason)
-            if not object or not object.Parent then return end
-            local effective, screenGui = getGuiVisibilityContext(object)
-            local now = os.clock()
-            if now - (lastGuiCapture[object] or 0) < 0.25 then return end
-            lastGuiCapture[object] = now
-            local textValue = ""
-            pcall(function()
-                if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
-                    textValue = object.Text:sub(1, 100)
-                end
-            end)
-            local context = "GUI " .. reason ..
-                " | path=" .. safeFullName(object) ..
-                " | class=" .. object.ClassName ..
-                " | name=" .. object.Name ..
-                " | visible=" .. tostring(object.Visible) ..
-                " | effectiveVisible=" .. tostring(effective) ..
-                " | ScreenGui=" .. (screenGui and safeFullName(screenGui) or "none") ..
-                " | ScreenGui.Enabled=" .. (screenGui and tostring(screenGui.Enabled) or "n/a") ..
-                " | text=" .. textValue
-            captureSnapshot("gui-observation", context)
-        end
-        local function refreshGuiDescendants(ancestor)
-            if not ancestor or not ancestor.Parent then return end
-            for _, descendant in ipairs(ancestor:GetDescendants()) do
-                if descendant:IsA("GuiObject") then
-                    local effective = getGuiVisibilityContext(descendant)
-                    if effective then
-                        recordGuiObservation(descendant, "became effectively visible after ancestor change")
-                    end
-                end
-            end
-        end
-        local function watchGuiObject(object)
-            if not object:IsA("GuiObject") or watchedGui[object] then return end
-            watchedGui[object] = true
-            addInspectorConnection(object:GetPropertyChangedSignal("Visible"):Connect(function()
-                if object.Parent then
-                    recordGuiObservation(object, "Visible changed")
-                    refreshGuiDescendants(object)
-                end
-            end))
-            if object:IsA("TextLabel") or object:IsA("TextButton") or object:IsA("TextBox") then
-                addInspectorConnection(object:GetPropertyChangedSignal("Text"):Connect(function()
-                    if object.Parent then recordGuiObservation(object, "Text changed") end
-                end))
-            end
-            local ancestor = object.Parent
-            while ancestor and ancestor ~= playerGui do
-                if not watchedGuiAncestors[ancestor] then
-                    watchedGuiAncestors[ancestor] = true
-                    if ancestor:IsA("GuiObject") then
-                        addInspectorConnection(ancestor:GetPropertyChangedSignal("Visible"):Connect(function()
-                            refreshGuiDescendants(ancestor)
-                        end))
-                    elseif ancestor:IsA("ScreenGui") then
-                        addInspectorConnection(ancestor:GetPropertyChangedSignal("Enabled"):Connect(function()
-                            refreshGuiDescendants(ancestor)
-                        end))
-                    end
-                end
-                ancestor = ancestor.Parent
-            end
-        end
-        local playerGui = LocalPlayer and LocalPlayer:FindFirstChildOfClass("PlayerGui")
-        if playerGui then
-            for _, object in ipairs(playerGui:GetDescendants()) do watchGuiObject(object) end
-            addInspectorConnection(playerGui.DescendantAdded:Connect(watchGuiObject))
-        end
-        addInspectorConnection(PromptService.PromptShown:Connect(function(prompt)
-            captureSnapshot("proximity-prompt-shown", "A ProximityPrompt became active; this is an observation, not proof of a dodge prompt: " .. safeFullName(prompt))
-        end))
-        addInspectorConnection(PromptService.PromptHidden:Connect(function(prompt)
-            captureSnapshot("proximity-prompt-hidden", "A ProximityPrompt was hidden: " .. safeFullName(prompt))
-        end))
-        addInspectorConnection(RunService.Heartbeat:Connect(function()
-            local character = LocalPlayer and LocalPlayer.Character
-            local root = character and character:FindFirstChild("HumanoidRootPart")
-            if not root then
-                lastRootVelocity = nil
-                lastRootCharacter = nil
-                return
-            end
-            local velocity = root.AssemblyLinearVelocity
-            local now = os.clock()
-            if lastRootCharacter ~= character then
-                lastRootCharacter = character
-                lastRootVelocity = velocity
-                return
-            end
-            local previousVelocity = lastRootVelocity
-            lastRootVelocity = velocity
-            if previousVelocity and (velocity - previousVelocity).Magnitude >= 35 and now - lastMovementCapture >= 1.5 then
-                lastMovementCapture = now
-                captureSnapshot("velocity-change-candidate",
-                    "Abrupt velocity change observed (delta " .. string.format("%.1f", (velocity - previousVelocity).Magnitude) ..
-                    " studs/s). Possible knockback, collision, or other physics change; not confirmed as a slap.")
-            end
-        end))
+        -- Performance safeguard:
+        -- This inspector is owner-only, but its UI is constructed for all clients.
+        -- Do not attach PlayerGui-wide property listeners or a permanent Heartbeat
+        -- observer during startup. Those hooks were running even for member accounts
+        -- with the owner-only folder hidden and could overwhelm large experiences.
+        -- Snapshots remain available through explicit button presses only.
         MakeButton(inspectorContent, "SNAPSHOT MY MOVEMENT", function()
             if not (LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
                 inspectorStatus.Text = "INSPECTOR: CHARACTER ROOT NOT FOUND"
