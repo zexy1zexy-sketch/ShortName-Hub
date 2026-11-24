@@ -70,13 +70,13 @@ local function OwnerHeaders(session)
     return { ["x-owner-session"] = tostring(session or "") }
 end
 
-function Presence.ExchangeOwnerCode(code)
+function Presence.LoginOwner(secret)
+    if type(secret) ~= "string" or secret == "" then return false, "Enter your owner secret." end
     return Send({
-        Url = ENDPOINT .. "/owner-session",
+        Url = ENDPOINT .. "/owner-pair",
         Method = "POST",
         Timeout = 20,
-        Headers = { ["Content-Type"] = "application/json" },
-        Body = HttpService:JSONEncode({ code = tostring(code or "") })
+        Headers = { ["x-owner-secret"] = secret },
     })
 end
 
