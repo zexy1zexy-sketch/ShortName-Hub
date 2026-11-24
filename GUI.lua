@@ -4411,6 +4411,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(CombatToolsFolder, "COMBAT HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
     Label(CombatToolsFolder, "Shows your own live health, movement speed, and equipped tool. Local display only.", 10, 36, Grey)
 
+    -- Isolate combat utility locals from the main GUI builder register budget.
+    do
     local CombatHudEnabled = false
     local CombatHudToken = 0
     local CombatHudLabel
@@ -4636,6 +4638,8 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             HitboxStatus.Text = "VISUALIZER: READY"
         end
     end, Color3.fromRGB(45, 115, 75))
+
+    end
 
     -- Keep the observer's many working locals in their own function so they
     -- do not consume the main GUI builder's 200-local register budget.
