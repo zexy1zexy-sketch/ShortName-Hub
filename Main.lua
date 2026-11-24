@@ -318,12 +318,41 @@ local function LoadModule(name)
     if not success then
         error("Cloudflare request failed for " .. name .. ": " .. tostring(requestError))
     end
-    if type(response) ~= "table" then
-        error("Invalid response while loading " .. name)
+    local status = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
+    local source = type(response) == "table" and (response.Body or response.body) or nil
+
+    -- The new universal observer can fall back to the public repository while
+    -- an older deployed Worker is waiting for its allowlist update.
+    if name == "UniversalLiveObserver.lua" and status ~= 200 then
+        local fallbackUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name
+        local fallbackResponse
+        local fallbackOk, fallbackError = pcall(function()
+            fallbackResponse = RequestFunction({
+                Url = fallbackUrl,
+                Method = "GET",
+                Headers = { ["Cache-Control"] = "no-cache", ["Pragma"] = "no-cache" }
+            })
+        end)
+        if fallbackOk and type(fallbackResponse) == "table" then
+            local fallbackStatus = fallbackResponse.StatusCode or fallbackResponse.Status or fallbackResponse.status_code
+            local fallbackSource = fallbackResponse.Body or fallbackResponse.body
+            if fallbackStatus == 200 and type(fallbackSource) == "string" and fallbackSource ~= "" then
+                status = fallbackStatus
+                source = fallbackSource
+                AddDiagnostic("Loaded UniversalLiveObserver.lua using GitHub fallback.")
+            else
+                error("Cloudflare denied UniversalLiveObserver.lua and GitHub fallback failed (HTTP "
+                    .. tostring(fallbackStatus) .. "): " .. tostring(fallbackSource))
+            end
+        else
+            error("Cloudflare denied UniversalLiveObserver.lua and GitHub fallback request failed: "
+                .. tostring(fallbackError))
+        end
     end
 
-    local status = response.StatusCode or response.Status or response.status_code
-    local source = response.Body or response.body
+    if type(response) ~= "table" and status ~= 200 then
+        error("Invalid response while loading " .. name)
+    end
     if status ~= 200 then
         error("Cloudflare could not load " .. name .. " (HTTP " .. tostring(status) .. "): " .. tostring(source))
     end
