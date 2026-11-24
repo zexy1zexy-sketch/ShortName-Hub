@@ -1695,18 +1695,18 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
 
         MakeButton(rosterContent, "REFRESH PLAYER CARDS", refreshRoster, Color3.fromRGB(65, 90, 125))
-        local detectorContent = MakeFolder("SLAP DETECTOR", GUI.GuessSlapperPage)
-        local identificationTitle = Label(detectorContent, "SLAPPER IDENTIFICATION", 13, 22, PurpleLight)
+        local detectorContent = MakeFolder("PLAYER IMPACT OBSERVER", GUI.GuessSlapperPage)
+        local identificationTitle = Label(detectorContent, "PLAYER IMPACT OBSERVATION", 13, 22, PurpleLight)
         identificationTitle.Font = Enum.Font.GothamBold
-        local identificationInfo = Label(detectorContent, "Detects possible hits on you and displays the best matching username.", 10, 28, Grey)
+        local identificationInfo = Label(detectorContent, "Observes possible player impacts and movement changes using client-visible signals; results are estimates, not server-confirmed attribution.", 10, 28, Grey)
         identificationInfo.TextWrapped = true
         identificationInfo.Size = UDim2.new(1, 0, 0, 58)
 
         local detectorStatus = Label(detectorContent, "DETECTOR: STOPPED", 11, 24, Color3.fromRGB(235, 175, 125))
         detectorStatus.Font = Enum.Font.GothamBold
-        local detectorSummary = Label(detectorContent, "Waiting for an impact.", 10, 22, Grey)
+        local detectorSummary = Label(detectorContent, "Waiting for player activity.", 10, 22, Grey)
         detectorSummary.TextWrapped = true
-        local lastDetection = Label(detectorContent, "No hit detected yet.", 12, 28, White)
+        local lastDetection = Label(detectorContent, "No activity detected yet.", 12, 28, White)
         lastDetection.TextWrapped = true
         local historyLabel = Label(detectorContent, "Recent usernames will appear here.", 10, 80, Grey)
         historyLabel.TextWrapped = true
@@ -1719,9 +1719,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         local detectorHistory = {}
         local lastRootVelocity = {}
 
-        -- Compact, detection-only floating panel. It does not alter the game's combat mechanics.
+        -- Compact, read-only activity panel. It does not alter game mechanics.
         local miniPanel = Instance.new("Frame")
-        miniPanel.Name = "SlapDetectorMiniPanel"
+        miniPanel.Name = "PlayerActivityMiniPanel"
         miniPanel.Size = UDim2.fromOffset(248, 112)
         miniPanel.Position = UDim2.new(1, -264, 0, 92)
         miniPanel.BackgroundColor3 = Color3.fromRGB(22, 25, 34)
@@ -1743,7 +1743,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         miniTitle.Position = UDim2.fromOffset(12, 7)
         miniTitle.Size = UDim2.new(1, -48, 0, 22)
         miniTitle.Font = Enum.Font.GothamBold
-        miniTitle.Text = "SLAP DETECTOR"
+        miniTitle.Text = "PLAYER IMPACT OBSERVER"
         miniTitle.TextColor3 = White
         miniTitle.TextSize = 12
         miniTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -1775,7 +1775,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         miniResult.Position = UDim2.fromOffset(12, 56)
         miniResult.Size = UDim2.new(1, -24, 0, 42)
         miniResult.Font = Enum.Font.Gotham
-        miniResult.Text = "Waiting for an impact."
+        miniResult.Text = "Waiting for player activity."
         miniResult.TextColor3 = Grey
         miniResult.TextSize = 11
         miniResult.TextWrapped = true
@@ -1958,10 +1958,10 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             setMiniDetectorState(false)
         end
         local detectorButton
-        detectorButton = MakeButton(detectorContent, "START SLAP DETECTOR", function()
+        detectorButton = MakeButton(detectorContent, "START PLAYER IMPACT OBSERVER", function()
             if detectorRunning then
                 stopSlapDetector()
-                detectorButton.Text = "START SLAP DETECTOR"
+                detectorButton.Text = "START PLAYER IMPACT OBSERVER"
                 return
             end
             detectorRunning = true
@@ -1969,7 +1969,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             detectorStatus.Text = "DETECTOR: LISTENING"
             detectorStatus.TextColor3 = Color3.fromRGB(130, 220, 165)
             detectorSummary.Text = "Listening for hits on you..."
-            detectorButton.Text = "STOP SLAP DETECTOR"
+            detectorButton.Text = "STOP PLAYER IMPACT OBSERVER"
 
             for _, player in ipairs(PlayersService:GetPlayers()) do
                 if player.Character then bindCharacter(player, player.Character) end
@@ -1993,7 +1993,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end, Color3.fromRGB(75, 85, 115))
         MakeButton(detectorContent, "CLEAR HISTORY", function()
             table.clear(detectorHistory)
-            lastDetection.Text = "No hit detected yet."
+            lastDetection.Text = "No activity detected yet."
             lastDetection.TextColor3 = White
             renderHistory()
         end, Color3.fromRGB(75, 75, 95))
@@ -2018,9 +2018,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end, Color3.fromRGB(65, 90, 125))
 
         -- GAME-SPECIFIC, OWNER-ONLY, READ-ONLY ARCHITECTURE INSPECTOR.
-        local inspectorContent = MakeFolder("SLAP SYSTEM INSPECTOR", GUI.GuessSlapperPage, false)
+        local inspectorContent = MakeFolder("UNIVERSAL SYSTEM INSPECTOR", GUI.GuessSlapperPage, false)
         Label(inspectorContent, "READ-ONLY CLIENT INSPECTION", 12, 22, PurpleLight).Font = Enum.Font.GothamBold
-        local inspectorInfo = Label(inspectorContent, "Lists client-visible remotes, modules, relevant scripts, dodge prompt UI, and your local movement snapshot. Server scripts and server validation are not visible from this client.", 10, 58, Grey)
+        local inspectorInfo = Label(inspectorContent, "Lists client-visible remotes, modules, scripts, UI prompts, and local player-state metadata across any Roblox experience. Server scripts and server validation are not visible from this client.", 10, 58, Grey)
         inspectorInfo.TextWrapped = true
         inspectorInfo.Size = UDim2.new(1, 0, 0, 58)
         local inspectorStatus = Label(inspectorContent, "INSPECTOR: READY", 10, 22, Color3.fromRGB(130, 210, 165))
@@ -2043,9 +2043,9 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
             local starterGui = game:GetService("StarterGui")
             local roots = { replicated, workspaceService, starterPlayer, starterGui }
             if playerGui then table.insert(roots, playerGui) end
-            local keywords = { "slap", "hit", "damage", "force", "knock", "combat", "dodge", "avoid", "attack", "ragdoll" }
+            local keywords = { "player", "character", "humanoid", "movement", "health", "damage", "impact", "interaction", "prompt", "event", "ability", "tool", "inventory", "quest", "round", "team", "status", "gui", "ui", "remote", "replicate", "network", "spawn", "teleport", "vehicle", "pet", "npc", "currency", "reward", "shop", "upgrade", "level", "checkpoint", "profile", "data", "controller", "service", "system" }
             local lines = {}
-            local counts = { remoteEvents = 0, remoteFunctions = 0, modules = 0, scripts = 0, dodgeUi = 0 }
+            local counts = { remoteEvents = 0, remoteFunctions = 0, modules = 0, scripts = 0, matchingUi = 0 }
             local seen = {}
             local function matches(text)
                 text = tostring(text or ""):lower()
@@ -2081,20 +2081,20 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
                             local textValue = ""
                             pcall(function() textValue = object.Text end)
                             if matches(object.Name) or matches(textValue) then
-                                counts.dodgeUi = counts.dodgeUi + 1
+                                counts.matchingUi = counts.matchingUi + 1
                                 addLine("[PROMPT UI] " .. safeFullName(object) .. (textValue ~= "" and " — " .. tostring(textValue):sub(1, 70) or ""))
                             end
                         end
                     end
                 end
             end
-            table.insert(lines, 1, "VISIBLE OBJECT COUNTS — RemoteEvents: " .. counts.remoteEvents .. " | RemoteFunctions: " .. counts.remoteFunctions .. " | Modules: " .. counts.modules .. " | LocalScripts: " .. counts.scripts .. " | Prompt UI: " .. counts.dodgeUi)
-            table.insert(lines, 2, "Only name/path matches are listed; a remote's presence does not prove its arguments are trusted.")
-            if #lines <= 2 then addLine("No matching client-visible objects found in the scanned containers.") end
+            table.insert(lines, 1, "VISIBLE SYSTEM COUNTS — RemoteEvents: " .. counts.remoteEvents .. " | RemoteFunctions: " .. counts.remoteFunctions .. " | Modules: " .. counts.modules .. " | LocalScripts: " .. counts.scripts .. " | Matching UI: " .. counts.dodgeUi)
+            table.insert(lines, 2, "General name/path matches are listed; a remote's presence does not prove its arguments are trusted.")
+            if #lines <= 2 then addLine("No matching client-visible system objects found in the scanned containers.") end
             inspectorResults.Text = table.concat(lines, "\n")
             inspectorStatus.Text = "INSPECTOR: SCAN COMPLETE"
         end
-        MakeButton(inspectorContent, "SCAN VISIBLE SLAP SYSTEM OBJECTS", runSlapArchitectureScan, Color3.fromRGB(65, 90, 125))
+        MakeButton(inspectorContent, "SCAN VISIBLE GAME SYSTEMS", runSlapArchitectureScan, Color3.fromRGB(65, 90, 125))
         local HttpService = game:GetService("HttpService")
         local RunService = game:GetService("RunService")
         local PromptService = game:GetService("ProximityPromptService")
