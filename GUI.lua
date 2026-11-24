@@ -4412,7 +4412,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
     Label(CombatToolsFolder, "Shows your own live health, movement speed, and equipped tool. Local display only.", 10, 36, Grey)
 
     -- Isolate combat utility locals in a separate function/register frame.
-    (function()
+    ;(function()
     local CombatHudEnabled = false
     local CombatHudToken = 0
     local CombatHudLabel
