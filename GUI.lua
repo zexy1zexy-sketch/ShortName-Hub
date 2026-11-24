@@ -2096,19 +2096,7 @@ function GUI.Create(Config, Controller, Scythe, ThanksgivingScanner, FightScanne
         end
         MakeButton(inspectorContent, "SCAN VISIBLE GAME SYSTEMS", runSlapArchitectureScan, Color3.fromRGB(65, 90, 125))
         local HttpService = game:GetService("HttpService")
-        local RunService = game:GetService("RunService")
-        local PromptService = game:GetService("ProximityPromptService")
         local snapshotLog = {}
-        local inspectorConnections = {}
-        local watchedGui = {}
-        local lastMovementCapture = 0
-        local lastRootVelocity = nil
-        local lastRootCharacter = nil
-        local lastGuiCapture = {}
-        local function addInspectorConnection(connection)
-            table.insert(inspectorConnections, connection)
-            return connection
-        end
         local function captureSnapshot(eventType, extra)
             local character = LocalPlayer and LocalPlayer.Character
             local root = character and character:FindFirstChild("HumanoidRootPart")
