@@ -308,8 +308,8 @@ local function LoadModule(name)
     local success, requestError = pcall(function()
         local moduleUrl = MODULE_ENDPOINT .. name
     if name == "GUI.lua" then
-        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/gui-complete-fix/GUI.lua"
-        AddDiagnostic("Loading GUI.lua directly from gui-complete-fix test branch.")
+        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/GUI.lua"
+        AddDiagnostic("Loading GUI.lua directly from main branch.")
     end
     response = RequestFunction({
             Url = moduleUrl,
