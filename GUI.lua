@@ -29,19 +29,42 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
     local welcomeTitle = label(welcomeCard, "SHORTNAME HUB  -  CONTROL CENTER", 13, 25, accent.Light)
     welcomeTitle.Position = UDim2.fromOffset(14, 12)
     welcomeTitle.Font = Enum.Font.GothamBold
-    local welcomeDescription = label(welcomeCard, "A cleaner, roomier interface with customizable appearance controls and a streamlined navigation system.", 11, 48, white)
+    local welcomeDescription = label(welcomeCard, "A living changelog of features, improvements, and fixes since the Updates page was introduced.", 11, 48, white)
     welcomeDescription.Position = UDim2.fromOffset(14, 42)
     welcomeDescription.TextWrapped = true
-    label(page, "LATEST CHANGES  -  v" .. tostring(config.Version or "1.0.2"), 12, 25, accent.Light).Font = Enum.Font.GothamBold
+
+    local currentVersion = tostring(config.Version or "1.2.0")
+    label(page, "CHANGELOG  -  v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
     local updateItems = {
-        { "01  -  Modular theme foundation", "Centralized accent palette and active navigation glow." },
-        { "02  -  Adjustable appearance", "New interface scale and transparency sliders." },
-        { "03  -  Custom backgrounds", "Set a custom Roblox image asset ID or asset URL." },
-        { "04  -  Spacious layout", "Larger responsive window and minimal collapsible sidebar." }
+        {
+            "v1.2.0  -  Game tools, automation & reliability  |  Nov 23-25",
+            "Added the owner-only Detection & Observation area, manual game detector and manually approved game reports. Added universal game, structure, instance and live-value scanners/observers, report snapshots, authenticated uploads and owner security reports. Added Guess the Slapper observation tools and a compact floating detector. Added Noob Incremental code redemption and Thanksgiving Event automation, including Turkey Oof milestones, three Noob upgrades and Turkey upgrades. Added bounded remote-call logging and report uploads. Fixed detector metadata, observation signal quality, Perfect Dodge logging, remote argument formatting, automation lookups/toggles, GUI cleanup, refresh recovery, startup failures and multiple Luau compiler/register-limit issues. Removed always-on inspection watchers that caused FPS drops; scanners are on-demand."
+        },
+        {
+            "v1.1.0  -  Interface redesign  |  Nov 22-23",
+            "Introduced the Updates home page and collapsible minimal sidebar. Expanded the responsive window and added adjustable UI scale, transparency, custom backgrounds, accent colors, active-navigation glow and page animations. Added searchable navigation, global search with Ctrl+K, settings search, notification history, quick menu, profiles, keybinds, HUD and player directory. Added the creator-only Players dashboard, community ranks and presence roster, plus a separate Player Tools area. Fixed accent colors gradually brightening, small-window scrolling, navigation/view switching, overlapping header controls, unsupported icons and feedback placement."
+        },
+        {
+            "v1.0.2  -  Versioned notes & settings polish  |  Nov 22",
+            "Added the versioned release label to the loader and hub header, plus expandable update notes. Improved settings search and version display. Added the early diagnostic console with minimize, hide and drag controls, session diagnostics and a hub hotkey. Added full hub refresh/reload controls and utility actions. Improved module loading and private-repository startup, report upload timeouts and feedback formatting."
+        },
+        {
+            "v1.0.1  -  Core stability  |  Nov 22",
+            "Improved the key-system/loading flow, error handling and module loader. Fixed base64 whitespace decoding and private-repository loader startup. Continued stabilizing the GUI and automation controls ahead of the larger interface redesign."
+        },
+        {
+            "v1.0.0  -  Initial version tracking  |  Nov 22",
+            "Established ShortName Hub's initial public version identifier and displayed the version in the hub header and loader so releases could be tracked consistently."
+        },
+        {
+            "Earlier project foundation  |  Nov 19-22",
+            "Built the modular hub and game-specific tools, including Noob Incremental automation, NPC/teleport/scythe utilities, Thanksgiving scanning and report upload, and Fight on a Baseplate diagnostics. Added owner/member view separation and private report/feedback infrastructure. Removed the house-toggle feature and later kept RemoteSpy controls out of the regular GUI."
+        }
     }
+
     for _, item in ipairs(updateItems) do
         local card = Instance.new("Frame")
-        card.Size = UDim2.new(1, 0, 0, 40)
+        card.Size = UDim2.new(1, 0, 0, 42)
         card.BackgroundColor3 = buttonDark
         card.BorderSizePixel = 0
         card.ClipsDescendants = true
@@ -49,25 +72,28 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
         corner(card, 10)
         stroke(card, border, 1)
         local heading = Instance.new("TextButton")
-        heading.Size = UDim2.new(1, -20, 0, 38)
+        heading.Size = UDim2.new(1, -20, 0, 40)
         heading.Position = UDim2.fromOffset(10, 1)
         heading.BackgroundTransparency = 1
-        heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  -  " .. item[1] .. "     +"
+        heading.Text = item[1] .. "     +"
         heading.TextColor3 = white
-        heading.TextSize = 11
+        heading.TextSize = 10
         heading.Font = Enum.Font.GothamBold
         heading.TextXAlignment = Enum.TextXAlignment.Left
+        heading.TextTruncate = Enum.TextTruncate.AtEnd
         heading.Parent = card
-        local detail = label(card, item[2], 10, 34, grey)
-        detail.Position = UDim2.fromOffset(12, 40)
+        local detail = label(card, item[2], 10, 66, grey)
+        detail.Position = UDim2.fromOffset(12, 43)
+        detail.Size = UDim2.new(1, -24, 0, 62)
         detail.TextWrapped = true
+        detail.TextYAlignment = Enum.TextYAlignment.Top
         detail.Visible = false
         local expanded = false
         heading.Activated:Connect(function()
             expanded = not expanded
             detail.Visible = expanded
-            heading.Text = "v" .. tostring(config.Version or "1.0.2") .. "  -  " .. item[1] .. (expanded and "     -" or "     +")
-            tween(card, { Size = UDim2.new(1, 0, 0, expanded and 80 or 40) }, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+            heading.Text = item[1] .. (expanded and "     -" or "     +")
+            tween(card, { Size = UDim2.new(1, 0, 0, expanded and 112 or 42) }, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
         end)
     end
 end
