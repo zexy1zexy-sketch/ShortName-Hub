@@ -1481,6 +1481,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             ["REALM 1"] = "🌍",
             ["FARM AREA"] = "🌾",
             ["THANKSGIVING EVENT"] = "🦃",
+            ["TURKEY OOF UPGRADES"] = "🪶",
             ["EVENT SCANNER"] = "🔎",
             ["FIGHT ON A BASEPLATE"] = "⚔️",
             ["PLAYER TOOLS"] = "🛠️",
