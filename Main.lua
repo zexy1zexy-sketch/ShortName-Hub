@@ -431,6 +431,7 @@ local function SetAutoLoadPreference(enabled)
     return true, "AUTO-LOAD ENABLED — WILL RUN AFTER REJOIN"
 end
 SharedEnvironment.__SHORTNAME_SET_AUTOLOAD = SetAutoLoadPreference
+SharedEnvironment.__SHORTNAME_AUTOLOAD_ACTIVE = ReadAutoLoadPreference()
 if ReadAutoLoadPreference() then
     local queue = GetQueueOnTeleport()
     if queue then
