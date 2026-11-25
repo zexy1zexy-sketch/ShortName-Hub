@@ -169,7 +169,7 @@ function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent,
     return holder, function(value) setValue(value, false) end
 end
 
-function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, FightStructureScanner, LiveObserver, RefreshCallback, PresenceModule, ThemeModule)
+function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, FightStructureScanner, LiveObserver, RemoteLogger, RefreshCallback, PresenceModule, ThemeModule)
     GUI.AnimationsEnabled = true
     local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -3446,6 +3446,108 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             UpdateLiveObserver("MODULE NOT LOADED")
         end
     end, Color3.fromRGB(85, 75, 105))
+
+    do -- bounded remote logger UI; owner-only Detection & Observation page
+        local RemoteLoggerFolder = MakeFolder("UNIVERSAL REMOTE LOGGER", FightDetectorsFolder, false)
+        Label(RemoteLoggerFolder, "UNIVERSAL REMOTE LOGGER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+        Label(RemoteLoggerFolder,
+            "Prioritizes MainRemote and records this client's RemoteEvent/RemoteFunction calls, plus incoming RemoteEvent deliveries. Also records client-side BindableEvent/BindableFunction calls when the executor hook supports them.",
+            10, 52, Grey).TextWrapped = true
+
+        local RemoteLoggerStatus = Label(RemoteLoggerFolder, "REMOTE LOGGER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+        RemoteLoggerStatus.Font = Enum.Font.GothamBold
+        local RemoteLoggerStats = Label(RemoteLoggerFolder, "CAPTURED: 0 | STORED: 0 | MAINREMOTE: 0", 10, 22, Grey)
+        local RemoteLoggerPreview = Label(RemoteLoggerFolder, "No remote calls captured yet. Start the logger, use the game normally, then refresh this view.", 9, 96, Grey)
+        RemoteLoggerPreview.TextWrapped = true
+        RemoteLoggerPreview.TextYAlignment = Enum.TextYAlignment.Top
+
+        local function RefreshRemoteLoggerView(status)
+            if not RemoteLogger then
+                RemoteLoggerStatus.Text = "REMOTE LOGGER: MODULE NOT LOADED"
+                return
+            end
+            local ok, stats = pcall(function() return RemoteLogger:GetStats() end)
+            if not ok then
+                RemoteLoggerStatus.Text = "REMOTE LOGGER: STATS ERROR"
+                return
+            end
+            RemoteLoggerStats.Text = "CAPTURED: " .. tostring(stats.Total or 0)
+                .. " | STORED: " .. tostring(stats.Stored or 0)
+                .. " | MAINREMOTE: " .. tostring(stats.MainRemote or 0)
+                .. " | DROPPED: " .. tostring(stats.Dropped or 0)
+            local entries = RemoteLogger:GetEntries(14)
+            table.sort(entries, function(a, b)
+                local am = a.Name == "MainRemote"
+                local bm = b.Name == "MainRemote"
+                if am ~= bm then return am end
+                return tostring(a.Time) > tostring(b.Time)
+            end)
+            local lines = {}
+            for _, entry in ipairs(entries) do
+                table.insert(lines, "[" .. tostring(entry.Time) .. "] "
+                    .. (entry.Name == "MainRemote" and "★ " or "")
+                    .. tostring(entry.Direction) .. " " .. tostring(entry.Method)
+                    .. " | " .. tostring(entry.Path))
+            end
+            RemoteLoggerPreview.Text = #lines > 0 and table.concat(lines, "\n")
+                or "No calls captured yet. Try normal in-game actions, then refresh."
+            if status then RemoteLoggerStatus.Text = "REMOTE LOGGER: " .. tostring(status) end
+        end
+
+        MakeButton(RemoteLoggerFolder, "START UNIVERSAL REMOTE LOGGER", function()
+            if not RemoteLogger or type(RemoteLogger.Start) ~= "function" then
+                RefreshRemoteLoggerView("MODULE NOT LOADED")
+                return
+            end
+            local ok, success, message = pcall(function() return RemoteLogger:Start() end)
+            if not ok then
+                RefreshRemoteLoggerView("START ERROR: " .. tostring(success))
+            elseif success then
+                RefreshRemoteLoggerView(message or "STARTED")
+            else
+                RefreshRemoteLoggerView(message or "START FAILED")
+            end
+        end, Color3.fromRGB(45, 115, 75))
+
+        MakeButton(RemoteLoggerFolder, "STOP UNIVERSAL REMOTE LOGGER", function()
+            if RemoteLogger and type(RemoteLogger.Stop) == "function" then
+                local ok = pcall(function() RemoteLogger:Stop() end)
+                RefreshRemoteLoggerView(ok and "STOPPED" or "STOP FAILED")
+            else
+                RefreshRemoteLoggerView("MODULE NOT LOADED")
+            end
+        end, Color3.fromRGB(125, 75, 55))
+
+        MakeButton(RemoteLoggerFolder, "REFRESH RECENT CALLS", function()
+            RefreshRemoteLoggerView(RemoteLogger and RemoteLogger.Status or "MODULE NOT LOADED")
+        end)
+
+        MakeButton(RemoteLoggerFolder, "COPY FULL REMOTE REPORT", function()
+            if not RemoteLogger or type(RemoteLogger.GetReport) ~= "function" then
+                RefreshRemoteLoggerView("MODULE NOT LOADED")
+                return
+            end
+            local ok, report = pcall(function() return RemoteLogger:GetReport() end)
+            if not ok then RefreshRemoteLoggerView("REPORT ERROR"); return end
+            local copied = false
+            if type(setclipboard) == "function" then copied = pcall(function() setclipboard(report) end) end
+            if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(report) end) end
+            RefreshRemoteLoggerView(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE")
+        end, Color3.fromRGB(65, 90, 130))
+
+        MakeButton(RemoteLoggerFolder, "CLEAR REMOTE HISTORY", function()
+            if RemoteLogger and type(RemoteLogger.Clear) == "function" then
+                local ok = pcall(function() RemoteLogger:Clear() end)
+                RefreshRemoteLoggerView(ok and "HISTORY CLEARED" or "CLEAR FAILED")
+            else
+                RefreshRemoteLoggerView("MODULE NOT LOADED")
+            end
+        end, Color3.fromRGB(85, 75, 105))
+
+        Label(RemoteLoggerFolder,
+            "LIMITS: client-side only; cannot see server-only calls or other players' traffic. Incoming RemoteFunction callbacks and Bindable event listeners are not intercepted. Requires executor hookmetamethod + getnamecallmethod for outgoing-call capture. Log is capped at 250 entries; refresh is manual to avoid UI polling.",
+            9, 68, Grey).TextWrapped = true
+    end
 
     -- PLAYER UTILITIES (SETTINGS TAB)
     local UtilityFolder = SettingsPage
