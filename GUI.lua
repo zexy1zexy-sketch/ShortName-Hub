@@ -37,6 +37,10 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
     label(page, "CHANGELOG  -  v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
     local updateItems = {
         {
+            "v1.2.2  -  Guess the Slapper cleanup  |  Nov 25",
+            "Removed Auto Dodge, player roster/cards, manual round notes, and the universal inspector from Guess the Slapper. Kept only the Who Slapped Me detector and its compact mini panel."
+        },
+        {
             "v1.2.0  -  Game tools, automation & reliability  |  Nov 23-25",
             "Added the owner-only Detection & Observation area, manual game detector and manually approved game reports. Added universal game, structure, instance and live-value scanners/observers, report snapshots, authenticated uploads and owner security reports. Added the Guess the Slapper who-hit-you detector. Added Noob Incremental code redemption and Thanksgiving Event automation, including Turkey Oof milestones, all three Noob upgrades (including Noob Upgrade 3), and Turkey upgrades. Added separate Toggle All controls for Farm Area and Thanksgiving Event. Added bounded remote-call logging and authenticated report uploads. Fixed detector metadata, observation signal quality, Perfect Dodge logging, remote argument formatting, automation lookups/toggles, GUI cleanup, refresh recovery, startup failures and multiple Luau compiler/register-limit issues. Removed always-on inspection watchers that caused FPS drops; scanners are on-demand."
         },
@@ -2613,7 +2617,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         detectorButton = MakeButton(detectorContent, "START SLAP DETECTOR", function()
             if detectorRunning then
                 stopSlapDetector()
-                detectorButton.Text = "START PLAYER IMPACT OBSERVER"
+                detectorButton.Text = "START SLAP DETECTOR"
                 return
             end
             detectorRunning = true
