@@ -2349,6 +2349,60 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         Label(GUI.GuessSlapperPage, "GUESS THE SLAPPER", 17, 30).Font = Enum.Font.GothamBold
         Label(GUI.GuessSlapperPage, "Player roster and slap detection tools.", 10, 26, Grey).TextWrapped = true
 
+        -- AUTO DODGE: repeats the observed Dodge remote with the confirmed "true" argument.
+        if game.PlaceId == 106683702021527 or game.GameId == 9449993534 then
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            local dodgeFolder = MakeFolder("AUTO DODGE", GUI.GuessSlapperPage)
+            Label(dodgeFolder, "Sends the game's observed Dodge(true) event every 0.5 seconds while enabled.", 10, 34, Grey).TextWrapped = true
+            local dodgeEnabled = false
+            local dodgeToken = 0
+            local dodgeStatus = Label(dodgeFolder, "AUTO DODGE: OFF", 10, 22, Color3.fromRGB(235, 175, 125))
+            dodgeStatus.Font = Enum.Font.GothamBold
+            local dodgeButton
+            local function stopAutoDodge()
+                dodgeEnabled = false
+                dodgeToken = dodgeToken + 1
+                if dodgeButton and dodgeButton.Parent then dodgeButton.Text = "AUTO DODGE: OFF" end
+                if dodgeStatus and dodgeStatus.Parent then
+                    dodgeStatus.Text = "AUTO DODGE: OFF"
+                    dodgeStatus.TextColor3 = Color3.fromRGB(235, 175, 125)
+                end
+            end
+            dodgeButton = MakeButton(dodgeFolder, "AUTO DODGE: OFF", function()
+                if dodgeEnabled then
+                    stopAutoDodge()
+                    return
+                end
+                local events = ReplicatedStorage:FindFirstChild("events")
+                local remote = events and events:FindFirstChild("Dodge")
+                if not remote or not remote:IsA("RemoteEvent") then
+                    dodgeStatus.Text = "DODGE REMOTE NOT FOUND"
+                    return
+                end
+                dodgeEnabled = true
+                dodgeToken = dodgeToken + 1
+                local thisToken = dodgeToken
+                dodgeButton.Text = "AUTO DODGE: ON"
+                dodgeStatus.Text = "AUTO DODGE: RUNNING (0.5s)"
+                dodgeStatus.TextColor3 = Color3.fromRGB(130, 210, 165)
+                task.spawn(function()
+                    while dodgeEnabled and dodgeToken == thisToken and ScreenGui.Parent do
+                        local currentEvents = ReplicatedStorage:FindFirstChild("events")
+                        local currentRemote = currentEvents and currentEvents:FindFirstChild("Dodge")
+                        if currentRemote and currentRemote:IsA("RemoteEvent") then
+                            pcall(function() currentRemote:FireServer("true") end)
+                        else
+                            stopAutoDodge()
+                            dodgeStatus.Text = "DODGE REMOTE LOST - STOPPED"
+                            break
+                        end
+                        task.wait(0.5)
+                    end
+                end)
+            end, Color3.fromRGB(55, 105, 85))
+            ScreenGui.Destroying:Connect(stopAutoDodge)
+        end
+
         local PlayersService = game:GetService("Players")
         local rosterContent = MakeFolder("PLAYER ROSTER", GUI.GuessSlapperPage)
         local markedSuspects = {}
