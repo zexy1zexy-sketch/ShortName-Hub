@@ -1,4 +1,17 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 06:18:24 UTC\n\n00:14:29  Diagnostic console initialized before loading modules.\n00:14:29  Executor HTTP request API: available\n00:14:30  Loading GUI.lua directly from main branch.\n00:14:33  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:14:33  Startup completed successfully.\n00:17:47  Loading GUI.lua directly from main branch.\n00:17:49  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:17:49  Startup completed successfully.\n00:17:49  ERROR: [string "liUxPnndHhdqpiOzZnvi"]:5050: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5050
-    Stack End
+SHORTNAME HUB REMOTE OBSERVATION
+Place: 76911729991355 | Ugc
+Scope: outgoing calls made by this client only
+Total captured: 6 | Stored: 6 | Dropped: 0
+
+[00:20:20] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeAnimal","2":"Chicken"}
+[00:20:20] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeAnimal","2":"Cow"}
+[00:20:19] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"BuyAnimal","3":"true","2":"Cow"}
+[00:20:18] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"BuyAnimal","3":"true","2":"Chicken"}
+[00:20:13] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"BiggerWheatDeposit","2":"Bread"}
+[00:20:12] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreConsumption","2":"Bread"}
