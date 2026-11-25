@@ -398,6 +398,46 @@ end
 
 local SharedEnvironment = GetSharedEnvironment()
 SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
+
+-- Optional executor-supported auto-load after teleport/rejoin.
+-- The preference is stored locally so the queue can be renewed in each session.
+local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua"
+local function GetQueueOnTeleport()
+    if type(queue_on_teleport) == "function" then return queue_on_teleport end
+    if type(queueonteleport) == "function" then return queueonteleport end
+    if syn and type(syn.queue_on_teleport) == "function" then return syn.queue_on_teleport end
+    if fluxus and type(fluxus.queue_on_teleport) == "function" then return fluxus.queue_on_teleport end
+    return nil
+end
+local function ReadAutoLoadPreference()
+    if type(readfile) ~= "function" or type(isfile) ~= "function" then return false end
+    local ok, exists = pcall(isfile, AUTOLOAD_FILE)
+    if not ok or not exists then return false end
+    local readOk, value = pcall(readfile, AUTOLOAD_FILE)
+    return readOk and tostring(value):lower() == "true"
+end
+local function SetAutoLoadPreference(enabled)
+    if type(writefile) ~= "function" then
+        return false, "This executor does not support writefile."
+    end
+    local ok, err = pcall(writefile, AUTOLOAD_FILE, enabled and "true" or "false")
+    if not ok then return false, "Could not save auto-load preference: " .. tostring(err) end
+    if not enabled then return true, "AUTO-LOAD DISABLED" end
+    local queue = GetQueueOnTeleport()
+    if not queue then return false, "Saved, but this executor has no queue-on-teleport API." end
+    local queued, queueError = pcall(queue, 'loadstring(game:HttpGet("' .. LOADER_URL .. '"))()')
+    if not queued then return false, "Could not queue auto-load: " .. tostring(queueError) end
+    return true, "AUTO-LOAD ENABLED — WILL RUN AFTER REJOIN"
+end
+SharedEnvironment.__SHORTNAME_SET_AUTOLOAD = SetAutoLoadPreference
+if ReadAutoLoadPreference() then
+    local queue = GetQueueOnTeleport()
+    if queue then
+        pcall(queue, 'loadstring(game:HttpGet("' .. LOADER_URL .. '"))()')
+    end
+end
+
 local RUNTIME_KEY = "__SHORTNAME_HUB_RUNTIME"
 
 -- A fresh execution of the loader must retire the previous execution's GUI
