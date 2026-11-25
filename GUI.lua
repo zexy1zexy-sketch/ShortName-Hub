@@ -1955,6 +1955,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             local TurkeyUpgradeRunning = {}
             local TurkeyUpgradeButtons = {}
             local TurkeySchedulerRunning = false
+            local TurkeySchedulerToken = 0
             local TurkeyDestroyed = false
 
             local function UpdateTurkeyButton(index)
@@ -1977,8 +1978,10 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             local function StartTurkeyScheduler()
                 if TurkeySchedulerRunning then return end
                 TurkeySchedulerRunning = true
+                TurkeySchedulerToken = TurkeySchedulerToken + 1
+                local schedulerToken = TurkeySchedulerToken
                 task.spawn(function()
-                    while TurkeySchedulerRunning and not TurkeyDestroyed and not ThanksgivingDestroyed do
+                    while TurkeySchedulerRunning and TurkeySchedulerToken == schedulerToken and not TurkeyDestroyed and not ThanksgivingDestroyed do
                         local sentAny = false
                         for i = 1, #TurkeyUpgradeNames do
                             if not TurkeySchedulerRunning or TurkeyDestroyed or ThanksgivingDestroyed then break end
@@ -2015,7 +2018,9 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                         end
                         task.wait(2)
                     end
-                    TurkeySchedulerRunning = false
+                    if TurkeySchedulerToken == schedulerToken then
+                        TurkeySchedulerRunning = false
+                    end
                 end)
             end
 
@@ -2071,6 +2076,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                     UpdateTurkeyButton(i)
                 end
                 TurkeySchedulerRunning = false
+                TurkeySchedulerToken = TurkeySchedulerToken + 1
                 UpdateToggleAllButton()
                 TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
             end, Color3.fromRGB(115, 55, 65))
@@ -2079,6 +2085,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 ThanksgivingDestroyed = true
                 TurkeyDestroyed = true
                 TurkeySchedulerRunning = false
+                TurkeySchedulerToken = TurkeySchedulerToken + 1
                 MilestoneRunning = false
                 NoobRunning = false
             end)
