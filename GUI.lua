@@ -3491,7 +3491,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 table.insert(lines, "[" .. tostring(entry.Time) .. "] "
                     .. (entry.Name == "MainRemote" and "★ " or "")
                     .. tostring(entry.Class) .. "." .. tostring(entry.Method)
-                    .. " | " .. tostring(entry.Path) .. "\\nARGS: " .. tostring(argsText))
+                    .. " | " .. tostring(entry.Path) .. "\nARGS: " .. tostring(argsText))
             end
             RemoteLoggerPreview.Text = #lines > 0 and table.concat(lines, "\n")
                 or "No calls captured yet. Try normal in-game actions, then refresh."
