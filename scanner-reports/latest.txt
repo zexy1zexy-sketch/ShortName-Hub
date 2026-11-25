@@ -1,5 +1,1 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 05:45:22 UTC\n\n23:43:57  Diagnostic console initialized before loading modules.\n23:43:57  Executor HTTP request API: available\n23:44:00  Loading GUI.lua directly from main branch.\n23:44:07  Loaded UniversalLiveObserver.lua using GitHub fallback.\n23:44:10  Startup completed successfully.\n23:45:02  ERROR: OnServerEvent can only be used on the server
-    Stack Begin
-    Script 'LocalScript', Line 127 - function instrument
-    Script 'LocalScript', Line 139
-    Stack End
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 06:05:57 UTC\n\n00:05:37  Diagnostic console initialized before loading modules.\n00:05:37  Executor HTTP request API: available\n00:05:40  Loading GUI.lua directly from main branch.\n00:05:42  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:05:42  STARTUP FAILED: [string "JIOmFNEpKkCpiWabiNFm"]:362: Cloudflare could not load RemoteLogger.lua (HTTP 400): {"ok":false,"error":"Module is not allowlisted"}\n00:05:42  FATAL LOADER ERROR: [string "JIOmFNEpKkCpiWabiNFm"]:654: [string "JIOmFNEpKkCpiWabiNFm"]:362: Cloudflare could not load RemoteLogger.lua (HTTP 400): {"ok":false,"error":"Module is not allowlisted"}
