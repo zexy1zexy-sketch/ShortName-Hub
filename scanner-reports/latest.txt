@@ -1,13 +1,1 @@
-SHORTNAME HUB REMOTE OBSERVATION
-Place: 76911729991355 | Ugc
-Scope: outgoing calls made by this client only
-Total captured: 4 | Stored: 4 | Dropped: 0
-
-[01:14:21] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeUpgradeMax","3":"MoreSpookyOof","2":"Sweets"}
-[01:14:18] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeUpgradeMax","3":"MoreGhost","2":"Sweets"}
-[01:14:16] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeUpgradeMax","3":"MorePumpkin","2":"Sweets"}
-[01:14:14] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeUpgradeMax","3":"MoreSweets","2":"Sweets"}
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 07:22:48 UTC\n\n01:22:39  Diagnostic console initialized before loading modules.\n01:22:39  Executor HTTP request API: available\n01:22:41  Loading GUI.lua directly from main branch.\n01:22:42  Loaded UniversalLiveObserver.lua using GitHub fallback.\n01:22:43  STARTUP FAILED: [string "nnowNlqAObEIgvuDrDCO"]:695: GUI creation failed: [string "RdWZZHtiJUVKvBRKQfqh"]:1928: attempt to call a nil value\n01:22:43  FATAL LOADER ERROR: [string "nnowNlqAObEIgvuDrDCO"]:742: [string "nnowNlqAObEIgvuDrDCO"]:695: GUI creation failed: [string "RdWZZHtiJUVKvBRKQfqh"]:1928: attempt to call a nil value
