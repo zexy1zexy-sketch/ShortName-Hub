@@ -1585,18 +1585,37 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         local function RedeemOne(code)
             local codeBox, redeemButton, reason = FindCodeControls()
             if not codeBox then return false, reason end
+
             codeBox.Text = code
-            task.wait(0.12)
-            local activated, activationError = pcall(function()
-                redeemButton:Activate()
-            end)
-            if not activated then
-                return false, "Button activation failed: " .. tostring(activationError)
+            task.wait(0.15)
+
+            -- GuiButton has an Activated event, not an :Activate() method.
+            -- Use the executor's signal firing API to invoke the game's own
+            -- connected redemption handler without guessing its remote.
+            local fired, fireError = false, nil
+            if type(firesignal) == "function" then
+                local ok, err = pcall(function()
+                    firesignal(redeemButton.Activated)
+                end)
+                fired = ok
+                fireError = err
+                if not fired then
+                    local clickOk, clickErr = pcall(function()
+                        firesignal(redeemButton.MouseButton1Click)
+                    end)
+                    fired = clickOk
+                    if not fired then fireError = clickErr or fireError end
+                end
             end
+
+            if not fired then
+                return false, "This executor doesn't expose firesignal (needed to press the game's Redeem button)."
+                    .. (fireError and (" Details: " .. tostring(fireError)) or "")
+            end
+
             CodeAttempted[code] = true
             return true
         end
-
         local function MakeCodeAction(text)
             local button = Instance.new("TextButton")
             button.Size = UDim2.new(1, 0, 0, 40)
