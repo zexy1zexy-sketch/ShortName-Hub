@@ -1,1 +1,5 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-24 22:41:43 UTC\n\n16:41:24  Diagnostic console initialized before loading modules.\n16:41:24  Executor HTTP request API: available\n16:41:29  COMPILE ERROR in GUI.lua: [string "msRPzVmKKYbaAGWfDEAP"]:299: Incomplete statement: expected assignment or a function call\n16:41:29  STARTUP FAILED: [string "zzNHVpkXmevcZayilsxe"]:366: Could not compile GUI.lua: [string "msRPzVmKKYbaAGWfDEAP"]:299: Incomplete statement: expected assignment or a function call\n16:41:29  FATAL LOADER ERROR: [string "zzNHVpkXmevcZayilsxe"]:647: [string "zzNHVpkXmevcZayilsxe"]:366: Could not compile GUI.lua: [string "msRPzVmKKYbaAGWfDEAP"]:299: Incomplete statement: expected assignment or a function call
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 05:45:22 UTC\n\n23:43:57  Diagnostic console initialized before loading modules.\n23:43:57  Executor HTTP request API: available\n23:44:00  Loading GUI.lua directly from main branch.\n23:44:07  Loaded UniversalLiveObserver.lua using GitHub fallback.\n23:44:10  Startup completed successfully.\n23:45:02  ERROR: OnServerEvent can only be used on the server
+    Stack Begin
+    Script 'LocalScript', Line 127 - function instrument
+    Script 'LocalScript', Line 139
+    Stack End
