@@ -4755,10 +4755,11 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         CombatHudEnabled = false
         CombatHudToken += 1
         if CombatHudLabel then
-            CombatHudLabel:Destroy()
+            pcall(function() CombatHudLabel:Destroy() end)
             CombatHudLabel = nil
         end
     end
+    GUI.StopCombatHud = RemoveCombatHud
 
     local CombatHudButton
     CombatHudButton = MakeButton(CombatToolsFolder, "TOGGLE COMBAT HUD: OFF", function()
@@ -4842,7 +4843,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
     local HitboxStatus = Label(CombatToolsFolder, "VISUALIZER: READY", 10, 22, Color3.fromRGB(170, 210, 255))
     local function ClearHitboxVisuals()
         if HitboxPreviewConnection then
-            HitboxPreviewConnection:Disconnect()
+            pcall(function() HitboxPreviewConnection:Disconnect() end)
             HitboxPreviewConnection = nil
         end
         for object, adornment in pairs(HitboxAdornments) do
@@ -4853,6 +4854,10 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             pcall(function() HitboxTemplatePreview:Destroy() end)
             HitboxTemplatePreview = nil
         end
+    end
+    GUI.ClearHitboxVisuals = function()
+        HitboxEnabled = false
+        ClearHitboxVisuals()
     end
     local HitboxButton
     HitboxButton = MakeButton(CombatToolsFolder, "HITBOX VISUALIZER: OFF", function()
@@ -5286,10 +5291,9 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
     ScreenGui.Destroying:Connect(function()
         if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
-        RemoveCombatHud()
-        HitboxEnabled = false
-        ClearHitboxVisuals()
-        if GUI.StopAttackObserver then GUI.StopAttackObserver() end
+        if GUI.StopCombatHud then pcall(GUI.StopCombatHud) end
+        if GUI.ClearHitboxVisuals then pcall(GUI.ClearHitboxVisuals) end
+        if GUI.StopAttackObserver then pcall(GUI.StopAttackObserver) end
     end)
 
     end
@@ -5520,9 +5524,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             end
         end)
         if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
-        RemoveCombatHud()
-        HitboxEnabled = false
-        ClearHitboxVisuals()
+        if GUI.StopCombatHud then pcall(GUI.StopCombatHud) end
+        if GUI.ClearHitboxVisuals then pcall(GUI.ClearHitboxVisuals) end
         HouseAutoEnabled = false
         HouseLoopToken = HouseLoopToken + 1
         ScreenGui:Destroy()
