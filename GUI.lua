@@ -1746,6 +1746,101 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         return b
     end
 
+    -- NOOB INCREMENTAL: REALM 1 > FARM AREA
+    -- Actions are based on the owner's uploaded outgoing MainRemote observations.
+    if game.PlaceId == 76911729991355 then
+        do
+            local Realm1Folder = MakeFolder("REALM 1", GamePage)
+            local FarmAreaFolder = MakeFolder("FARM AREA", Realm1Folder)
+            Label(FarmAreaFolder, "Farm Area automation. Each enabled action repeats every 2 seconds.", 10, 30, Grey).TextWrapped = true
+
+            local FarmStatus = Label(FarmAreaFolder, "FARM AREA: READY", 10, 24, Color3.fromRGB(170, 210, 255))
+            FarmStatus.TextWrapped = true
+
+            local FarmActions = {
+                {Name = "UPGRADE CHICKEN", Args = {"UpgradeAnimal", "Chicken"}},
+                {Name = "UPGRADE COW", Args = {"UpgradeAnimal", "Cow"}},
+                {Name = "BUY CHICKEN", Args = {"BuyAnimal", "Chicken", true}},
+                {Name = "BUY COW", Args = {"BuyAnimal", "Cow", true}},
+                {Name = "BIGGER WHEAT DEPOSIT", Args = {"UpgradeUpgradeMax", "BiggerWheatDeposit", "Bread"}},
+                {Name = "MORE BREAD CONSUMPTION", Args = {"UpgradeUpgradeMax", "MoreConsumption", "Bread"}}
+            }
+
+            local FarmRunning = {}
+            local FarmButtons = {}
+            local FarmStopped = false
+
+            local function GetFarmRemote()
+                local replicatedStorage = game:GetService("ReplicatedStorage")
+                local netFolder = replicatedStorage:FindFirstChild("__Net")
+                local remote = netFolder and netFolder:FindFirstChild("MainRemote")
+                if remote and remote:IsA("RemoteEvent") then
+                    return remote
+                end
+                return nil
+            end
+
+            local function SetFarmButton(index, enabled)
+                local button = FarmButtons[index]
+                if not button then return end
+                button.Text = (enabled and "ON  |  " or "OFF  |  ") .. FarmActions[index].Name
+                button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
+            end
+
+            local function StopAllFarmActions()
+                FarmStopped = true
+                for index in ipairs(FarmActions) do
+                    FarmRunning[index] = false
+                    SetFarmButton(index, false)
+                end
+                FarmStatus.Text = "FARM AREA: ALL ACTIONS STOPPED"
+                FarmStopped = false
+            end
+
+            for index, action in ipairs(FarmActions) do
+                local actionIndex = index
+                local actionData = action
+                FarmRunning[actionIndex] = false
+
+                FarmButtons[actionIndex] = MakeButton(FarmAreaFolder, "OFF  |  " .. actionData.Name, function()
+                    if FarmStopped then return end
+
+                    FarmRunning[actionIndex] = not FarmRunning[actionIndex]
+                    local enabled = FarmRunning[actionIndex]
+                    SetFarmButton(actionIndex, enabled)
+
+                    if not enabled then
+                        FarmStatus.Text = "FARM AREA: " .. actionData.Name .. " STOPPED"
+                        return
+                    end
+
+                    FarmStatus.Text = "FARM AREA: " .. actionData.Name .. " RUNNING"
+                    task.spawn(function()
+                        while FarmRunning[actionIndex] and not FarmStopped do
+                            local remote = GetFarmRemote()
+                            if not remote then
+                                FarmStatus.Text = "FARM AREA: MainRemote not found; retrying..."
+                            else
+                                local ok, err = pcall(function()
+                                    remote:FireServer(unpack(actionData.Args))
+                                end)
+                                if not ok then
+                                    FarmRunning[actionIndex] = false
+                                    SetFarmButton(actionIndex, false)
+                                    FarmStatus.Text = "FARM AREA ERROR: " .. tostring(err):sub(1, 140)
+                                    break
+                                end
+                            end
+                            task.wait(2)
+                        end
+                    end)
+                end)
+            end
+
+            MakeButton(FarmAreaFolder, "⏹  STOP ALL FARM ACTIONS", StopAllFarmActions, Color3.fromRGB(115, 55, 65))
+        end
+    end
+
     -- SNH THANKSGIVING EVENT AUTOMATION
     -- Integrates the user's four Turkey Oof actions into the existing ShortName Hub GUI.
     -- This is shown only in Noob Incremental and uses the game's existing MainRemote.
