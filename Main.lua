@@ -7,9 +7,9 @@ local RequestFunction
 local GetRequestFunction
 local DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
 local ShowDiagnosticConsole
+-- Normal-user preview: owner-only diagnostics are disabled in this build.
 local function IsLocalOwner()
-    local player = game:GetService("Players").LocalPlayer
-    return player ~= nil and player.UserId == 7867608166
+    return false
 end
 local function GetSessionUploadKey()
     local shared = _G
@@ -403,8 +403,8 @@ local function LoadModule(name)
     local success, requestError = pcall(function()
         local moduleUrl = MODULE_ENDPOINT .. name
     if name == "GUI.lua" then
-        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/GUI.lua"
-        AddDiagnostic("Loading GUI.lua directly from main branch.")
+        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/normal-user-preview/GUI.lua"
+        AddDiagnostic("Loading GUI.lua from normal-user-preview branch.")
     end
     response = RequestFunction({
             Url = moduleUrl,
@@ -424,7 +424,7 @@ local function LoadModule(name)
     -- The new universal observer can fall back to the public repository while
     -- an older deployed Worker is waiting for its allowlist update.
     if name == "UniversalLiveObserver.lua" and status ~= 200 then
-        local fallbackUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name
+        local fallbackUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/normal-user-preview/" .. name
         local fallbackResponse
         local fallbackOk, fallbackError = pcall(function()
             fallbackResponse = RequestFunction({
@@ -497,7 +497,7 @@ SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 -- Optional executor-supported auto-load after teleport/rejoin.
 -- The preference is stored locally so the queue can be renewed in each session.
 local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
-local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/normal-user-preview/Main.lua"
 local function GetQueueOnTeleport()
     if type(queue_on_teleport) == "function" then return queue_on_teleport end
     if type(queueonteleport) == "function" then return queueonteleport end
