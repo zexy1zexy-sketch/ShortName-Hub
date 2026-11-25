@@ -1832,7 +1832,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         if upper:match("%f[%a]OFF%f[%A]") or upper:match("%f[%a]STOPPED?%f[%A]") then return false end
         return nil
     end
-    local function MakeButton(parent, text, callback, color)
+    MakeButton = function(parent, text, callback, color)
         local b = Instance.new("TextButton"); b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = color or Color3.fromRGB(75, 55, 115)
         b.TextColor3 = White; b.Text = text; b.TextSize = 12
         b.Font = Enum.Font.GothamBold; b.Parent = parent; Corner(b, 10)
