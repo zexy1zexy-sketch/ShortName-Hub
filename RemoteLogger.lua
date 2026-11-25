@@ -6,6 +6,12 @@ RemoteLogger.__index = RemoteLogger
 local MAX_ENTRIES = 250
 local MAX_ARGUMENTS = 24
 local MAX_DEPTH = 3
+local HOOK_KEY = "__SHORTNAME_HUB_REMOTE_LOGGER_HOOK"
+local SharedEnvironment = _G
+if type(getgenv) == "function" then
+    local ok, env = pcall(getgenv)
+    if ok and type(env) == "table" then SharedEnvironment = env end
+end
 
 local function safePath(instance)
     local ok, result = pcall(function() return instance:GetFullName() end)
@@ -56,7 +62,8 @@ function RemoteLogger.new()
         Connected = {},
         Status = "READY",
         LastCapture = "No calls captured yet",
-        _scanGeneration = 0
+        _scanGeneration = 0,
+        _hookRegistry = nil
     }, RemoteLogger)
 end
 
@@ -106,15 +113,18 @@ function RemoteLogger:Start()
         return false, self.Status
     end
 
-    if not self.HookInstalled then
+    local registry = SharedEnvironment[HOOK_KEY]
+    if type(registry) ~= "table" or registry.Installed ~= true then
+        registry = {ActiveLogger = nil, Installed = false}
         local original
         local hook = function(target, ...)
             local method
             pcall(function() method = getnamecallmethod() end)
-            if self.Enabled and classify(target) then
+            local active = registry.ActiveLogger
+            if active and active.Enabled and classify(target) then
                 if method == "FireServer" or method == "InvokeServer"
                     or method == "Fire" or method == "Invoke" then
-                    self:_record(target, method, {...}, "CLIENT")
+                    active:_record(target, method, {...}, "CLIENT")
                 end
             end
             return original(target, ...)
@@ -128,8 +138,12 @@ function RemoteLogger:Start()
             return false, self.Status
         end
         original = result
-        self.HookInstalled = true
+        registry.Installed = true
+        SharedEnvironment[HOOK_KEY] = registry
     end
+    registry.ActiveLogger = self
+    self._hookRegistry = registry
+    self.HookInstalled = true
 
     self.Enabled = true
     self._scanGeneration = self._scanGeneration + 1
@@ -155,6 +169,9 @@ end
 
 function RemoteLogger:Stop()
     self.Enabled = false
+    if self._hookRegistry and self._hookRegistry.ActiveLogger == self then
+        self._hookRegistry.ActiveLogger = nil
+    end
     self._scanGeneration = self._scanGeneration + 1
     for _, connection in ipairs(self.Connections) do
         pcall(function() connection:Disconnect() end)
