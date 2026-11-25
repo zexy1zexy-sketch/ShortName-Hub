@@ -237,10 +237,10 @@ function RemoteLogger:GetReport()
 
         lines[#lines + 1] = "[" .. entry.Time .. "] CLIENT "
             .. entry.Class .. "." .. entry.Method .. " | " .. entry.Path
-            .. "\\nArgs: " .. (ok and encoded or tostring(entry.Arguments))
+            .. "\nArgs: " .. (ok and encoded or tostring(entry.Arguments))
     end
 
-    return table.concat(lines, "\\n")
+    return table.concat(lines, "\n")
 end
 
 function RemoteLogger:Clear()
