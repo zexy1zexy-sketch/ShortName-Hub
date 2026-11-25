@@ -444,6 +444,11 @@ local function StopRuntime(runtime)
         end
     end)
     pcall(function()
+        if runtime.RemoteLogger and type(runtime.RemoteLogger.Stop) == "function" then
+            runtime.RemoteLogger:Stop()
+        end
+    end)
+    pcall(function()
         if runtime.Interface and runtime.Interface.ScreenGui then
             runtime.Interface.ScreenGui:Destroy()
         end
@@ -616,6 +621,7 @@ StartHub = function(skipKey)
             FightInspector = FightInspector,
             FightStructureScanner = FightStructureScanner,
             LiveObserver = LiveObserver,
+            RemoteLogger = RemoteLogger,
             Interface = Interface
         }
 
