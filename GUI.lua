@@ -1779,7 +1779,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         local ThanksgivingDestroyed = false
 
         local function GetThanksgivingRemote()
-            local netFolder = ReplicatedStorage:FindFirstChild("__Net")
+            local replicatedStorage = game:GetService("ReplicatedStorage")
+            local netFolder = replicatedStorage:FindFirstChild("__Net")
             local remote = netFolder and netFolder:FindFirstChild("MainRemote")
             if remote and remote:IsA("RemoteEvent") then
                 return remote
