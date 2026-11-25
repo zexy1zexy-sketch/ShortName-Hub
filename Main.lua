@@ -441,6 +441,36 @@ end
 
 local RUNTIME_KEY = "__SHORTNAME_HUB_RUNTIME"
 
+local function DestroyNamedGuiInstances(guiName)
+    local roots = {}
+    local function addRoot(root)
+        if root then table.insert(roots, root) end
+    end
+    pcall(function()
+        if type(gethui) == "function" then addRoot(gethui()) end
+    end)
+    pcall(function() addRoot(game:GetService("CoreGui")) end)
+    pcall(function()
+        local player = game:GetService("Players").LocalPlayer
+        if player then addRoot(player:FindFirstChildOfClass("PlayerGui")) end
+    end)
+    local seen = {}
+    for _, root in ipairs(roots) do
+        if not seen[root] then
+            seen[root] = true
+            pcall(function()
+                for _, item in ipairs(root:GetDescendants()) do
+                    if item:IsA("ScreenGui") and item.Name == guiName then
+                        item:Destroy()
+                    end
+                end
+                local direct = root:FindFirstChild(guiName)
+                if direct and direct:IsA("ScreenGui") then direct:Destroy() end
+            end)
+        end
+    end
+end
+
 -- A fresh execution of the loader must retire the previous execution's GUI
 -- and loops. Refreshes within this execution are handled by RefreshHub below.
 pcall(function()
@@ -502,6 +532,17 @@ local function RefreshHub()
     end
 
     Refreshing = true
+
+    -- Retire the current GUI before rebuilding. Previously the old interface
+    -- was only destroyed after the new GUI succeeded, so a failed refresh
+    -- left the previous window alive behind the failed loading screen.
+    local previousRuntime = CurrentRuntime
+    CurrentRuntime = nil
+    StopRuntime(previousRuntime)
+    SharedEnvironment[RUNTIME_KEY] = nil
+    DestroyNamedGuiInstances("ShortNameHub")
+    DestroyNamedGuiInstances("ShortNameLoadingScreen")
+
     local ok, result = pcall(function()
         return StartHub(true)
     end)
@@ -524,6 +565,9 @@ StartHub = function(skipKey)
             return false
         end
     end
+
+    -- Remove stale loading screens left by an interrupted prior execution.
+    DestroyNamedGuiInstances("ShortNameLoadingScreen")
 
     -- The loading screen is intentionally created only after key verification.
     local Loading = nil
@@ -691,6 +735,9 @@ StartHub = function(skipKey)
     end
 
     if not success then
+        -- GUI.Create can fail after creating its ScreenGui but before returning
+        -- it to the runtime manager. Sweep that partial interface as well.
+        DestroyNamedGuiInstances("ShortNameHub")
         AddDiagnostic("STARTUP FAILED: " .. tostring(result))
         error(result)
     else
