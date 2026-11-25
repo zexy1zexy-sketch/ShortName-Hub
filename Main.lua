@@ -1,5 +1,5 @@
 -- ShortName Hub loader for the private GitHub repository.
--- Current release: v1.1.0
+-- Current release: v1.2.0
 
 -- EARLY DIAGNOSTIC CONSOLE: create this before fetching or executing any modules.
 local DiagnosticLines = {}
