@@ -6,9 +6,7 @@ local HUB_KEY = "Key123"
 local DISCORD_INVITE = "https://discord.gg/JgAsS6yYAH"
 
 -- USERS WHO CAN SKIP KEY VERIFICATION (Roblox UserIds)
-local KEY_BYPASS_USER_IDS = {
-    [7867608166] = true,
-}
+local KEY_BYPASS_USER_IDS = {}
 
 -- KEY SYSTEM UI
 
