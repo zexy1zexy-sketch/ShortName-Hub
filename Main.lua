@@ -402,7 +402,7 @@ local function LoadModule(name)
     local response
     local success, requestError = pcall(function()
         local moduleUrl = MODULE_ENDPOINT .. name
-    if name == "GUI.lua" or name == "KeySystem.lua" then
+    if name == "GUI.lua" or name == "KeySystem.lua" or name == "Config.lua" then
         moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name
         AddDiagnostic("Loading " .. name .. " directly from main branch.")
     end
