@@ -1786,6 +1786,9 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
     end
     -- BUTTONS + persisted toggle state (restored only when Auto-Load is enabled).
+    local MakeButton
+    local RestorePersistedToggleStates
+    do
     local HttpService = game:GetService("HttpService")
     local ToggleStateFile = "ShortNameHub_ToggleStates.json"
     local ToggleStates = {}
@@ -1854,6 +1857,16 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             })
         end
         return b
+    end
+    RestorePersistedToggleStates = function()
+        if not AutoLoadRestoreEnabled then return end
+        for _, entry in ipairs(ToggleButtons) do
+            local savedState = ToggleStates[entry.Key]
+            if type(savedState) == "boolean" and savedState ~= entry.InitialState then
+                pcall(entry.Activate)
+            end
+        end
+    end
     end
 
     -- NOOB INCREMENTAL: REALM 1 > FARM AREA
@@ -5759,14 +5772,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
     end)
 
     -- Restore previously enabled/disabled toggle buttons after every control has been created.
-    if AutoLoadRestoreEnabled then
-        for _, entry in ipairs(ToggleButtons) do
-            local savedState = ToggleStates[entry.Key]
-            if type(savedState) == "boolean" and savedState ~= entry.InitialState then
-                pcall(entry.Activate)
-            end
-        end
-    end
+    RestorePersistedToggleStates()
 
     BuildUpdatesPage(GUI.UpdatesPage, Config, CurrentAccent, ButtonDark, Border, White, Grey, Label, Corner, Stroke, Tween)
     SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
