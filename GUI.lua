@@ -1910,6 +1910,37 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
             end
 
+            local function SetFarmAction(index, enabled)
+                local actionData = FarmActions[index]
+                if not actionData or FarmStopped then return end
+                FarmRunning[index] = enabled == true
+                SetFarmButton(index, FarmRunning[index])
+                if not enabled then
+                    FarmStatus.Text = "FARM AREA: " .. actionData.Name .. " STOPPED"
+                    return
+                end
+                FarmStatus.Text = "FARM AREA: " .. actionData.Name .. " RUNNING"
+                task.spawn(function()
+                    while FarmRunning[index] and not FarmStopped do
+                        local remote = GetFarmRemote()
+                        if not remote then
+                            FarmStatus.Text = "FARM AREA: MainRemote not found; retrying..."
+                        else
+                            local ok, err = pcall(function()
+                                remote:FireServer(unpack(actionData.Args))
+                            end)
+                            if not ok then
+                                FarmRunning[index] = false
+                                SetFarmButton(index, false)
+                                FarmStatus.Text = "FARM AREA ERROR: " .. tostring(err):sub(1, 140)
+                                break
+                            end
+                        end
+                        task.wait(2)
+                    end
+                end)
+            end
+
             local function StopAllFarmActions()
                 FarmStopped = true
                 for index in ipairs(FarmActions) do
@@ -1920,47 +1951,45 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 FarmStopped = false
             end
 
+            local FarmToggleAllButton
+            local function UpdateFarmToggleAllButton()
+                local allEnabled = true
+                for index in ipairs(FarmActions) do
+                    if not FarmRunning[index] then allEnabled = false break end
+                end
+                FarmToggleAllButton.Text = allEnabled and "⏹  TURN ALL FARM ACTIONS OFF" or "▶  TURN ALL FARM ACTIONS ON"
+            end
+
+            FarmToggleAllButton = MakeButton(FarmAreaFolder, "▶  TURN ALL FARM ACTIONS ON", function()
+                local allEnabled = true
+                for index in ipairs(FarmActions) do
+                    if not FarmRunning[index] then allEnabled = false break end
+                end
+                if allEnabled then
+                    StopAllFarmActions()
+                else
+                    for index in ipairs(FarmActions) do
+                        if not FarmRunning[index] then SetFarmAction(index, true) end
+                    end
+                    FarmStatus.Text = "FARM AREA: ALL ACTIONS RUNNING"
+                end
+                UpdateFarmToggleAllButton()
+            end, Color3.fromRGB(55, 95, 135))
+
             for index, action in ipairs(FarmActions) do
                 local actionIndex = index
-                local actionData = action
                 FarmRunning[actionIndex] = false
-
-                FarmButtons[actionIndex] = MakeButton(FarmAreaFolder, "OFF  |  " .. actionData.Name, function()
+                FarmButtons[actionIndex] = MakeButton(FarmAreaFolder, "OFF  |  " .. action.Name, function()
                     if FarmStopped then return end
-
-                    FarmRunning[actionIndex] = not FarmRunning[actionIndex]
-                    local enabled = FarmRunning[actionIndex]
-                    SetFarmButton(actionIndex, enabled)
-
-                    if not enabled then
-                        FarmStatus.Text = "FARM AREA: " .. actionData.Name .. " STOPPED"
-                        return
-                    end
-
-                    FarmStatus.Text = "FARM AREA: " .. actionData.Name .. " RUNNING"
-                    task.spawn(function()
-                        while FarmRunning[actionIndex] and not FarmStopped do
-                            local remote = GetFarmRemote()
-                            if not remote then
-                                FarmStatus.Text = "FARM AREA: MainRemote not found; retrying..."
-                            else
-                                local ok, err = pcall(function()
-                                    remote:FireServer(unpack(actionData.Args))
-                                end)
-                                if not ok then
-                                    FarmRunning[actionIndex] = false
-                                    SetFarmButton(actionIndex, false)
-                                    FarmStatus.Text = "FARM AREA ERROR: " .. tostring(err):sub(1, 140)
-                                    break
-                                end
-                            end
-                            task.wait(2)
-                        end
-                    end)
+                    SetFarmAction(actionIndex, not FarmRunning[actionIndex])
+                    UpdateFarmToggleAllButton()
                 end)
             end
 
-            MakeButton(FarmAreaFolder, "⏹  STOP ALL FARM ACTIONS", StopAllFarmActions, Color3.fromRGB(115, 55, 65))
+            MakeButton(FarmAreaFolder, "⏹  STOP ALL FARM ACTIONS", function()
+                StopAllFarmActions()
+                UpdateFarmToggleAllButton()
+            end, Color3.fromRGB(115, 55, 65))
         end
     end
 
@@ -2020,7 +2049,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             local NoobStatus = Label(ThanksgivingFolder, "NOOB UPGRADES: READY", 10, 22, Color3.fromRGB(170, 210, 255))
             local NoobUpgradeData = {
                 { Name = "NOOB UPGRADE 1", Target = "TurkeyOof_Starter" },
-                { Name = "NOOB UPGRADE 2", Target = "TurkeyOof_Second" }
+                { Name = "NOOB UPGRADE 2", Target = "TurkeyOof_Second" },
+                { Name = "NOOB UPGRADE 3", Target = "TurkeyOof_Third" }
             }
             local NoobRunning = {}
             local NoobTokens = {}
@@ -2218,6 +2248,64 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 UpdateToggleAllButton()
                 TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
             end, Color3.fromRGB(115, 55, 65))
+
+            -- One master control for every repeating MainRemote action in Thanksgiving Event.
+            local ThanksgivingToggleAllButton
+            local function StopAllThanksgivingActions()
+                SetMilestone(false)
+                for i = 1, #NoobUpgradeData do
+                    SetNoobUpgrade(i, false)
+                end
+                for i = 1, #TurkeyUpgradeNames do
+                    TurkeyUpgradeRunning[i] = false
+                    UpdateTurkeyButton(i)
+                end
+                TurkeySchedulerRunning = false
+                TurkeySchedulerToken = TurkeySchedulerToken + 1
+                UpdateToggleAllButton()
+                TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
+            end
+
+            local function UpdateThanksgivingToggleAllButton()
+                local allEnabled = MilestoneRunning
+                for i = 1, #NoobUpgradeData do
+                    if not NoobRunning[i] then allEnabled = false break end
+                end
+                if allEnabled then
+                    for i = 1, #TurkeyUpgradeNames do
+                        if not TurkeyUpgradeRunning[i] then allEnabled = false break end
+                    end
+                end
+                ThanksgivingToggleAllButton.Text = allEnabled and "⏹  TURN ALL THANKSGIVING ACTIONS OFF" or "▶  TURN ALL THANKSGIVING ACTIONS ON"
+            end
+
+            ThanksgivingToggleAllButton = MakeButton(ThanksgivingFolder, "▶  TURN ALL THANKSGIVING ACTIONS ON", function()
+                if ThanksgivingDestroyed then return end
+                local allEnabled = MilestoneRunning
+                for i = 1, #NoobUpgradeData do
+                    if not NoobRunning[i] then allEnabled = false break end
+                end
+                if allEnabled then
+                    for i = 1, #TurkeyUpgradeNames do
+                        if not TurkeyUpgradeRunning[i] then allEnabled = false break end
+                    end
+                end
+                if allEnabled then
+                    StopAllThanksgivingActions()
+                else
+                    SetMilestone(true)
+                    for i = 1, #NoobUpgradeData do
+                        if not NoobRunning[i] then SetNoobUpgrade(i, true) end
+                    end
+                    for i = 1, #TurkeyUpgradeNames do
+                        TurkeyUpgradeRunning[i] = true
+                        UpdateTurkeyButton(i)
+                    end
+                    StartTurkeyScheduler()
+                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL ENABLED — sending in sequence"
+                end
+                UpdateThanksgivingToggleAllButton()
+            end, Color3.fromRGB(55, 95, 135))
 
             ScreenGui.Destroying:Connect(function()
                 ThanksgivingDestroyed = true
