@@ -1,17 +1,19 @@
 SHORTNAME HUB REMOTE OBSERVATION
 Place: 106683702021527 | Ugc
 Scope: outgoing calls made by this client only
-Total captured: 6 | Stored: 6 | Dropped: 0
+Total captured: 7 | Stored: 7 | Dropped: 0
 
-[11:30:11] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
-Args: {"1":"false"}
-[11:30:04] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Guess
-Args: {"1":"pinkunicornbarbie101"}
-[11:29:57] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
-Args: {"1":"false"}
-[11:29:48] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Guess
-Args: {"1":"SprunkiGrayyWenda"}
-[11:29:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
-Args: {"1":"false"}
-[11:29:24] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Exit
-Args: []
+[11:46:52] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"true"}
+[11:46:52] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"true"}
+[11:46:47] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Guess
+Args: {"1":"Quly412"}
+[11:46:39] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"true"}
+[11:46:39] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"true"}
+[11:46:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"true"}
+[11:46:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"true"}
