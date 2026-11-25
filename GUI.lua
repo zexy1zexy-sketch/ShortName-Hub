@@ -1745,6 +1745,104 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         return b
     end
 
+    -- SNH THANKSGIVING EVENT AUTOMATION
+    -- Integrates the user's four Turkey Oof actions into the existing ShortName Hub GUI.
+    -- This is shown only in Noob Incremental and uses the game's existing MainRemote.
+    if game.PlaceId == 76911729991355 then
+        local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT", GamePage)
+        Label(ThanksgivingFolder, "Turkey Oof automation. Each enabled action repeats every 2 seconds.", 10, 30, Grey).TextWrapped = true
+
+        local ThanksgivingStatus = Label(ThanksgivingFolder, "THANKSGIVING: READY", 10, 24, Color3.fromRGB(170, 210, 255))
+        ThanksgivingStatus.TextWrapped = true
+
+        local ThanksgivingActions = {
+            {
+                Name = "TURKEY OOF MILESTONE",
+                Args = {"TurkeyOofMilestoneUp"}
+            },
+            {
+                Name = "FASTER THANKSGIVING NOOBS",
+                Args = {"UpgradeUpgradeMax", "TurkeyOof", "FasterThanksgivingNoobs"}
+            },
+            {
+                Name = "MORE TURKEY OOF",
+                Args = {"UpgradeUpgradeMax", "TurkeyOof", "MoreTurkeyOof"}
+            },
+            {
+                Name = "THANKSGIVING NOOB MAX",
+                Args = {"UpgradeThanksgivingNoobMax", "TurkeyOof_Starter"}
+            }
+        }
+
+        local ThanksgivingRunning = {}
+        local ThanksgivingButtons = {}
+        local ThanksgivingDestroyed = false
+
+        local function GetThanksgivingRemote()
+            local netFolder = ReplicatedStorage:FindFirstChild("__Net")
+            local remote = netFolder and netFolder:FindFirstChild("MainRemote")
+            if remote and remote:IsA("RemoteEvent") then
+                return remote
+            end
+            return nil
+        end
+
+        local function SetThanksgivingToggle(index, enabled)
+            local button = ThanksgivingButtons[index]
+            if not button then return end
+            local action = ThanksgivingActions[index]
+            button.Text = (enabled and "ON  |  " or "OFF  |  ") .. action.Name
+            button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
+        end
+
+        for index, action in ipairs(ThanksgivingActions) do
+            local actionIndex = index
+            local actionData = action
+            ThanksgivingRunning[actionIndex] = false
+
+            ThanksgivingButtons[actionIndex] = MakeButton(ThanksgivingFolder, "OFF  |  " .. actionData.Name, function()
+                if ThanksgivingDestroyed then return end
+
+                ThanksgivingRunning[actionIndex] = not ThanksgivingRunning[actionIndex]
+                local enabled = ThanksgivingRunning[actionIndex]
+                SetThanksgivingToggle(actionIndex, enabled)
+
+                if not enabled then
+                    ThanksgivingStatus.Text = "THANKSGIVING: " .. actionData.Name .. " STOPPED"
+                    return
+                end
+
+                ThanksgivingStatus.Text = "THANKSGIVING: " .. actionData.Name .. " RUNNING"
+
+                task.spawn(function()
+                    while ThanksgivingRunning[actionIndex] and not ThanksgivingDestroyed do
+                        local remote = GetThanksgivingRemote()
+                        if not remote then
+                            ThanksgivingStatus.Text = "THANKSGIVING: MainRemote not found; retrying..."
+                        else
+                            local ok, err = pcall(function()
+                                remote:FireServer(table.unpack(actionData.Args))
+                            end)
+                            if not ok then
+                                ThanksgivingStatus.Text = "THANKSGIVING ERROR: " .. tostring(err):sub(1, 120)
+                            else
+                                ThanksgivingStatus.Text = "THANKSGIVING: " .. actionData.Name .. " ACTIVE"
+                            end
+                        end
+                        task.wait(2)
+                    end
+                end)
+            end, Color3.fromRGB(85, 55, 65))
+        end
+
+        ScreenGui.Destroying:Connect(function()
+            ThanksgivingDestroyed = true
+            for index = 1, #ThanksgivingActions do
+                ThanksgivingRunning[index] = false
+            end
+        end)
+    end
+
     -- GUESS THE SLAPPER: live player cards and manual, clearly-labelled observations.
     if GUI.GuessSlapperNav then
         Label(GUI.GuessSlapperPage, "GUESS THE SLAPPER", 17, 30).Font = Enum.Font.GothamBold
