@@ -1965,6 +1965,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
             end
 
+            local ToggleAllTurkeyButton
             local function UpdateToggleAllButton()
                 local allEnabled = true
                 for i = 1, #TurkeyUpgradeNames do
@@ -2035,7 +2036,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 UpdateToggleAllButton()
             end
 
-            local ToggleAllTurkeyButton
             ToggleAllTurkeyButton = MakeButton(ThanksgivingFolder, "▶  TURN ALL TURKEY UPGRADES ON", function()
                 if ThanksgivingDestroyed then return end
                 local allEnabled = true
