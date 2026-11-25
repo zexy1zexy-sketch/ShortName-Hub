@@ -1,13 +1,7 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 15:02:59 UTC\n\n08:57:01  Diagnostic console initialized before loading modules.\n08:57:01  Executor HTTP request API: available\n08:57:03  Loading GUI.lua directly from main branch.\n08:57:04  Loaded UniversalLiveObserver.lua using GitHub fallback.\n08:57:05  Startup completed successfully.\n08:59:53  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 15:47:51 UTC\n\n09:47:06  Diagnostic console initialized before loading modules.\n09:47:06  Executor HTTP request API: available\n09:47:08  Loading GUI.lua directly from main branch.\n09:47:10  Loaded UniversalLiveObserver.lua using GitHub fallback.\n09:47:10  Startup completed successfully.\n09:47:43  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
     Stack Begin
     Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
-    Stack End\n09:00:16  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
+    Stack End\n09:47:43  Detected the RaycastHitboxV4 HitboxPendingRemoval error; collecting module diagnostics.\n09:47:43  HITBOX TARGET: ReplicatedStorage.RaycastHitboxV4.HitboxCaster [ModuleScript]\n09:47:43  HITBOX PARENT: ReplicatedStorage.RaycastHitboxV4\n09:47:43  HITBOX CHILDREN: (none)\n09:47:43  HITBOX SOURCE ACCESS: readable; scanning relevant lines.\n09:47:43  HITBOX SOURCE SCAN: neither HitboxPendingRemoval nor OnScheduler was found.\n09:47:45  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
     Stack Begin
     Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
-    Stack End\n09:00:48  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
-    Stack Begin
-    Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
-    Stack End\n09:02:32  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
-    Stack Begin
-    Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
-    Stack End
+    Stack End\n09:47:51  HITBOX TARGET: ReplicatedStorage.RaycastHitboxV4.HitboxCaster [ModuleScript]\n09:47:51  HITBOX PARENT: ReplicatedStorage.RaycastHitboxV4\n09:47:51  HITBOX CHILDREN: (none)\n09:47:51  HITBOX SOURCE ACCESS: readable; scanning relevant lines.\n09:47:51  HITBOX SOURCE SCAN: neither HitboxPendingRemoval nor OnScheduler was found.
