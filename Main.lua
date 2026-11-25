@@ -550,6 +550,7 @@ StartHub = function(skipKey)
         local FightInspectorModule = LoadTracked("FightOnABaseplateInspector.lua", "Loaded universal instance inspector")
         local FightStructureScannerModule = LoadTracked("FightOnABaseplateStructureScanner.lua", "Loaded universal structure scanner")
         local LiveObserverModule = LoadTracked("UniversalLiveObserver.lua", "Loaded universal live observer")
+        local RemoteLoggerModule = LoadTracked("RemoteLogger.lua", "Loaded universal remote logger")
 
         if Loading and type(Loading.SetProgress) == "function" then
             Loading.SetProgress(completed, total, "Initializing hub systems...")
@@ -572,6 +573,8 @@ StartHub = function(skipKey)
         Step("Initialized structure scanner")
         local LiveObserver = LiveObserverModule.new()
         Step("Initialized universal live observer")
+        local RemoteLogger = RemoteLoggerModule.new()
+        Step("Initialized universal remote logger")
 
         local guiSuccess, guiResult = pcall(function()
             return GUI.Create(
@@ -582,6 +585,7 @@ StartHub = function(skipKey)
                 FightInspector,
                 FightStructureScanner,
                 LiveObserver,
+                RemoteLogger,
                 RefreshHub,
                 PresenceModule,
                 ThemeModule
@@ -595,7 +599,8 @@ StartHub = function(skipKey)
                 FightScanner = FightScanner,
                 FightInspector = FightInspector,
                 FightStructureScanner = FightStructureScanner,
-                LiveObserver = LiveObserver
+                LiveObserver = LiveObserver,
+                RemoteLogger = RemoteLogger
             })
             error("GUI creation failed: " .. tostring(guiResult))
         end
