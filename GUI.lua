@@ -1,8 +1,8 @@
 local Players = game:GetService("Players"); local UIS = game:GetService("UserInputService"); local GuiService = game:GetService("GuiService")
-local CREATOR_USER_ID = 7867608166
 local LocalPlayer = Players.LocalPlayer
-local IsCreator = LocalPlayer ~= nil and LocalPlayer.UserId == CREATOR_USER_ID
-local OwnerViewEnabled = IsCreator
+-- Force the same interface and permissions a regular hub user receives.
+local IsCreator = false
+local OwnerViewEnabled = false
 local OwnerOnlyFolders = {}
 local function GetUploadKeyCache()
     local shared = _G
