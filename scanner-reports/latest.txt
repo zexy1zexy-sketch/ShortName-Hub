@@ -1,9 +1,13 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 14:56:50 UTC\n\n08:55:42  Diagnostic console initialized before loading modules.\n08:55:42  Executor HTTP request API: available\n08:55:47  Loading GUI.lua directly from main branch.\n08:55:49  Loaded UniversalLiveObserver.lua using GitHub fallback.\n08:56:43  ERROR: Player:IsInGroup failed because HTTP unknown error (HttpError: Timedout)
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 15:02:59 UTC\n\n08:57:01  Diagnostic console initialized before loading modules.\n08:57:01  Executor HTTP request API: available\n08:57:03  Loading GUI.lua directly from main branch.\n08:57:04  Loaded UniversalLiveObserver.lua using GitHub fallback.\n08:57:05  Startup completed successfully.\n08:59:53  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
     Stack Begin
-    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 1495 - function DisplayGangs
-    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 2172
-    Stack End\n08:56:43  ERROR: Player:IsInGroup failed because HTTP unknown error (HttpError: Timedout)
+    Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
+    Stack End\n09:00:16  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
     Stack Begin
-    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 1495 - function DisplayGangs
-    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 2184
-    Stack End\n08:56:50  Startup completed successfully.
+    Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
+    Stack End\n09:00:48  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
+    Stack Begin
+    Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
+    Stack End\n09:02:32  ERROR: ReplicatedStorage.RaycastHitboxV4.HitboxCaster:209: attempt to index nil with 'HitboxPendingRemoval'
+    Stack Begin
+    Script 'ReplicatedStorage.RaycastHitboxV4.HitboxCaster', Line 209 - function OnScheduler
+    Stack End
