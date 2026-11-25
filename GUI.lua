@@ -1887,9 +1887,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 {Name = "BUY COW", Args = {"BuyAnimal", "Cow", true}},
                 {Name = "BIGGER WHEAT DEPOSIT", Args = {"UpgradeUpgradeMax", "BiggerWheatDeposit", "Bread"}},
                 {Name = "MORE BREAD CONSUMPTION", Args = {"UpgradeUpgradeMax", "MoreConsumption", "Bread"}},
-                {Name = "PUMPKIN MACHINE RANK UP", Args = {"PumpkinMachineRankUp"}},
-                {Name = "SPOOKY OOF MILESTONE", Args = {"SpookyOofMilestoneUp"}},
-                {Name = "REAPER RANK UP (15)", Args = {"ReaperRankUp", "15"}}
             }
 
             local FarmRunning = {}
@@ -4929,6 +4926,11 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
     Label(HouseFarmFolder, "Cycles the available event houses and buys the Sweets upgrades during each round.", 10, 34, Grey).TextWrapped = true
     local HouseFarmStatus = Label(HouseFarmFolder, "AUTO HOUSE FARM: READY", 10, 22, Color3.fromRGB(170, 210, 255))
     local SweetsUpgradeNames = {"MoreSweets", "MorePumpkin", "MoreGhost", "MoreSpookyOof"}
+    local HouseRankActions = {
+        {"PumpkinMachineRankUp"},
+        {"SpookyOofMilestoneUp"},
+        {"ReaperRankUp", "15"}
+    }
     local function GetHouseFarmRemote()
         local net = game:GetService("ReplicatedStorage"):FindFirstChild("__Net")
         local remote = net and net:FindFirstChild("MainRemote")
@@ -4969,6 +4971,18 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                             break
                         end
                         HouseFarmStatus.Text = "BUYING SWEETS UPGRADES: " .. upgradeName
+                        task.wait(0.2)
+                    end
+                    for _, rankArgs in ipairs(HouseRankActions) do
+                        if not HouseFarmEnabled or HouseFarmToken ~= token then break end
+                        local sent, err = pcall(function()
+                            remote:FireServer(unpack(rankArgs))
+                        end)
+                        if not sent then
+                            HouseFarmStatus.Text = "RANK / MILESTONE ERROR: " .. tostring(err):sub(1, 100)
+                            break
+                        end
+                        HouseFarmStatus.Text = "SENDING HOUSE PROGRESSION: " .. rankArgs[1]
                         task.wait(0.2)
                     end
                 end
