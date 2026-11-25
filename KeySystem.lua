@@ -12,12 +12,52 @@ local KEY_BYPASS_USER_IDS = {}
 
 local KeySystem = {}
 
+-- Successful keys are remembered locally for 24 hours.
+-- The cache is scoped to the current Roblox account on this executor/device.
+local ACCESS_CACHE_SECONDS = 24 * 60 * 60
+local function GetAccessCachePath()
+    local player = game:GetService("Players").LocalPlayer
+    local userId = player and tostring(player.UserId) or "unknown"
+    return "ShortNameHub_KeyAccess_" .. userId .. ".txt"
+end
+
+local function HasCachedAccess()
+    if type(readfile) ~= "function" or type(isfile) ~= "function" then
+        return false
+    end
+    local path = GetAccessCachePath()
+    local ok, exists = pcall(isfile, path)
+    if not ok or not exists then return false end
+
+    local readOk, raw = pcall(readfile, path)
+    local expiresAt = readOk and tonumber(raw) or nil
+    if expiresAt and os.time() < expiresAt then
+        return true
+    end
+
+    if type(delfile) == "function" then
+        pcall(delfile, path)
+    else
+        pcall(writefile, path, "")
+    end
+    return false
+end
+
+local function SaveCachedAccess()
+    if type(writefile) ~= "function" then return false end
+    local expiresAt = os.time() + ACCESS_CACHE_SECONDS
+    return pcall(writefile, GetAccessCachePath(), tostring(expiresAt))
+end
+
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
 function KeySystem.Start()
     local localPlayer = game:GetService("Players").LocalPlayer
     if localPlayer and KEY_BYPASS_USER_IDS[localPlayer.UserId] then
+        return true
+    end
+    if HasCachedAccess() then
         return true
     end
 
@@ -371,6 +411,7 @@ function KeySystem.Start()
             })
 
             AccessGranted = true
+            SaveCachedAccess()
             Finished = true
         else
             SetStatus(
