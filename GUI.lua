@@ -3451,7 +3451,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         local RemoteLoggerFolder = MakeFolder("UNIVERSAL REMOTE LOGGER", FightDetectorsFolder, false)
         Label(RemoteLoggerFolder, "UNIVERSAL REMOTE LOGGER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
         Label(RemoteLoggerFolder,
-            "Prioritizes MainRemote and records this client's RemoteEvent/RemoteFunction calls, plus incoming RemoteEvent deliveries. Also records client-side BindableEvent/BindableFunction calls when the executor hook supports them.",
+            "Records outgoing remote/bindable method, full instance path, and arguments from this client. Use a few in-game actions, refresh, then upload the report so features can be built from the captured calls.",
             10, 52, Grey).TextWrapped = true
 
         local RemoteLoggerStatus = Label(RemoteLoggerFolder, "REMOTE LOGGER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
@@ -3484,10 +3484,14 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             end)
             local lines = {}
             for _, entry in ipairs(entries) do
+                local argsText = "nil"
+                pcall(function()
+                    argsText = game:GetService("HttpService"):JSONEncode(entry.Arguments)
+                end)
                 table.insert(lines, "[" .. tostring(entry.Time) .. "] "
                     .. (entry.Name == "MainRemote" and "★ " or "")
-                    .. tostring(entry.Direction) .. " " .. tostring(entry.Method)
-                    .. " | " .. tostring(entry.Path))
+                    .. tostring(entry.Class) .. "." .. tostring(entry.Method)
+                    .. " | " .. tostring(entry.Path) .. "\\nARGS: " .. tostring(argsText))
             end
             RemoteLoggerPreview.Text = #lines > 0 and table.concat(lines, "\n")
                 or "No calls captured yet. Try normal in-game actions, then refresh."
@@ -3534,6 +3538,35 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(report) end) end
             RefreshRemoteLoggerView(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE")
         end, Color3.fromRGB(65, 90, 130))
+
+        local RemoteLoggerUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+        MakeBox(RemoteLoggerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", RemoteLoggerUploadKey, function(value)
+            RemoteLoggerUploadKey = tostring(value or "")
+            UploadKeyCache.__SHORTNAME_UPLOAD_KEY = RemoteLoggerUploadKey
+        end)
+        MakeButton(RemoteLoggerFolder, "UPLOAD REMOTE REPORT TO ME", function()
+            if not RemoteLogger or type(RemoteLogger.UploadReport) ~= "function" then
+                RefreshRemoteLoggerView("UPLOAD MODULE NOT LOADED")
+                return
+            end
+            if RemoteLoggerUploadKey == "" then
+                RefreshRemoteLoggerView("ENTER UPLOAD KEY FIRST")
+                return
+            end
+            RefreshRemoteLoggerView("UPLOADING REMOTE REPORT...")
+            task.spawn(function()
+                local ok, success, message = pcall(function()
+                    return RemoteLogger:UploadReport(RemoteLoggerUploadKey)
+                end)
+                if not ok then
+                    RefreshRemoteLoggerView("UPLOAD ERROR: " .. tostring(success))
+                elseif success then
+                    RefreshRemoteLoggerView(message or "REMOTE REPORT UPLOADED")
+                else
+                    RefreshRemoteLoggerView("UPLOAD FAILED: " .. tostring(message))
+                end
+            end)
+        end, Color3.fromRGB(45, 115, 75))
 
         MakeButton(RemoteLoggerFolder, "CLEAR REMOTE HISTORY", function()
             if RemoteLogger and type(RemoteLogger.Clear) == "function" then
