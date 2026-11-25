@@ -1478,6 +1478,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         UDim2.new(1, 0, 0, 38)
         local FolderIcons = {
             ["HALLOWEEN EVENT"] = "🎃",
+            ["THANKSGIVING EVENT"] = "🦃",
             ["EVENT SCANNER"] = "🔎",
             ["FIGHT ON A BASEPLATE"] = "⚔️",
             ["PLAYER TOOLS"] = "🛠️",
