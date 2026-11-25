@@ -76,14 +76,22 @@ local function DiagnoseHitboxCaster()
             return
         end
 
-        AddDiagnostic("HITBOX SOURCE ACCESS: readable; scanning relevant lines.")
+        AddDiagnostic("HITBOX SOURCE ACCESS: readable; scanning source and runtime line context.")
+        AddDiagnostic("HITBOX GAME CONTEXT: PlaceId=" .. tostring(game.PlaceId) .. " JobId=" .. tostring(game.JobId))
+        AddDiagnostic("HITBOX SOURCE LENGTH: " .. tostring(#source) .. " characters")
         local sourceLines = {}
         for line in (source .. "\n"):gmatch("(.-)\n") do
             table.insert(sourceLines, line)
         end
+        AddDiagnostic("HITBOX SOURCE LINE COUNT: " .. tostring(#sourceLines))
+        local lineContext = {}
+        for j = math.max(1, 209 - 8), math.min(#sourceLines, 209 + 8) do
+            table.insert(lineContext, string.format("%d: %s", j, sourceLines[j]))
+        end
+        AddDiagnostic("HITBOX SOURCE AROUND RUNTIME LINE 209: " .. (#lineContext > 0 and table.concat(lineContext, " | ") or "(source has fewer than 201 lines)"):sub(1, 1800))
         local selected, seen = {}, {}
         for i, line in ipairs(sourceLines) do
-            if line:find("HitboxPendingRemoval", 1, true) or line:find("OnScheduler", 1, true) then
+            if line:lower():find("pendingremoval", 1, true) or line:lower():find("onscheduler", 1, true) then
                 for j = math.max(1, i - 4), math.min(#sourceLines, i + 4) do
                     if not seen[j] then
                         seen[j] = true
@@ -93,7 +101,7 @@ local function DiagnoseHitboxCaster()
             end
         end
         if #selected == 0 then
-            AddDiagnostic("HITBOX SOURCE SCAN: neither HitboxPendingRemoval nor OnScheduler was found.")
+            AddDiagnostic("HITBOX SOURCE SCAN: no PendingRemoval or OnScheduler text found; runtime stack/source mismatch remains unverified.")
         else
             local excerpt = table.concat(selected, " | ")
             AddDiagnostic("HITBOX SOURCE EXCERPT: " .. excerpt:sub(1, 1800))
