@@ -1041,6 +1041,51 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             end
         end)
     end
+    -- AUTO-LOAD AFTER REJOIN
+    do
+        local shared = _G
+        if type(getgenv) == "function" then
+            local ok, env = pcall(getgenv)
+            if ok and type(env) == "table" then shared = env end
+        end
+        local setAutoLoad = shared.__SHORTNAME_SET_AUTOLOAD
+        local autoLoadEnabled = false
+        if type(readfile) == "function" and type(isfile) == "function" then
+            local ok, exists = pcall(isfile, "ShortNameHub_AutoLoad.txt")
+            if ok and exists then
+                local readOk, value = pcall(readfile, "ShortNameHub_AutoLoad.txt")
+                autoLoadEnabled = readOk and tostring(value):lower() == "true"
+            end
+        end
+        Label(SettingsPage, "AUTO-LOAD", 13, 25, PurpleLight).Font = Enum.Font.GothamBold
+        Label(SettingsPage, "Queues ShortName Hub to run again when you teleport or rejoin. Requires executor queue-on-teleport and file APIs.", 10, 38, Grey).TextWrapped = true
+        local autoLoadButton = Instance.new("TextButton")
+        autoLoadButton.Size = UDim2.new(1, 0, 0, 38)
+        autoLoadButton.BackgroundColor3 = autoLoadEnabled and Color3.fromRGB(45, 115, 75) or ButtonDark
+        autoLoadButton.TextColor3 = White
+        autoLoadButton.Text = autoLoadEnabled and "AUTO-LOAD AFTER REJOIN: ON" or "AUTO-LOAD AFTER REJOIN: OFF"
+        autoLoadButton.TextSize = 11
+        autoLoadButton.Font = Enum.Font.GothamBold
+        autoLoadButton.Parent = SettingsPage
+        Corner(autoLoadButton, 9)
+        Stroke(autoLoadButton, Border, 1)
+        local autoLoadStatus = Label(SettingsPage, autoLoadEnabled and "Preference saved." or "Auto-load is disabled.", 10, 22, Grey)
+        autoLoadButton.Activated:Connect(function()
+            if type(setAutoLoad) ~= "function" then
+                autoLoadStatus.Text = "AUTO-LOAD CONTROL UNAVAILABLE — RE-EXECUTE THE UPDATED LOADER"
+                return
+            end
+            local nextEnabled = not autoLoadEnabled
+            local ok, message = setAutoLoad(nextEnabled)
+            if ok then
+                autoLoadEnabled = nextEnabled
+                autoLoadButton.Text = autoLoadEnabled and "AUTO-LOAD AFTER REJOIN: ON" or "AUTO-LOAD AFTER REJOIN: OFF"
+                autoLoadButton.BackgroundColor3 = autoLoadEnabled and Color3.fromRGB(45, 115, 75) or ButtonDark
+            end
+            autoLoadStatus.Text = tostring(message or (ok and "Saved." or "Could not update auto-load."))
+        end)
+    end
+
     Label(SettingsPage, "APPEARANCE", 13, 25, PurpleLight).Font = Enum.Font.GothamBold; Label(SettingsPage, "Accent color", 11, 19, Grey)
 
     AccentPresets = {
@@ -4631,6 +4676,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
     end
     local HouseFolder, HouseOrder, HouseFallHeight, HouseTeleportDelay, HouseAutoEnabled, HouseLoopToken
+    local HouseFarmEnabled, HouseFarmToken
     do -- section scope: keeps Luau local-register usage below the 200-local limit
     -- HOUSE TELEPORT FOLDER
     HouseFolder = MakeFolder("HOUSE TELEPORT", HalloweenFolder)
@@ -4641,6 +4687,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
     }
     HouseOrder = {"1", "2", "4"}; HouseFallHeight = 12; HouseTeleportDelay = 1
     HouseAutoEnabled = false; HouseLoopToken = 0
+    HouseFarmEnabled = false; HouseFarmToken = 0
 
     local function GetHouseRoot()
         local Player = Players.LocalPlayer
@@ -4799,6 +4846,63 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         HouseFallHeight = math.floor(value + 0.5)
     end)
 
+    -- AUTO HOUSE FARM: cycles the existing house route and purchases the observed Sweets upgrades.
+    local HouseFarmFolder = MakeFolder("AUTO HOUSE FARM", HouseFolder)
+    Label(HouseFarmFolder, "Cycles the available event houses and buys the Sweets upgrades during each round.", 10, 34, Grey).TextWrapped = true
+    local HouseFarmStatus = Label(HouseFarmFolder, "AUTO HOUSE FARM: READY", 10, 22, Color3.fromRGB(170, 210, 255))
+    local SweetsUpgradeNames = {"MoreSweets", "MorePumpkin", "MoreGhost", "MoreSpookyOof"}
+    local function GetHouseFarmRemote()
+        local net = game:GetService("ReplicatedStorage"):FindFirstChild("__Net")
+        local remote = net and net:FindFirstChild("MainRemote")
+        return remote and remote:IsA("RemoteEvent") and remote or nil
+    end
+    local HouseFarmButton
+    HouseFarmButton = MakeButton(HouseFarmFolder, "AUTO HOUSE FARM: OFF", function()
+        HouseFarmEnabled = not HouseFarmEnabled
+        HouseFarmToken = HouseFarmToken + 1
+        local token = HouseFarmToken
+        HouseFarmButton.Text = HouseFarmEnabled and "AUTO HOUSE FARM: ON" or "AUTO HOUSE FARM: OFF"
+        if not HouseFarmEnabled then
+            HouseFarmStatus.Text = "AUTO HOUSE FARM: STOPPED"
+            SetStatus("AUTO HOUSE FARM STOPPED")
+            return
+        end
+        HouseFarmStatus.Text = "AUTO HOUSE FARM: RUNNING"
+        SetStatus("AUTO HOUSE FARM RUNNING")
+        task.spawn(function()
+            while HouseFarmEnabled and HouseFarmToken == token do
+                for _, houseName in ipairs(HouseOrder) do
+                    if not HouseFarmEnabled or HouseFarmToken ~= token then break end
+                    HubExtras.TeleportToHouse(houseName)
+                    task.wait(HouseTeleportDelay)
+                end
+                if not HouseFarmEnabled or HouseFarmToken ~= token then break end
+                local remote = GetHouseFarmRemote()
+                if not remote then
+                    HouseFarmStatus.Text = "MAINREMOTE NOT FOUND — RETRYING"
+                else
+                    for _, upgradeName in ipairs(SweetsUpgradeNames) do
+                        if not HouseFarmEnabled or HouseFarmToken ~= token then break end
+                        local sent, err = pcall(function()
+                            remote:FireServer("UpgradeUpgradeMax", "Sweets", upgradeName)
+                        end)
+                        if not sent then
+                            HouseFarmStatus.Text = "UPGRADE ERROR: " .. tostring(err):sub(1, 100)
+                            break
+                        end
+                        HouseFarmStatus.Text = "BUYING SWEETS UPGRADES: " .. upgradeName
+                        task.wait(0.2)
+                    end
+                end
+                task.wait(0.5)
+            end
+            if HouseFarmToken == token then
+                HouseFarmEnabled = false
+                HouseFarmButton.Text = "AUTO HOUSE FARM: OFF"
+                HouseFarmStatus.Text = "AUTO HOUSE FARM: STOPPED"
+            end
+        end)
+    end, Color3.fromRGB(45, 115, 75))
 
     -- COMBAT HUD, ASSET RECOGNITION, AND SAFE HITBOX VISUALIZER
     local CombatToolsFolder = MakeFolder("COMBAT HUD & ASSET TOOLS", FightFolder)
@@ -5587,6 +5691,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         if GUI.ClearHitboxVisuals then pcall(GUI.ClearHitboxVisuals) end
         HouseAutoEnabled = false
         HouseLoopToken = HouseLoopToken + 1
+        HouseFarmEnabled = false
+        HouseFarmToken = HouseFarmToken + 1
         ScreenGui:Destroy()
     end)
 
