@@ -2007,7 +2007,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
         end
 
-        local ToggleAllTurkeyButton = MakeButton(ThanksgivingFolder, "▶  TURN ALL TURKEY UPGRADES ON", function()
+        local ToggleAllTurkeyButton
+        ToggleAllTurkeyButton = MakeButton(ThanksgivingFolder, "▶  TURN ALL TURKEY UPGRADES ON", function()
             local allEnabled = true
             for i = 1, #TurkeyUpgradeNames do
                 if not TurkeyUpgradeRunning[i] then
