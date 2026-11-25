@@ -1,11 +1,7 @@
 SHORTNAME HUB REMOTE OBSERVATION
 Place: 76911729991355 | Ugc
 Scope: outgoing calls made by this client only
-Total captured: 3 | Stored: 3 | Dropped: 0
+Total captured: 1 | Stored: 1 | Dropped: 0
 
-[01:44:50] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"PumpkinMachineRankUp"}
-[01:44:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"SpookyOofMilestoneUp"}
-[01:44:36] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"ReaperRankUp","2":"15"}
+[08:49:02] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeThanksgivingNoobMax","2":"TurkeyOof_Third"}
