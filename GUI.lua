@@ -1898,37 +1898,55 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             Label(ThanksgivingFolder, "NOOB UPGRADES", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
             Label(ThanksgivingFolder, "Noob upgrades are kept in their own section so more Noob upgrades can be added here later without mixing them into the Turkey upgrade list.", 10, 42, Grey).TextWrapped = true
             local NoobStatus = Label(ThanksgivingFolder, "NOOB UPGRADES: READY", 10, 22, Color3.fromRGB(170, 210, 255))
-            local NoobRunning = false
-            local NoobToken = 0
-            local NoobButton
-            local function SetNoobOne(enabled)
-                NoobRunning = enabled
-                NoobToken = NoobToken + 1
-                local token = NoobToken
-                NoobButton.Text = (enabled and "ON  |  " or "OFF  |  ") .. "NOOB 1 UPGRADE"
-                NoobButton.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
+            local NoobUpgradeData = {
+                { Name = "NOOB UPGRADE 1", Target = "TurkeyOof_Starter" },
+                { Name = "NOOB UPGRADE 2", Target = "TurkeyOof_Second" }
+            }
+            local NoobRunning = {}
+            local NoobTokens = {}
+            local NoobButtons = {}
+
+            local function SetNoobUpgrade(index, enabled)
+                local data = NoobUpgradeData[index]
+                if not data or ThanksgivingDestroyed then return end
+                NoobTokens[index] = (NoobTokens[index] or 0) + 1
+                local token = NoobTokens[index]
+                NoobRunning[index] = enabled
+                local button = NoobButtons[index]
+                if button then
+                    button.Text = (enabled and "ON  |  " or "OFF  |  ") .. data.Name
+                    button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
+                end
                 if not enabled then
-                    NoobStatus.Text = "NOOB 1 UPGRADE: STOPPED"
+                    NoobStatus.Text = data.Name .. ": STOPPED"
                     return
                 end
                 task.spawn(function()
-                    while NoobRunning and NoobToken == token and not ThanksgivingDestroyed do
+                    while NoobRunning[index] and NoobTokens[index] == token and not ThanksgivingDestroyed do
                         local remote = GetThanksgivingRemote()
                         if not remote then
-                            NoobStatus.Text = "NOOB 1 UPGRADE: MainRemote not found; retrying"
+                            NoobStatus.Text = data.Name .. ": MainRemote not found; retrying"
                         else
                             local ok, err = pcall(function()
-                                remote:FireServer("UpgradeThanksgivingNoobMax", "TurkeyOof_Starter")
+                                remote:FireServer("UpgradeThanksgivingNoobMax", data.Target)
                             end)
-                            NoobStatus.Text = ok and "NOOB 1 UPGRADE: REQUEST SENT" or ("NOOB UPGRADE ERROR: " .. tostring(err):sub(1, 100))
+                            NoobStatus.Text = ok and (data.Name .. ": REQUEST SENT") or ("NOOB UPGRADE ERROR: " .. tostring(err):sub(1, 100))
                         end
                         task.wait(2)
                     end
                 end)
             end
-            NoobButton = MakeButton(ThanksgivingFolder, "OFF  |  NOOB 1 UPGRADE", function()
-                if not ThanksgivingDestroyed then SetNoobOne(not NoobRunning) end
-            end, Color3.fromRGB(85, 55, 65))
+
+            for index, data in ipairs(NoobUpgradeData) do
+                NoobRunning[index] = false
+                NoobTokens[index] = 0
+                local upgradeIndex = index
+                NoobButtons[upgradeIndex] = MakeButton(ThanksgivingFolder, "OFF  |  " .. data.Name, function()
+                    if not ThanksgivingDestroyed then
+                        SetNoobUpgrade(upgradeIndex, not NoobRunning[upgradeIndex])
+                    end
+                end, Color3.fromRGB(85, 55, 65))
+            end
 
             Label(ThanksgivingFolder, "TURKEY UPGRADES", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
             Label(ThanksgivingFolder, "All Turkey Oof upgrades are grouped here. Toggle All sends each upgrade request in sequence to avoid firing the entire list at once.", 10, 38, Grey).TextWrapped = true
