@@ -1,91 +1,33 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 06:34:33 UTC\n\n00:25:32  Diagnostic console initialized before loading modules.\n00:25:32  Executor HTTP request API: available\n00:25:34  Loading GUI.lua directly from main branch.\n00:25:36  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:25:36  Startup completed successfully.\n00:31:25  Loading GUI.lua directly from main branch.\n00:31:27  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:31:28  Startup completed successfully.\n00:31:28  ERROR: [string "RNaXbhUpCeDZUMWdbOhV"]:5180: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5180
-    Stack End\n00:31:59  Loading GUI.lua directly from main branch.\n00:32:00  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:32:00  Startup completed successfully.\n00:32:00  ERROR: [string "hMByMGpSOKHcHsqnyhhx"]:5257: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5257
-    Stack End\n00:33:17  Loading GUI.lua directly from main branch.\n00:33:19  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:33:19  Startup completed successfully.\n00:33:19  ERROR: [string "RfIJuVFgDegMcIdgQgWA"]:5257: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5257
-    Stack End\n00:33:36  Loading GUI.lua directly from main branch.\n00:33:37  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:33:37  Startup completed successfully.\n00:33:37  ERROR: [string "oHBnURQGQoPcPCMGcKWg"]:5257: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5257
-    Stack End\n00:33:50  Loading GUI.lua directly from main branch.\n00:33:51  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:33:51  Startup completed successfully.\n00:33:51  ERROR: [string "VcHkavnIYeDrBhNYIWIA"]:5257: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5257
-    Stack End\n00:33:57  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:33:59  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:33:59  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:00  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:01  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:02  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:02  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:02  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:02  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:02  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:03  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:03  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:03  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:03  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:03  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:04  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:04  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:04  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:04  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:04  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:05  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:05  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:06  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:09  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5491: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5491
-    Stack End\n00:34:14  Loading GUI.lua directly from main branch.\n00:34:15  Loaded UniversalLiveObserver.lua using GitHub fallback.\n00:34:16  Startup completed successfully.\n00:34:16  ERROR: [string "OCnNAGqlbvUNDGGwIQzu"]:5257: attempt to call a nil value
-    Stack Begin
-    Script 'LocalScript', Line 5257
-    Stack End
+SHORTNAME HUB REMOTE OBSERVATION
+Place: 76911729991355 | Ugc
+Scope: outgoing calls made by this client only
+Total captured: 14 | Stored: 14 | Dropped: 0
+
+[00:46:06] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofVI","2":"TurkeyOof"}
+[00:46:03] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersVII","2":"TurkeyOof"}
+[00:46:00] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofV","2":"TurkeyOof"}
+[00:45:57] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersVI","2":"TurkeyOof"}
+[00:45:54] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersV","2":"TurkeyOof"}
+[00:45:52] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersIV","2":"TurkeyOof"}
+[00:45:50] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersIII","2":"TurkeyOof"}
+[00:45:49] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofIV","2":"TurkeyOof"}
+[00:45:47] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersII","2":"TurkeyOof"}
+[00:45:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofIII","2":"TurkeyOof"}
+[00:45:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathers","2":"TurkeyOof"}
+[00:45:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"FasterThanksgivingNoobs","2":"TurkeyOof"}
+[00:45:38] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofII","2":"TurkeyOof"}
+[00:45:37] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOof","2":"TurkeyOof"}
