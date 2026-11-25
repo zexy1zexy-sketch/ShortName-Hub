@@ -37,6 +37,10 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
     label(page, "CHANGELOG  -  v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
     local updateItems = {
         {
+            "v1.2.3  -  Key system Discord invite  |  Nov 25",
+            "Updated the key-system JOIN DISCORD button to copy the official community invite: https://discord.gg/JgAsS6yYAH."
+        },
+        {
             "v1.2.2  -  Guess the Slapper cleanup  |  Nov 25",
             "Removed Auto Dodge, player roster/cards, manual round notes, and the universal inspector from Guess the Slapper. Kept only the Who Slapped Me detector and its compact mini panel."
         },
