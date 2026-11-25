@@ -1,7 +1,9 @@
-SHORTNAME HUB REMOTE OBSERVATION
-Place: 76911729991355 | Ugc
-Scope: outgoing calls made by this client only
-Total captured: 1 | Stored: 1 | Dropped: 0
-
-[08:49:02] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeThanksgivingNoobMax","2":"TurkeyOof_Third"}
+SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-25 14:56:50 UTC\n\n08:55:42  Diagnostic console initialized before loading modules.\n08:55:42  Executor HTTP request API: available\n08:55:47  Loading GUI.lua directly from main branch.\n08:55:49  Loaded UniversalLiveObserver.lua using GitHub fallback.\n08:56:43  ERROR: Player:IsInGroup failed because HTTP unknown error (HttpError: Timedout)
+    Stack Begin
+    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 1495 - function DisplayGangs
+    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 2172
+    Stack End\n08:56:43  ERROR: Player:IsInGroup failed because HTTP unknown error (HttpError: Timedout)
+    Stack Begin
+    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 1495 - function DisplayGangs
+    Script 'Players.shortname_zen.PlayerScripts.Interface', Line 2184
+    Stack End\n08:56:50  Startup completed successfully.
