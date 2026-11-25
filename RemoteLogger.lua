@@ -6,7 +6,7 @@ RemoteLogger.__index = RemoteLogger
 local MAX_ENTRIES = 120
 local MAX_ARGUMENTS = 10
 local MAX_DEPTH = 2
-local HOOK_KEY = "__SHORTNAME_HUB_REMOTE_LOGGER_HOOK"
+local HOOK_KEY = "__SHORTNAME_HUB_REMOTE_LOGGER_HOOK_V2"
 
 local SharedEnvironment = _G
 if type(getgenv) == "function" then
