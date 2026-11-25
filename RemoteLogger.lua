@@ -243,6 +243,54 @@ function RemoteLogger:GetReport()
     return table.concat(lines, "\n")
 end
 
+
+function RemoteLogger:UploadReport(uploadKey)
+    if type(uploadKey) ~= "string" or uploadKey == "" then
+        return false, "UPLOAD KEY REQUIRED"
+    end
+
+    local requestFunction
+    if type(request) == "function" then
+        requestFunction = request
+    elseif type(http_request) == "function" then
+        requestFunction = http_request
+    elseif syn and type(syn.request) == "function" then
+        requestFunction = syn.request
+    elseif http and type(http.request) == "function" then
+        requestFunction = http.request
+    elseif fluxus and type(fluxus.request) == "function" then
+        requestFunction = fluxus.request
+    end
+    if not requestFunction then return false, "HTTP REQUEST API UNAVAILABLE" end
+
+    local HttpService = game:GetService("HttpService")
+    local payload = HttpService:JSONEncode({report = self:GetReport()})
+    local ok, response = pcall(function()
+        return requestFunction({
+            Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json",
+                ["x-upload-key"] = uploadKey
+            },
+            Body = payload,
+            Timeout = 30
+        })
+    end)
+    if not ok then return false, "REQUEST FAILED: " .. tostring(response) end
+    if type(response) ~= "table" then return false, "INVALID UPLOAD RESPONSE" end
+
+    local code = tonumber(response.StatusCode or response.Status or 0) or 0
+    local body = tostring(response.Body or "")
+    if code >= 200 and code < 300 then
+        local decodedOK, decoded = pcall(function() return HttpService:JSONDecode(body) end)
+        if decodedOK and type(decoded) == "table" and decoded.ok == true then
+            return true, "REMOTE REPORT UPLOADED"
+        end
+    end
+    return false, "HTTP " .. tostring(code) .. ": " .. body:sub(1, 240)
+end
+
 function RemoteLogger:Clear()
     table.clear(self.Entries)
     self.Total = 0
