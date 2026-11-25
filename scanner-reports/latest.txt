@@ -1,17 +1,29 @@
 SHORTNAME HUB REMOTE OBSERVATION
 Place: 76911729991355 | Ugc
 Scope: outgoing calls made by this client only
-Total captured: 6 | Stored: 6 | Dropped: 0
+Total captured: 12 | Stored: 12 | Dropped: 0
 
-[00:20:20] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeAnimal","2":"Chicken"}
-[00:20:20] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeAnimal","2":"Cow"}
-[00:20:19] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"BuyAnimal","3":"true","2":"Cow"}
-[00:20:18] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"BuyAnimal","3":"true","2":"Chicken"}
-[00:20:13] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeUpgradeMax","3":"BiggerWheatDeposit","2":"Bread"}
-[00:20:12] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
-Args: {"1":"UpgradeUpgradeMax","3":"MoreConsumption","2":"Bread"}
+[00:29:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofVI","2":"TurkeyOof"}
+[00:29:29] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersVII","2":"TurkeyOof"}
+[00:29:27] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofV","2":"TurkeyOof"}
+[00:29:26] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersVI","2":"TurkeyOof"}
+[00:29:24] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersV","2":"TurkeyOof"}
+[00:29:22] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersIV","2":"TurkeyOof"}
+[00:29:20] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersIII","2":"TurkeyOof"}
+[00:29:20] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofIV","2":"TurkeyOof"}
+[00:29:18] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathersII","2":"TurkeyOof"}
+[00:29:16] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofIII","2":"TurkeyOof"}
+[00:29:13] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreFeathers","2":"TurkeyOof"}
+[00:29:07] CLIENT RemoteEvent.FireServer | ReplicatedStorage.__Net.MainRemote
+Args: {"1":"UpgradeUpgradeMax","3":"MoreTurkeyOofII","2":"TurkeyOof"}
