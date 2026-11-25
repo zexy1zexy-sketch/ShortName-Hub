@@ -33,9 +33,13 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
     welcomeDescription.Position = UDim2.fromOffset(14, 42)
     welcomeDescription.TextWrapped = true
 
-    local currentVersion = tostring(config.Version or "1.2.0")
+    local currentVersion = tostring(config.Version or "1.2.1")
     label(page, "CHANGELOG  -  v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
     local updateItems = {
+        {
+            "v1.2.1  -  Guess the Slapper Auto Dodge  |  Nov 25",
+            "Added an Auto Dodge toggle inside the Guess the Slapper page. While enabled, it sends the observed ReplicatedStorage.events.Dodge remote with the observed true argument every 0.5 seconds. It stops when toggled off, the remote disappears, or the GUI closes."
+        },
         {
             "v1.2.0  -  Game tools, automation & reliability  |  Nov 23-25",
             "Added the owner-only Detection & Observation area, manual game detector and manually approved game reports. Added universal game, structure, instance and live-value scanners/observers, report snapshots, authenticated uploads and owner security reports. Added Guess the Slapper observation tools and a compact floating detector. Added Noob Incremental code redemption and Thanksgiving Event automation, including Turkey Oof milestones, all three Noob upgrades (including Noob Upgrade 3), and Turkey upgrades. Added separate Toggle All controls for Farm Area and Thanksgiving Event. Added bounded remote-call logging and authenticated report uploads. Fixed detector metadata, observation signal quality, Perfect Dodge logging, remote argument formatting, automation lookups/toggles, GUI cleanup, refresh recovery, startup failures and multiple Luau compiler/register-limit issues. Removed always-on inspection watchers that caused FPS drops; scanners are on-demand."
