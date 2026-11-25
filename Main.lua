@@ -78,7 +78,7 @@ local function DiagnoseHitboxCaster()
 
         AddDiagnostic("HITBOX SOURCE ACCESS: readable; scanning relevant lines.")
         local sourceLines = {}
-        for line in (source .. "\\n"):gmatch("(.-)\\r?\\n") do
+        for line in (source .. "\n"):gmatch("(.-)\n") do
             table.insert(sourceLines, line)
         end
         local selected, seen = {}, {}
