@@ -1886,7 +1886,10 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
                 {Name = "BUY CHICKEN", Args = {"BuyAnimal", "Chicken", true}},
                 {Name = "BUY COW", Args = {"BuyAnimal", "Cow", true}},
                 {Name = "BIGGER WHEAT DEPOSIT", Args = {"UpgradeUpgradeMax", "BiggerWheatDeposit", "Bread"}},
-                {Name = "MORE BREAD CONSUMPTION", Args = {"UpgradeUpgradeMax", "MoreConsumption", "Bread"}}
+                {Name = "MORE BREAD CONSUMPTION", Args = {"UpgradeUpgradeMax", "MoreConsumption", "Bread"}},
+                {Name = "PUMPKIN MACHINE RANK UP", Args = {"PumpkinMachineRankUp"}},
+                {Name = "SPOOKY OOF MILESTONE", Args = {"SpookyOofMilestoneUp"}},
+                {Name = "REAPER RANK UP (15)", Args = {"ReaperRankUp", "15"}}
             }
 
             local FarmRunning = {}
