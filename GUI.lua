@@ -37,6 +37,10 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
     label(page, "CHANGELOG  -  v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
     local updateItems = {
         {
+            "v1.2.4  -  24-hour key remember-me  |  Nov 25",
+            "After a user enters the correct key, access is remembered locally for 24 hours. The key is requested again after the saved access expires."
+        },
+        {
             "v1.2.3  -  Key system Discord invite  |  Nov 25",
             "Updated the key-system JOIN DISCORD button to copy the official community invite: https://discord.gg/JgAsS6yYAH."
         },
