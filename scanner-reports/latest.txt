@@ -1,15 +1,17 @@
-SHORTNAME HUB - UNIVERSAL LIVE CHANGE OBSERVATION
-Mode: PASSIVE / READ-ONLY
-Game: Ugc
-PlaceId: 106683702021527
-UniverseId: 9449993534
-Player: shortname_zen
-Watched properties: 77
-Recorded changes: 0
-Status: RUNNING
-----------------------------------------
-RECENT CHANGES (OLDEST FIRST)
-No changes captured yet.
+SHORTNAME HUB REMOTE OBSERVATION
+Place: 106683702021527 | Ugc
+Scope: outgoing calls made by this client only
+Total captured: 6 | Stored: 6 | Dropped: 0
 
-Privacy/safety: TextBox, chat, message, input, password, token, secret, and email paths are excluded.
-This observer does not inspect server-only objects, script source, remote traffic, or remote arguments.
+[11:30:11] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"false"}
+[11:30:04] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Guess
+Args: {"1":"pinkunicornbarbie101"}
+[11:29:57] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"false"}
+[11:29:48] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Guess
+Args: {"1":"SprunkiGrayyWenda"}
+[11:29:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Dodge
+Args: {"1":"false"}
+[11:29:24] CLIENT RemoteEvent.FireServer | ReplicatedStorage.events.Exit
+Args: []
