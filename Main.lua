@@ -34,6 +34,7 @@ local function AddDiagnostic(message)
 end
 
 local HitboxDiagnosticCaptured = false
+local HitboxErrorCount = 0
 
 local function DiagnoseHitboxCaster()
     local ok, err = pcall(function()
@@ -302,6 +303,8 @@ local function BuildDiagnosticConsole()
                 local HttpService = game:GetService("HttpService")
                 DiagnoseHitboxCaster()
             local report = "SHORTNAME HUB STARTUP DIAGNOSTICS\\nCaptured: " .. os.date("!%Y-%m-%d %H:%M:%S UTC") .. "\\n\\n" .. table.concat(DiagnosticLines, "\\n")
+            .. "\\n\\nHITBOX ERROR COUNT: " .. tostring(HitboxErrorCount)
+            .. "\\nRepeated identical HitboxPendingRemoval errors are counted, not duplicated in this report."
                 local sent, response = pcall(function()
                     return requestFn({
                         Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
@@ -345,11 +348,18 @@ pcall(BuildDiagnosticConsole)
 pcall(function()
     game:GetService("LogService").MessageOut:Connect(function(message, messageType)
         if messageType == Enum.MessageType.MessageError then
-            AddDiagnostic("ERROR: " .. tostring(message))
-            if not HitboxDiagnosticCaptured and tostring(message):find("HitboxPendingRemoval", 1, true) then
-                HitboxDiagnosticCaptured = true
-                AddDiagnostic("Detected the RaycastHitboxV4 HitboxPendingRemoval error; collecting module diagnostics.")
-                DiagnoseHitboxCaster()
+            local errorText = tostring(message)
+            if errorText:find("HitboxPendingRemoval", 1, true) then
+                HitboxErrorCount += 1
+                if HitboxErrorCount == 1 then
+                    AddDiagnostic("ERROR: " .. errorText)
+                    HitboxDiagnosticCaptured = true
+                    AddDiagnostic("Detected the RaycastHitboxV4 HitboxPendingRemoval error; collecting module diagnostics.")
+                    DiagnoseHitboxCaster()
+                end
+                -- Avoid flooding the owner's report with identical scheduler errors.
+            else
+                AddDiagnostic("ERROR: " .. errorText)
             end
             ShowDiagnosticConsole()
         end
