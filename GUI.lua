@@ -1785,12 +1785,74 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
     end
 
     end
-    -- BUTTONS
+    -- BUTTONS + persisted toggle state (restored only when Auto-Load is enabled).
+    local HttpService = game:GetService("HttpService")
+    local ToggleStateFile = "ShortNameHub_ToggleStates.json"
+    local ToggleStates = {}
+    local ToggleButtons = {}
+    local ToggleKeyCounts = {}
+    local sharedEnvironment = _G
+    if type(getgenv) == "function" then
+        local ok, env = pcall(getgenv)
+        if ok and type(env) == "table" then sharedEnvironment = env end
+    end
+    local AutoLoadRestoreEnabled = sharedEnvironment.__SHORTNAME_AUTOLOAD_ACTIVE == true
+    if type(readfile) == "function" and type(isfile) == "function" then
+        local ok, exists = pcall(isfile, ToggleStateFile)
+        if ok and exists then
+            local readOk, raw = pcall(readfile, ToggleStateFile)
+            if readOk and type(raw) == "string" then
+                local decodeOk, decoded = pcall(function() return HttpService:JSONDecode(raw) end)
+                if decodeOk and type(decoded) == "table" then ToggleStates = decoded end
+            end
+        end
+    end
+    local function SaveToggleStates()
+        if type(writefile) ~= "function" then return end
+        local ok, encoded = pcall(function() return HttpService:JSONEncode(ToggleStates) end)
+        if ok then pcall(writefile, ToggleStateFile, encoded) end
+    end
+    local function GetToggleKey(parent, initialText)
+        local names = {}
+        local node = parent
+        while node and node ~= ScreenGui do
+            table.insert(names, 1, tostring(node.Name))
+            node = node.Parent
+        end
+        local base = tostring(game.PlaceId) .. "/" .. table.concat(names, "/") .. "/" .. tostring(initialText)
+        ToggleKeyCounts[base] = (ToggleKeyCounts[base] or 0) + 1
+        return base .. "#" .. tostring(ToggleKeyCounts[base])
+    end
+    local function ReadToggleState(button)
+        local upper = tostring(button.Text or ""):upper()
+        if upper:match("%f[%a]ON%f[%A]") or upper:match("%f[%a]STARTED?%f[%A]") then return true end
+        if upper:match("%f[%a]OFF%f[%A]") or upper:match("%f[%a]STOPPED?%f[%A]") then return false end
+        return nil
+    end
     local function MakeButton(parent, text, callback, color)
         local b = Instance.new("TextButton"); b.Size = UDim2.new(1, 0, 0, 42); b.BackgroundColor3 = color or Color3.fromRGB(75, 55, 115)
         b.TextColor3 = White; b.Text = text; b.TextSize = 12
         b.Font = Enum.Font.GothamBold; b.Parent = parent; Corner(b, 10)
-        Stroke(b, Border, 1); AddHover(b, color or Color3.fromRGB(75, 55, 115), Color3.fromRGB(94, 68, 137)); b.Activated:Connect(callback)
+        Stroke(b, Border, 1); AddHover(b, color or Color3.fromRGB(75, 55, 115), Color3.fromRGB(94, 68, 137))
+        local toggleKey = GetToggleKey(parent, text)
+        local function Activate()
+            callback()
+            local state = ReadToggleState(b)
+            if state ~= nil then
+                ToggleStates[toggleKey] = state
+                SaveToggleStates()
+            end
+        end
+        b.Activated:Connect(Activate)
+        local initialState = ReadToggleState(b)
+        if initialState ~= nil then
+            table.insert(ToggleButtons, {
+                Button = b,
+                Key = toggleKey,
+                Activate = Activate,
+                InitialState = initialState
+            })
+        end
         return b
     end
 
@@ -5695,6 +5757,16 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
         HouseFarmToken = HouseFarmToken + 1
         ScreenGui:Destroy()
     end)
+
+    -- Restore previously enabled/disabled toggle buttons after every control has been created.
+    if AutoLoadRestoreEnabled then
+        for _, entry in ipairs(ToggleButtons) do
+            local savedState = ToggleStates[entry.Key]
+            if type(savedState) == "boolean" and savedState ~= entry.InitialState then
+                pcall(entry.Activate)
+            end
+        end
+    end
 
     BuildUpdatesPage(GUI.UpdatesPage, Config, CurrentAccent, ButtonDark, Border, White, Grey, Label, Corner, Stroke, Tween)
     SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
