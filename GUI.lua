@@ -1934,6 +1934,82 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
             end, Color3.fromRGB(85, 55, 65))
         end
 
+        -- Reported Turkey Oof upgrade chain (kept separate from the four base actions).
+        local TurkeyOofUpgradesFolder = MakeFolder("TURKEY OOF UPGRADES", ThanksgivingFolder)
+        Label(TurkeyOofUpgradesFolder, "Observed Turkey Oof upgrade remotes. Each enabled upgrade repeats every 2 seconds.", 10, 34, Grey).TextWrapped = true
+        local TurkeyUpgradeStatus = Label(TurkeyOofUpgradesFolder, "TURKEY UPGRADES: READY", 10, 24, Color3.fromRGB(170, 210, 255))
+        TurkeyUpgradeStatus.TextWrapped = true
+
+        local TurkeyUpgradeNames = {
+            "MoreFeathers",
+            "MoreFeathersII",
+            "MoreFeathersIII",
+            "MoreFeathersIV",
+            "MoreFeathersV",
+            "MoreFeathersVI",
+            "MoreFeathersVII",
+            "MoreTurkeyOofII",
+            "MoreTurkeyOofIII",
+            "MoreTurkeyOofIV",
+            "MoreTurkeyOofV",
+            "MoreTurkeyOofVI"
+        }
+        local TurkeyUpgradeRunning = {}
+        local TurkeyUpgradeButtons = {}
+        local function StopAllTurkeyUpgrades()
+            for i = 1, #TurkeyUpgradeNames do
+                TurkeyUpgradeRunning[i] = false
+                local button = TurkeyUpgradeButtons[i]
+                if button then
+                    button.Text = "OFF  |  " .. string.upper(TurkeyUpgradeNames[i])
+                    button.BackgroundColor3 = Color3.fromRGB(85, 55, 65)
+                end
+            end
+            TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
+        end
+
+        for index, upgradeName in ipairs(TurkeyUpgradeNames) do
+            local upgradeIndex = index
+            local upgrade = upgradeName
+            TurkeyUpgradeRunning[upgradeIndex] = false
+            TurkeyUpgradeButtons[upgradeIndex] = MakeButton(TurkeyOofUpgradesFolder, "OFF  |  " .. string.upper(upgrade), function()
+                if ThanksgivingDestroyed then return end
+                TurkeyUpgradeRunning[upgradeIndex] = not TurkeyUpgradeRunning[upgradeIndex]
+                local enabled = TurkeyUpgradeRunning[upgradeIndex]
+                local button = TurkeyUpgradeButtons[upgradeIndex]
+                button.Text = (enabled and "ON  |  " or "OFF  |  ") .. string.upper(upgrade)
+                button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
+                if not enabled then
+                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: " .. upgrade .. " STOPPED"
+                    return
+                end
+                TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: " .. upgrade .. " RUNNING"
+                task.spawn(function()
+                    while TurkeyUpgradeRunning[upgradeIndex] and not ThanksgivingDestroyed do
+                        local remote = GetThanksgivingRemote()
+                        if not remote then
+                            TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: MainRemote not found; retrying..."
+                        else
+                            local ok, err = pcall(function()
+                                remote:FireServer("UpgradeUpgradeMax", "TurkeyOof", upgrade)
+                            end)
+                            if not ok then
+                                TurkeyUpgradeRunning[upgradeIndex] = false
+                                button.Text = "OFF  |  " .. string.upper(upgrade)
+                                button.BackgroundColor3 = Color3.fromRGB(85, 55, 65)
+                                TurkeyUpgradeStatus.Text = "TURKEY UPGRADE ERROR: " .. tostring(err):sub(1, 120)
+                                break
+                            end
+                            TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: " .. upgrade .. " ACTIVE"
+                        end
+                        task.wait(2)
+                    end
+                end)
+            end, Color3.fromRGB(85, 55, 65))
+        end
+
+        MakeButton(TurkeyOofUpgradesFolder, "⏹  STOP ALL TURKEY UPGRADES", StopAllTurkeyUpgrades, Color3.fromRGB(115, 55, 65))
+
         ScreenGui.Destroying:Connect(function()
             ThanksgivingDestroyed = true
             for index = 1, #ThanksgivingActions do
