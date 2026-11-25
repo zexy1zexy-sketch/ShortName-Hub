@@ -1,20 +1,25 @@
--- ShortName Hub: bounded, passive client-side remote/bindable call logger.
--- Captures calls made by this client only; it cannot see server-only or other clients' traffic.
+-- ShortName Hub: lightweight client-side remote/bindable call logger.
+-- Outgoing calls only. No game-wide scans and no incoming-event connections.
 local RemoteLogger = {}
 RemoteLogger.__index = RemoteLogger
 
-local MAX_ENTRIES = 250
-local MAX_ARGUMENTS = 24
-local MAX_DEPTH = 3
+local MAX_ENTRIES = 120
+local MAX_ARGUMENTS = 10
+local MAX_DEPTH = 2
 local HOOK_KEY = "__SHORTNAME_HUB_REMOTE_LOGGER_HOOK"
+
 local SharedEnvironment = _G
 if type(getgenv) == "function" then
     local ok, env = pcall(getgenv)
-    if ok and type(env) == "table" then SharedEnvironment = env end
+    if ok and type(env) == "table" then
+        SharedEnvironment = env
+    end
 end
 
 local function safePath(instance)
-    local ok, result = pcall(function() return instance:GetFullName() end)
+    local ok, result = pcall(function()
+        return instance:GetFullName()
+    end)
     return ok and result or tostring(instance)
 end
 
@@ -22,33 +27,50 @@ local function serialize(value, depth, budget)
     depth = depth or 0
     budget = budget or {left = MAX_ARGUMENTS}
     budget.left = budget.left - 1
+
     if budget.left < 0 then return "… argument limit" end
     if depth >= MAX_DEPTH then return "…" end
+
     local kind = typeof(value)
-    if kind == "Instance" then return safePath(value) end
-    if kind == "table" then
-        local result, n = {}, 0
+    if kind == "Instance" then
+        return safePath(value)
+    elseif kind == "table" then
+        local result, count = {}, 0
         for key, item in pairs(value) do
-            n = n + 1
-            if n > 20 then result["…"] = "more entries omitted"; break end
+            count = count + 1
+            if count > 8 then
+                result["…"] = "entries omitted"
+                break
+            end
             result[tostring(key)] = serialize(item, depth + 1, budget)
         end
         return result
     end
+
     local result = tostring(value)
-    if #result > 240 then result = result:sub(1, 240) .. "…" end
+    if #result > 160 then
+        result = result:sub(1, 160) .. "…"
+    end
     return result
 end
 
+local function isSupportedCall(method)
+    return method == "FireServer"
+        or method == "InvokeServer"
+        or method == "Fire"
+        or method == "Invoke"
+end
+
 local function classify(instance)
-    for _, className in ipairs({
-        "UnreliableRemoteEvent", "RemoteEvent", "RemoteFunction",
-        "BindableEvent", "BindableFunction"
-    }) do
-        local ok, matches = pcall(function() return instance:IsA(className) end)
-        if ok and matches then return className end
-    end
-    return nil
+    local ok, result = pcall(function()
+        if instance:IsA("RemoteEvent") then return "RemoteEvent" end
+        if instance:IsA("UnreliableRemoteEvent") then return "UnreliableRemoteEvent" end
+        if instance:IsA("RemoteFunction") then return "RemoteFunction" end
+        if instance:IsA("BindableEvent") then return "BindableEvent" end
+        if instance:IsA("BindableFunction") then return "BindableFunction" end
+        return nil
+    end)
+    return ok and result or nil
 end
 
 function RemoteLogger.new()
@@ -58,145 +80,142 @@ function RemoteLogger.new()
         Entries = {},
         Total = 0,
         Dropped = 0,
-        Connections = {},
-        Connected = {},
         Status = "READY",
         LastCapture = "No calls captured yet",
-        _scanGeneration = 0,
         _hookRegistry = nil
     }, RemoteLogger)
 end
 
-function RemoteLogger:_record(instance, method, args, direction)
+function RemoteLogger:_record(instance, method, args)
     if not self.Enabled then return end
+
     local className = classify(instance)
     if not className then return end
+
     local entry = {
         Time = os.date("%H:%M:%S"),
         Name = instance.Name,
         Path = safePath(instance),
         Class = className,
         Method = method,
-        Direction = direction or "CLIENT",
+        Direction = "CLIENT",
         Arguments = serialize(args or {})
     }
+
     if #self.Entries >= MAX_ENTRIES then
         table.remove(self.Entries, 1)
         self.Dropped = self.Dropped + 1
     end
-    table.insert(self.Entries, entry)
+
+    self.Entries[#self.Entries + 1] = entry
     self.Total = self.Total + 1
     self.LastCapture = method .. " | " .. entry.Path
 end
 
-function RemoteLogger:_watchIncoming(instance)
-    if self.Connected[instance] then return end
-    local className = classify(instance)
-    if className ~= "RemoteEvent" and className ~= "UnreliableRemoteEvent" then return end
-    self.Connected[instance] = true
-    local ok, connection = pcall(function()
-        return instance.OnClientEvent:Connect(function(...)
-            self:_record(instance, "OnClientEvent", {...}, "SERVER → CLIENT")
-        end)
-    end)
-    if ok and connection then
-        table.insert(self.Connections, connection)
-    else
-        self.Connected[instance] = nil
-    end
-end
-
 function RemoteLogger:Start()
-    if self.Enabled then return true, "ALREADY RUNNING" end
-    if type(hookmetamethod) ~= "function" or type(getnamecallmethod) ~= "function" then
+    if self.Enabled then
+        return true, "ALREADY RUNNING"
+    end
+
+    if type(hookmetamethod) ~= "function"
+        or type(getnamecallmethod) ~= "function" then
         self.Status = "UNSUPPORTED EXECUTOR: NAMECALL HOOK API MISSING"
         return false, self.Status
     end
 
     local registry = SharedEnvironment[HOOK_KEY]
+
     if type(registry) ~= "table" or registry.Installed ~= true then
-        registry = {ActiveLogger = nil, Installed = false}
+        registry = {
+            ActiveLogger = nil,
+            Installed = false
+        }
+
         local original
         local hook = function(target, ...)
             local method
-            pcall(function() method = getnamecallmethod() end)
+            local methodOK = pcall(function()
+                method = getnamecallmethod()
+            end)
+
             local active = registry.ActiveLogger
-            if active and active.Enabled and classify(target) then
-                if method == "FireServer" or method == "InvokeServer"
-                    or method == "Fire" or method == "Invoke" then
-                    active:_record(target, method, {...}, "CLIENT")
-                end
+            -- Filter by method first. Avoid inspecting arbitrary game objects.
+            if methodOK and isSupportedCall(method)
+                and active and active.Enabled then
+                active:_record(target, method, {...})
             end
+
             return original(target, ...)
         end
-        if type(newcclosure) == "function" then hook = newcclosure(hook) end
+
+        if type(newcclosure) == "function" then
+            hook = newcclosure(hook)
+        end
+
         local ok, result = pcall(function()
             return hookmetamethod(game, "__namecall", hook)
         end)
+
         if not ok or type(result) ~= "function" then
             self.Status = "HOOK INSTALL FAILED: " .. tostring(result)
             return false, self.Status
         end
+
         original = result
         registry.Installed = true
         SharedEnvironment[HOOK_KEY] = registry
     end
+
     registry.ActiveLogger = self
     self._hookRegistry = registry
     self.HookInstalled = true
-
     self.Enabled = true
-    self._scanGeneration = self._scanGeneration + 1
-    local generation = self._scanGeneration
-    self.Status = "STARTING"
-    task.spawn(function()
-        local descendants = game:GetDescendants()
-        for index, instance in ipairs(descendants) do
-            if not self.Enabled or generation ~= self._scanGeneration then return end
-            self:_watchIncoming(instance)
-            if index % 180 == 0 then task.wait() end
-        end
-        if self.Enabled and generation == self._scanGeneration then
-            self.Status = "RUNNING"
-        end
-    end)
-    local addedConnection = game.DescendantAdded:Connect(function(instance)
-        if self.Enabled then self:_watchIncoming(instance) end
-    end)
-    table.insert(self.Connections, addedConnection)
-    return true, "STARTING (INITIAL REMOTE ATTACHMENT IS CHUNKED)"
+    self.Status = "RUNNING — OUTGOING CALLS ONLY"
+
+    return true, self.Status
 end
 
 function RemoteLogger:Stop()
     self.Enabled = false
-    if self._hookRegistry and self._hookRegistry.ActiveLogger == self then
+
+    if self._hookRegistry
+        and self._hookRegistry.ActiveLogger == self then
         self._hookRegistry.ActiveLogger = nil
     end
-    self._scanGeneration = self._scanGeneration + 1
-    for _, connection in ipairs(self.Connections) do
-        pcall(function() connection:Disconnect() end)
-    end
-    table.clear(self.Connections)
-    table.clear(self.Connected)
+
     self.Status = "STOPPED"
     return true
 end
 
 function RemoteLogger:GetEntries(limit)
     local result = {}
-    local first = math.max(1, #self.Entries - (tonumber(limit) or 20) + 1)
+    local amount = math.max(1, math.min(tonumber(limit) or 20, MAX_ENTRIES))
+    local first = math.max(1, #self.Entries - amount + 1)
+
     for index = #self.Entries, first, -1 do
-        table.insert(result, self.Entries[index])
+        result[#result + 1] = self.Entries[index]
     end
+
     return result
 end
 
 function RemoteLogger:GetStats()
-    local counts = {Total = self.Total, Stored = #self.Entries, Dropped = self.Dropped, MainRemote = 0, Other = 0}
+    local counts = {
+        Total = self.Total,
+        Stored = #self.Entries,
+        Dropped = self.Dropped,
+        MainRemote = 0,
+        Other = 0
+    }
+
     for _, entry in ipairs(self.Entries) do
-        if entry.Name == "MainRemote" then counts.MainRemote = counts.MainRemote + 1
-        else counts.Other = counts.Other + 1 end
+        if entry.Name == "MainRemote" then
+            counts.MainRemote = counts.MainRemote + 1
+        else
+            counts.Other = counts.Other + 1
+        end
     end
+
     return counts
 end
 
@@ -204,17 +223,24 @@ function RemoteLogger:GetReport()
     local lines = {
         "SHORTNAME HUB REMOTE OBSERVATION",
         "Place: " .. tostring(game.PlaceId) .. " | " .. tostring(game.Name),
-        "Scope: calls made by this client + RemoteEvent/UnreliableRemoteEvent deliveries to this client",
-        "Total captured: " .. tostring(self.Total) .. " | Stored: " .. tostring(#self.Entries) .. " | Oldest dropped: " .. tostring(self.Dropped),
+        "Scope: outgoing calls made by this client only",
+        "Total captured: " .. tostring(self.Total)
+            .. " | Stored: " .. tostring(#self.Entries)
+            .. " | Dropped: " .. tostring(self.Dropped),
         ""
     }
+
     for _, entry in ipairs(self:GetEntries(MAX_ENTRIES)) do
         local ok, encoded = pcall(function()
             return game:GetService("HttpService"):JSONEncode(entry.Arguments)
         end)
-        table.insert(lines, "[" .. entry.Time .. "] " .. entry.Direction .. " " .. entry.Class .. "." .. entry.Method .. " | " .. entry.Path .. "\nArgs: " .. (ok and encoded or tostring(entry.Arguments)))
+
+        lines[#lines + 1] = "[" .. entry.Time .. "] CLIENT "
+            .. entry.Class .. "." .. entry.Method .. " | " .. entry.Path
+            .. "\\nArgs: " .. (ok and encoded or tostring(entry.Arguments))
     end
-    return table.concat(lines, "\n")
+
+    return table.concat(lines, "\\n")
 end
 
 function RemoteLogger:Clear()
