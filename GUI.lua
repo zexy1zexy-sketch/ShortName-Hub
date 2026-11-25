@@ -1845,210 +1845,244 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
     end
 
     -- SNH THANKSGIVING EVENT AUTOMATION
-    -- Integrates the user's four Turkey Oof actions into the existing ShortName Hub GUI.
-    -- This is shown only in Noob Incremental and uses the game's existing MainRemote.
+    -- One milestone control, a separated Noob upgrade area, and one unified Turkey upgrade station.
     if game.PlaceId == 76911729991355 then
-        local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT", GamePage)
-        Label(ThanksgivingFolder, "Turkey Oof automation. Each enabled action repeats every 2 seconds.", 10, 30, Grey).TextWrapped = true
-
-        local ThanksgivingStatus = Label(ThanksgivingFolder, "THANKSGIVING: READY", 10, 24, Color3.fromRGB(170, 210, 255))
-        ThanksgivingStatus.TextWrapped = true
-
-        local ThanksgivingActions = {
-            {
-                Name = "TURKEY OOF MILESTONE",
-                Args = {"TurkeyOofMilestoneUp"}
-            },
-            {
-                Name = "FASTER THANKSGIVING NOOBS",
-                Args = {"UpgradeUpgradeMax", "TurkeyOof", "FasterThanksgivingNoobs"}
-            },
-            {
-                Name = "MORE TURKEY OOF",
-                Args = {"UpgradeUpgradeMax", "TurkeyOof", "MoreTurkeyOof"}
-            },
-            {
-                Name = "THANKSGIVING NOOB MAX",
-                Args = {"UpgradeThanksgivingNoobMax", "TurkeyOof_Starter"}
-            }
-        }
-
-        local ThanksgivingRunning = {}
-        local ThanksgivingButtons = {}
-        local ThanksgivingDestroyed = false
-
-        local function GetThanksgivingRemote()
-            local replicatedStorage = game:GetService("ReplicatedStorage")
-            local netFolder = replicatedStorage:FindFirstChild("__Net")
-            local remote = netFolder and netFolder:FindFirstChild("MainRemote")
-            if remote and remote:IsA("RemoteEvent") then
-                return remote
+        do -- Isolate locals for Luau's local-register limit.
+            local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT", GamePage)
+            local ThanksgivingDestroyed = false
+            local function GetThanksgivingRemote()
+                local replicatedStorage = game:GetService("ReplicatedStorage")
+                local netFolder = replicatedStorage:FindFirstChild("__Net")
+                local remote = netFolder and netFolder:FindFirstChild("MainRemote")
+                if remote and remote:IsA("RemoteEvent") then
+                    return remote
+                end
+                return nil
             end
-            return nil
-        end
 
-        local function SetThanksgivingToggle(index, enabled)
-            local button = ThanksgivingButtons[index]
-            if not button then return end
-            local action = ThanksgivingActions[index]
-            button.Text = (enabled and "ON  |  " or "OFF  |  ") .. action.Name
-            button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
-        end
-
-        for index, action in ipairs(ThanksgivingActions) do
-            local actionIndex = index
-            local actionData = action
-            ThanksgivingRunning[actionIndex] = false
-
-            ThanksgivingButtons[actionIndex] = MakeButton(ThanksgivingFolder, "OFF  |  " .. actionData.Name, function()
-                if ThanksgivingDestroyed then return end
-
-                ThanksgivingRunning[actionIndex] = not ThanksgivingRunning[actionIndex]
-                local enabled = ThanksgivingRunning[actionIndex]
-                SetThanksgivingToggle(actionIndex, enabled)
-
+            Label(ThanksgivingFolder, "TURKEY OOF MILESTONE", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
+            Label(ThanksgivingFolder, "Milestone progression control.", 10, 24, Grey)
+            local MilestoneStatus = Label(ThanksgivingFolder, "MILESTONE: READY", 10, 22, Color3.fromRGB(170, 210, 255))
+            local MilestoneRunning = false
+            local MilestoneToken = 0
+            local MilestoneButton
+            local function SetMilestone(enabled)
+                MilestoneRunning = enabled
+                MilestoneToken = MilestoneToken + 1
+                local token = MilestoneToken
+                MilestoneButton.Text = (enabled and "ON  |  " or "OFF  |  ") .. "TURKEY OOF MILESTONE"
+                MilestoneButton.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
                 if not enabled then
-                    ThanksgivingStatus.Text = "THANKSGIVING: " .. actionData.Name .. " STOPPED"
+                    MilestoneStatus.Text = "MILESTONE: STOPPED"
                     return
                 end
-
-                ThanksgivingStatus.Text = "THANKSGIVING: " .. actionData.Name .. " RUNNING"
-
                 task.spawn(function()
-                    while ThanksgivingRunning[actionIndex] and not ThanksgivingDestroyed do
+                    while MilestoneRunning and MilestoneToken == token and not ThanksgivingDestroyed do
                         local remote = GetThanksgivingRemote()
                         if not remote then
-                            ThanksgivingStatus.Text = "THANKSGIVING: MainRemote not found; retrying..."
+                            MilestoneStatus.Text = "MILESTONE: MainRemote not found; retrying"
                         else
                             local ok, err = pcall(function()
-                                remote:FireServer(table.unpack(actionData.Args))
+                                remote:FireServer("TurkeyOofMilestoneUp")
                             end)
-                            if not ok then
-                                ThanksgivingStatus.Text = "THANKSGIVING ERROR: " .. tostring(err):sub(1, 120)
-                            else
-                                ThanksgivingStatus.Text = "THANKSGIVING: " .. actionData.Name .. " ACTIVE"
-                            end
+                            MilestoneStatus.Text = ok and "MILESTONE: REQUEST SENT" or ("MILESTONE ERROR: " .. tostring(err):sub(1, 100))
                         end
                         task.wait(2)
                     end
                 end)
+            end
+            MilestoneButton = MakeButton(ThanksgivingFolder, "OFF  |  TURKEY OOF MILESTONE", function()
+                if not ThanksgivingDestroyed then SetMilestone(not MilestoneRunning) end
             end, Color3.fromRGB(85, 55, 65))
-        end
 
-        -- Reported Turkey Oof upgrade chain; these controls share the existing Thanksgiving Event folder.
-        Label(ThanksgivingFolder, "ADDITIONAL TURKEY OOF UPGRADES", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
-        Label(ThanksgivingFolder, "Observed Turkey Oof upgrade remotes. Each enabled action repeats every 2 seconds.", 10, 30, Grey).TextWrapped = true
-        local TurkeyUpgradeStatus = Label(ThanksgivingFolder, "TURKEY UPGRADES: READY", 10, 24, Color3.fromRGB(170, 210, 255))
-        TurkeyUpgradeStatus.TextWrapped = true
+            Label(ThanksgivingFolder, "NOOB UPGRADES", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
+            Label(ThanksgivingFolder, "Noob upgrades are kept in their own section so more Noob upgrades can be added here later without mixing them into the Turkey upgrade list.", 10, 42, Grey).TextWrapped = true
+            local NoobStatus = Label(ThanksgivingFolder, "NOOB UPGRADES: READY", 10, 22, Color3.fromRGB(170, 210, 255))
+            local NoobRunning = false
+            local NoobToken = 0
+            local NoobButton
+            local function SetNoobOne(enabled)
+                NoobRunning = enabled
+                NoobToken = NoobToken + 1
+                local token = NoobToken
+                NoobButton.Text = (enabled and "ON  |  " or "OFF  |  ") .. "NOOB 1 UPGRADE"
+                NoobButton.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
+                if not enabled then
+                    NoobStatus.Text = "NOOB 1 UPGRADE: STOPPED"
+                    return
+                end
+                task.spawn(function()
+                    while NoobRunning and NoobToken == token and not ThanksgivingDestroyed do
+                        local remote = GetThanksgivingRemote()
+                        if not remote then
+                            NoobStatus.Text = "NOOB 1 UPGRADE: MainRemote not found; retrying"
+                        else
+                            local ok, err = pcall(function()
+                                remote:FireServer("UpgradeThanksgivingNoobMax", "TurkeyOof_Starter")
+                            end)
+                            NoobStatus.Text = ok and "NOOB 1 UPGRADE: REQUEST SENT" or ("NOOB UPGRADE ERROR: " .. tostring(err):sub(1, 100))
+                        end
+                        task.wait(2)
+                    end
+                end)
+            end
+            NoobButton = MakeButton(ThanksgivingFolder, "OFF  |  NOOB 1 UPGRADE", function()
+                if not ThanksgivingDestroyed then SetNoobOne(not NoobRunning) end
+            end, Color3.fromRGB(85, 55, 65))
 
-        local TurkeyUpgradeNames = {
-            "MoreFeathers",
-            "MoreFeathersII",
-            "MoreFeathersIII",
-            "MoreFeathersIV",
-            "MoreFeathersV",
-            "MoreFeathersVI",
-            "MoreFeathersVII",
-            "MoreTurkeyOofII",
-            "MoreTurkeyOofIII",
-            "MoreTurkeyOofIV",
-            "MoreTurkeyOofV",
-            "MoreTurkeyOofVI"
-        }
-        local TurkeyUpgradeRunning = {}
-        local TurkeyUpgradeButtons = {}
-        local TurkeyUpgradeTokens = {}
+            Label(ThanksgivingFolder, "TURKEY UPGRADES", 11, 25, PurpleLight).Font = Enum.Font.GothamBold
+            Label(ThanksgivingFolder, "All Turkey Oof upgrades are grouped here. Toggle All sends each upgrade request in sequence to avoid firing the entire list at once.", 10, 38, Grey).TextWrapped = true
+            local TurkeyUpgradeStatus = Label(ThanksgivingFolder, "TURKEY UPGRADES: READY", 10, 24, Color3.fromRGB(170, 210, 255))
+            TurkeyUpgradeStatus.TextWrapped = true
 
-        local function SetTurkeyUpgradeEnabled(index, enabled)
-            local upgrade = TurkeyUpgradeNames[index]
-            if not upgrade or ThanksgivingDestroyed then return end
-            TurkeyUpgradeTokens[index] = (TurkeyUpgradeTokens[index] or 0) + 1
-            local token = TurkeyUpgradeTokens[index]
-            TurkeyUpgradeRunning[index] = enabled
+            -- Captured upgrade order, including the two upgrades that were previously outside Toggle All.
+            local TurkeyUpgradeNames = {
+                "MoreTurkeyOof",
+                "MoreTurkeyOofII",
+                "FasterThanksgivingNoobs",
+                "MoreFeathers",
+                "MoreTurkeyOofIII",
+                "MoreFeathersII",
+                "MoreTurkeyOofIV",
+                "MoreFeathersIII",
+                "MoreFeathersIV",
+                "MoreFeathersV",
+                "MoreFeathersVI",
+                "MoreTurkeyOofV",
+                "MoreFeathersVII",
+                "MoreTurkeyOofVI"
+            }
+            local TurkeyUpgradeRunning = {}
+            local TurkeyUpgradeButtons = {}
+            local TurkeySchedulerRunning = false
+            local TurkeyDestroyed = false
 
-            local button = TurkeyUpgradeButtons[index]
-            if button then
-                button.Text = (enabled and "ON  |  " or "OFF  |  ") .. string.upper(upgrade)
+            local function UpdateTurkeyButton(index)
+                local button = TurkeyUpgradeButtons[index]
+                if not button then return end
+                local enabled = TurkeyUpgradeRunning[index] == true
+                button.Text = (enabled and "ON  |  " or "OFF  |  ") .. string.upper(TurkeyUpgradeNames[index])
                 button.BackgroundColor3 = enabled and Color3.fromRGB(45, 115, 75) or Color3.fromRGB(85, 55, 65)
             end
-            if not enabled then return end
 
-            task.spawn(function()
-                while TurkeyUpgradeRunning[index] and TurkeyUpgradeTokens[index] == token and not ThanksgivingDestroyed do
-                    local remote = GetThanksgivingRemote()
-                    if not remote then
-                        TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: MainRemote not found; retrying..."
-                    else
-                        local ok, err = pcall(function()
-                            remote:FireServer("UpgradeUpgradeMax", "TurkeyOof", upgrade)
-                        end)
-                        if not ok then
-                            if TurkeyUpgradeTokens[index] == token then
-                                TurkeyUpgradeRunning[index] = false
-                                if button then
-                                    button.Text = "OFF  |  " .. string.upper(upgrade)
-                                    button.BackgroundColor3 = Color3.fromRGB(85, 55, 65)
-                                end
-                            end
-                            TurkeyUpgradeStatus.Text = "TURKEY UPGRADE ERROR: " .. tostring(err):sub(1, 120)
-                            break
-                        end
-                        TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: " .. upgrade .. " ACTIVE"
-                    end
-                    task.wait(2)
-                end
-            end)
-        end
-
-        local function StopAllTurkeyUpgrades()
-            for i = 1, #TurkeyUpgradeNames do
-                SetTurkeyUpgradeEnabled(i, false)
-            end
-            TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
-        end
-
-        local ToggleAllTurkeyButton
-        ToggleAllTurkeyButton = MakeButton(ThanksgivingFolder, "▶  TURN ALL TURKEY UPGRADES ON", function()
-            local allEnabled = true
-            for i = 1, #TurkeyUpgradeNames do
-                if not TurkeyUpgradeRunning[i] then
-                    allEnabled = false
-                    break
-                end
-            end
-            local enableAll = not allEnabled
-            for i = 1, #TurkeyUpgradeNames do
-                SetTurkeyUpgradeEnabled(i, enableAll)
-            end
-            ToggleAllTurkeyButton.Text = enableAll and "⏹  TURN ALL TURKEY UPGRADES OFF" or "▶  TURN ALL TURKEY UPGRADES ON"
-            TurkeyUpgradeStatus.Text = enableAll and "TURKEY UPGRADES: ALL RUNNING" or "TURKEY UPGRADES: ALL STOPPED"
-        end, Color3.fromRGB(55, 95, 135))
-
-        for index, upgradeName in ipairs(TurkeyUpgradeNames) do
-            local upgradeIndex = index
-            local upgrade = upgradeName
-            TurkeyUpgradeRunning[upgradeIndex] = false
-            TurkeyUpgradeTokens[upgradeIndex] = 0
-            TurkeyUpgradeButtons[upgradeIndex] = MakeButton(ThanksgivingFolder, "OFF  |  " .. string.upper(upgrade), function()
-                if ThanksgivingDestroyed then return end
-                SetTurkeyUpgradeEnabled(upgradeIndex, not TurkeyUpgradeRunning[upgradeIndex])
-                TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: " .. upgrade .. (TurkeyUpgradeRunning[upgradeIndex] and " RUNNING" or " STOPPED")
+            local function UpdateToggleAllButton()
                 local allEnabled = true
                 for i = 1, #TurkeyUpgradeNames do
                     if not TurkeyUpgradeRunning[i] then allEnabled = false break end
                 end
                 ToggleAllTurkeyButton.Text = allEnabled and "⏹  TURN ALL TURKEY UPGRADES OFF" or "▶  TURN ALL TURKEY UPGRADES ON"
-            end, Color3.fromRGB(85, 55, 65))
-        end
-
-        MakeButton(ThanksgivingFolder, "⏹  STOP ALL TURKEY UPGRADES", StopAllTurkeyUpgrades, Color3.fromRGB(115, 55, 65))
-
-        ScreenGui.Destroying:Connect(function()
-            ThanksgivingDestroyed = true
-            for index = 1, #ThanksgivingActions do
-                ThanksgivingRunning[index] = false
             end
-        end)
+
+            local function StartTurkeyScheduler()
+                if TurkeySchedulerRunning then return end
+                TurkeySchedulerRunning = true
+                task.spawn(function()
+                    while TurkeySchedulerRunning and not TurkeyDestroyed and not ThanksgivingDestroyed do
+                        local sentAny = false
+                        for i = 1, #TurkeyUpgradeNames do
+                            if not TurkeySchedulerRunning or TurkeyDestroyed or ThanksgivingDestroyed then break end
+                            if TurkeyUpgradeRunning[i] then
+                                local remote = GetThanksgivingRemote()
+                                if not remote then
+                                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: MainRemote not found; retrying"
+                                else
+                                    local upgradeName = TurkeyUpgradeNames[i]
+                                    local ok, err = pcall(function()
+                                        remote:FireServer("UpgradeUpgradeMax", "TurkeyOof", upgradeName)
+                                    end)
+                                    if ok then
+                                        sentAny = true
+                                        TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: REQUEST SENT — " .. upgradeName
+                                    else
+                                        TurkeyUpgradeRunning[i] = false
+                                        UpdateTurkeyButton(i)
+                                        TurkeyUpgradeStatus.Text = "TURKEY UPGRADE ERROR (" .. upgradeName .. "): " .. tostring(err):sub(1, 90)
+                                    end
+                                end
+                                task.wait(0.2)
+                            end
+                        end
+                        if not sentAny then
+                            local anyEnabled = false
+                            for i = 1, #TurkeyUpgradeNames do
+                                if TurkeyUpgradeRunning[i] then anyEnabled = true break end
+                            end
+                            if not anyEnabled then
+                                TurkeySchedulerRunning = false
+                                break
+                            end
+                        end
+                        task.wait(2)
+                    end
+                    TurkeySchedulerRunning = false
+                end)
+            end
+
+            local function SetTurkeyUpgradeEnabled(index, enabled)
+                if not TurkeyUpgradeNames[index] or ThanksgivingDestroyed then return end
+                TurkeyUpgradeRunning[index] = enabled == true
+                UpdateTurkeyButton(index)
+                local anyEnabled = false
+                for i = 1, #TurkeyUpgradeNames do
+                    if TurkeyUpgradeRunning[i] then anyEnabled = true break end
+                end
+                if anyEnabled then
+                    StartTurkeyScheduler()
+                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: RUNNING — sending requests in order"
+                else
+                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
+                end
+                UpdateToggleAllButton()
+            end
+
+            local ToggleAllTurkeyButton
+            ToggleAllTurkeyButton = MakeButton(ThanksgivingFolder, "▶  TURN ALL TURKEY UPGRADES ON", function()
+                if ThanksgivingDestroyed then return end
+                local allEnabled = true
+                for i = 1, #TurkeyUpgradeNames do
+                    if not TurkeyUpgradeRunning[i] then allEnabled = false break end
+                end
+                local enableAll = not allEnabled
+                for i = 1, #TurkeyUpgradeNames do
+                    TurkeyUpgradeRunning[i] = enableAll
+                    UpdateTurkeyButton(i)
+                end
+                UpdateToggleAllButton()
+                if enableAll then
+                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL ENABLED — sending in sequence"
+                    StartTurkeyScheduler()
+                else
+                    TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
+                end
+            end, Color3.fromRGB(55, 95, 135))
+
+            for index, upgradeName in ipairs(TurkeyUpgradeNames) do
+                TurkeyUpgradeRunning[index] = false
+                local upgradeIndex = index
+                TurkeyUpgradeButtons[upgradeIndex] = MakeButton(ThanksgivingFolder, "OFF  |  " .. string.upper(upgradeName), function()
+                    if ThanksgivingDestroyed then return end
+                    SetTurkeyUpgradeEnabled(upgradeIndex, not TurkeyUpgradeRunning[upgradeIndex])
+                end, Color3.fromRGB(85, 55, 65))
+            end
+
+            MakeButton(ThanksgivingFolder, "⏹  STOP ALL TURKEY UPGRADES", function()
+                for i = 1, #TurkeyUpgradeNames do
+                    TurkeyUpgradeRunning[i] = false
+                    UpdateTurkeyButton(i)
+                end
+                TurkeySchedulerRunning = false
+                UpdateToggleAllButton()
+                TurkeyUpgradeStatus.Text = "TURKEY UPGRADES: ALL STOPPED"
+            end, Color3.fromRGB(115, 55, 65))
+
+            ScreenGui.Destroying:Connect(function()
+                ThanksgivingDestroyed = true
+                TurkeyDestroyed = true
+                TurkeySchedulerRunning = false
+                MilestoneRunning = false
+                NoobRunning = false
+            end)
+        end
     end
 
     -- GUESS THE SLAPPER: live player cards and manual, clearly-labelled observations.
