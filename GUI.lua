@@ -504,8 +504,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  FeedbackSend.Parent = FeedbackPanel
  FeedbackSend.ZIndex = 21
  Corner(FeedbackSend, 7)
- FeedbackButton.Visible = true
- FeedbackButton.Active = true
  FeedbackClose.Activated:Connect(function()
  SelectPage("Soon")
  end)
