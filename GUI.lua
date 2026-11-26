@@ -37,16 +37,24 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
+ "v1.3.0 - Header toolbar and permanent feedback feed | Nov 26",
+ "Moved the quick menu into the managed horizontal toolbar so it no longer overlaps Settings and Owner/User. Added the permanent feedback form to the bottom of Updates; the FEED shortcut now opens Updates and jumps to the form.",
+ },
+ {
  "v1.2.9 - Key startup crash fix | Nov 26",
- "Removed the duplicate legacy header layout that overrode the responsive toolbar. Removed the SN title prefix and simplified toolbar widths, spacing, and typography.",
-  "v1.2.9 - Key startup crash fix | Nov 26",
- "Removed the key-screen descendant styling scan that was crashing startup. Roblox text strokes default to no outline; existing monochrome colors remain.",
-  "v1.2.7 - Compact header and clean typography | Nov 26",
+ "Removed the key-screen descendant styling scan that was crashing startup.",
+ },
+ {
+ "v1.2.7 - Compact header and clean typography | Nov 26",
  "Reworked header sizing to adapt to the available window width and reserve space for the hub title. Removed text outlines throughout the hub, key system, and loading screen.",
-  "v1.2.6 - Header, key and loading screen polish | Nov 26",
+ },
+ {
+ "v1.2.6 - Header, key and loading screen polish | Nov 26",
  "Rebuilt the header actions into a right-aligned horizontal control rail to prevent overlap at all supported window sizes. Matched the key verification and loading screens to the flat monochrome interface.",
-  "v1.2.5 - Xeno-inspired monochrome interface | Nov 26",
- "Reworked the hub with a near-black flat interface, neutral borders, compact text-only navigation, and a cleaner responsive layout. Removed emoji and decorative icon labels throughout the interface.",
+ },
+ {
+ "v1.2.5 - Xeno-inspired monochrome interface | Nov 26",
+ "Reworked the hub with a near-black flat interface, neutral borders, compact text-only navigation, and a cleaner responsive layout.",
  },
  {
  "v1.2.4 - 24-hour key remember-me | Nov 25",
@@ -451,7 +459,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  FeedbackPanel.Position = UDim2.new(1, -254, 0, 56)
  FeedbackPanel.BackgroundColor3 = Panel
  FeedbackPanel.BorderSizePixel = 0
- FeedbackPanel.Visible = false
  FeedbackPanel.ZIndex = 20
  FeedbackPanel.Parent = Frame
  Corner(FeedbackPanel, 10)
@@ -506,7 +513,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  FeedbackButton.Visible = true
  FeedbackButton.Active = true
  FeedbackClose.Activated:Connect(function()
- FeedbackPanel.Visible = false
+ SelectPage("Updates")
  end)
  FeedbackSend.Activated:Connect(function()
  local message = tostring(FeedbackBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
@@ -1007,17 +1014,19 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  CrownButton.Activated:Connect(function()
  CommunityPanel.Visible = not CommunityPanel.Visible
- FeedbackPanel.Visible = false
  end)
  FeedbackButton.Activated:Connect(function()
  CommunityPanel.Visible = false
- -- Keep feedback as a floating panel so changing tabs never removes it.
- FeedbackPanel.Visible = not FeedbackPanel.Visible
+ SelectPage("Updates")
+ task.defer(function()
+ if GUI.UpdatesPage and GUI.UpdatesPage.Parent then
+ GUI.UpdatesPage.CanvasPosition = Vector2.new(0, math.max(0, GUI.UpdatesPage.AbsoluteCanvasSize.Y - GUI.UpdatesPage.AbsoluteSize.Y))
+ end
+ end)
  end)
  if GearButton then
  GearButton.Activated:Connect(function()
  CommunityPanel.Visible = false
- FeedbackPanel.Visible = false
  SelectPage("Settings")
  end)
  end
@@ -1814,7 +1823,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  SelectPage("Updates")
  end
  CommunityPanel.Visible = false
- FeedbackPanel.Visible = false
  end
  end)
  end
@@ -4270,8 +4278,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  QuickMenuButton.Activated:Connect(function()
  HubExtras.QuickMenuPanel.Visible = not HubExtras.QuickMenuPanel.Visible
  CommunityPanel.Visible = false
- FeedbackPanel.Visible = false
  end)
+ GUI.QuickMenuButton = QuickMenuButton
 
  end -- scoped extras: keep Luau local-register usage below the compiler limit.
 
@@ -5276,23 +5284,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  White)
  GUI.SoonText.TextXAlignment = Enum.TextXAlignment.Center
 
- -- Put the working feedback form directly on the Coming Soon page.
- FeedbackPanel.Parent = SoonPage
- FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
- FeedbackPanel.Size = UDim2.new(1, 0, 0, 226)
- GUI.SoonCard.LayoutOrder = 1
- FeedbackPanel.LayoutOrder = 2
- FeedbackPanel.Position = UDim2.new(0, 0, 0, 0)
- FeedbackPanel.BackgroundColor3 = ButtonDark
- FeedbackPanel.Visible = true
- FeedbackPanel.ZIndex = 2
- FeedbackTitle.Text = " SEND FEEDBACK"
- FeedbackStatus.Text = "Share an idea or report a problem. Your message goes to the private hub feedback inbox."
- FeedbackStatus.Size = UDim2.new(1, -20, 0, 30)
- FeedbackStatus.TextSize = 9
- FeedbackBox.ZIndex = 6
- FeedbackSend.ZIndex = 6
- FeedbackClose.Visible = false
+ -- Feedback is attached to Updates after its changelog has been built.
 
  -- MINIMIZE BUBBLE
  GUI.MinimizeBubble = Instance.new("TextButton"); GUI.MinimizeBubble.Name = "ShortNameBubble"; GUI.MinimizeBubble.Size = UDim2.fromOffset(55, 55)
@@ -5527,6 +5519,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  local controls = {
  { GUI.GlobalSearchButton, compact and "SR" or "SEARCH", compact and 22 or 54 },
  { GUI.SidebarToggle, compact and "MN" or "MENU", compact and 22 or 44 },
+ { GUI.QuickMenuButton, compact and "MR" or "MORE", compact and 22 or 48 },
  { GearButton, compact and "ST" or "SET", compact and 22 or 42 },
  }
  if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 22 or 48 }) end
@@ -5596,6 +5589,21 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  RestorePersistedToggleStates()
 
  BuildUpdatesPage(GUI.UpdatesPage, Config, CurrentAccent, ButtonDark, Border, White, Grey, Label, Corner, Stroke, Tween)
+ FeedbackPanel.Name = "UpdatesFeedbackPanel"
+ FeedbackPanel.Parent = GUI.UpdatesPage
+ FeedbackPanel.Position = UDim2.fromOffset(0, 0)
+ FeedbackPanel.Size = UDim2.new(1, 0, 0, 226)
+ FeedbackPanel.LayoutOrder = 1000
+ FeedbackPanel.BackgroundColor3 = ButtonDark
+ FeedbackPanel.Visible = true
+ FeedbackPanel.ZIndex = 2
+ FeedbackTitle.Text = " SEND FEEDBACK"
+ FeedbackStatus.Text = "Share an idea or report a problem. Your message goes to the private hub feedback inbox."
+ FeedbackStatus.Size = UDim2.new(1, -20, 0, 30)
+ FeedbackStatus.TextSize = 9
+ FeedbackBox.ZIndex = 6
+ FeedbackSend.ZIndex = 6
+ FeedbackClose.Visible = false
  SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
  if Camera then
  GUI.ViewportConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
