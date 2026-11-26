@@ -3,6 +3,7 @@ name: Luau syntax validation
 on:
   push:
     branches:
+      - main
       - gui-complete-fix
   pull_request:
     branches:
