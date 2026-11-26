@@ -94,6 +94,12 @@ function LoadingScreen.Start()
     Percentage.TextXAlignment = Enum.TextXAlignment.Right
     Percentage.Parent = Card
 
+    for _, descendant in ipairs(ScreenGui:GetDescendants()) do
+        if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+            descendant.TextStrokeTransparency = 1
+        end
+    end
+
     local Finished = false
     local Loading = {}
 
