@@ -240,7 +240,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
  local function AddGradient(obj, topColor, bottomColor, rotation)
  -- Keep surfaces flat and monochrome like the reference interface.
- obj.BackgroundColor3 = topColor
+ obj.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
  return nil
  end
 
@@ -266,7 +266,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
 
  local function Corner(obj, radius)
- local c = Instance.new("UICorner"); c.CornerRadius = UDim.new(0, radius or 8); c.Parent = obj
+ local c = Instance.new("UICorner"); c.CornerRadius = UDim.new(0, math.min(radius or 8, 3)); c.Parent = obj
  end
 
  local function Stroke(obj, color, thickness)
