@@ -693,7 +693,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
  Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
- for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
+ for _, nav in pairs({ ThanksgivingNav, GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
  if nav then
  nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "-") or (nav:GetAttribute("SNHFullText") or nav.Name)
  nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
