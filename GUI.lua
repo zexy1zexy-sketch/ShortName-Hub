@@ -559,7 +559,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end)
 
  end
- local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, PlayerToolsNav, SoonNav
+ local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, PlayerToolsNav, SoonNav, ThanksgivingNav
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- SIDEBAR
  SidebarWidth = math.min(166, WindowWidth * 0.28); Sidebar = Instance.new("ScrollingFrame"); Sidebar.Name = "Sidebar"
@@ -602,8 +602,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  PlayerAdminUI = {}
  -- All game tabs remain available in every experience. When the current
  -- experience matches one of them, move that tab to the top automatically.
- GameNav = MakeNav("Noob Incremental", 1)
- GUI.GuessSlapperNav = MakeNav("Guess the Slapper", 2)
+ ThanksgivingNav = MakeNav("Thanksgiving Event", 1)
+ GameNav = MakeNav("Noob Incremental", 2)
+ GUI.GuessSlapperNav = MakeNav("Guess the Slapper", 3)
  GUI.UpdatesNav = MakeNav("Updates", 4)
  PlayerToolsNav = MakeNav("Player Tools", 5)
  SoonNav = MakeNav("Coming Soon", 6)
@@ -644,7 +645,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  if DetectionNav then DetectionNav.LayoutOrder = 8 end
  end
 
- local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, DetectionNav, SoonNav }
+ local SidebarNavButtons = { ThanksgivingNav, GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, DetectionNav, SoonNav }
  local function FilterSidebar(query)
  query = tostring(query or ""):lower():gsub("^%s*(.-)%s*$", "%1")
  for _, nav in ipairs(SidebarNavButtons) do
@@ -659,7 +660,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end)
 
  end
- local Content, SettingsPage, PlayerToolsPage, GamePage, DetectionPage, SoonPage, CurrentPage
+ local Content, SettingsPage, PlayerToolsPage, GamePage, ThanksgivingPage, DetectionPage, SoonPage, CurrentPage
  local CurrentAccent, FloatingTabsEnabled, FloatingTabWindow, RestoreFloatingPage, SelectPage
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- CONTENT AREA
@@ -717,6 +718,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  GUI.UpdatesPage = MakePage("Updates"); SettingsPage = MakePage("Settings"); PlayerAdminUI.Page = IsCreator and MakePage("Players") or nil
  PlayerToolsPage = MakePage("PlayerTools")
+ ThanksgivingPage = MakePage("ThanksgivingEvent")
  GamePage = MakePage("NoobIncremental")
  GUI.GuessSlapperPage = MakePage("GuessTheSlapper")
  DetectionPage = IsCreator and MakePage("Detection") or nil; SoonPage = MakePage("ComingSoon"); CurrentPage = nil; CurrentAccent = { Color = Purple, Light = PurpleLight, Active = Color3.fromRGB(38, 38, 38) }
@@ -796,7 +798,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  end)
  function SelectPage(page)
- local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Detection = DetectionPage, Soon = SoonPage }
+ local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Thanksgiving = ThanksgivingPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Detection = DetectionPage, Soon = SoonPage }
  if CurrentFloatingPage then RestoreFloatingPage() end
  local selectedPage = pages[page]
  local useFloating = FloatingTabsEnabled and page ~= "Settings" and selectedPage ~= nil
@@ -1009,6 +1011,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  SelectPage("Settings")
  end)
  end
+ ThanksgivingNav.Activated:Connect(function()
+ SelectPage("Thanksgiving")
+ end)
  PlayerToolsNav.Activated:Connect(function()
  SelectPage("PlayerTools")
  end)
@@ -2025,7 +2030,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  -- One milestone control, a separated Noob upgrade area, and one unified Turkey upgrade station.
  if game.PlaceId == 76911729991355 then
  do -- Isolate locals for Luau's local-register limit.
- local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT", GamePage)
+ local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT", ThanksgivingPage)
  local ThanksgivingDestroyed = false
  local function GetThanksgivingRemote()
  local replicatedStorage = game:GetService("ReplicatedStorage")
