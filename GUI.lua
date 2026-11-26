@@ -320,7 +320,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  if type(value) == "string" and value ~= "" then ReportedExecutor = value end
  end
  end)
- local HeaderSubtitle = Label(Header, "@" .. tostring(LocalPlayer and LocalPlayer.Name or "Unknown") .. " • " .. ReportedExecutor .. " • v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
+ local HeaderSubtitle = Label(Header, "@" .. tostring(LocalPlayer and LocalPlayer.Name or "Unknown") .. " | " .. ReportedExecutor .. " | v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
  HeaderSubtitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
  MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
@@ -1580,8 +1580,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  ["COMBAT HUD & ASSET TOOLS"] = "",
  ["WEAPON MOVEMENT OBSERVER"] = ""
  }
- local FolderIcon = FolderIcons[name] or "F"
- HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = FolderIcon .. " " .. name .. " +"; HeaderButton.TextColor3 = White
+ local FolderIcon = ""
+ HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = name .. " +"; HeaderButton.TextColor3 = White
  HeaderButton.TextSize = 12; HeaderButton.Font = Enum.Font.GothamBold; HeaderButton.TextXAlignment = Enum.TextXAlignment.Left
  HeaderButton.AutoButtonColor = false; HeaderButton.TextColor3 = Color3.fromRGB(235, 228, 250); HeaderButton.Parent = Folder
  local FolderContent = Instance.new("Frame"); FolderContent.Position = UDim2.fromOffset(8, 43); FolderContent.Size = UDim2.new(1, -16, 0, 0)
