@@ -19,6 +19,14 @@ function LoadingScreen.Start()
         ScreenGui.Parent = game:GetService("CoreGui")
     end
 
+    local function RemoveTextStroke(instance)
+        if instance:IsA("TextLabel") or instance:IsA("TextButton") or instance:IsA("TextBox") then
+            instance.TextStrokeTransparency = 1
+            instance.TextStrokeColor3 = Color3.new(0, 0, 0)
+        end
+    end
+    ScreenGui.DescendantAdded:Connect(RemoveTextStroke)
+
     local Purple = Color3.fromRGB(48, 48, 48)
     local Light = Color3.fromRGB(220, 220, 220)
     local White = Color3.fromRGB(242, 242, 242)
