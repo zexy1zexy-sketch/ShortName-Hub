@@ -38,7 +38,7 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  local updateItems = {
  {
  "v1.3.1 - Feedback location and text stroke cleanup | Nov 26",
- "Removed the FEED header button. Moved the permanent feedback form to Coming Soon. Enforced zero text stroke on all existing and dynamically created hub text objects.",
+ "Removed the FEED header button. Moved the permanent feedback form to Coming Soon. Enforced zero text stroke on all existing and dynamically created hub, key-screen, and loading-screen text objects.",
  },
  {
  "v1.3.0 - Header toolbar and permanent feedback feed | Nov 26",
