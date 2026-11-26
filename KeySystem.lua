@@ -76,6 +76,14 @@ function KeySystem.Start()
         ScreenGui.Parent = game:GetService("CoreGui")
     end
 
+    local function RemoveTextStroke(instance)
+        if instance:IsA("TextLabel") or instance:IsA("TextButton") or instance:IsA("TextBox") then
+            instance.TextStrokeTransparency = 1
+            instance.TextStrokeColor3 = Color3.new(0, 0, 0)
+        end
+    end
+    ScreenGui.DescendantAdded:Connect(RemoveTextStroke)
+
     -- MAIN GUI COLORS
     local Purple = Color3.fromRGB(42, 42, 42)
     local PurpleLight = Color3.fromRGB(215, 215, 215)
