@@ -367,6 +367,8 @@ pcall(function()
 end)
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
+local BUILD_VERSION = "1.2.8"
+local CACHE_BUSTER = tostring(os.time()) .. "_" .. tostring(math.random(100000, 999999))
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
 
 GetRequestFunction = function()
@@ -401,9 +403,9 @@ local function LoadModule(name)
 
     local response
     local success, requestError = pcall(function()
-        local moduleUrl = MODULE_ENDPOINT .. name
-    if name == "GUI.lua" or name == "KeySystem.lua" or name == "Config.lua" then
-        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name
+        local moduleUrl = MODULE_ENDPOINT .. name .. "&build=" .. BUILD_VERSION .. "&cb=" .. CACHE_BUSTER
+    if name == "GUI.lua" or name == "KeySystem.lua" or name == "Config.lua" or name == "LoadingScreen.lua" then
+        moduleUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name .. "?build=" .. BUILD_VERSION .. "&cb=" .. CACHE_BUSTER
         AddDiagnostic("Loading " .. name .. " directly from main branch.")
     end
     response = RequestFunction({
@@ -424,7 +426,7 @@ local function LoadModule(name)
     -- The new universal observer can fall back to the public repository while
     -- an older deployed Worker is waiting for its allowlist update.
     if name == "UniversalLiveObserver.lua" and status ~= 200 then
-        local fallbackUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name
+        local fallbackUrl = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/" .. name .. "?build=" .. BUILD_VERSION .. "&cb=" .. CACHE_BUSTER
         local fallbackResponse
         local fallbackOk, fallbackError = pcall(function()
             fallbackResponse = RequestFunction({
@@ -497,7 +499,7 @@ SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 -- Optional executor-supported auto-load after teleport/rejoin.
 -- The preference is stored locally so the queue can be renewed in each session.
 local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
-local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.2.8"
 local function GetQueueOnTeleport()
     if type(queue_on_teleport) == "function" then return queue_on_teleport end
     if type(queueonteleport) == "function" then return queueonteleport end
@@ -697,6 +699,10 @@ StartHub = function(skipKey)
         -- Each step completes only after the module has been fetched,
         -- compiled, and executed successfully.
         local Config = LoadTracked("Config.lua", "Loaded configuration")
+        if tostring(Config.Version) ~= BUILD_VERSION then
+            error("STALE CONFIG MODULE: expected v" .. BUILD_VERSION .. ", received v" .. tostring(Config.Version))
+        end
+        AddDiagnostic("Verified module release v" .. BUILD_VERSION .. ".")
         local NPC = LoadTracked("NPC.lua", "Loaded NPC systems")
         local Teleport = LoadTracked("Teleport.lua", "Loaded movement systems")
         local ThemeModule
