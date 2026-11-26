@@ -2028,7 +2028,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  -- SNH THANKSGIVING EVENT AUTOMATION
  -- One milestone control, a separated Noob upgrade area, and one unified Turkey upgrade station.
- if game.PlaceId == 76911729991355 then
  do -- Isolate locals for Luau's local-register limit.
  local ThanksgivingFolder = MakeFolder("THANKSGIVING EVENT", ThanksgivingPage)
  local ThanksgivingDestroyed = false
@@ -2348,7 +2347,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  MilestoneRunning = false
  NoobRunning = false
  end)
- end
  end
 
  -- GUESS THE SLAPPER: retain only the feature that estimates who hit the local player.
