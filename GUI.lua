@@ -1788,7 +1788,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  OwnerViewButton.Activated:Connect(function()
  if not IsCreator then return end
  OwnerViewEnabled = not OwnerViewEnabled
- OwnerViewButton.Text = OwnerViewEnabled and "OWNER VIEW" or "USERS VIEW"
+ OwnerViewButton.Text = OwnerViewEnabled and "OWN" or "USER"
  OwnerViewButton.BackgroundColor3 = ButtonDark
  for _, folder in ipairs(OwnerOnlyFolders) do
  if folder and folder.Parent then folder.Visible = OwnerViewEnabled end
@@ -5529,8 +5529,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  }
  if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 22 or 48 }) end
  table.insert(controls, { CrownButton, compact and "RK" or "RANKS", compact and 22 or 48 })
- table.insert(controls, { FeedbackButton, compact and "FB" or "FEEDBACK", compact and 22 or 48 })
- table.insert(controls, { RefreshHubButton, compact and "RF" or "REFRESH", compact and 22 or 52 })
+ table.insert(controls, { FeedbackButton, compact and "FB" or "FEED", compact and 22 or 54 })
+ table.insert(controls, { RefreshHubButton, compact and "RF" or "REFRESH", compact and 22 or 60 })
  table.insert(controls, { MinButton, "-", 24 })
  table.insert(controls, { ExitButton, "X", 24 })
 
@@ -5566,15 +5566,17 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  HeaderActions.Size = UDim2.fromOffset(total, 28)
 
  local titleLabel = Header:FindFirstChildWhichIsA("TextLabel")
- local titleWidth = math.max(72, WindowWidth - total - 48)
+ local titleWidth = math.max(0, WindowWidth - total - 48)
  if titleLabel then
  titleLabel.Size = UDim2.new(0, titleWidth, 0, 25)
+ titleLabel.Visible = titleWidth >= 80
  titleLabel.TextStrokeTransparency = 1
  titleLabel.TextTruncate = Enum.TextTruncate.AtEnd
  end
  for _, child in ipairs(Header:GetChildren()) do
  if child:IsA("TextLabel") and child ~= titleLabel then
  child.Size = UDim2.new(0, titleWidth, 0, 13)
+ child.Visible = titleWidth >= 130
  child.TextStrokeTransparency = 1
  end
  end
