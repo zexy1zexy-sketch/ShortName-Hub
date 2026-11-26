@@ -37,6 +37,10 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
+ "v1.3.2 - Remove legacy combat tab and tools | Nov 26",
+ "Removed the dedicated game tab, combat HUD and hitbox tools, and weapon movement observer. Retained read-only universal scanners, live observer, and remote logger under Detection & Observation; renamed scanner modules to remove legacy game-specific filenames.",
+ },
+ {
  "v1.3.1 - Feedback location and text stroke cleanup | Nov 26",
  "Removed the FEED header button. Moved the permanent feedback form to Coming Soon. Enforced zero text stroke on all existing and dynamically created hub, key-screen, and loading-screen text objects.",
  },
@@ -94,7 +98,7 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  },
  {
  "Earlier project foundation | Nov 19-22",
- "Built the modular hub and game-specific tools, including Noob Incremental automation, NPC/teleport/scythe utilities, Thanksgiving scanning and report upload, and Fight on a Baseplate diagnostics. Added owner/member view separation and private report/feedback infrastructure. Removed the house-toggle feature and later kept RemoteSpy controls out of the regular GUI."
+ "Built the modular hub and game-specific tools, including Noob Incremental automation, NPC/teleport/scythe utilities, Thanksgiving scanning and report upload, and universal diagnostics. Added owner/member view separation and private report/feedback infrastructure. Removed the house-toggle feature and later kept RemoteSpy controls out of the regular GUI."
  }
  }
 
@@ -231,7 +235,7 @@ function GUI.CreateSlider(parent, title, minimum, maximum, initialValue, accent,
  return holder, function(value) setValue(value, false) end
 end
 
-function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, FightStructureScanner, LiveObserver, RemoteLogger, RefreshCallback, PresenceModule, ThemeModule)
+function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector, StructureScanner, LiveObserver, RemoteLogger, RefreshCallback, PresenceModule, ThemeModule)
  GUI.AnimationsEnabled = true
  local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "ShortNameHub"; ScreenGui.ResetOnSpawn = false
  ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -557,7 +561,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
 
  end
- local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, FightNav, PlayerToolsNav, SoonNav
+ local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, PlayerToolsNav, SoonNav
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- SIDEBAR
  SidebarWidth = math.min(166, WindowWidth * 0.28); Sidebar = Instance.new("ScrollingFrame"); Sidebar.Name = "Sidebar"
@@ -602,7 +606,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  -- experience matches one of them, move that tab to the top automatically.
  GameNav = MakeNav("Noob Incremental", 1)
  GUI.GuessSlapperNav = MakeNav("Guess the Slapper", 2)
- FightNav = MakeNav("Fight on a Baseplate", 3)
  GUI.UpdatesNav = MakeNav("Updates", 4)
  PlayerToolsNav = MakeNav("Player Tools", 5)
  SoonNav = MakeNav("Coming Soon", 6)
@@ -622,15 +625,12 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  or experienceKey:find("guess the slapper", 1, true)
  or experienceKey:find("slapper", 1, true) then
  activeGameNav = GUI.GuessSlapperNav
- elseif experienceKey:find("fight on a baseplate", 1, true)
- or experienceKey:find("baseplate", 1, true) then
- activeGameNav = FightNav
  elseif experienceKey:find("noob incremental", 1, true)
  or experienceKey:find("noob", 1, true) then
  activeGameNav = GameNav
  end
  if activeGameNav then
- local gameTabs = { GameNav, GUI.GuessSlapperNav, FightNav }
+ local gameTabs = { GameNav, GUI.GuessSlapperNav }
  activeGameNav.LayoutOrder = 1
  local nextOrder = 2
  for _, nav in ipairs(gameTabs) do
@@ -646,7 +646,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  if DetectionNav then DetectionNav.LayoutOrder = 8 end
  end
 
- local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, DetectionNav, SoonNav }
+ local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, DetectionNav, SoonNav }
  local function FilterSidebar(query)
  query = tostring(query or ""):lower():gsub("^%s*(.-)%s*$", "%1")
  for _, nav in ipairs(SidebarNavButtons) do
@@ -661,7 +661,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
 
  end
- local Content, SettingsPage, PlayerToolsPage, GamePage, FightPage, DetectionPage, SoonPage, CurrentPage
+ local Content, SettingsPage, PlayerToolsPage, GamePage, DetectionPage, SoonPage, CurrentPage
  local CurrentAccent, FloatingTabsEnabled, FloatingTabWindow, RestoreFloatingPage, SelectPage
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- CONTENT AREA
@@ -694,7 +694,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
  Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
- for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, SoonNav }) do
+ for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
  if nav then
  nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "-") or (nav:GetAttribute("SNHFullText") or nav.Name)
  nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
@@ -721,7 +721,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  PlayerToolsPage = MakePage("PlayerTools")
  GamePage = MakePage("NoobIncremental")
  GUI.GuessSlapperPage = MakePage("GuessTheSlapper")
- FightPage = MakePage("FightOnABaseplate"); DetectionPage = IsCreator and MakePage("Detection") or nil; SoonPage = MakePage("ComingSoon"); CurrentPage = nil; CurrentAccent = { Color = Purple, Light = PurpleLight, Active = Color3.fromRGB(38, 38, 38) }
+ DetectionPage = IsCreator and MakePage("Detection") or nil; SoonPage = MakePage("ComingSoon"); CurrentPage = nil; CurrentAccent = { Color = Purple, Light = PurpleLight, Active = Color3.fromRGB(38, 38, 38) }
 
  FloatingTabsEnabled = false
  FloatingTabWindow = Instance.new("Frame")
@@ -798,7 +798,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  end)
  function SelectPage(page)
- local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Fight = FightPage, Detection = DetectionPage, Soon = SoonPage }
+ local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Detection = DetectionPage, Soon = SoonPage }
  if CurrentFloatingPage then RestoreFloatingPage() end
  local selectedPage = pages[page]
  local useFloating = FloatingTabsEnabled and page ~= "Settings" and selectedPage ~= nil
@@ -845,7 +845,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  StyleNav(PlayerToolsNav, page == "PlayerTools")
  StyleNav(GameNav, page == "Game")
  if GUI.GuessSlapperNav then StyleNav(GUI.GuessSlapperNav, page == "GuessSlapper") end
- StyleNav(FightNav, page == "Fight"); if DetectionNav then StyleNav(DetectionNav, page == "Detection") end; StyleNav(SoonNav, page == "Soon")
+ if DetectionNav then StyleNav(DetectionNav, page == "Detection") end; StyleNav(SoonNav, page == "Soon")
  end
 
  do
@@ -958,7 +958,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  local pageName = ({
  Updates = "Updates", Settings = "Settings", Players = "Players",
  PlayerTools = "PlayerTools", NoobIncremental = "Game", GuessTheSlapper = "GuessSlapper",
- FightOnABaseplate = "Fight", ComingSoon = "Soon"
+ ComingSoon = "Soon"
  })[pageKey]
  if pageName then
  count += 1
@@ -1022,9 +1022,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  SelectPage("GuessSlapper")
  end)
  end
- FightNav.Activated:Connect(function()
- SelectPage("Fight")
- end)
  if DetectionNav then
  DetectionNav.Activated:Connect(function()
  if OwnerViewEnabled then SelectPage("Detection") end
@@ -1208,14 +1205,13 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  Purple = preset.Color
  PurpleLight = preset.Light
  CurrentAccent = preset
- for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, FightNav, SoonNav }) do
+ for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
  if nav then
  local active = (CurrentPage == "Updates" and nav == GUI.UpdatesNav)
  or (CurrentPage == "Players" and nav == PlayerAdminUI.Nav)
  or (CurrentPage == "PlayerTools" and nav == PlayerToolsNav)
  or (CurrentPage == "Game" and nav == GameNav)
  or (CurrentPage == "GuessSlapper" and nav == GUI.GuessSlapperNav)
- or (CurrentPage == "Fight" and nav == FightNav)
  or (CurrentPage == "Soon" and nav == SoonNav)
  nav.BackgroundColor3 = active and preset.Active or nextButton
  nav.BackgroundTransparency = active and 0.08 or 1
@@ -1566,7 +1562,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  ["THANKSGIVING EVENT"] = "",
  ["TURKEY OOF UPGRADES"] = "",
  ["EVENT SCANNER"] = "",
- ["FIGHT ON A BASEPLATE"] = "",
  ["PLAYER TOOLS"] = "",
  ["DETECTORS"] = "",
  ["DETECTION & OBSERVATION"] = "",
@@ -1576,8 +1571,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  ["NPC & TELEPORT"] = "",
  ["REMOTES"] = "",
  ["HOUSE TELEPORT"] = "",
- ["COMBAT HUD & ASSET TOOLS"] = "",
- ["WEAPON MOVEMENT OBSERVER"] = ""
  }
  local FolderIcon = ""
  HeaderButton.BackgroundTransparency = 1; HeaderButton.Text = name .. " +"; HeaderButton.TextColor3 = White
@@ -2876,12 +2869,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  -- HALLOWEEN EVENT FOLDER
  local HalloweenFolder = MakeFolder("HALLOWEEN EVENT")
 
- local FightFolder, FightDetectorsFolder
+ local DetectionToolsFolder
  do -- section scope: keeps Luau local-register usage below the 200-local limit
- -- FIGHT ON A BASEPLATE FOLDER
- -- Kept separate from the other game folders.
- FightFolder = MakeFolder("FIGHT ON A BASEPLATE", FightPage)
-
  do
  -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
  local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", PlayerToolsPage)
@@ -3094,24 +3083,24 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  Label(DetectionPage, "DETECTION & OBSERVATION", 17, 30).Font = Enum.Font.GothamBold
  Label(DetectionPage, "Owner-only, game-independent tools for inspecting client-visible objects and recording observations in any Roblox experience.", 11, 34, Grey)
  end
- FightDetectorsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or FightPage, false)
+ DetectionToolsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or GamePage, false)
 
  -- Universal tools only: game-specific scanners remain on their respective game pages.
- local FightScannerFolder = MakeFolder("UNIVERSAL OBJECT SCANNER", FightDetectorsFolder, false)
+ local ObjectScannerFolder = MakeFolder("UNIVERSAL OBJECT SCANNER", DetectionToolsFolder, false)
 
- Label(FightScannerFolder, "UNIVERSAL OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+ Label(ObjectScannerFolder, "UNIVERSAL OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(
- FightScannerFolder,
+ ObjectScannerFolder,
  "Scans client-visible objects and UI across any Roblox experience for gameplay, interface, progression, economy, social, and system signals.",
  10,
  38,
  Grey
  )
 
- local ScannerStatus = Label(FightScannerFolder, "SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+ local ScannerStatus = Label(ObjectScannerFolder, "SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
  ScannerStatus.Font = Enum.Font.GothamBold
 
- local ScannerCount = Label(FightScannerFolder, "DISCOVERIES: 0", 10, 22, Grey)
+ local ScannerCount = Label(ObjectScannerFolder, "DISCOVERIES: 0", 10, 22, Grey)
 
  local function UpdateScannerDisplay(status, count)
  if status ~= nil then
@@ -3120,9 +3109,9 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
  if count ~= nil then
  ScannerCount.Text = "DISCOVERIES: " .. tostring(count)
- elseif FightScanner and type(FightScanner.GetCount) == "function" then
+ elseif ObjectScanner and type(ObjectScanner.GetCount) == "function" then
  local ok, result = pcall(function()
- return FightScanner:GetCount()
+ return ObjectScanner:GetCount()
  end)
  if ok then
  ScannerCount.Text = "DISCOVERIES: " .. tostring(result)
@@ -3131,13 +3120,13 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
 
  local UploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(FightScannerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", UploadKey, function(value)
+ MakeBox(ObjectScannerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", UploadKey, function(value)
  UploadKey = tostring(value or "")
  UploadKeyCache.__SHORTNAME_UPLOAD_KEY = UploadKey
  end)
 
- MakeButton(FightScannerFolder, "UPLOAD REPORT", function()
- if not FightScanner or type(FightScanner.UploadReport) ~= "function" then
+ MakeButton(ObjectScannerFolder, "UPLOAD REPORT", function()
+ if not ObjectScanner or type(ObjectScanner.UploadReport) ~= "function" then
  UpdateScannerDisplay("UPLOAD MODULE NOT LOADED", nil)
  return
  end
@@ -3151,7 +3140,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
  task.spawn(function()
  local ok, success, message = pcall(function()
- return FightScanner:UploadReport(UploadKey)
+ return ObjectScanner:UploadReport(UploadKey)
  end)
 
  if not ok then
@@ -3165,14 +3154,14 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
  end, Color3.fromRGB(45, 105, 145))
 
- MakeButton(FightScannerFolder, "START SCAN", function()
- if not FightScanner then
+ MakeButton(ObjectScannerFolder, "START SCAN", function()
+ if not ObjectScanner then
  UpdateScannerDisplay("MODULE NOT LOADED", 0)
  return
  end
 
  local ok, result = pcall(function()
- return FightScanner:Start(function(status, count)
+ return ObjectScanner:Start(function(status, count)
  UpdateScannerDisplay(status, count)
  end)
  end)
@@ -3185,10 +3174,10 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  end, Color3.fromRGB(45, 115, 75))
 
- MakeButton(FightScannerFolder, "STOP SCAN", function()
- if FightScanner and type(FightScanner.Stop) == "function" then
+ MakeButton(ObjectScannerFolder, "STOP SCAN", function()
+ if ObjectScanner and type(ObjectScanner.Stop) == "function" then
  local ok, err = pcall(function()
- FightScanner:Stop()
+ ObjectScanner:Stop()
  end)
  UpdateScannerDisplay(ok and "STOPPED" or ("ERROR: " .. tostring(err)), nil)
 
@@ -3197,14 +3186,14 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  end, Color3.fromRGB(125, 75, 55))
 
- MakeButton(FightScannerFolder, "COPY REPORT", function()
- if not FightScanner or type(FightScanner.GetReport) ~= "function" then
+ MakeButton(ObjectScannerFolder, "COPY REPORT", function()
+ if not ObjectScanner or type(ObjectScanner.GetReport) ~= "function" then
  UpdateScannerDisplay("MODULE NOT LOADED", nil)
  return
  end
 
  local ok, report = pcall(function()
- return FightScanner:GetReport()
+ return ObjectScanner:GetReport()
  end)
 
  if not ok then
@@ -3227,10 +3216,10 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  UpdateScannerDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
  end)
 
- MakeButton(FightScannerFolder, "CLEAR REPORT", function()
- if FightScanner and type(FightScanner.Clear) == "function" then
+ MakeButton(ObjectScannerFolder, "CLEAR REPORT", function()
+ if ObjectScanner and type(ObjectScanner.Clear) == "function" then
  local ok, err = pcall(function()
- FightScanner:Clear()
+ ObjectScanner:Clear()
  end)
  if ok then
  UpdateScannerDisplay("REPORT CLEARED", 0)
@@ -3244,18 +3233,18 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
 
 
  -- READ-ONLY COMBAT SYSTEM INSPECTOR
- local FightInspectorFolder = MakeFolder("UNIVERSAL INSTANCE INSPECTOR", FightDetectorsFolder, false)
- Label(FightInspectorFolder, "UNIVERSAL INSTANCE INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+ local InstanceInspectorFolder = MakeFolder("UNIVERSAL INSTANCE INSPECTOR", DetectionToolsFolder, false)
+ Label(InstanceInspectorFolder, "UNIVERSAL INSTANCE INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(
- FightInspectorFolder,
+ InstanceInspectorFolder,
  "Inspects client-visible instances across any experience, including class counts, remotes, script/module names, and UI metadata. It never calls remotes or reads script source.",
  10,
  48,
  Grey
  )
- local InspectorStatus = Label(FightInspectorFolder, "INSPECTOR: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+ local InspectorStatus = Label(InstanceInspectorFolder, "INSPECTOR: READY", 11, 24, Color3.fromRGB(170, 210, 255))
  InspectorStatus.Font = Enum.Font.GothamBold
- local InspectorCount = Label(FightInspectorFolder, "OBJECTS INSPECTED: 0", 10, 22, Grey)
+ local InspectorCount = Label(InstanceInspectorFolder, "OBJECTS INSPECTED: 0", 10, 22, Grey)
 
  local function UpdateInspectorDisplay(status, count)
  if status ~= nil then
@@ -3263,21 +3252,21 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  if count ~= nil then
  InspectorCount.Text = "OBJECTS INSPECTED: " .. tostring(count)
- elseif FightInspector and type(FightInspector.GetCount) == "function" then
- local ok, result = pcall(function() return FightInspector:GetCount() end)
+ elseif InstanceInspector and type(InstanceInspector.GetCount) == "function" then
+ local ok, result = pcall(function() return InstanceInspector:GetCount() end)
  if ok then InspectorCount.Text = "OBJECTS INSPECTED: " .. tostring(result) end
  end
  end
 
- MakeButton(FightInspectorFolder, "INSPECT ALL VISIBLE SYSTEMS", function()
- if not FightInspector or type(FightInspector.Inspect) ~= "function" then
+ MakeButton(InstanceInspectorFolder, "INSPECT ALL VISIBLE SYSTEMS", function()
+ if not InstanceInspector or type(InstanceInspector.Inspect) ~= "function" then
  UpdateInspectorDisplay("MODULE NOT LOADED", nil)
  return
  end
  UpdateInspectorDisplay("INSPECTING...", 0)
  task.spawn(function()
  local ok, success, count = pcall(function()
- return FightInspector:Inspect(function(status, total)
+ return InstanceInspector:Inspect(function(status, total)
  UpdateInspectorDisplay(status, total)
  end)
  end)
@@ -3291,12 +3280,12 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
  end, Color3.fromRGB(45, 115, 75))
 
- MakeButton(FightInspectorFolder, "COPY UNIVERSAL INSPECTION", function()
- if not FightInspector or type(FightInspector.GetReport) ~= "function" then
+ MakeButton(InstanceInspectorFolder, "COPY UNIVERSAL INSPECTION", function()
+ if not InstanceInspector or type(InstanceInspector.GetReport) ~= "function" then
  UpdateInspectorDisplay("MODULE NOT LOADED", nil)
  return
  end
- local ok, report = pcall(function() return FightInspector:GetReport() end)
+ local ok, report = pcall(function() return InstanceInspector:GetReport() end)
  if not ok then
  UpdateInspectorDisplay("REPORT ERROR", nil)
  return
@@ -3311,9 +3300,9 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  UpdateInspectorDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
  end)
 
- MakeButton(FightInspectorFolder, "CLEAR INSPECTION", function()
- if FightInspector and type(FightInspector.Clear) == "function" then
- local ok = pcall(function() FightInspector:Clear() end)
+ MakeButton(InstanceInspectorFolder, "CLEAR INSPECTION", function()
+ if InstanceInspector and type(InstanceInspector.Clear) == "function" then
+ local ok = pcall(function() InstanceInspector:Clear() end)
  UpdateInspectorDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
  else
  UpdateInspectorDisplay("MODULE NOT LOADED", nil)
@@ -3323,7 +3312,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- PASSIVE UNIVERSAL STRUCTURE SCANNER
- local FightStructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", FightDetectorsFolder, false)
+ local FightStructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", DetectionToolsFolder, false)
  Label(FightStructureFolder, "UNIVERSAL STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(
  FightStructureFolder,
@@ -3342,8 +3331,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  if count ~= nil then
  StructureCount.Text = "DISCOVERIES: " .. tostring(count)
- elseif FightStructureScanner and type(FightStructureScanner.GetCount) == "function" then
- local ok, result = pcall(function() return FightStructureScanner:GetCount() end)
+ elseif StructureScanner and type(StructureScanner.GetCount) == "function" then
+ local ok, result = pcall(function() return StructureScanner:GetCount() end)
  if ok then StructureCount.Text = "DISCOVERIES: " .. tostring(result) end
  end
  end
@@ -3355,7 +3344,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
 
  MakeButton(FightStructureFolder, "UPLOAD UNIVERSAL STRUCTURE REPORT", function()
- if not FightStructureScanner or type(FightStructureScanner.UploadReport) ~= "function" then
+ if not StructureScanner or type(StructureScanner.UploadReport) ~= "function" then
  UpdateStructureDisplay("UPLOAD MODULE NOT LOADED", nil)
  return
  end
@@ -3366,7 +3355,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  UpdateStructureDisplay("UPLOADING REPORT...", nil)
  task.spawn(function()
  local ok, success, message = pcall(function()
- return FightStructureScanner:UploadReport(StructureUploadKey)
+ return StructureScanner:UploadReport(StructureUploadKey)
  end)
  if not ok then
  UpdateStructureDisplay("UPLOAD ERROR: " .. tostring(success), nil)
@@ -3379,13 +3368,13 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end, Color3.fromRGB(45, 105, 145))
 
  MakeButton(FightStructureFolder, "START UNIVERSAL STRUCTURE SCAN", function()
- if not FightStructureScanner or type(FightStructureScanner.Start) ~= "function" then
+ if not StructureScanner or type(StructureScanner.Start) ~= "function" then
  UpdateStructureDisplay("MODULE NOT LOADED", nil)
  return
  end
  UpdateStructureDisplay("STARTING...", 0)
  local ok, result = pcall(function()
- return FightStructureScanner:Start(function(status, count)
+ return StructureScanner:Start(function(status, count)
  UpdateStructureDisplay(status, count)
  end)
  end)
@@ -3397,8 +3386,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end, Color3.fromRGB(45, 115, 75))
 
  MakeButton(FightStructureFolder, "STOP STRUCTURE SCAN", function()
- if FightStructureScanner and type(FightStructureScanner.Stop) == "function" then
- local ok = pcall(function() FightStructureScanner:Stop() end)
+ if StructureScanner and type(StructureScanner.Stop) == "function" then
+ local ok = pcall(function() StructureScanner:Stop() end)
  UpdateStructureDisplay(ok and "STOPPED" or "STOP FAILED", nil)
  else
  UpdateStructureDisplay("MODULE NOT LOADED", nil)
@@ -3406,11 +3395,11 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end, Color3.fromRGB(125, 75, 55))
 
  MakeButton(FightStructureFolder, "COPY UNIVERSAL STRUCTURE REPORT", function()
- if not FightStructureScanner or type(FightStructureScanner.GetReport) ~= "function" then
+ if not StructureScanner or type(StructureScanner.GetReport) ~= "function" then
  UpdateStructureDisplay("MODULE NOT LOADED", nil)
  return
  end
- local ok, report = pcall(function() return FightStructureScanner:GetReport() end)
+ local ok, report = pcall(function() return StructureScanner:GetReport() end)
  if not ok then
  UpdateStructureDisplay("REPORT ERROR", nil)
  return
@@ -3426,8 +3415,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
 
  MakeButton(FightStructureFolder, "CLEAR UNIVERSAL STRUCTURE REPORT", function()
- if FightStructureScanner and type(FightStructureScanner.Clear) == "function" then
- local ok = pcall(function() FightStructureScanner:Clear() end)
+ if StructureScanner and type(StructureScanner.Clear) == "function" then
+ local ok = pcall(function() StructureScanner:Clear() end)
  UpdateStructureDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
  else
  UpdateStructureDisplay("MODULE NOT LOADED", nil)
@@ -3438,7 +3427,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  local HubToggleConnection, HubExtras, RunService
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- UNIVERSAL LIVE CHANGE OBSERVER
- local LiveObserverFolder = MakeFolder("UNIVERSAL LIVE OBSERVER", FightDetectorsFolder, false)
+ local LiveObserverFolder = MakeFolder("UNIVERSAL LIVE OBSERVER", DetectionToolsFolder, false)
  Label(LiveObserverFolder, "UNIVERSAL LIVE CHANGE OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(
  LiveObserverFolder,
@@ -3537,7 +3526,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end, Color3.fromRGB(85, 75, 105))
 
  do -- bounded remote logger UI; owner-only Detection & Observation page
- local RemoteLoggerFolder = MakeFolder("UNIVERSAL REMOTE LOGGER", FightDetectorsFolder, false)
+ local RemoteLoggerFolder = MakeFolder("UNIVERSAL REMOTE LOGGER", DetectionToolsFolder, false)
  Label(RemoteLoggerFolder, "UNIVERSAL REMOTE LOGGER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(RemoteLoggerFolder,
  "Records outgoing remote/bindable method, full instance path, and arguments from this client. Use a few in-game actions, refresh, then upload the report so features can be built from the captured calls.",
@@ -4700,559 +4689,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end)
  end, Color3.fromRGB(45, 115, 75))
 
- -- COMBAT HUD, ASSET RECOGNITION, AND SAFE HITBOX VISUALIZER
- local CombatToolsFolder = MakeFolder("COMBAT HUD & ASSET TOOLS", FightFolder)
- Label(CombatToolsFolder, "COMBAT HUD", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(CombatToolsFolder, "Shows your own live health, movement speed, and equipped tool. Local display only.", 10, 36, Grey)
-
- -- Isolate combat utility locals in a separate function/register frame.
- ;(function()
- local CombatHudEnabled = false
- local CombatHudToken = 0
- local CombatHudLabel
- local function RemoveCombatHud()
- CombatHudEnabled = false
- CombatHudToken += 1
- if CombatHudLabel then
- pcall(function() CombatHudLabel:Destroy() end)
- CombatHudLabel = nil
- end
- end
- GUI.StopCombatHud = RemoveCombatHud
-
- local CombatHudButton
- CombatHudButton = MakeButton(CombatToolsFolder, "TOGGLE COMBAT HUD: OFF", function()
- CombatHudEnabled = not CombatHudEnabled
- CombatHudToken += 1
- local token = CombatHudToken
- if CombatHudEnabled then
- if not CombatHudLabel then
- CombatHudLabel = Instance.new("TextLabel")
- CombatHudLabel.Name = "ShortNameCombatHUD"
- CombatHudLabel.AnchorPoint = Vector2.new(0.5, 0)
- CombatHudLabel.Position = UDim2.new(0.5, 0, 0, 12)
- CombatHudLabel.Size = UDim2.fromOffset(280, 42)
- CombatHudLabel.BackgroundColor3 = Color3.fromRGB(12, 12, 17)
- CombatHudLabel.BackgroundTransparency = 0.16
- CombatHudLabel.BorderSizePixel = 0
- CombatHudLabel.TextColor3 = White
- CombatHudLabel.TextSize = 12
- CombatHudLabel.Font = Enum.Font.GothamBold
- CombatHudLabel.TextWrapped = true
- CombatHudLabel.Parent = ScreenGui
- Corner(CombatHudLabel, 9)
- Stroke(CombatHudLabel, CurrentAccent.Light, 1.2)
- end
- CombatHudButton.Text = "TOGGLE COMBAT HUD: ON"
- task.spawn(function()
- while CombatHudEnabled and CombatHudToken == token and ScreenGui.Parent do
- local player = Players.LocalPlayer
- local character = player and player.Character
- local humanoid = character and character:FindFirstChildOfClass("Humanoid")
- local healthText = "Health: N/A"
- local speedText = "Speed: N/A"
- if humanoid then
- healthText = string.format("HP: %d/%d", math.floor(humanoid.Health + 0.5), math.floor(humanoid.MaxHealth + 0.5))
- speedText = string.format("Speed: %.1f", humanoid.MoveDirection.Magnitude * humanoid.WalkSpeed)
- end
- local toolName = "None"
- if character then
- local tool = character:FindFirstChildOfClass("Tool")
- if tool then toolName = tool.Name end
- end
- if CombatHudLabel and CombatHudLabel.Parent then
- CombatHudLabel.Text = healthText .. " | " .. speedText .. "\nEquipped: " .. toolName
- end
- task.wait(0.25)
- end
- end)
- else
- RemoveCombatHud()
- CombatHudButton.Text = "TOGGLE COMBAT HUD: OFF"
- end
- end, Color3.fromRGB(45, 115, 75))
-
- Label(CombatToolsFolder, "WEAPON / ASSET RECOGNITION", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(CombatToolsFolder, "Lists known replicated weapon and combat asset folders. Does not load or execute assets.", 10, 36, Grey)
- local AssetStatus = Label(CombatToolsFolder, "ASSET CHECK: NOT RUN", 10, 22, Color3.fromRGB(170, 210, 255))
- local AssetResults = Label(CombatToolsFolder, "Known paths: StyleWeapons, SFX, RaycastHitboxV4, Flying, Packet", 10, 58, Grey)
- AssetResults.TextWrapped = true
- MakeButton(CombatToolsFolder, "SCAN COMBAT ASSETS", function()
- local storage = game:GetService("ReplicatedStorage")
- local names = {"StyleWeapons", "SFX", "RaycastHitboxV4", "Flying", "Packet"}
- local found = {}
- for _, name in ipairs(names) do
- local object = storage:FindFirstChild(name)
- if object then
- local count = 0
- pcall(function() count = #object:GetDescendants() end)
- table.insert(found, name .. " (" .. tostring(count) .. ")")
- end
- end
- AssetStatus.Text = "ASSET CHECK: " .. tostring(#found) .. "/" .. tostring(#names) .. " SYSTEMS FOUND"
- AssetResults.Text = #found > 0 and table.concat(found, " - ") or "No known combat asset folders found."
- end, Color3.fromRGB(45, 105, 145))
-
- Label(CombatToolsFolder, "HITBOX / WEAPON ATTACHMENT VISUALIZER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(CombatToolsFolder, "Shows named hitbox parts in Workspace and attachment points on your equipped weapon. Attachment markers show origins, not the full raycast hitbox volume.", 10, 48, Grey)
- local HitboxEnabled = false
- local HitboxAdornments = {}
- local HitboxTemplatePreview
- local HitboxPreviewConnection
- local HitboxStatus = Label(CombatToolsFolder, "VISUALIZER: READY", 10, 22, Color3.fromRGB(170, 210, 255))
- local function ClearHitboxVisuals()
- if HitboxPreviewConnection then
- pcall(function() HitboxPreviewConnection:Disconnect() end)
- HitboxPreviewConnection = nil
- end
- for object, adornment in pairs(HitboxAdornments) do
- pcall(function() adornment:Destroy() end)
- HitboxAdornments[object] = nil
- end
- if HitboxTemplatePreview then
- pcall(function() HitboxTemplatePreview:Destroy() end)
- HitboxTemplatePreview = nil
- end
- end
- GUI.ClearHitboxVisuals = function()
- HitboxEnabled = false
- ClearHitboxVisuals()
- end
- local HitboxButton
- HitboxButton = MakeButton(CombatToolsFolder, "HITBOX VISUALIZER: OFF", function()
- HitboxEnabled = not HitboxEnabled
- ClearHitboxVisuals()
- if HitboxEnabled then
- local count = 0
- local function AddPartBox(part)
- if HitboxAdornments[part] then return end
- local adornment = Instance.new("BoxHandleAdornment")
- adornment.Name = "ShortNameHitboxVisual"
- adornment.Adornee = part
- adornment.Size = part.Size
- adornment.Color3 = Color3.fromRGB(255, 75, 95)
- adornment.Transparency = 0.68
- adornment.AlwaysOnTop = true
- adornment.ZIndex = 5
- adornment.Parent = workspace
- HitboxAdornments[part] = adornment
- count += 1
- end
- local function AddAttachmentMarker(attachment)
- if HitboxAdornments[attachment] then return end
- local parentPart = attachment.Parent
- if not parentPart or not parentPart:IsA("BasePart") then return end
- local marker = Instance.new("SphereHandleAdornment")
- marker.Name = "ShortNameWeaponAttachmentMarker"
- marker.Adornee = parentPart
- marker.CFrame = attachment.CFrame
- marker.Radius = 0.2
- marker.Color3 = Color3.fromRGB(255, 190, 65)
- marker.Transparency = 0.18
- marker.AlwaysOnTop = true
- marker.ZIndex = 6
- marker.Parent = workspace
- HitboxAdornments[attachment] = marker
- count += 1
- end
-
- for _, object in ipairs(workspace:GetDescendants()) do
- if object:IsA("BasePart") then
- local lowerName = string.lower(object.Name)
- if string.find(lowerName, "hitbox", 1, true)
- or string.find(lowerName, "hurtbox", 1, true)
- or string.find(lowerName, "damagebox", 1, true)
- then
- AddPartBox(object)
- end
- end
- end
-
- local player = Players.LocalPlayer
- local character = player and player.Character
- local equippedTool = character and character:FindFirstChildOfClass("Tool")
- if equippedTool then
- for _, object in ipairs(equippedTool:GetDescendants()) do
- if object:IsA("Attachment") then
- AddAttachmentMarker(object)
- elseif object:IsA("BasePart") then
- local lowerName = string.lower(object.Name)
- if string.find(lowerName, "hit", 1, true)
- or string.find(lowerName, "hurt", 1, true)
- or string.find(lowerName, "damage", 1, true)
- then
- AddPartBox(object)
- end
- end
- end
- end
-
- -- The scan report found the game's hitbox template in ReplicatedStorage,
- -- not Workspace. Show a clearly-labeled local preview when no live parts exist.
- if count == 0 then
- local storage = game:GetService("ReplicatedStorage")
- local flying = storage:FindFirstChild("Flying")
- local assets = flying and flying:FindFirstChild("Assets")
- local template = assets and assets:FindFirstChild("Hitbox")
- local playerRoot = character and character:FindFirstChild("HumanoidRootPart")
- if template and template:IsA("BasePart") and playerRoot then
- local preview = template:Clone()
- preview.Name = "ShortNameHitboxTemplatePreview"
- for _, child in ipairs(preview:GetChildren()) do
- child:Destroy()
- end
- preview.Anchored = true
- preview.CanCollide = false
- preview.CanTouch = false
- preview.CanQuery = false
- preview.Material = Enum.Material.Neon
- preview.Color = Color3.fromRGB(255, 75, 95)
- preview.Transparency = 0.55
- preview.CFrame = playerRoot.CFrame * CFrame.new(0, 0, -3)
- preview.Parent = workspace
- HitboxTemplatePreview = preview
- -- Keep the local template preview attached to the character's current
- -- position, including after respawns or movement while the toggle is on.
- HitboxPreviewConnection = RunService.RenderStepped:Connect(function()
- if not HitboxEnabled or not HitboxTemplatePreview or not HitboxTemplatePreview.Parent then
- return
- end
- local currentCharacter = player.Character
- local currentRoot = currentCharacter and currentCharacter:FindFirstChild("HumanoidRootPart")
- if currentRoot then
- HitboxTemplatePreview.CFrame = currentRoot.CFrame * CFrame.new(0, 0, -3)
- end
- end)
- count = 1
- HitboxStatus.Text = "TEMPLATE PREVIEW ONLY - NOT A LIVE HITBOX"
- else
- HitboxStatus.Text = "NO LIVE HITBOX PARTS OR AVAILABLE TEMPLATE PREVIEW"
- end
- else
- HitboxStatus.Text = tostring(count) .. " LOCAL VISUAL MARKERS SHOWN"
- end
- HitboxButton.Text = "HITBOX VISUALIZER: ON (" .. tostring(count) .. ")"
- else
- HitboxButton.Text = "HITBOX VISUALIZER: OFF"
- HitboxStatus.Text = "VISUALIZER: READY"
- end
- end, Color3.fromRGB(45, 115, 75))
-
- end)()
-
- -- Keep the observer's many working locals in their own function so they
- -- do not consume the main GUI builder's 200-local register budget.
- local StopAttackObserver
- local function BuildObserverTools()
- -- PASSIVE ATTACK OBSERVER: watches new combat-named objects AND samples
- -- existing weapon/hitbox parts for movement. Read-only: no remotes or edits.
- -- Isolate observer locals to keep the GUI builder below Luau register limits.
- do
- local ObserverFolder = MakeFolder("WEAPON MOVEMENT OBSERVER", FightDetectorsFolder, false)
- Label(ObserverFolder, "WEAPON MOVEMENT OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(ObserverFolder, "Tracks new combat objects plus movement of existing weapon/hitbox parts. Start before a fight. Read-only; no remotes are called and no game objects are changed.", 10, 48, Grey)
- local ObserverRunning = false
- local ObserverConnection
- local ObserverSampleConnection
- local ObserverRecords = {}
- local ObserverSeen = {}
- local ObserverTracked = {}
- local ObserverLastSample = 0
- local ObserverStatus = Label(ObserverFolder, "OBSERVER: OFF - NO DATA", 10, 24, Color3.fromRGB(170, 210, 255))
- local ObserverOutput = Label(ObserverFolder, "Start the observer before combat, exchange a few attacks, then stop and upload the report.", 9, 48, Grey)
- ObserverOutput.TextWrapped = true
- ObserverOutput.TextYAlignment = Enum.TextYAlignment.Top
-
- local ObserverTerms = {"hitbox", "hurtbox", "damage", "attack", "swing", "slash", "projectile", "bullet", "strike", "hit", "weapon", "trail"}
- local function ObserverMatch(object)
- local lowerName = string.lower(tostring(object.Name))
- for _, term in ipairs(ObserverTerms) do
- if string.find(lowerName, term, 1, true) then
- return term
- end
- end
- return nil
- end
-
- local function AddObserverRecord(className, name, details)
- if #ObserverRecords >= 160 then return end
- table.insert(ObserverRecords, {
- className = tostring(className),
- name = tostring(name),
- details = tostring(details)
- })
- ObserverStatus.Text = "OBSERVER: " .. tostring(#ObserverRecords) .. " EVENTS RECORDED"
- end
-
- local function TrackObserverObject(object, source)
- if not ObserverRunning or not object or ObserverTracked[object] then return end
- if not object:IsA("BasePart") then return end
- local matched = ObserverMatch(object)
- if not matched then return end
- local ok, position, path, className, name = pcall(function()
- return object.Position, object:GetFullName(), object.ClassName, object.Name
- end)
- if not ok then return end
- ObserverTracked[object] = {
- lastPosition = position,
- lastTime = os.clock(),
- maxSpeed = 0,
- maxDelta = 0,
- movementEvents = 0,
- burstEvents = 0,
- outlierJumps = 0,
- path = path,
- matched = matched,
- className = className,
- name = name,
- source = source
- }
- if not ObserverSeen[object] then
- ObserverSeen[object] = true
- AddObserverRecord(className, name, "tracked part | match=" .. matched .. " | source=" .. source .. " | position="
- .. string.format("%.1f,%.1f,%.1f", position.X, position.Y, position.Z) .. " | path=" .. path)
- end
- end
-
- StopAttackObserver = function()
- ObserverRunning = false
- if ObserverConnection then
- ObserverConnection:Disconnect()
- ObserverConnection = nil
- end
- if ObserverSampleConnection then
- ObserverSampleConnection:Disconnect()
- ObserverSampleConnection = nil
- end
- end
- GUI.StopAttackObserver = StopAttackObserver
-
- local function BuildObserverReport()
- local report = {
- "SHORTNAME HUB - PASSIVE ATTACK OBSERVER",
- "Mode: Workspace DescendantAdded + read-only sampling of existing/new combat-named BaseParts; no remotes invoked; no game objects modified.",
- "Captured events: " .. tostring(#ObserverRecords),
- "Tracked moving parts: " .. tostring((function()
- local count = 0
- for _ in pairs(ObserverTracked) do count = count + 1 end
- return count
- end)()),
- "----------------------------------------"
- }
- for index, entry in ipairs(ObserverRecords) do
- table.insert(report, string.format("%d. [%s] %s | %s", index, entry.className, entry.name, entry.details))
- end
- local movementCount = 0
- for object, data in pairs(ObserverTracked) do
- if data.movementEvents > 0 or data.outlierJumps > 0 then
- movementCount = movementCount + 1
- table.insert(report, string.format(
- "MOVEMENT %d. [%s] %s | normalChanges=%d | possibleBursts=%d | filteredMaxDelta=%.2f studs | filteredMaxSpeed=%.1f studs/s | ignoredLargeJumps=%d | match=%s | path=%s",
- movementCount, data.className, data.name, data.movementEvents,
- data.burstEvents, data.maxDelta, data.maxSpeed, data.outlierJumps, data.matched, data.path
- ))
- end
- end
- if #ObserverRecords == 0 then
- table.insert(report, "No matching combat objects were observed.")
- end
- if movementCount == 0 then
- table.insert(report, "No measurable movement changes were detected on tracked combat-named parts.")
- end
- return table.concat(report, "\n")
- end
-
- local ObserverButton
- ObserverButton = MakeButton(ObserverFolder, "START ATTACK OBSERVER", function()
- if ObserverRunning then
- StopAttackObserver()
- local moving = 0
- for _, data in pairs(ObserverTracked) do
- if data.movementEvents > 0 then moving = moving + 1 end
- end
- ObserverButton.Text = "START ATTACK OBSERVER"
- ObserverStatus.Text = "OBSERVER: STOPPED - " .. tostring(#ObserverRecords) .. " EVENTS / " .. tostring(moving) .. " MOVING"
- ObserverOutput.Text = "Captured " .. tostring(#ObserverRecords) .. " events and detected movement on " .. tostring(moving) .. " tracked parts. Upload or copy the report."
- return
- end
-
- ObserverRecords = {}
- ObserverSeen = {}
- ObserverTracked = {}
- ObserverLastSample = 0
- ObserverRunning = true
- ObserverButton.Text = "STOP ATTACK OBSERVER"
- ObserverStatus.Text = "OBSERVER: LISTENING - FIGHT NOW"
- ObserverOutput.Text = "Scanning existing combat parts and listening for new ones..."
-
- -- Include parts that already exist before the observer starts.
- local scanned = 0
- for _, object in ipairs(workspace:GetDescendants()) do
- if scanned >= 12000 then break end
- scanned = scanned + 1
- if object:IsA("BasePart") then
- TrackObserverObject(object, "present-at-start")
- end
- end
-
- -- Record newly replicated named objects, including trails and attachments.
- ObserverConnection = workspace.DescendantAdded:Connect(function(object)
- if not ObserverRunning or #ObserverRecords >= 160 then return end
- local ok, name, className = pcall(function()
- return object.Name, object.ClassName
- end)
- if not ok then return end
- local matched = ObserverMatch(object)
- if not matched then return end
- local allowedClass = object:IsA("BasePart") or object:IsA("Attachment")
- or object:IsA("Trail") or object:IsA("Beam")
- or object:IsA("ParticleEmitter") or object:IsA("Model")
- if not allowedClass then return end
- local path = ""
- local details = "match=" .. matched .. " | source=DescendantAdded"
- pcall(function()
- path = object:GetFullName()
- if object:IsA("BasePart") then
- details = details .. string.format(" | size=%.2f,%.2f,%.2f | position=%.1f,%.1f,%.1f",
- object.Size.X, object.Size.Y, object.Size.Z,
- object.Position.X, object.Position.Y, object.Position.Z)
- elseif object:IsA("Attachment") then
- local parent = object.Parent
- details = details .. " | parent=" .. (parent and parent.Name or "none")
- end
- end)
- if not ObserverSeen[object] then
- ObserverSeen[object] = true
- AddObserverRecord(className, name, details .. " | path=" .. path)
- end
- if object:IsA("BasePart") then
- TrackObserverObject(object, "newly-added")
- end
- end)
-
- -- Sample position periodically rather than every frame to keep overhead low.
- local RunService = game:GetService("RunService")
- ObserverSampleConnection = RunService.Heartbeat:Connect(function()
- if not ObserverRunning then return end
- local now = os.clock()
- if now - ObserverLastSample < 0.08 then return end
- ObserverLastSample = now
- for object, data in pairs(ObserverTracked) do
- if object and object.Parent then
- local ok, position = pcall(function() return object.Position end)
- if ok then
- local delta = (position - data.lastPosition).Magnitude
- local elapsed = math.max(now - data.lastTime, 0.001)
- if delta >= 25 then
- -- Large discontinuities are logged separately; they may be
- -- teleports or replication corrections, not attack motion.
- data.outlierJumps = data.outlierJumps + 1
- elseif delta >= 0.18 then
- data.movementEvents = data.movementEvents + 1
- data.maxDelta = math.max(data.maxDelta, delta)
- data.maxSpeed = math.max(data.maxSpeed, delta / elapsed)
- if delta >= 0.75 then
- data.burstEvents = data.burstEvents + 1
- end
- end
- data.lastPosition = position
- data.lastTime = now
- end
- end
- end
- end)
- end, Color3.fromRGB(45, 105, 145))
-
- MakeButton(ObserverFolder, "COPY ATTACK OBSERVER REPORT", function()
- local report = BuildObserverReport()
- local copied = false
- if type(setclipboard) == "function" then
- copied = pcall(function() setclipboard(report) end)
- end
- if not copied and type(toclipboard) == "function" then
- copied = pcall(function() toclipboard(report) end)
- end
- ObserverStatus.Text = copied and "OBSERVER REPORT COPIED" or "CLIPBOARD UNAVAILABLE"
- ObserverOutput.Text = copied and "Report copied. Paste it into this chat." or "Clipboard API unavailable in this executor."
- end, Color3.fromRGB(45, 105, 145))
-
- local ObserverUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(ObserverFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", ObserverUploadKey, function(value)
- ObserverUploadKey = tostring(value or "")
- UploadKeyCache.__SHORTNAME_UPLOAD_KEY = ObserverUploadKey
- end)
- MakeButton(ObserverFolder, "UPLOAD ATTACK OBSERVER REPORT", function()
- if ObserverUploadKey == "" then
- ObserverStatus.Text = "ENTER UPLOAD KEY FIRST"
- return
- end
- ObserverStatus.Text = "UPLOADING OBSERVER REPORT..."
- task.spawn(function()
- local requestFunction
- if type(request) == "function" then
- requestFunction = request
- elseif type(http_request) == "function" then
- requestFunction = http_request
- elseif syn and type(syn.request) == "function" then
- requestFunction = syn.request
- elseif http and type(http.request) == "function" then
- requestFunction = http.request
- elseif fluxus and type(fluxus.request) == "function" then
- requestFunction = fluxus.request
- end
- if not requestFunction then
- ObserverStatus.Text = "HTTP REQUEST API UNAVAILABLE"
- return
- end
- local HttpService = game:GetService("HttpService")
- local payload = HttpService:JSONEncode({ report = BuildObserverReport() })
- local ok, response = pcall(function()
- return requestFunction({
- Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
- Method = "POST",
- Timeout = 45,
- Headers = {
- ["Content-Type"] = "application/json",
- ["x-upload-key"] = ObserverUploadKey
- },
- Body = payload
- })
- end)
- if not ok or type(response) ~= "table" then
- ObserverStatus.Text = "UPLOAD REQUEST FAILED"
- ObserverOutput.Text = tostring(response)
- return
- end
- local statusCode = response.StatusCode or response.Status or response.status_code
- local responseBody = response.Body or response.body or ""
- if statusCode ~= 200 then
- ObserverStatus.Text = "UPLOAD FAILED: HTTP " .. tostring(statusCode)
- ObserverOutput.Text = tostring(responseBody)
- return
- end
- local decodedOk, decoded = pcall(function()
- return HttpService:JSONDecode(responseBody)
- end)
- if decodedOk and type(decoded) == "table" and decoded.ok == true and decoded.github == "saved" then
- ObserverStatus.Text = "OBSERVER REPORT UPLOADED TO GITHUB"
- ObserverOutput.Text = "Upload confirmed by the report receiver."
- else
- ObserverStatus.Text = "SERVER DID NOT CONFIRM GITHUB SAVE"
- ObserverOutput.Text = tostring(responseBody)
- end
- end)
- end, Color3.fromRGB(45, 105, 145))
-
- end
- BuildObserverTools()
-
- end
-
  ScreenGui.Destroying:Connect(function()
  if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
- if GUI.StopCombatHud then pcall(GUI.StopCombatHud) end
- if GUI.ClearHitboxVisuals then pcall(GUI.ClearHitboxVisuals) end
- if GUI.StopAttackObserver then pcall(GUI.StopAttackObserver) end
  end)
 
  end
@@ -5452,23 +4890,21 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  Scythe.Stop()
  end)
  pcall(function()
- if FightScanner and type(FightScanner.Stop) == "function" then
- FightScanner:Stop()
+ if ObjectScanner and type(ObjectScanner.Stop) == "function" then
+ ObjectScanner:Stop()
  end
  end)
  pcall(function()
- if FightInspector and type(FightInspector.Clear) == "function" then
- FightInspector:Clear()
+ if InstanceInspector and type(InstanceInspector.Clear) == "function" then
+ InstanceInspector:Clear()
  end
  end)
  pcall(function()
- if FightStructureScanner and type(FightStructureScanner.Stop) == "function" then
- FightStructureScanner:Stop()
+ if StructureScanner and type(StructureScanner.Stop) == "function" then
+ StructureScanner:Stop()
  end
  end)
  if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
- if GUI.StopCombatHud then pcall(GUI.StopCombatHud) end
- if GUI.ClearHitboxVisuals then pcall(GUI.ClearHitboxVisuals) end
  HouseAutoEnabled = false
  HouseLoopToken = HouseLoopToken + 1
  HouseFarmEnabled = false
