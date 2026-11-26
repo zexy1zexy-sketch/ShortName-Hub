@@ -33,86 +33,6 @@ local function AddDiagnostic(message)
     end
 end
 
-local HitboxDiagnosticCaptured = false
-local HitboxErrorCount = 0
-
-local function DiagnoseHitboxCaster()
-    local ok, err = pcall(function()
-        local replicated = game:GetService("ReplicatedStorage")
-        local package = replicated:FindFirstChild("RaycastHitboxV4")
-        local target = package and package:FindFirstChild("HitboxCaster")
-
-        if not package then
-            AddDiagnostic("HITBOX DIAGNOSTIC: ReplicatedStorage.RaycastHitboxV4 was not found.")
-            return
-        end
-        if not target then
-            AddDiagnostic("HITBOX DIAGNOSTIC: RaycastHitboxV4 exists, but HitboxCaster was not found.")
-            local names = {}
-            for _, child in ipairs(package:GetChildren()) do
-                table.insert(names, child.Name .. " [" .. child.ClassName .. "]")
-                if #names >= 25 then break end
-            end
-            AddDiagnostic("HITBOX PACKAGE CHILDREN: " .. table.concat(names, ", "))
-            return
-        end
-
-        AddDiagnostic("HITBOX TARGET: " .. target:GetFullName() .. " [" .. target.ClassName .. "]")
-        AddDiagnostic("HITBOX PARENT: " .. (target.Parent and target.Parent:GetFullName() or "nil"))
-        local children = {}
-        for _, child in ipairs(target:GetChildren()) do
-            table.insert(children, child.Name .. " [" .. child.ClassName .. "]")
-            if #children >= 25 then break end
-        end
-        AddDiagnostic("HITBOX CHILDREN: " .. (#children > 0 and table.concat(children, ", ") or "(none)"))
-
-        local sourceOk, source = pcall(function()
-            if not target:IsA("LuaSourceContainer") then
-                error("HitboxCaster is not a script/module")
-            end
-            return target.Source
-        end)
-        if not sourceOk or type(source) ~= "string" then
-            AddDiagnostic("HITBOX SOURCE ACCESS: unavailable (" .. tostring(source):sub(1, 180) .. ")")
-            return
-        end
-
-        AddDiagnostic("HITBOX SOURCE ACCESS: readable; scanning source and runtime line context.")
-        AddDiagnostic("HITBOX GAME CONTEXT: PlaceId=" .. tostring(game.PlaceId) .. " JobId=" .. tostring(game.JobId))
-        AddDiagnostic("HITBOX SOURCE LENGTH: " .. tostring(#source) .. " characters")
-        local sourceLines = {}
-        for line in (source .. "\n"):gmatch("(.-)\n") do
-            table.insert(sourceLines, line)
-        end
-        AddDiagnostic("HITBOX SOURCE LINE COUNT: " .. tostring(#sourceLines))
-        local lineContext = {}
-        for j = math.max(1, 209 - 8), math.min(#sourceLines, 209 + 8) do
-            table.insert(lineContext, string.format("%d: %s", j, sourceLines[j]))
-        end
-        AddDiagnostic("HITBOX SOURCE AROUND RUNTIME LINE 209: " .. (#lineContext > 0 and table.concat(lineContext, " | ") or "(source has fewer than 201 lines)"):sub(1, 1800))
-        local selected, seen = {}, {}
-        for i, line in ipairs(sourceLines) do
-            if line:lower():find("pendingremoval", 1, true) or line:lower():find("onscheduler", 1, true) then
-                for j = math.max(1, i - 4), math.min(#sourceLines, i + 4) do
-                    if not seen[j] then
-                        seen[j] = true
-                        table.insert(selected, string.format("%d: %s", j, sourceLines[j]))
-                    end
-                end
-            end
-        end
-        if #selected == 0 then
-            AddDiagnostic("HITBOX SOURCE SCAN: no PendingRemoval or OnScheduler text found; runtime stack/source mismatch remains unverified.")
-        else
-            local excerpt = table.concat(selected, " | ")
-            AddDiagnostic("HITBOX SOURCE EXCERPT: " .. excerpt:sub(1, 1800))
-        end
-    end)
-    if not ok then
-        AddDiagnostic("HITBOX DIAGNOSTIC FAILED: " .. tostring(err):sub(1, 220))
-    end
-end
-
 local function BuildDiagnosticConsole()
     if not IsLocalOwner() then return end
     local ok, err = pcall(function()
@@ -301,10 +221,7 @@ local function BuildDiagnosticConsole()
             status.Text = "Sending diagnostic report..."
             task.spawn(function()
                 local HttpService = game:GetService("HttpService")
-                DiagnoseHitboxCaster()
             local report = "SHORTNAME HUB STARTUP DIAGNOSTICS\\nCaptured: " .. os.date("!%Y-%m-%d %H:%M:%S UTC") .. "\\n\\n" .. table.concat(DiagnosticLines, "\\n")
-            .. "\\n\\nHITBOX ERROR COUNT: " .. tostring(HitboxErrorCount)
-            .. "\\nRepeated identical HitboxPendingRemoval errors are counted, not duplicated in this report."
                 local sent, response = pcall(function()
                     return requestFn({
                         Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
@@ -349,18 +266,7 @@ pcall(function()
     game:GetService("LogService").MessageOut:Connect(function(message, messageType)
         if messageType == Enum.MessageType.MessageError then
             local errorText = tostring(message)
-            if errorText:find("HitboxPendingRemoval", 1, true) then
-                HitboxErrorCount += 1
-                if HitboxErrorCount == 1 then
-                    AddDiagnostic("ERROR: " .. errorText)
-                    HitboxDiagnosticCaptured = true
-                    AddDiagnostic("Detected the RaycastHitboxV4 HitboxPendingRemoval error; collecting module diagnostics.")
-                    DiagnoseHitboxCaster()
-                end
-                -- Avoid flooding the owner's report with identical scheduler errors.
-            else
-                AddDiagnostic("ERROR: " .. errorText)
-            end
+            AddDiagnostic("ERROR: " .. errorText)
             ShowDiagnosticConsole()
         end
     end)
@@ -593,8 +499,6 @@ local function StopRuntime(runtime)
         if runtime.Scythe and type(runtime.Scythe.Stop) == "function" then
             runtime.Scythe.Stop()
         end
-    end)
-    pcall(function()
     end)
     pcall(function()
         if runtime.ObjectScanner and type(runtime.ObjectScanner.Stop) == "function" then
