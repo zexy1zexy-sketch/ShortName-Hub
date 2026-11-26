@@ -33,11 +33,13 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  welcomeDescription.Position = UDim2.fromOffset(14, 42)
  welcomeDescription.TextWrapped = true
 
- local currentVersion = tostring(config.Version or "1.2.5")
+ local currentVersion = tostring(config.Version or "1.2.6")
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
- "v1.2.5 - Xeno-inspired monochrome interface | Nov 26",
+ "v1.2.6 - Header, key and loading screen polish | Nov 26",
+ "Rebuilt the header actions into a right-aligned horizontal control rail to prevent overlap at all supported window sizes. Matched the key verification and loading screens to the flat monochrome interface.",
+  "v1.2.5 - Xeno-inspired monochrome interface | Nov 26",
  "Reworked the hub with a near-black flat interface, neutral borders, compact text-only navigation, and a cleaner responsive layout. Removed emoji and decorative icon labels throughout the interface.",
  },
  {
@@ -302,7 +304,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  AccentLine.ZIndex = 3; AccentLine.Parent = Frame; AddGradient(AccentLine, PurpleLight, Purple, 0)
  Corner(AccentLine, 2)
 
- local Header, MinButton, ExitButton, OwnerViewButton, GearButton
+ local Header, MinButton, ExitButton, OwnerViewButton, GearButton, RefreshHubButton
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- HEADER
  Header = Instance.new("Frame"); Header.Size = UDim2.new(1, 0, 0, 48); Header.BackgroundColor3 = Color3.fromRGB(9, 9, 9)
@@ -323,13 +325,13 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  local HeaderSubtitle = Label(Header, "@" .. tostring(LocalPlayer and LocalPlayer.Name or "Unknown") .. " | " .. ReportedExecutor .. " | v" .. tostring(Config.Version or "1.0.0"), 8, 14, Grey); HeaderSubtitle.Position = UDim2.fromOffset(15, 27)
  HeaderSubtitle.Size = UDim2.new(1, IsCreator and -410 or -336, 0, 13); HeaderSubtitle.TextTruncate = Enum.TextTruncate.AtEnd; HeaderSubtitle.Font = Enum.Font.GothamMedium; HeaderSubtitle.TextTransparency = 0.12
 
- MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(28, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
+ MinButton = Instance.new("TextButton"); MinButton.Size = UDim2.fromOffset(24, 30); MinButton.Position = UDim2.new(1, -70, 0, 8)
  MinButton.BackgroundColor3 = ButtonDark; MinButton.Text = "-"; MinButton.TextColor3 = White
  MinButton.TextSize = 17; MinButton.Font = Enum.Font.GothamBold; MinButton.Parent = Header
  MinButton.ZIndex = 5; Corner(MinButton, 2); Stroke(MinButton, Border, 1)
  AddHover(MinButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
- ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(28, 30)
+ ExitButton = Instance.new("TextButton"); ExitButton.Size = UDim2.fromOffset(24, 30)
  ExitButton.Position = UDim2.new(1, -36, 0, 8); ExitButton.BackgroundColor3 = ButtonDark; ExitButton.Text = "X"
  ExitButton.TextColor3 = Color3.fromRGB(255, 170, 180); ExitButton.TextSize = 21; ExitButton.Font = Enum.Font.Gotham
  ExitButton.Parent = Header; Corner(ExitButton, 2); Stroke(ExitButton, Border, 1)
@@ -338,7 +340,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  -- CREATOR-ONLY VIEW SWITCH
  if IsCreator then
  OwnerViewButton = Instance.new("TextButton")
- OwnerViewButton.Size = UDim2.fromOffset(62, 28)
+ OwnerViewButton.Size = UDim2.fromOffset(54, 30)
  OwnerViewButton.Position = UDim2.new(1, -240, 0, 9)
  OwnerViewButton.BackgroundColor3 = Color3.fromRGB(55, 42, 77)
  OwnerViewButton.Text = "OWNER"
@@ -355,7 +357,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  -- OWNER SETTINGS SHORTCUT: sits immediately left of the owner/users switch.
  do
  GearButton = Instance.new("TextButton")
- GearButton.Size = UDim2.fromOffset(28, 30)
+ GearButton.Size = UDim2.fromOffset(68, 30)
  GearButton.Position = UDim2.new(1, IsCreator and -274 or -240, 0, 8)
  GearButton.BackgroundColor3 = ButtonDark
  GearButton.Text = "SETTINGS"
@@ -375,7 +377,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- COMMUNITY SHORTCUTS
  CrownButton = Instance.new("TextButton")
- CrownButton.Size = UDim2.fromOffset(28, 30)
+ CrownButton.Size = UDim2.fromOffset(48, 30)
  CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
  CrownButton.BackgroundColor3 = ButtonDark
  CrownButton.Text = "RANKS"
@@ -389,7 +391,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  AddHover(CrownButton, ButtonDark, Color3.fromRGB(65, 53, 37))
 
  FeedbackButton = Instance.new("TextButton")
- FeedbackButton.Size = UDim2.fromOffset(28, 30)
+ FeedbackButton.Size = UDim2.fromOffset(62, 30)
  FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
  FeedbackButton.BackgroundColor3 = ButtonDark
  FeedbackButton.Text = "FEEDBACK"
@@ -667,7 +669,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  GUI.SidebarCollapsed = false
  GUI.SidebarToggle = Instance.new("TextButton")
  GUI.SidebarToggle.Name = "SidebarToggle"
- GUI.SidebarToggle.Size = UDim2.fromOffset(26, 30)
+ GUI.SidebarToggle.Size = UDim2.fromOffset(42, 30)
  GUI.SidebarToggle.Position = UDim2.new(1, IsCreator and -342 or -274, 0, 8)
  GUI.SidebarToggle.BackgroundColor3 = ButtonDark
  GUI.SidebarToggle.Text = "-"
@@ -845,7 +847,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  do
  GUI.GlobalSearchButton = Instance.new("TextButton")
  GUI.GlobalSearchButton.Name = "GlobalSearchButton"
- GUI.GlobalSearchButton.Size = UDim2.fromOffset(26, 30)
+ GUI.GlobalSearchButton.Size = UDim2.fromOffset(52, 30)
  GUI.GlobalSearchButton.Position = UDim2.new(1, IsCreator and -376 or -308, 0, 8)
  GUI.GlobalSearchButton.BackgroundColor3 = ButtonDark
  GUI.GlobalSearchButton.Text = "SEARCH"
@@ -1486,8 +1488,8 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  Label(SettingsPage, "When OFF, Roblox's gameplay-paused notification is disabled.", 11, 42, Grey)
 
 
- local RefreshHubButton = Instance.new("TextButton")
- RefreshHubButton.Size = UDim2.fromOffset(28, 30)
+ RefreshHubButton = Instance.new("TextButton")
+ RefreshHubButton.Size = UDim2.fromOffset(58, 30)
  RefreshHubButton.Position = UDim2.new(1, -104, 0, 8)
  RefreshHubButton.BackgroundColor3 = ButtonDark
  RefreshHubButton.TextColor3 = White
@@ -5494,44 +5496,63 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  ScreenGui:Destroy()
  end)
 
- -- Responsive header layout: keep every text label inside its own button.
+ -- Single horizontal action rail. UIListLayout owns placement so labels can never overlap.
+ local HeaderActions = Instance.new("Frame")
+ HeaderActions.Name = "HeaderActions"
+ HeaderActions.AnchorPoint = Vector2.new(1, 0)
+ HeaderActions.Position = UDim2.new(1, -8, 0, 8)
+ HeaderActions.Size = UDim2.fromOffset(0, 30)
+ HeaderActions.BackgroundTransparency = 1
+ HeaderActions.Parent = Header
+ HeaderActions.ZIndex = 9
+
+ local HeaderActionLayout = Instance.new("UIListLayout")
+ HeaderActionLayout.FillDirection = Enum.FillDirection.Horizontal
+ HeaderActionLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+ HeaderActionLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+ HeaderActionLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ HeaderActionLayout.Padding = UDim.new(0, 5)
+ HeaderActionLayout.Parent = HeaderActions
+
  local function LayoutHeaderControls()
- local compact = WindowWidth < 600
- local gap = compact and 3 or 6
+ local compact = WindowWidth < 720
  local controls = {
- { GUI.GlobalSearchButton, compact and "S" or "SEARCH", compact and 23 or 52 },
- { GUI.SidebarToggle, "-", compact and 23 or 26 },
- { GearButton, compact and "SET" or "SETTINGS", compact and 23 or 72 },
+ { GUI.GlobalSearchButton, compact and "FIND" or "SEARCH", compact and 38 or 52 },
+ { GUI.SidebarToggle, "MENU", compact and 34 or 42 },
+ { GearButton, "SET", compact and 30 or 68 },
  }
- if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OWN" or "OWNER", compact and 23 or 56 }) end
- table.insert(controls, { CrownButton, compact and "R" or "RANKS", compact and 23 or 48 })
- table.insert(controls, { FeedbackButton, compact and "FB" or "FEEDBACK", compact and 23 or 66 })
- table.insert(controls, { RefreshHubButton, compact and "REF" or "REFRESH", compact and 23 or 62 })
- table.insert(controls, { MinButton, "-", compact and 23 or 26 })
- table.insert(controls, { ExitButton, "X", compact and 23 or 26 })
+ if OwnerViewButton then table.insert(controls, { OwnerViewButton, "OWN", compact and 32 or 54 }) end
+ table.insert(controls, { CrownButton, "RANKS", compact and 36 or 48 })
+ table.insert(controls, { FeedbackButton, "FB", compact and 26 or 62 })
+ table.insert(controls, { RefreshHubButton, "REF", compact and 30 or 58 })
+ table.insert(controls, { MinButton, "-", 24 })
+ table.insert(controls, { ExitButton, "X", 24 })
+
+ local gap = 5
  local total = gap * (#controls - 1)
  for _, item in ipairs(controls) do total = total + item[3] end
- local x = math.max(4, WindowWidth - total - 8)
- for _, item in ipairs(controls) do
+ HeaderActions.Size = UDim2.fromOffset(total, 30)
+ for order, item in ipairs(controls) do
  local button, caption, width = item[1], item[2], item[3]
  if button then
+ button.Parent = HeaderActions
+ button.LayoutOrder = order
+ button.Position = UDim2.fromOffset(0, 0)
  button.Size = UDim2.fromOffset(width, 30)
- button.Position = UDim2.fromOffset(x, 8)
  button.Text = caption
  button.TextSize = compact and 8 or 9
  button.TextTruncate = Enum.TextTruncate.AtEnd
  button.TextWrapped = false
  button.TextXAlignment = Enum.TextXAlignment.Center
+ button.ZIndex = 10
  end
- x = x + width + gap
  end
- local titleRightPadding = total + 22
- local headerLabels = {}
- for _, child in ipairs(Header:GetChildren()) do
- if child:IsA("TextLabel") then table.insert(headerLabels, child) end
- end
- if headerLabels[1] then headerLabels[1].Size = UDim2.new(1, -titleRightPadding, 0, 25) end
- if headerLabels[2] then headerLabels[2].Size = UDim2.new(1, -titleRightPadding, 0, 13) end
+
+ local labelWidth = math.max(0, WindowWidth - total - 34)
+ local titleLabel = Header:FindFirstChildWhichIsA("TextLabel")
+ if titleLabel then titleLabel.Size = UDim2.new(0, labelWidth, 0, 25) end
+ local subtitleLabel = titleLabel and titleLabel.Parent:FindFirstChildWhichIsA("TextLabel")
+ if subtitleLabel and subtitleLabel ~= titleLabel then subtitleLabel.Size = UDim2.new(0, labelWidth, 0, 13) end
  end
  LayoutHeaderControls()
 
