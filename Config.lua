@@ -1,6 +1,6 @@
 
 local Config = {
-    Version = "1.2.6",
+    Version = "1.2.7",
     TargetName = "noob",
 
     AutoEnabled = false,
