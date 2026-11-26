@@ -5494,6 +5494,43 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  ScreenGui:Destroy()
  end)
 
+ -- Responsive header layout: keep every text label inside its own button.
+ local function LayoutHeaderControls()
+ local compact = WindowWidth < 600
+ local gap = compact and 3 or 6
+ local controls = {
+ { GUI.GlobalSearchButton, compact and "S" or "SEARCH", compact and 23 or 52 },
+ { GUI.SidebarToggle, "-", compact and 23 or 26 },
+ { GearButton, compact and "SET" or "SETTINGS", compact and 23 or 72 },
+ }
+ if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OWN" or "OWNER", compact and 23 or 56 }) end
+ table.insert(controls, { CrownButton, compact and "R" or "RANKS", compact and 23 or 48 })
+ table.insert(controls, { FeedbackButton, compact and "FB" or "FEEDBACK", compact and 23 or 66 })
+ table.insert(controls, { RefreshHubButton, compact and "REF" or "REFRESH", compact and 23 or 62 })
+ table.insert(controls, { MinButton, "-", compact and 23 or 26 })
+ table.insert(controls, { ExitButton, "X", compact and 23 or 26 })
+ local total = gap * (#controls - 1)
+ for _, item in ipairs(controls) do total = total + item[3] end
+ local x = math.max(4, WindowWidth - total - 8)
+ for _, item in ipairs(controls) do
+ local button, caption, width = item[1], item[2], item[3]
+ if button then
+ button.Size = UDim2.fromOffset(width, 30)
+ button.Position = UDim2.fromOffset(x, 8)
+ button.Text = caption
+ button.TextSize = compact and 8 or 9
+ button.TextTruncate = Enum.TextTruncate.AtEnd
+ button.TextWrapped = false
+ button.TextXAlignment = Enum.TextXAlignment.Center
+ end
+ x = x + width + gap
+ end
+ local titleRightPadding = total + 22
+ HeaderTitle.Size = UDim2.new(1, -titleRightPadding, 0, 25)
+ HeaderSubtitle.Size = UDim2.new(1, -titleRightPadding, 0, 13)
+ end
+ LayoutHeaderControls()
+
  -- Restore previously enabled/disabled toggle buttons after every control has been created.
  RestorePersistedToggleStates()
 
@@ -5503,14 +5540,15 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  GUI.ViewportConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
  if not Frame.Parent then return end
  local newViewport = Camera.ViewportSize
- WindowWidth = math.max(300, math.min(760, math.floor(newViewport.X * 0.88)))
- WindowHeight = math.max(340, math.min(560, math.floor(newViewport.Y * 0.68)))
+ WindowWidth = math.max(300, math.min(900, math.floor(newViewport.X * 0.90)))
+ WindowHeight = math.max(340, math.min(680, math.floor(newViewport.Y * 0.82)))
  Frame.Size = UDim2.fromOffset(WindowWidth, WindowHeight)
  Frame.Position = UDim2.new(0.5, -WindowWidth / 2, 0.5, -WindowHeight / 2)
  SidebarWidth = GUI.SidebarCollapsed and 58 or math.min(166, WindowWidth * 0.28)
  Sidebar.Size = UDim2.new(0, SidebarWidth, 1, -76)
  Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
  Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
+ LayoutHeaderControls()
  end)
  ScreenGui.Destroying:Connect(function()
  if GUI.ViewportConnection then
