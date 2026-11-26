@@ -77,14 +77,14 @@ function KeySystem.Start()
     end
 
     -- MAIN GUI COLORS
-    local Purple = Color3.fromRGB(145, 75, 255)
-    local PurpleLight = Color3.fromRGB(185, 135, 255)
-    local Dark = Color3.fromRGB(12, 12, 17)
-    local Panel = Color3.fromRGB(23, 23, 31)
-    local ButtonDark = Color3.fromRGB(31, 31, 42)
-    local White = Color3.fromRGB(240, 240, 248)
-    local Grey = Color3.fromRGB(155, 155, 175)
-    local Border = Color3.fromRGB(54, 48, 70)
+    local Purple = Color3.fromRGB(42, 42, 42)
+    local PurpleLight = Color3.fromRGB(215, 215, 215)
+    local Dark = Color3.fromRGB(8, 8, 8)
+    local Panel = Color3.fromRGB(12, 12, 12)
+    local ButtonDark = Color3.fromRGB(24, 24, 24)
+    local White = Color3.fromRGB(242, 242, 242)
+    local Grey = Color3.fromRGB(158, 158, 158)
+    local Border = Color3.fromRGB(48, 48, 48)
 
     local FastTween = TweenInfo.new(
         0.18,
@@ -104,7 +104,7 @@ function KeySystem.Start()
 
     local function Corner(object, radius)
         local corner = Instance.new("UICorner")
-        corner.CornerRadius = UDim.new(0, radius or 8)
+        corner.CornerRadius = UDim.new(0, math.min(radius or 8, 3))
         corner.Parent = object
         return corner
     end
@@ -119,14 +119,8 @@ function KeySystem.Start()
     end
 
     local function Gradient(object, first, second, rotation)
-        local gradient = Instance.new("UIGradient")
-        gradient.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, first),
-            ColorSequenceKeypoint.new(1, second)
-        })
-        gradient.Rotation = rotation or 90
-        gradient.Parent = object
-        return gradient
+        object.BackgroundColor3 = first
+        return nil
     end
 
     local function Label(parent, text, size, position, color, font)
@@ -149,7 +143,7 @@ function KeySystem.Start()
     Background.Name = "Background"
     Background.Size = UDim2.fromScale(1, 1)
     Background.BackgroundColor3 = Color3.new(0, 0, 0)
-    Background.BackgroundTransparency = 0.4
+    Background.BackgroundTransparency = 0.22
     Background.BorderSizePixel = 0
     Background.Parent = ScreenGui
 
@@ -164,9 +158,9 @@ function KeySystem.Start()
     Window.BorderSizePixel = 0
     Window.Parent = Background
 
-    Corner(Window, 12)
-    Stroke(Window, Color3.fromRGB(105, 76, 150), 1.25)
-    Gradient(Window, Color3.fromRGB(19, 18, 27), Dark, 90)
+    Corner(Window, 3)
+    Stroke(Window, Border, 1)
+    Window.BackgroundColor3 = Dark
 
     local WindowScale = Instance.new("UIScale")
     WindowScale.Scale = 0.88
@@ -181,8 +175,8 @@ function KeySystem.Start()
     Header.BorderSizePixel = 0
     Header.Parent = Window
 
-    Corner(Header, 12)
-    Gradient(Header, Color3.fromRGB(31, 25, 43), Dark, 90)
+    Corner(Header, 3)
+    Header.BackgroundColor3 = Color3.fromRGB(9, 9, 9)
 
     local HeaderCover = Instance.new("Frame")
     HeaderCover.Size = UDim2.new(1, 0, 0, 12)
@@ -192,13 +186,13 @@ function KeySystem.Start()
     HeaderCover.Parent = Header
 
     local AccentLine = Instance.new("Frame")
-    AccentLine.Size = UDim2.new(1, -2, 0, 2)
+    AccentLine.Size = UDim2.new(1, -2, 0, 1)
     AccentLine.Position = UDim2.new(0, 1, 1, -2)
     AccentLine.BackgroundColor3 = Purple
     AccentLine.BorderSizePixel = 0
     AccentLine.Parent = Header
 
-    Gradient(AccentLine, Purple, PurpleLight, 0)
+    AccentLine.BackgroundColor3 = Border
 
     local Title = Label(
         Header,
@@ -249,7 +243,7 @@ function KeySystem.Start()
     InputContainer.BorderSizePixel = 0
     InputContainer.Parent = Content
 
-    Corner(InputContainer, 8)
+    Corner(InputContainer, 3)
     local InputStroke = Stroke(InputContainer, Border, 1)
 
     local KeyBox = Instance.new("TextBox")
@@ -325,7 +319,7 @@ function KeySystem.Start()
         button.AutoButtonColor = false
         button.Parent = Content
 
-        Corner(button, 8)
+        Corner(button, 3)
         local outline = Stroke(button, lightColor or Border, 1)
         Gradient(button, color, color:Lerp(Color3.new(0, 0, 0), 0.15), 90)
 
@@ -404,12 +398,12 @@ function KeySystem.Start()
         if KeyBox.Text == HUB_KEY then
             SetStatus(
                 "KEY ACCEPTED - ACCESS GRANTED",
-                Color3.fromRGB(100, 255, 140)
+                Color3.fromRGB(220, 220, 220)
             )
 
             VerifyButton.Text = "ACCESS GRANTED"
             Tween(VerifyButton, {
-                BackgroundColor3 = Color3.fromRGB(45, 115, 75)
+                BackgroundColor3 = Color3.fromRGB(48, 48, 48)
             })
 
             AccessGranted = true
@@ -418,7 +412,7 @@ function KeySystem.Start()
         else
             SetStatus(
                 "INVALID KEY - TRY AGAIN",
-                Color3.fromRGB(255, 100, 100)
+                Color3.fromRGB(185, 185, 185)
             )
 
             local originalPosition = Window.Position
@@ -463,7 +457,7 @@ function KeySystem.Start()
         if copied then
             SetStatus(
                 "DISCORD INVITE COPIED",
-                Color3.fromRGB(100, 210, 255)
+                Color3.fromRGB(205, 205, 205)
             )
         else
             SetStatus(
