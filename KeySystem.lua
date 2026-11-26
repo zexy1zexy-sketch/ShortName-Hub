@@ -479,13 +479,6 @@ function KeySystem.Start()
         )
     )
 
-    -- Apply the flat monochrome text style while ScreenGui is still in scope.
-    for _, descendant in ipairs(ScreenGui:GetDescendants()) do
-        if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
-            descendant.TextStrokeTransparency = 1
-        end
-    end
-
     -- WAIT FOR ACCESS
 
     while not Finished and ScreenGui.Parent do
