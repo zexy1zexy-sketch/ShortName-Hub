@@ -1,5 +1,5 @@
 -- ShortName Hub loader for the private GitHub repository.
--- Current release: v1.2.0
+-- Current release: v1.3.2
 
 -- EARLY DIAGNOSTIC CONSOLE: create this before fetching or executing any modules.
 local DiagnosticLines = {}
@@ -367,7 +367,7 @@ pcall(function()
 end)
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
-local BUILD_VERSION = "1.3.1"
+local BUILD_VERSION = "1.3.2"
 local CACHE_BUSTER = tostring(os.time()) .. "_" .. tostring(math.random(100000, 999999))
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
 
@@ -499,7 +499,7 @@ SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 -- Optional executor-supported auto-load after teleport/rejoin.
 -- The preference is stored locally so the queue can be renewed in each session.
 local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
-local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.3.1"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.3.2"
 local function GetQueueOnTeleport()
     if type(queue_on_teleport) == "function" then return queue_on_teleport end
     if type(queueonteleport) == "function" then return queueonteleport end
@@ -597,13 +597,13 @@ local function StopRuntime(runtime)
     pcall(function()
     end)
     pcall(function()
-        if runtime.FightScanner and type(runtime.FightScanner.Stop) == "function" then
-            runtime.FightScanner:Stop()
+        if runtime.ObjectScanner and type(runtime.ObjectScanner.Stop) == "function" then
+            runtime.ObjectScanner:Stop()
         end
     end)
     pcall(function()
-        if runtime.FightStructureScanner and type(runtime.FightStructureScanner.Stop) == "function" then
-            runtime.FightStructureScanner:Stop()
+        if runtime.StructureScanner and type(runtime.StructureScanner.Stop) == "function" then
+            runtime.StructureScanner:Stop()
         end
     end)
     pcall(function()
@@ -681,7 +681,7 @@ StartHub = function(skipKey)
     end
 
     local completed = 0
-    local total = 18
+    local total = 15
     local function Step(message)
         completed = completed + 1
         if Loading and type(Loading.SetProgress) == "function" then
@@ -737,9 +737,9 @@ StartHub = function(skipKey)
             Step("Presence service unavailable")
         end
         local ScytheModule = LoadTracked("Scythe.lua", "Loaded weapon systems")
-        local FightScannerModule = LoadTracked("FightOnABaseplateScanner.lua", "Loaded universal object scanner")
-        local FightInspectorModule = LoadTracked("FightOnABaseplateInspector.lua", "Loaded universal instance inspector")
-        local FightStructureScannerModule = LoadTracked("FightOnABaseplateStructureScanner.lua", "Loaded universal structure scanner")
+        local ObjectScannerModule = LoadTracked("UniversalObjectScanner.lua", "Loaded universal object scanner")
+        local InstanceInspectorModule = LoadTracked("UniversalInstanceInspector.lua", "Loaded universal instance inspector")
+        local StructureScannerModule = LoadTracked("UniversalStructureScanner.lua", "Loaded universal structure scanner")
         local LiveObserverModule = LoadTracked("UniversalLiveObserver.lua", "Loaded universal live observer")
         local RemoteLoggerModule = LoadTracked("RemoteLogger.lua", "Loaded universal remote logger")
 
@@ -756,12 +756,12 @@ StartHub = function(skipKey)
 
         local Scythe = ScytheModule.new()
         Step("Initialized weapon systems")
-        local FightScanner = FightScannerModule.new()
-        Step("Initialized combat scanner")
-        local FightInspector = FightInspectorModule.new()
-        Step("Initialized combat inspector")
-        local FightStructureScanner = FightStructureScannerModule.new()
-        Step("Initialized structure scanner")
+        local ObjectScanner = ObjectScannerModule.new()
+        Step("Initialized universal object scanner")
+        local InstanceInspector = InstanceInspectorModule.new()
+        Step("Initialized universal instance inspector")
+        local StructureScanner = StructureScannerModule.new()
+        Step("Initialized universal structure scanner")
         local LiveObserver = LiveObserverModule.new()
         Step("Initialized universal live observer")
         local RemoteLogger = RemoteLoggerModule.new()
@@ -772,9 +772,9 @@ StartHub = function(skipKey)
                 Config,
                 Controller,
                 Scythe,
-                FightScanner,
-                FightInspector,
-                FightStructureScanner,
+                ObjectScanner,
+                InstanceInspector,
+                StructureScanner,
                 LiveObserver,
                 RemoteLogger,
                 RefreshHub,
@@ -787,9 +787,9 @@ StartHub = function(skipKey)
             StopRuntime({
                 Controller = Controller,
                 Scythe = Scythe,
-                FightScanner = FightScanner,
-                FightInspector = FightInspector,
-                FightStructureScanner = FightStructureScanner,
+                ObjectScanner = ObjectScanner,
+                InstanceInspector = InstanceInspector,
+                StructureScanner = StructureScanner,
                 LiveObserver = LiveObserver,
                 RemoteLogger = RemoteLogger
             })
@@ -803,9 +803,9 @@ StartHub = function(skipKey)
         CurrentRuntime = {
             Controller = Controller,
             Scythe = Scythe,
-            FightScanner = FightScanner,
-            FightInspector = FightInspector,
-            FightStructureScanner = FightStructureScanner,
+            ObjectScanner = ObjectScanner,
+            InstanceInspector = InstanceInspector,
+            StructureScanner = StructureScanner,
             LiveObserver = LiveObserver,
             RemoteLogger = RemoteLogger,
             Interface = Interface
