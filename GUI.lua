@@ -38,7 +38,7 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  local updateItems = {
  {
  "v1.3.2 - Remove legacy combat tab and tools | Nov 26",
- "Removed the dedicated game tab, combat HUD and hitbox tools, and weapon movement observer. Retained read-only universal scanners, live observer, and remote logger under Detection & Observation; renamed scanner modules to remove legacy game-specific filenames.",
+ "Removed the dedicated game tab, combat HUD, hitbox visualizer, weapon movement observer, and game-specific hitbox diagnostics. Retained read-only universal scanners, live observer, and remote logger under Detection & Observation; renamed scanner modules to remove legacy game-specific filenames.",
  },
  {
  "v1.3.1 - Feedback location and text stroke cleanup | Nov 26",
@@ -3232,7 +3232,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end, Color3.fromRGB(85, 75, 105))
 
 
- -- READ-ONLY COMBAT SYSTEM INSPECTOR
+ -- READ-ONLY INSTANCE INSPECTOR
  local InstanceInspectorFolder = MakeFolder("UNIVERSAL INSTANCE INSPECTOR", DetectionToolsFolder, false)
  Label(InstanceInspectorFolder, "UNIVERSAL INSTANCE INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(
@@ -3312,18 +3312,18 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- PASSIVE UNIVERSAL STRUCTURE SCANNER
- local FightStructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", DetectionToolsFolder, false)
- Label(FightStructureFolder, "UNIVERSAL STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
+ local StructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", DetectionToolsFolder, false)
+ Label(StructureFolder, "UNIVERSAL STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
  Label(
- FightStructureFolder,
+ StructureFolder,
  "Inventories client-visible systems and RemoteEvent/RemoteFunction names and paths across any experience. It never invokes them or reads script source.",
  10,
  50,
  Grey
  )
- local StructureStatus = Label(FightStructureFolder, "STRUCTURE SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
+ local StructureStatus = Label(StructureFolder, "STRUCTURE SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
  StructureStatus.Font = Enum.Font.GothamBold
- local StructureCount = Label(FightStructureFolder, "DISCOVERIES: 0", 10, 22, Grey)
+ local StructureCount = Label(StructureFolder, "DISCOVERIES: 0", 10, 22, Grey)
 
  local function UpdateStructureDisplay(status, count)
  if status ~= nil then
@@ -3338,12 +3338,12 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
 
  local StructureUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(FightStructureFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", StructureUploadKey, function(value)
+ MakeBox(StructureFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", StructureUploadKey, function(value)
  StructureUploadKey = tostring(value or "")
  UploadKeyCache.__SHORTNAME_UPLOAD_KEY = StructureUploadKey
  end)
 
- MakeButton(FightStructureFolder, "UPLOAD UNIVERSAL STRUCTURE REPORT", function()
+ MakeButton(StructureFolder, "UPLOAD UNIVERSAL STRUCTURE REPORT", function()
  if not StructureScanner or type(StructureScanner.UploadReport) ~= "function" then
  UpdateStructureDisplay("UPLOAD MODULE NOT LOADED", nil)
  return
@@ -3367,7 +3367,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end)
  end, Color3.fromRGB(45, 105, 145))
 
- MakeButton(FightStructureFolder, "START UNIVERSAL STRUCTURE SCAN", function()
+ MakeButton(StructureFolder, "START UNIVERSAL STRUCTURE SCAN", function()
  if not StructureScanner or type(StructureScanner.Start) ~= "function" then
  UpdateStructureDisplay("MODULE NOT LOADED", nil)
  return
@@ -3385,7 +3385,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  end, Color3.fromRGB(45, 115, 75))
 
- MakeButton(FightStructureFolder, "STOP STRUCTURE SCAN", function()
+ MakeButton(StructureFolder, "STOP STRUCTURE SCAN", function()
  if StructureScanner and type(StructureScanner.Stop) == "function" then
  local ok = pcall(function() StructureScanner:Stop() end)
  UpdateStructureDisplay(ok and "STOPPED" or "STOP FAILED", nil)
@@ -3394,7 +3394,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  end, Color3.fromRGB(125, 75, 55))
 
- MakeButton(FightStructureFolder, "COPY UNIVERSAL STRUCTURE REPORT", function()
+ MakeButton(StructureFolder, "COPY UNIVERSAL STRUCTURE REPORT", function()
  if not StructureScanner or type(StructureScanner.GetReport) ~= "function" then
  UpdateStructureDisplay("MODULE NOT LOADED", nil)
  return
@@ -3414,7 +3414,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  UpdateStructureDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
  end)
 
- MakeButton(FightStructureFolder, "CLEAR UNIVERSAL STRUCTURE REPORT", function()
+ MakeButton(StructureFolder, "CLEAR UNIVERSAL STRUCTURE REPORT", function()
  if StructureScanner and type(StructureScanner.Clear) == "function" then
  local ok = pcall(function() StructureScanner:Clear() end)
  UpdateStructureDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
