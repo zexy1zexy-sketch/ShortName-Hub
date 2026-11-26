@@ -37,8 +37,10 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
- "v1.2.8 - Final header layout cleanup | Nov 26",
+ "v1.2.9 - Key startup crash fix | Nov 26",
  "Removed the duplicate legacy header layout that overrode the responsive toolbar. Removed the SN title prefix and simplified toolbar widths, spacing, and typography.",
+  "v1.2.9 - Key startup crash fix | Nov 26",
+ "Removed the key-screen descendant styling scan that was crashing startup. Roblox text strokes default to no outline; existing monochrome colors remain.",
   "v1.2.7 - Compact header and clean typography | Nov 26",
  "Reworked header sizing to adapt to the available window width and reserve space for the hub title. Removed text outlines throughout the hub, key system, and loading screen.",
   "v1.2.6 - Header, key and loading screen polish | Nov 26",
