@@ -37,7 +37,9 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
- "v1.2.6 - Header, key and loading screen polish | Nov 26",
+ "v1.2.7 - Compact header and clean typography | Nov 26",
+ "Reworked header sizing to adapt to the available window width and reserve space for the hub title. Removed text outlines throughout the hub, key system, and loading screen.",
+  "v1.2.6 - Header, key and loading screen polish | Nov 26",
  "Rebuilt the header actions into a right-aligned horizontal control rail to prevent overlap at all supported window sizes. Matched the key verification and loading screens to the flat monochrome interface.",
   "v1.2.5 - Xeno-inspired monochrome interface | Nov 26",
  "Reworked the hub with a near-black flat interface, neutral borders, compact text-only navigation, and a cleaner responsive layout. Removed emoji and decorative icon labels throughout the interface.",
@@ -280,6 +282,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  local function Label(parent, text, size, height, color)
  local item = Instance.new("TextLabel"); item.Size = UDim2.new(1, 0, 0, height or 25); item.BackgroundTransparency = 1
  item.Text = text; item.TextColor3 = color or White; item.TextSize = size or 13
+ item.TextStrokeTransparency = 1; item.TextStrokeColor3 = Color3.new(0, 0, 0)
  item.Font = Enum.Font.Gotham; item.TextXAlignment = Enum.TextXAlignment.Left; item.Parent = parent
  return item
  end
@@ -5515,6 +5518,67 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  HeaderActionLayout.Parent = HeaderActions
 
  local function LayoutHeaderControls()
+ local compact = WindowWidth < 560
+ local gap = compact and 2 or 4
+ local controls = {
+ { GUI.GlobalSearchButton, compact and "SR" or "SEARCH", compact and 20 or 54 },
+ { GUI.SidebarToggle, compact and "MN" or "MENU", compact and 20 or 44 },
+ { GearButton, compact and "ST" or "SETTINGS", compact and 20 or 66 },
+ }
+ if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 20 or 54 }) end
+ table.insert(controls, { CrownButton, compact and "RK" or "RANKS", compact and 20 or 48 })
+ table.insert(controls, { FeedbackButton, compact and "FB" or "FEEDBACK", compact and 20 or 62 })
+ table.insert(controls, { RefreshHubButton, compact and "RF" or "REFRESH", compact and 20 or 58 })
+ table.insert(controls, { MinButton, "-", compact and 20 or 25 })
+ table.insert(controls, { ExitButton, "X", compact and 20 or 25 })
+
+ local naturalWidth = gap * (#controls - 1)
+ for _, item in ipairs(controls) do naturalWidth = naturalWidth + item[3] end
+ local maxToolbarWidth = math.max(180, WindowWidth - (compact and 92 or 220))
+ local shrink = math.min(1, maxToolbarWidth / naturalWidth)
+ local actualWidth = 0
+
+ for order, item in ipairs(controls) do
+ local button, caption, natural = item[1], item[2], item[3]
+ local width = math.max(compact and 18 or 22, math.floor(natural * shrink))
+ if button then
+ button.Parent = HeaderActions
+ button.LayoutOrder = order
+ button.AutomaticSize = Enum.AutomaticSize.None
+ button.Size = UDim2.fromOffset(width, 28)
+ button.Text = caption
+ button.TextStrokeTransparency = 1
+ button.TextScaled = true
+ button.TextWrapped = false
+ button.TextTruncate = Enum.TextTruncate.AtEnd
+ button.TextXAlignment = Enum.TextXAlignment.Center
+ button.TextYAlignment = Enum.TextYAlignment.Center
+ button.Font = Enum.Font.GothamMedium
+ button.TextSize = compact and 7 or 9
+ button.ZIndex = 10
+ end
+ actualWidth = actualWidth + width
+ end
+ actualWidth = actualWidth + gap * (#controls - 1)
+ HeaderActionLayout.Padding = UDim.new(0, gap)
+ HeaderActions.Size = UDim2.fromOffset(actualWidth, 28)
+
+ local titleLabel = Header:FindFirstChildWhichIsA("TextLabel")
+ local titleWidth = math.max(58, WindowWidth - actualWidth - 42)
+ if titleLabel then
+ titleLabel.Size = UDim2.new(0, titleWidth, 0, 25)
+ titleLabel.TextStrokeTransparency = 1
+ titleLabel.TextTruncate = Enum.TextTruncate.AtEnd
+ end
+ if titleLabel then
+ for _, child in ipairs(Header:GetChildren()) do
+ if child:IsA("TextLabel") and child ~= titleLabel then
+ child.Size = UDim2.new(0, titleWidth, 0, 13)
+ child.TextStrokeTransparency = 1
+ end
+ end
+ end
+ end LayoutHeaderControls()
  local compact = WindowWidth < 720
  local controls = {
  { GUI.GlobalSearchButton, compact and "FIND" or "SEARCH", compact and 38 or 52 },
@@ -5555,6 +5619,13 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  if subtitleLabel and subtitleLabel ~= titleLabel then subtitleLabel.Size = UDim2.new(0, labelWidth, 0, 13) end
  end
  LayoutHeaderControls()
+
+ -- Enforce clean, unoutlined typography on every existing hub text object.
+ for _, descendant in ipairs(ScreenGui:GetDescendants()) do
+ if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+ descendant.TextStrokeTransparency = 1
+ end
+ end
 
  -- Restore previously enabled/disabled toggle buttons after every control has been created.
  RestorePersistedToggleStates()
