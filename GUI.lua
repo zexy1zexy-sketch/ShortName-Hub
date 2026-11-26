@@ -5526,8 +5526,12 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  x = x + width + gap
  end
  local titleRightPadding = total + 22
- HeaderTitle.Size = UDim2.new(1, -titleRightPadding, 0, 25)
- HeaderSubtitle.Size = UDim2.new(1, -titleRightPadding, 0, 13)
+ local headerLabels = {}
+ for _, child in ipairs(Header:GetChildren()) do
+ if child:IsA("TextLabel") then table.insert(headerLabels, child) end
+ end
+ if headerLabels[1] then headerLabels[1].Size = UDim2.new(1, -titleRightPadding, 0, 25) end
+ if headerLabels[2] then headerLabels[2].Size = UDim2.new(1, -titleRightPadding, 0, 13) end
  end
  LayoutHeaderControls()
 
