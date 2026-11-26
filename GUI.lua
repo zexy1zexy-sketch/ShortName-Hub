@@ -37,8 +37,12 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
+ "v1.3.1 - Feedback location and text stroke cleanup | Nov 26",
+ "Removed the FEED header button. Moved the permanent feedback form to Coming Soon. Enforced zero text stroke on all existing and dynamically created hub text objects.",
+ },
+ {
  "v1.3.0 - Header toolbar and permanent feedback feed | Nov 26",
- "Moved the quick menu into the managed horizontal toolbar so it no longer overlaps Settings and Owner/User. Added the permanent feedback form to the bottom of Updates; the FEED shortcut now opens Updates and jumps to the form.",
+ "Moved the quick menu into the managed horizontal toolbar to prevent overlap. Added the feedback form to the interface.",
  },
  {
  "v1.2.9 - Key startup crash fix | Nov 26",
@@ -405,20 +409,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  Stroke(CrownButton, Color3.fromRGB(155, 120, 65), 1)
  AddHover(CrownButton, ButtonDark, Color3.fromRGB(65, 53, 37))
 
- FeedbackButton = Instance.new("TextButton")
- FeedbackButton.Size = UDim2.fromOffset(62, 30)
- FeedbackButton.Position = UDim2.new(1, -138, 0, 8)
- FeedbackButton.BackgroundColor3 = ButtonDark
- FeedbackButton.Text = "FEEDBACK"
- FeedbackButton.TextColor3 = White
- FeedbackButton.TextSize = 16
- FeedbackButton.Font = Enum.Font.GothamBold
- FeedbackButton.Parent = Header
- FeedbackButton.ZIndex = 8
- Corner(FeedbackButton, 8)
- Stroke(FeedbackButton, Border, 1)
- AddHover(FeedbackButton, ButtonDark, Color3.fromRGB(55, 48, 69))
-
  CommunityPanel = Instance.new("Frame")
  CommunityPanel.Size = UDim2.fromOffset(244, 132)
  CommunityPanel.Position = UDim2.new(1, -254, 0, 56)
@@ -513,7 +503,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  FeedbackButton.Visible = true
  FeedbackButton.Active = true
  FeedbackClose.Activated:Connect(function()
- SelectPage("Updates")
+ SelectPage("Soon")
  end)
  FeedbackSend.Activated:Connect(function()
  local message = tostring(FeedbackBox.Text or ""):gsub("^%s*(.-)%s*$", "%1")
@@ -1014,15 +1004,6 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  CrownButton.Activated:Connect(function()
  CommunityPanel.Visible = not CommunityPanel.Visible
- end)
- FeedbackButton.Activated:Connect(function()
- CommunityPanel.Visible = false
- SelectPage("Updates")
- task.defer(function()
- if GUI.UpdatesPage and GUI.UpdatesPage.Parent then
- GUI.UpdatesPage.CanvasPosition = Vector2.new(0, math.max(0, GUI.UpdatesPage.AbsoluteCanvasSize.Y - GUI.UpdatesPage.AbsoluteSize.Y))
- end
- end)
  end)
  if GearButton then
  GearButton.Activated:Connect(function()
@@ -5279,12 +5260,12 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey)
  GUI.SoonCard = Instance.new("Frame")
  GUI.SoonCard.Size = UDim2.new(1, 0, 0, 75); GUI.SoonCard.BackgroundColor3 = ButtonDark; GUI.SoonCard.BorderSizePixel = 0
- GUI.SoonCard.Parent = SoonPage; Corner(GUI.SoonCard, 10); Stroke(GUI.SoonCard, Border, 1)
+ GUI.SoonCard.Parent = SoonPage; GUI.SoonCard.LayoutOrder = 3; Corner(GUI.SoonCard, 10); Stroke(GUI.SoonCard, Border, 1)
  AddGradient(GUI.SoonCard, Color3.fromRGB(36, 31, 49), ButtonDark, 90); GUI.SoonText = Label(GUI.SoonCard, "Stay tuned for future updates!", 12, 75,
  White)
  GUI.SoonText.TextXAlignment = Enum.TextXAlignment.Center
 
- -- Feedback is attached to Updates after its changelog has been built.
+ -- Feedback lives permanently on the Coming Soon page, below the announcement card.
 
  -- MINIMIZE BUBBLE
  GUI.MinimizeBubble = Instance.new("TextButton"); GUI.MinimizeBubble.Name = "ShortNameBubble"; GUI.MinimizeBubble.Size = UDim2.fromOffset(55, 55)
@@ -5524,8 +5505,7 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  }
  if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 22 or 48 }) end
  table.insert(controls, { CrownButton, compact and "RK" or "RANKS", compact and 22 or 48 })
- table.insert(controls, { FeedbackButton, compact and "FB" or "FEED", compact and 22 or 54 })
- table.insert(controls, { RefreshHubButton, compact and "RF" or "REFRESH", compact and 22 or 60 })
+  table.insert(controls, { RefreshHubButton, compact and "RF" or "REFRESH", compact and 22 or 60 })
  table.insert(controls, { MinButton, "-", 24 })
  table.insert(controls, { ExitButton, "X", 24 })
 
@@ -5578,31 +5558,46 @@ function GUI.Create(Config, Controller, Scythe, FightScanner, FightInspector, Fi
  end
  LayoutHeaderControls()
 
- -- Enforce clean, unoutlined typography on every existing hub text object.
+ -- Enforce clean, unoutlined typography on every current and future hub text object.
+ local function RemoveTextStroke(instance)
+ if instance:IsA("TextLabel") or instance:IsA("TextButton") or instance:IsA("TextBox") then
+ instance.TextStrokeTransparency = 1
+ instance.TextStrokeColor3 = Color3.new(0, 0, 0)
+ end
+ end
  for _, descendant in ipairs(ScreenGui:GetDescendants()) do
- if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
- descendant.TextStrokeTransparency = 1
+ RemoveTextStroke(descendant)
  end
- end
+ ScreenGui.DescendantAdded:Connect(RemoveTextStroke)
 
  -- Restore previously enabled/disabled toggle buttons after every control has been created.
  RestorePersistedToggleStates()
 
  BuildUpdatesPage(GUI.UpdatesPage, Config, CurrentAccent, ButtonDark, Border, White, Grey, Label, Corner, Stroke, Tween)
- FeedbackPanel.Name = "UpdatesFeedbackPanel"
- FeedbackPanel.Parent = GUI.UpdatesPage
+ FeedbackPanel.Name = "ComingSoonFeedbackPanel"
+ FeedbackPanel.Parent = SoonPage
  FeedbackPanel.Position = UDim2.fromOffset(0, 0)
  FeedbackPanel.Size = UDim2.new(1, 0, 0, 226)
- FeedbackPanel.LayoutOrder = 1000
+ FeedbackPanel.LayoutOrder = 4
  FeedbackPanel.BackgroundColor3 = ButtonDark
  FeedbackPanel.Visible = true
  FeedbackPanel.ZIndex = 2
- FeedbackTitle.Text = " SEND FEEDBACK"
+ FeedbackPanel.BackgroundTransparency = 0
+ FeedbackPanel.ClipsDescendants = true
+ local feedbackStroke = FeedbackPanel:FindFirstChildOfClass("UIStroke")
+ if feedbackStroke then feedbackStroke.Color = Border end
+ FeedbackTitle.Text = "SEND FEEDBACK"
+ FeedbackTitle.TextColor3 = White
+ FeedbackTitle.TextStrokeTransparency = 1
  FeedbackStatus.Text = "Share an idea or report a problem. Your message goes to the private hub feedback inbox."
  FeedbackStatus.Size = UDim2.new(1, -20, 0, 30)
  FeedbackStatus.TextSize = 9
  FeedbackBox.ZIndex = 6
+ FeedbackBox.TextStrokeTransparency = 1
  FeedbackSend.ZIndex = 6
+ FeedbackSend.BackgroundColor3 = ButtonDark
+ FeedbackSend.TextColor3 = White
+ FeedbackSend.TextStrokeTransparency = 1
  FeedbackClose.Visible = false
  SelectPage("Updates"); Tween(WindowScale, { Scale = 1 }, TweenInfo.new(0.38, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
  if Camera then
