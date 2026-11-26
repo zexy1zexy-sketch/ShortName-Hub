@@ -499,4 +499,10 @@ function KeySystem.Start()
     return AccessGranted
 end
 
-return KeySystem
+for _, descendant in ipairs(ScreenGui:GetDescendants()) do
+ if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+ descendant.TextStrokeTransparency = 1
+ end
+ end
+
+ return KeySystem
