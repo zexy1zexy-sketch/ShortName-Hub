@@ -1488,7 +1488,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  RefreshHubButton.TextColor3 = White
  RefreshHubButton.TextSize = 18
  RefreshHubButton.Font = Enum.Font.GothamBold
- RefreshHubButton.Text = "REFRESH"
+ RefreshHubButton.Text = "↻"
  RefreshHubButton.Parent = Header
  RefreshHubButton.ZIndex = 8
  RefreshHubButton.AutoButtonColor = false
@@ -4940,7 +4940,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  }
  if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 22 or 48 }) end
  table.insert(controls, { CrownButton, compact and "RK" or "RANKS", compact and 22 or 48 })
-  table.insert(controls, { RefreshHubButton, compact and "RF" or "REFRESH", compact and 22 or 60 })
+  table.insert(controls, { RefreshHubButton, "↻", compact and 24 or 28, compact and 18 or 22 })
  table.insert(controls, { MinButton, "-", 24 })
  table.insert(controls, { ExitButton, "X", 24 })
 
@@ -4959,7 +4959,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  button.AutomaticSize = Enum.AutomaticSize.None
  button.Size = UDim2.fromOffset(width, 28)
  button.Text = caption
- button.TextSize = compact and 8 or 9
+ button.TextSize = item[4] or (compact and 8 or 9)
  button.TextScaled = false
  button.TextWrapped = false
  button.TextTruncate = Enum.TextTruncate.AtEnd
