@@ -175,14 +175,50 @@ local function BuildDiagnosticConsole()
 
         local minimized = false
         local fullSize = UDim2.fromOffset(440, 300)
+        local fullPosition = frame.Position
+
+        local frameCorner = Instance.new("UICorner")
+        frameCorner.CornerRadius = UDim.new(1, 0)
+        frameCorner.Parent = frame
+
+        local minimizeCorner = Instance.new("UICorner")
+        minimizeCorner.CornerRadius = UDim.new(1, 0)
+        minimizeCorner.Parent = minimize
+
         minimize.Activated:Connect(function()
             minimized = not minimized
-            output.Visible = not minimized
-            keyBox.Visible = not minimized
-            upload.Visible = not minimized
-            status.Visible = not minimized
-            frame.Size = minimized and UDim2.fromOffset(440, 38) or fullSize
-            minimize.Text = minimized and "+" or "—"
+            if minimized then
+                fullPosition = frame.Position
+                output.Visible = false
+                title.Visible = false
+                close.Visible = false
+                keyBox.Visible = false
+                upload.Visible = false
+                status.Visible = false
+                frame.ClipsDescendants = true
+                frame.Size = UDim2.fromOffset(44, 44)
+                frame.Position = fullPosition + UDim2.fromOffset(198, 128)
+                minimize.Position = UDim2.fromOffset(0, 0)
+                minimize.Size = UDim2.fromScale(1, 1)
+                minimize.Text = "+"
+                minimize.TextSize = 22
+                minimize.BackgroundColor3 = Color3.fromRGB(112, 66, 190)
+            else
+                frame.Size = fullSize
+                frame.Position = fullPosition
+                frame.ClipsDescendants = false
+                minimize.Position = UDim2.new(1, -64, 0, 7)
+                minimize.Size = UDim2.fromOffset(28, 22)
+                minimize.Text = "—"
+                minimize.TextSize = 16
+                minimize.BackgroundColor3 = Color3.fromRGB(48, 48, 62)
+                title.Visible = true
+                close.Visible = true
+                output.Visible = true
+                keyBox.Visible = true
+                upload.Visible = true
+                status.Visible = true
+            end
         end)
         close.Activated:Connect(function()
             -- Hide rather than destroy so a later startup error can reopen the console.
