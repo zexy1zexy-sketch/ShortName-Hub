@@ -262,10 +262,21 @@ end
 
 pcall(BuildDiagnosticConsole)
 
+-- Only surface ShortName Hub's own errors in the diagnostic console.
+-- Roblox games commonly emit unrelated errors during combat/respawn (for example,
+-- missing HumanoidRootPart during void resets). Those must not interrupt gameplay.
 pcall(function()
     game:GetService("LogService").MessageOut:Connect(function(message, messageType)
-        if messageType == Enum.MessageType.MessageError then
-            local errorText = tostring(message)
+        if messageType ~= Enum.MessageType.MessageError then
+            return
+        end
+
+        local errorText = tostring(message)
+        local normalized = string.lower(errorText)
+        local isHubError = string.find(normalized, "shortname hub", 1, true)
+            or string.find(normalized, "shortnamehub", 1, true)
+
+        if isHubError then
             AddDiagnostic("ERROR: " .. errorText)
             ShowDiagnosticConsole()
         end
@@ -273,7 +284,7 @@ pcall(function()
 end)
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
-local BUILD_VERSION = "1.4.0"
+local BUILD_VERSION = "1.4.1"
 local CACHE_BUSTER = tostring(os.time()) .. "_" .. tostring(math.random(100000, 999999))
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
 
@@ -405,7 +416,7 @@ SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 -- Optional executor-supported auto-load after teleport/rejoin.
 -- The preference is stored locally so the queue can be renewed in each session.
 local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
-local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.4.0"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.4.1"
 local function GetQueueOnTeleport()
     if type(queue_on_teleport) == "function" then return queue_on_teleport end
     if type(queueonteleport) == "function" then return queueonteleport end
