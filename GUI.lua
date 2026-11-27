@@ -4917,6 +4917,8 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  HeaderActions.BackgroundTransparency = 1
  HeaderActions.Parent = Header
  HeaderActions.ZIndex = 9
+ -- Updates is a header control, not a sidebar navigation item.
+ GUI.UpdatesNav.Parent = HeaderActions
 
  local HeaderActionLayout = Instance.new("UIListLayout")
  HeaderActionLayout.FillDirection = Enum.FillDirection.Horizontal
