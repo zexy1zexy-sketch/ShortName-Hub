@@ -1902,7 +1902,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  -- NOOB INCREMENTAL: REALM 1 > FARM AREA
  -- Actions are based on the owner's uploaded outgoing MainRemote observations.
  do
- do
  local Realm1Folder = MakeFolder("REALM 1", GamePage)
  local FarmAreaFolder = MakeFolder("FARM AREA", Realm1Folder)
  Label(FarmAreaFolder, "Farm Area automation. Each enabled action repeats every 2 seconds.", 10, 30, Grey).TextWrapped = true
