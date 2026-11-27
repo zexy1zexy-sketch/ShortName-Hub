@@ -3,6 +3,8 @@
 
 -- EARLY DIAGNOSTIC CONSOLE: create this before fetching or executing any modules.
 local DiagnosticLines = {}
+local DiagnosticCounts = {}
+local DiagnosticPositions = {}
 local RequestFunction
 local GetRequestFunction
 local DiagnosticGui, DiagnosticFrame, DiagnosticOutput, DiagnosticStatus, UploadKeyBox, UploadButton
@@ -22,10 +24,28 @@ local function GetSessionUploadKey()
 end
 
 local function AddDiagnostic(message)
-    local line = os.date("%H:%M:%S") .. "  " .. tostring(message)
-    table.insert(DiagnosticLines, line)
-    while #DiagnosticLines > 120 do
-        table.remove(DiagnosticLines, 1)
+    local key = tostring(message)
+    local position = DiagnosticPositions[key]
+    if position and DiagnosticLines[position] then
+        DiagnosticCounts[key] = (DiagnosticCounts[key] or 1) + 1
+        local count = DiagnosticCounts[key]
+        DiagnosticLines[position] = os.date("%H:%M:%S") .. "  " .. key
+            .. (count > 1 and ("  (" .. tostring(count) .. "x)") or "")
+    else
+        table.insert(DiagnosticLines, os.date("%H:%M:%S") .. "  " .. key)
+        DiagnosticPositions[key] = #DiagnosticLines
+        DiagnosticCounts[key] = 1
+        while #DiagnosticLines > 120 do
+            table.remove(DiagnosticLines, 1)
+            DiagnosticPositions = {}
+            for i, line in ipairs(DiagnosticLines) do
+                local body = string.match(line, "^%d%d:%d%d:%d%d  (.*)")
+                if body then
+                    body = string.gsub(body, "  %(%d+x%)$", "")
+                    DiagnosticPositions[body] = i
+                end
+            end
+        end
     end
     if DiagnosticOutput then
         DiagnosticOutput.Text = table.concat(DiagnosticLines, "\\n")
@@ -262,29 +282,11 @@ end
 
 pcall(BuildDiagnosticConsole)
 
--- Only surface ShortName Hub's own errors in the diagnostic console.
--- Roblox games commonly emit unrelated errors during combat/respawn (for example,
--- missing HumanoidRootPart during void resets). Those must not interrupt gameplay.
-pcall(function()
-    game:GetService("LogService").MessageOut:Connect(function(message, messageType)
-        if messageType ~= Enum.MessageType.MessageError then
-            return
-        end
-
-        local errorText = tostring(message)
-        local normalized = string.lower(errorText)
-        local isHubError = string.find(normalized, "shortname hub", 1, true)
-            or string.find(normalized, "shortnamehub", 1, true)
-
-        if isHubError then
-            AddDiagnostic("ERROR: " .. errorText)
-            ShowDiagnosticConsole()
-        end
-    end)
-end)
+-- Global game errors are intentionally not subscribed to. Combat and respawn
+-- errors belong to the game and must not interrupt the Hub console.
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
-local BUILD_VERSION = "1.4.1"
+local BUILD_VERSION = "1.4.2"
 local CACHE_BUSTER = tostring(os.time()) .. "_" .. tostring(math.random(100000, 999999))
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
 
@@ -416,7 +418,7 @@ SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 -- Optional executor-supported auto-load after teleport/rejoin.
 -- The preference is stored locally so the queue can be renewed in each session.
 local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
-local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.4.1"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.4.2"
 local function GetQueueOnTeleport()
     if type(queue_on_teleport) == "function" then return queue_on_teleport end
     if type(queueonteleport) == "function" then return queueonteleport end
