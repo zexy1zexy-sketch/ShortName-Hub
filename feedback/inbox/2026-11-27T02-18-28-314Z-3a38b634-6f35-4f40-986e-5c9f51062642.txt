@@ -1,0 +1,7 @@
+SHORTNAME HUB FEEDBACK
+Received: 2026-11-27T02:18:28.314Z
+Username: shortname_zen
+User ID: 7867608166
+Identity source: Roblox client-reported
+
+it's not the refresh emoji, it's still a box. fix this or just make it say "refresh" without a stroke just like every other text. change "ranks" to "contributors" or "creds" which I prefer "creds".
