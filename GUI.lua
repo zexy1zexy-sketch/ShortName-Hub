@@ -1901,7 +1901,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  -- NOOB INCREMENTAL: REALM 1 > FARM AREA
  -- Actions are based on the owner's uploaded outgoing MainRemote observations.
- if game.PlaceId == 76911729991355 then
+ if IsNoobIncrementalExperience then
  do
  local Realm1Folder = MakeFolder("REALM 1", GamePage)
  local FarmAreaFolder = MakeFolder("FARM AREA", Realm1Folder)
