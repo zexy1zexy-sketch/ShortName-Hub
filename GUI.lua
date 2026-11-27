@@ -646,7 +646,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  if DetectionNav then DetectionNav.LayoutOrder = 8 end
  end
 
- local SidebarNavButtons = { GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, DetectionNav, SoonNav }
+ local SidebarNavButtons = { PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, DetectionNav, SoonNav }
  local function FilterSidebar(query)
  query = tostring(query or ""):lower():gsub("^%s*(.-)%s*$", "%1")
  for _, nav in ipairs(SidebarNavButtons) do
@@ -694,7 +694,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
  Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
- for _, nav in pairs({ GUI.UpdatesNav, PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
+ for _, nav in pairs({ PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
  if nav then
  nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "-") or (nav:GetAttribute("SNHFullText") or nav.Name)
  nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
@@ -1901,7 +1901,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  -- NOOB INCREMENTAL: REALM 1 > FARM AREA
  -- Actions are based on the owner's uploaded outgoing MainRemote observations.
- if IsNoobIncrementalExperience then
+ do
  do
  local Realm1Folder = MakeFolder("REALM 1", GamePage)
  local FarmAreaFolder = MakeFolder("FARM AREA", Realm1Folder)
@@ -2020,7 +2020,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  StopAllFarmActions()
  UpdateFarmToggleAllButton()
  end, Color3.fromRGB(115, 55, 65))
- end
  end
 
  -- SNH THANKSGIVING EVENT AUTOMATION
@@ -4933,6 +4932,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local gap = compact and 3 or 5
  local controls = {
  { GUI.GlobalSearchButton, compact and "SR" or "SEARCH", compact and 22 or 54 },
+  { GUI.UpdatesNav, compact and "UP" or "UPDATES", compact and 22 or 58 },
  { GUI.SidebarToggle, compact and "MN" or "MENU", compact and 22 or 44 },
  { GUI.QuickMenuButton, compact and "MR" or "MORE", compact and 22 or 48 },
  { GearButton, compact and "ST" or "SET", compact and 22 or 42 },
