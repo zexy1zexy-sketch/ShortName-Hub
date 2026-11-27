@@ -403,7 +403,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  CrownButton.Size = UDim2.fromOffset(48, 30)
  CrownButton.Position = UDim2.new(1, IsCreator and -172 or -172, 0, 8)
  CrownButton.BackgroundColor3 = ButtonDark
- CrownButton.Text = "RANKS"
+ CrownButton.Text = "CREDS"
  CrownButton.TextColor3 = White
  CrownButton.TextSize = 19
  CrownButton.Font = Enum.Font.GothamBold
@@ -1482,19 +1482,19 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
 
  RefreshHubButton = Instance.new("TextButton")
- RefreshHubButton.Size = UDim2.fromOffset(58, 30)
+ RefreshHubButton.Size = UDim2.fromOffset(68, 30)
  RefreshHubButton.Position = UDim2.new(1, -104, 0, 8)
  RefreshHubButton.BackgroundColor3 = ButtonDark
  RefreshHubButton.TextColor3 = White
- RefreshHubButton.TextSize = 18
+ RefreshHubButton.TextSize = 9
  RefreshHubButton.Font = Enum.Font.GothamBold
- RefreshHubButton.Text = "🔄"
+ RefreshHubButton.Text = "REFRESH"
  RefreshHubButton.Parent = Header
  RefreshHubButton.ZIndex = 8
  RefreshHubButton.AutoButtonColor = false
  RefreshHubButton:SetAttribute("SNHTooltip", "Refresh entire hub")
  Corner(RefreshHubButton, 8)
- Stroke(RefreshHubButton, CurrentAccent.Light, 1.2)
+ -- No text/icon stroke on the refresh control.
  AddHover(RefreshHubButton, ButtonDark, Color3.fromRGB(55, 48, 69))
 
  local RefreshBusy = false
@@ -1528,7 +1528,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
  task.wait(2)
  if RefreshHubButton.Parent then
- RefreshHubButton.Text = "🔄"
+ RefreshHubButton.Text = "REFRESH"
  end
  end
  end)
@@ -4939,8 +4939,8 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  { GearButton, compact and "ST" or "SET", compact and 22 or 42 },
  }
  if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 22 or 48 }) end
- table.insert(controls, { CrownButton, compact and "RK" or "RANKS", compact and 22 or 48 })
-  table.insert(controls, { RefreshHubButton, "🔄", compact and 26 or 30, compact and 20 or 23 })
+ table.insert(controls, { CrownButton, "CREDS", compact and 42 or 54 })
+  table.insert(controls, { RefreshHubButton, "REFRESH", compact and 52 or 68, compact and 8 or 9 })
  table.insert(controls, { MinButton, "-", 24 })
  table.insert(controls, { ExitButton, "X", 24 })
 
