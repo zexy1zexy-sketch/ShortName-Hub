@@ -1528,7 +1528,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
  task.wait(2)
  if RefreshHubButton.Parent then
- RefreshHubButton.Text = "REFRESH"
+ RefreshHubButton.Text = "↻"
  end
  end
  end)
