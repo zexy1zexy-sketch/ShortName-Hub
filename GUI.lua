@@ -1488,7 +1488,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  RefreshHubButton.TextColor3 = White
  RefreshHubButton.TextSize = 18
  RefreshHubButton.Font = Enum.Font.GothamBold
- RefreshHubButton.Text = "↻"
+ RefreshHubButton.Text = "🔄"
  RefreshHubButton.Parent = Header
  RefreshHubButton.ZIndex = 8
  RefreshHubButton.AutoButtonColor = false
@@ -1528,7 +1528,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  warn("ShortName Hub refresh failed: " .. tostring(ok and detail or result))
  task.wait(2)
  if RefreshHubButton.Parent then
- RefreshHubButton.Text = "↻"
+ RefreshHubButton.Text = "🔄"
  end
  end
  end)
@@ -4940,7 +4940,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  }
  if OwnerViewButton then table.insert(controls, { OwnerViewButton, compact and "OW" or "OWNER", compact and 22 or 48 }) end
  table.insert(controls, { CrownButton, compact and "RK" or "RANKS", compact and 22 or 48 })
-  table.insert(controls, { RefreshHubButton, "↻", compact and 24 or 28, compact and 18 or 22 })
+  table.insert(controls, { RefreshHubButton, "🔄", compact and 26 or 30, compact and 20 or 23 })
  table.insert(controls, { MinButton, "-", 24 })
  table.insert(controls, { ExitButton, "X", 24 })
 
