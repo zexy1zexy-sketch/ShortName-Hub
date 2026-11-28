@@ -608,7 +608,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  PlayerToolsNav = MakeNav("Player Tools", 5)
  SoonNav = MakeNav("Coming Soon", 6)
  if IsCreator then PlayerAdminUI.Nav = MakeNav("Players", 7) end
- DetectionNav = IsCreator and MakeNav("Detection & Observation", 8) or nil
+ DetectionNav = IsCreator and MakeNav("Observer", 8) or nil
 
  local CurrentExperienceName = tostring(game.Name or "")
  pcall(function()
@@ -694,7 +694,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  Content.Position = UDim2.new(0, SidebarWidth + 20, 0, 58)
  Content.Size = UDim2.new(1, -SidebarWidth - 30, 1, -68)
- for _, nav in pairs({ PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, SoonNav }) do
+ for _, nav in pairs({ PlayerAdminUI.Nav, PlayerToolsNav, GameNav, GUI.GuessSlapperNav, DetectionNav, SoonNav }) do
  if nav then
  nav.Text = GUI.SidebarCollapsed and (nav:GetAttribute("SNHShortText") or "-") or (nav:GetAttribute("SNHFullText") or nav.Name)
  nav.TextXAlignment = GUI.SidebarCollapsed and Enum.TextXAlignment.Center or Enum.TextXAlignment.Left
@@ -721,7 +721,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  PlayerToolsPage = MakePage("PlayerTools")
  GamePage = MakePage("NoobIncremental")
  GUI.GuessSlapperPage = MakePage("GuessTheSlapper")
- DetectionPage = IsCreator and MakePage("Detection") or nil; SoonPage = MakePage("ComingSoon"); CurrentPage = nil; CurrentAccent = { Color = Purple, Light = PurpleLight, Active = Color3.fromRGB(38, 38, 38) }
+ DetectionPage = IsCreator and MakePage("Observer") or nil; SoonPage = MakePage("ComingSoon"); CurrentPage = nil; CurrentAccent = { Color = Purple, Light = PurpleLight, Active = Color3.fromRGB(38, 38, 38) }
 
  FloatingTabsEnabled = false
  FloatingTabWindow = Instance.new("Frame")
@@ -798,7 +798,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  end)
  function SelectPage(page)
- local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Detection = DetectionPage, Soon = SoonPage }
+ local pages = { Updates = GUI.UpdatesPage, Settings = SettingsPage, Players = PlayerAdminUI.Page, PlayerTools = PlayerToolsPage, Game = GamePage, GuessSlapper = GUI.GuessSlapperPage, Observer = DetectionPage, Soon = SoonPage }
  if CurrentFloatingPage then RestoreFloatingPage() end
  local selectedPage = pages[page]
  local useFloating = FloatingTabsEnabled and page ~= "Settings" and selectedPage ~= nil
@@ -845,7 +845,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  StyleNav(PlayerToolsNav, page == "PlayerTools")
  StyleNav(GameNav, page == "Game")
  if GUI.GuessSlapperNav then StyleNav(GUI.GuessSlapperNav, page == "GuessSlapper") end
- if DetectionNav then StyleNav(DetectionNav, page == "Detection") end; StyleNav(SoonNav, page == "Soon")
+ if DetectionNav then StyleNav(DetectionNav, page == "Observer") end; StyleNav(SoonNav, page == "Soon")
  end
 
  do
@@ -1024,7 +1024,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  if DetectionNav then
  DetectionNav.Activated:Connect(function()
- if OwnerViewEnabled then SelectPage("Detection") end
+ if OwnerViewEnabled then SelectPage("Observer") end
  end)
  end
  SoonNav.Activated:Connect(function()
@@ -1790,7 +1790,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  PlayerAdminUI.Page.Visible = OwnerViewEnabled and CurrentPage == "Players"
  end
  if DetectionPage and DetectionPage.Parent then
- DetectionPage.Visible = OwnerViewEnabled and CurrentPage == "Detection"
+ DetectionPage.Visible = OwnerViewEnabled and CurrentPage == "Observer"
  end
  if not OwnerViewEnabled then
  if CurrentPage == "Players" or CurrentPage == "Detection" then
@@ -2865,8 +2865,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  -- HALLOWEEN EVENT FOLDER
  local HalloweenFolder = MakeFolder("HALLOWEEN EVENT")
 
- local DetectionToolsFolder
- do -- section scope: keeps Luau local-register usage below the 200-local limit
+  do -- section scope: keeps Luau local-register usage below the 200-local limit
  do
  -- PLAYER TOOLS: camera-based player tracking (does not move the local character).
  local PlayerToolsFolder = MakeFolder("PLAYER TOOLS", PlayerToolsPage)
@@ -3075,24 +3074,19 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end)
  end
 
+ -- OWNER-ONLY OBSERVER TAB: one top-level page, no nested detector folders.
+ local HubToggleConnection, HubExtras, RunService
  if DetectionPage then
- Label(DetectionPage, "DETECTION & OBSERVATION", 17, 30).Font = Enum.Font.GothamBold
- Label(DetectionPage, "Owner-only, game-independent tools for inspecting client-visible objects and recording observations in any Roblox experience.", 11, 34, Grey)
- end
- DetectionToolsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or GamePage, false)
+ Label(DetectionPage, "OBSERVER CONSOLE", 17, 30).Font = Enum.Font.GothamBold
+ Label(DetectionPage, "A single control center for passive client-side detectors. Choose one detector or ALL, review captured reports, then upload them to the private report inbox.", 10, 42, Grey).TextWrapped = true
 
-
- do -- unified observer console; keep the UI and callbacks in a local scope
- local Console = MakeFolder("OBSERVER CONSOLE", DetectionToolsFolder, false)
- Label(Console, "OBSERVER CONSOLE", 13, 24, White).Font = Enum.Font.GothamBold
- Label(Console, "Select a detector or use ALL to start every available read-only observer and scanner. Logs stay local until you explicitly copy or upload a report.", 10, 42, Grey).TextWrapped = true
-
+ local Console = DetectionPage
  local consoleStatus = Label(Console, "STATUS: READY", 11, 23, Color3.fromRGB(170, 210, 255))
  consoleStatus.Font = Enum.Font.GothamBold
- local consoleStats = Label(Console, "CAPTURED: 0  |  DETECTORS: 0/5", 10, 22, Grey)
+ local consoleStats = Label(Console, "CAPTURED: 0  |  REPORTS: 0/5", 10, 22, Grey)
 
+ local detectorOptions = {"ALL", "Remote Calls", "Live Changes", "Object Scanner", "Instance Inspector", "Structure Finder"}
  local selectedDetector = "Remote Calls"
- local detectorOptions = {"Remote Calls", "Live Changes", "Object Scanner", "Instance Inspector", "Structure Finder"}
  local selector = Instance.new("TextButton")
  selector.Name = "DetectorSelector"
  selector.Size = UDim2.new(1, 0, 0, 38)
@@ -3116,28 +3110,27 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local optionLayout = Instance.new("UIListLayout")
  optionLayout.Padding = UDim.new(0, 3)
  optionLayout.Parent = optionPanel
- local optionButtons = {}
- local function chooseDetector(name)
- selectedDetector = name
- selector.Text = "DETECTOR: " .. name .. "  ▾"
- optionPanel.Visible = false
- optionPanel.Size = UDim2.new(1, 0, 0, 0)
- end
  for _, name in ipairs(detectorOptions) do
  local option = Instance.new("TextButton")
  option.Size = UDim2.new(1, 0, 0, 30)
- option.BackgroundColor3 = ButtonDark
+ option.BackgroundColor3 = name == "ALL" and Color3.fromRGB(45, 75, 110) or ButtonDark
  option.TextColor3 = White
- option.Text = name
+ option.Text = name == "ALL" and "ALL — START EVERY DETECTOR" or name
  option.TextSize = 10
  option.Font = Enum.Font.GothamMedium
  option.Parent = optionPanel
  Corner(option, 4)
- option.Activated:Connect(function() chooseDetector(name) end)
- table.insert(optionButtons, option)
+ option.Activated:Connect(function()
+ selectedDetector = name
+ selector.Text = "DETECTOR: " .. name .. "  ▾"
+ optionPanel.Visible = false
+ optionPanel.Size = UDim2.new(1, 0, 0, 0)
+ end)
  end
  optionLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
- if optionPanel.Visible then optionPanel.Size = UDim2.new(1, 0, 0, optionLayout.AbsoluteContentSize.Y + 4) end
+ if optionPanel.Visible then
+ optionPanel.Size = UDim2.new(1, 0, 0, optionLayout.AbsoluteContentSize.Y + 4)
+ end
  end)
  selector.Activated:Connect(function()
  local open = not optionPanel.Visible
@@ -3145,6 +3138,21 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  optionPanel.Size = UDim2.new(1, 0, 0, open and (optionLayout.AbsoluteContentSize.Y + 4) or 0)
  selector.Text = "DETECTOR: " .. selectedDetector .. (open and "  ▴" or "  ▾")
  end)
+
+ local filterBox = Instance.new("TextBox")
+ filterBox.Name = "LogFilter"
+ filterBox.Size = UDim2.new(1, 0, 0, 32)
+ filterBox.BackgroundColor3 = ButtonDark
+ filterBox.TextColor3 = White
+ filterBox.PlaceholderColor3 = Grey
+ filterBox.PlaceholderText = "Filter logs by detector or text..."
+ filterBox.Text = ""
+ filterBox.TextSize = 10
+ filterBox.Font = Enum.Font.Gotham
+ filterBox.ClearTextOnFocus = false
+ filterBox.Parent = Console
+ Corner(filterBox, 5)
+ Stroke(filterBox, Border, 1)
 
  local logBox = Instance.new("TextBox")
  logBox.Name = "ObserverLog"
@@ -3166,22 +3174,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  Corner(logBox, 5)
  Stroke(logBox, Border, 1)
 
- local filterBox = Instance.new("TextBox")
- filterBox.Name = "LogFilter"
- filterBox.Size = UDim2.new(1, 0, 0, 32)
- filterBox.BackgroundColor3 = ButtonDark
- filterBox.TextColor3 = White
- filterBox.PlaceholderColor3 = Grey
- filterBox.PlaceholderText = "Filter logs by category or text..."
- filterBox.Text = ""
- filterBox.TextSize = 10
- filterBox.Font = Enum.Font.Gotham
- filterBox.ClearTextOnFocus = false
- filterBox.Parent = Console
- Corner(filterBox, 5)
- Stroke(filterBox, Border, 1)
-
- local consoleRunning = false
  local consolePaused = false
  local consoleBuffer = {}
  local consoleFilter = ""
@@ -3203,7 +3195,10 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  renderConsole()
  end
- filterBox:GetPropertyChangedSignal("Text"):Connect(function() consoleFilter = string.lower(tostring(filterBox.Text or "")); renderConsole() end)
+ filterBox:GetPropertyChangedSignal("Text"):Connect(function()
+ consoleFilter = string.lower(tostring(filterBox.Text or ""))
+ renderConsole()
+ end)
  local function appendConsole(line)
  if consolePaused then return end
  table.insert(consoleBuffer, os.date("[%H:%M:%S] ") .. tostring(line))
@@ -3217,25 +3212,27 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  if ok and type(result) == "string" and result ~= "" then return result end
  return nil
  end
-
- local function refreshConsole()
+ local function buildCombinedReport()
  local sections = {}
- local total = 0
  local function addSection(title, moduleRef)
  local report = getReport(moduleRef, "GetReport")
- if report then
- table.insert(sections, "========== " .. title .. " ==========\n" .. report)
- total += 1
+ if report then table.insert(sections, "========== " .. title .. " ==========\n" .. report) end
  end
- end
+ table.insert(sections, "SHORTNAME HUB — OBSERVER CONSOLE")
+ table.insert(sections, "Captured: " .. os.date("!%Y-%m-%d %H:%M:%S UTC"))
+ table.insert(sections, "Game: " .. tostring(game.Name) .. " | PlaceId: " .. tostring(game.PlaceId) .. " | UniverseId: " .. tostring(game.GameId))
+ table.insert(sections, "Player: " .. tostring(LocalPlayer and LocalPlayer.Name or "Unknown"))
  addSection("REMOTE CALLS", RemoteLogger)
  addSection("LIVE CHANGES", LiveObserver)
  addSection("OBJECT SCAN", ObjectScanner)
  addSection("INSTANCE INSPECTION", InstanceInspector)
  addSection("STRUCTURE FINDER", StructureScanner)
- local combined = table.concat(sections, "\n\n")
- if combined ~= "" then
- setConsoleText(combined)
+ return table.concat(sections, "\n\n")
+ end
+ local function refreshConsole()
+ local report = buildCombinedReport()
+ if report ~= "" then
+ setConsoleText(report)
  elseif #consoleBuffer == 0 then
  setConsoleText("[OBSERVER] No report data yet. Start a detector and use the game normally.")
  end
@@ -3248,7 +3245,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local ok, count = pcall(function() return LiveObserver:GetChangeCount() end)
  if ok then captured += tonumber(count) or 0 end
  end
- consoleStats.Text = "CAPTURED: " .. tostring(captured) .. "  |  REPORTS: " .. tostring(total) .. "/5"
+ consoleStats.Text = "CAPTURED: " .. tostring(captured) .. "  |  REPORTS: 5"
  end
 
  local function startOne(name)
@@ -3259,66 +3256,73 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  else appendConsole("[REMOTE_CALLS] MODULE NOT LOADED") end
  elseif name == "Live Changes" then
  if LiveObserver and type(LiveObserver.Start) == "function" then
- local ok, result = pcall(function() return LiveObserver:Start(function(status, watched, changes)
+ local ok, result = pcall(function()
+ return LiveObserver:Start(function(status, watched, changes)
  consoleStatus.Text = "STATUS: " .. tostring(status)
  consoleStats.Text = "WATCHING: " .. tostring(watched or 0) .. "  |  CHANGES: " .. tostring(changes or 0)
  appendConsole("[LIVE_CHANGES] " .. tostring(status))
- end) end)
+ end)
+ end)
  appendConsole("[LIVE_CHANGES] " .. tostring(ok and result or result))
  else appendConsole("[LIVE_CHANGES] MODULE NOT LOADED") end
  elseif name == "Object Scanner" then
  if ObjectScanner and type(ObjectScanner.Start) == "function" then
- local ok, result = pcall(function() return ObjectScanner:Start(function(status, count)
+ local ok, result = pcall(function()
+ return ObjectScanner:Start(function(status, count)
  consoleStatus.Text = "STATUS: " .. tostring(status)
  consoleStats.Text = "OBJECT DISCOVERIES: " .. tostring(count or 0)
- if tostring(status):find("COMPLETE", 1, true) or tostring(status):find("LIMIT REACHED", 1, true) then
- task.defer(refreshConsole)
- end
- end) end)
+ if tostring(status):find("COMPLETE", 1, true) or tostring(status):find("LIMIT REACHED", 1, true) then task.defer(refreshConsole) end
+ end)
+ end)
  appendConsole("[OBJECT_SCANNER] " .. tostring(ok and result or result))
  else appendConsole("[OBJECT_SCANNER] MODULE NOT LOADED") end
  elseif name == "Instance Inspector" then
  if InstanceInspector and type(InstanceInspector.Inspect) == "function" then
  task.spawn(function()
- local ok, result, count = pcall(function() return InstanceInspector:Inspect(function(status, total)
+ local ok, result, count = pcall(function()
+ return InstanceInspector:Inspect(function(status, total)
  consoleStatus.Text = "STATUS: " .. tostring(status)
  consoleStats.Text = "OBJECTS INSPECTED: " .. tostring(total or 0)
- end) end)
+ end)
+ end)
  appendConsole("[INSTANCE_INSPECTOR] " .. tostring(ok and (result and ("COMPLETE (" .. tostring(count or 0) .. ")") or "FAILED") or result))
  refreshConsole()
  end)
  else appendConsole("[INSTANCE_INSPECTOR] MODULE NOT LOADED") end
  elseif name == "Structure Finder" then
  if StructureScanner and type(StructureScanner.Start) == "function" then
- local ok, result = pcall(function() return StructureScanner:Start(function(status, count)
+ local ok, result = pcall(function()
+ return StructureScanner:Start(function(status, count)
  consoleStatus.Text = "STATUS: " .. tostring(status)
  consoleStats.Text = "STRUCTURE DISCOVERIES: " .. tostring(count or 0)
- if tostring(status):find("COMPLETE", 1, true) or tostring(status):find("LIMIT REACHED", 1, true) then
- task.defer(refreshConsole)
- end
- end) end)
+ if tostring(status):find("COMPLETE", 1, true) or tostring(status):find("LIMIT REACHED", 1, true) then task.defer(refreshConsole) end
+ end)
+ end)
  appendConsole("[STRUCTURE_FINDER] " .. tostring(ok and result or result))
  else appendConsole("[STRUCTURE_FINDER] MODULE NOT LOADED") end
  end
  refreshConsole()
  end
-
  local function startAll()
- consoleRunning = true
  consoleStatus.Text = "STATUS: STARTING ALL DETECTORS"
  appendConsole("[ALL] Starting every available detector...")
- for _, name in ipairs(detectorOptions) do startOne(name) end
- consoleStatus.Text = "STATUS: ALL DETECTORS REQUESTED"
- appendConsole("[ALL] Start requests sent. Some detectors perform one-time scans; live observers remain active.")
+ for _, name in ipairs(detectorOptions) do
+ if name ~= "ALL" then startOne(name) end
  end
+ consoleStatus.Text = "STATUS: ALL DETECTORS REQUESTED"
+ appendConsole("[ALL] Start requests sent. One-time scans will complete; live observers remain active.")
+ end
+
  MakeButton(Console, "START SELECTED DETECTOR", function()
- consoleRunning = true
+ if selectedDetector == "ALL" then
+ startAll()
+ else
  startOne(selectedDetector)
  consoleStatus.Text = "STATUS: " .. selectedDetector:upper() .. " START REQUESTED"
+ end
  end, Color3.fromRGB(45, 105, 75))
  MakeButton(Console, "ALL — START EVERY DETECTOR", startAll, Color3.fromRGB(65, 85, 125))
  MakeButton(Console, "STOP ALL LIVE DETECTORS", function()
- consoleRunning = false
  if RemoteLogger and type(RemoteLogger.Stop) == "function" then pcall(function() RemoteLogger:Stop() end) end
  if LiveObserver and type(LiveObserver.Stop) == "function" then pcall(function() LiveObserver:Stop() end) end
  if ObjectScanner and type(ObjectScanner.Stop) == "function" then pcall(function() ObjectScanner:Stop() end) end
@@ -3335,11 +3339,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  MakeButton(Console, "CLEAR LOGS", function()
  table.clear(consoleBuffer)
  logBox.Text = ""
- if RemoteLogger and type(RemoteLogger.Clear) == "function" then pcall(function() RemoteLogger:Clear() end) end
- if LiveObserver and type(LiveObserver.Clear) == "function" then pcall(function() LiveObserver:Clear() end) end
- if ObjectScanner and type(ObjectScanner.Clear) == "function" then pcall(function() ObjectScanner:Clear() end) end
- if StructureScanner and type(StructureScanner.Clear) == "function" then pcall(function() StructureScanner:Clear() end) end
- if InstanceInspector and type(InstanceInspector.Clear) == "function" then pcall(function() InstanceInspector:Clear() end) end
+ for _, moduleRef in ipairs({RemoteLogger, LiveObserver, ObjectScanner, InstanceInspector, StructureScanner}) do
+ if moduleRef and type(moduleRef.Clear) == "function" then pcall(function() moduleRef:Clear() end) end
+ end
  consoleStats.Text = "CAPTURED: 0  |  REPORTS: 0/5"
  consoleStatus.Text = "STATUS: LOGS CLEARED"
  end, Color3.fromRGB(75, 75, 75))
@@ -3351,597 +3353,58 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(allLogs) end) end
  consoleStatus.Text = copied and "STATUS: LOGS COPIED" or "STATUS: CLIPBOARD UNAVAILABLE"
  end, Color3.fromRGB(65, 90, 130))
- Label(Console, "NOTE: This console combines reports from existing client-side detectors. It cannot see server-only activity or another player's private traffic. Remote logging records outgoing client calls only.", 9, 48, Grey).TextWrapped = true
- local layoutIndex = 0
- for _, child in ipairs(Console:GetChildren()) do
- -- UIListLayout and UIPadding are not GuiObjects and do not have LayoutOrder.
- if child:IsA("GuiObject") then
- if child == logBox then
- layoutIndex += 1
- filterBox.LayoutOrder = layoutIndex
- layoutIndex += 1
- logBox.LayoutOrder = layoutIndex
- elseif child ~= filterBox then
- layoutIndex += 1
- child.LayoutOrder = layoutIndex
- end
- end
- end
- end
 
- -- Universal tools only: game-specific scanners remain on their respective game pages.
- local ObjectScannerFolder = MakeFolder("UNIVERSAL OBJECT SCANNER", DetectionToolsFolder, false)
-
- Label(ObjectScannerFolder, "UNIVERSAL OBJECT SCANNER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(
- ObjectScannerFolder,
- "Scans client-visible objects and UI across any Roblox experience for gameplay, interface, progression, economy, social, and system signals.",
- 10,
- 38,
- Grey
- )
-
- local ScannerStatus = Label(ObjectScannerFolder, "SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
- ScannerStatus.Font = Enum.Font.GothamBold
-
- local ScannerCount = Label(ObjectScannerFolder, "DISCOVERIES: 0", 10, 22, Grey)
-
- local function UpdateScannerDisplay(status, count)
- if status ~= nil then
- ScannerStatus.Text = "SCANNER: " .. tostring(status)
- end
-
- if count ~= nil then
- ScannerCount.Text = "DISCOVERIES: " .. tostring(count)
- elseif ObjectScanner and type(ObjectScanner.GetCount) == "function" then
- local ok, result = pcall(function()
- return ObjectScanner:GetCount()
+ local uploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
+ MakeBox(Console, "OWNER UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", uploadKey, function(value)
+ uploadKey = tostring(value or "")
+ UploadKeyCache.__SHORTNAME_UPLOAD_KEY = uploadKey
  end)
- if ok then
- ScannerCount.Text = "DISCOVERIES: " .. tostring(result)
- end
- end
- end
-
- local UploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(ObjectScannerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", UploadKey, function(value)
- UploadKey = tostring(value or "")
- UploadKeyCache.__SHORTNAME_UPLOAD_KEY = UploadKey
- end)
-
- MakeButton(ObjectScannerFolder, "UPLOAD REPORT", function()
- if not ObjectScanner or type(ObjectScanner.UploadReport) ~= "function" then
- UpdateScannerDisplay("UPLOAD MODULE NOT LOADED", nil)
+ MakeButton(Console, "UPLOAD OBSERVER REPORT", function()
+ if uploadKey == "" then
+ consoleStatus.Text = "STATUS: ENTER UPLOAD KEY FIRST"
  return
  end
-
- if UploadKey == "" then
- UpdateScannerDisplay("ENTER UPLOAD KEY FIRST", nil)
+ local requestFunction
+ if type(request) == "function" then requestFunction = request
+ elseif type(http_request) == "function" then requestFunction = http_request
+ elseif syn and type(syn.request) == "function" then requestFunction = syn.request
+ elseif http and type(http.request) == "function" then requestFunction = http.request
+ elseif fluxus and type(fluxus.request) == "function" then requestFunction = fluxus.request
+ end
+ if not requestFunction then
+ consoleStatus.Text = "STATUS: EXECUTOR HTTP REQUEST API UNAVAILABLE"
  return
  end
-
- UpdateScannerDisplay("UPLOADING REPORT...", nil)
-
+ consoleStatus.Text = "STATUS: UPLOADING OBSERVER REPORT..."
  task.spawn(function()
- local ok, success, message = pcall(function()
- return ObjectScanner:UploadReport(UploadKey)
+ local HttpService = game:GetService("HttpService")
+ local report = buildCombinedReport()
+ if #report < 20 then
+ consoleStatus.Text = "STATUS: NO REPORT DATA TO UPLOAD"
+ return
+ end
+ local sent, response = pcall(function()
+ return requestFunction({
+ Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
+ Method = "POST",
+ Timeout = 45,
+ Headers = {["Content-Type"] = "application/json", ["x-upload-key"] = uploadKey},
+ Body = HttpService:JSONEncode({report = report})
+ })
  end)
-
- if not ok then
- UpdateScannerDisplay("UPLOAD ERROR: " .. tostring(success), nil)
- elseif success then
- UpdateScannerDisplay(message or "UPLOADED TO GITHUB", nil)
-
+ local code = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
+ local body = type(response) == "table" and (response.Body or response.body or "") or tostring(response)
+ local decodedOk, decoded = pcall(function() return HttpService:JSONDecode(body) end)
+ if sent and code == 200 and decodedOk and type(decoded) == "table" and decoded.ok == true then
+ consoleStatus.Text = "STATUS: UPLOAD CONFIRMED — SAVED TO GITHUB"
+ appendConsole("[UPLOAD] Report saved to scanner-reports/latest.txt")
  else
- UpdateScannerDisplay("UPLOAD FAILED: " .. tostring(message), nil)
+ consoleStatus.Text = "STATUS: UPLOAD FAILED — HTTP " .. tostring(code) .. " — " .. tostring(body):sub(1, 90)
  end
  end)
  end, Color3.fromRGB(45, 105, 145))
-
- MakeButton(ObjectScannerFolder, "START SCAN", function()
- if not ObjectScanner then
- UpdateScannerDisplay("MODULE NOT LOADED", 0)
- return
- end
-
- local ok, result = pcall(function()
- return ObjectScanner:Start(function(status, count)
- UpdateScannerDisplay(status, count)
- end)
- end)
-
- if ok then
- UpdateScannerDisplay(type(result) == "string" and result or "SCANNING", nil)
-
- else
- UpdateScannerDisplay("ERROR: " .. tostring(result), nil)
- end
- end, Color3.fromRGB(45, 115, 75))
-
- MakeButton(ObjectScannerFolder, "STOP SCAN", function()
- if ObjectScanner and type(ObjectScanner.Stop) == "function" then
- local ok, err = pcall(function()
- ObjectScanner:Stop()
- end)
- UpdateScannerDisplay(ok and "STOPPED" or ("ERROR: " .. tostring(err)), nil)
-
- else
- UpdateScannerDisplay("MODULE NOT LOADED", nil)
- end
- end, Color3.fromRGB(125, 75, 55))
-
- MakeButton(ObjectScannerFolder, "COPY REPORT", function()
- if not ObjectScanner or type(ObjectScanner.GetReport) ~= "function" then
- UpdateScannerDisplay("MODULE NOT LOADED", nil)
- return
- end
-
- local ok, report = pcall(function()
- return ObjectScanner:GetReport()
- end)
-
- if not ok then
- UpdateScannerDisplay("REPORT ERROR", nil)
- return
- end
-
- local copied = false
- if type(setclipboard) == "function" then
- copied = pcall(function()
- setclipboard(report)
- end)
- end
- if not copied and type(toclipboard) == "function" then
- copied = pcall(function()
- toclipboard(report)
- end)
- end
-
- UpdateScannerDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
- end)
-
- MakeButton(ObjectScannerFolder, "CLEAR REPORT", function()
- if ObjectScanner and type(ObjectScanner.Clear) == "function" then
- local ok, err = pcall(function()
- ObjectScanner:Clear()
- end)
- if ok then
- UpdateScannerDisplay("REPORT CLEARED", 0)
- else
- UpdateScannerDisplay("ERROR: " .. tostring(err), nil)
- end
- else
- UpdateScannerDisplay("MODULE NOT LOADED", nil)
- end
- end, Color3.fromRGB(85, 75, 105))
-
-
- -- READ-ONLY INSTANCE INSPECTOR
- local InstanceInspectorFolder = MakeFolder("UNIVERSAL INSTANCE INSPECTOR", DetectionToolsFolder, false)
- Label(InstanceInspectorFolder, "UNIVERSAL INSTANCE INSPECTOR", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(
- InstanceInspectorFolder,
- "Inspects client-visible instances across any experience, including class counts, remotes, script/module names, and UI metadata. It never calls remotes or reads script source.",
- 10,
- 48,
- Grey
- )
- local InspectorStatus = Label(InstanceInspectorFolder, "INSPECTOR: READY", 11, 24, Color3.fromRGB(170, 210, 255))
- InspectorStatus.Font = Enum.Font.GothamBold
- local InspectorCount = Label(InstanceInspectorFolder, "OBJECTS INSPECTED: 0", 10, 22, Grey)
-
- local function UpdateInspectorDisplay(status, count)
- if status ~= nil then
- InspectorStatus.Text = "INSPECTOR: " .. tostring(status)
- end
- if count ~= nil then
- InspectorCount.Text = "OBJECTS INSPECTED: " .. tostring(count)
- elseif InstanceInspector and type(InstanceInspector.GetCount) == "function" then
- local ok, result = pcall(function() return InstanceInspector:GetCount() end)
- if ok then InspectorCount.Text = "OBJECTS INSPECTED: " .. tostring(result) end
- end
- end
-
- MakeButton(InstanceInspectorFolder, "INSPECT ALL VISIBLE SYSTEMS", function()
- if not InstanceInspector or type(InstanceInspector.Inspect) ~= "function" then
- UpdateInspectorDisplay("MODULE NOT LOADED", nil)
- return
- end
- UpdateInspectorDisplay("INSPECTING...", 0)
- task.spawn(function()
- local ok, success, count = pcall(function()
- return InstanceInspector:Inspect(function(status, total)
- UpdateInspectorDisplay(status, total)
- end)
- end)
- if not ok then
- UpdateInspectorDisplay("ERROR: " .. tostring(success), nil)
- elseif success then
- UpdateInspectorDisplay("INSPECTION COMPLETE", count or 0)
- else
- UpdateInspectorDisplay("INSPECTION FAILED", nil)
- end
- end)
- end, Color3.fromRGB(45, 115, 75))
-
- MakeButton(InstanceInspectorFolder, "COPY UNIVERSAL INSPECTION", function()
- if not InstanceInspector or type(InstanceInspector.GetReport) ~= "function" then
- UpdateInspectorDisplay("MODULE NOT LOADED", nil)
- return
- end
- local ok, report = pcall(function() return InstanceInspector:GetReport() end)
- if not ok then
- UpdateInspectorDisplay("REPORT ERROR", nil)
- return
- end
- local copied = false
- if type(setclipboard) == "function" then
- copied = pcall(function() setclipboard(report) end)
- end
- if not copied and type(toclipboard) == "function" then
- copied = pcall(function() toclipboard(report) end)
- end
- UpdateInspectorDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
- end)
-
- MakeButton(InstanceInspectorFolder, "CLEAR INSPECTION", function()
- if InstanceInspector and type(InstanceInspector.Clear) == "function" then
- local ok = pcall(function() InstanceInspector:Clear() end)
- UpdateInspectorDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
- else
- UpdateInspectorDisplay("MODULE NOT LOADED", nil)
- end
- end, Color3.fromRGB(85, 75, 105))
-
- end
- do -- section scope: keeps Luau local-register usage below the 200-local limit
- -- PASSIVE UNIVERSAL STRUCTURE SCANNER
- local StructureFolder = MakeFolder("UNIVERSAL STRUCTURE FINDER", DetectionToolsFolder, false)
- Label(StructureFolder, "UNIVERSAL STRUCTURE FINDER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(
- StructureFolder,
- "Inventories client-visible systems and RemoteEvent/RemoteFunction names and paths across any experience. It never invokes them or reads script source.",
- 10,
- 50,
- Grey
- )
- local StructureStatus = Label(StructureFolder, "STRUCTURE SCANNER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
- StructureStatus.Font = Enum.Font.GothamBold
- local StructureCount = Label(StructureFolder, "DISCOVERIES: 0", 10, 22, Grey)
-
- local function UpdateStructureDisplay(status, count)
- if status ~= nil then
- StructureStatus.Text = "STRUCTURE SCANNER: " .. tostring(status)
- end
- if count ~= nil then
- StructureCount.Text = "DISCOVERIES: " .. tostring(count)
- elseif StructureScanner and type(StructureScanner.GetCount) == "function" then
- local ok, result = pcall(function() return StructureScanner:GetCount() end)
- if ok then StructureCount.Text = "DISCOVERIES: " .. tostring(result) end
- end
- end
-
- local StructureUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(StructureFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", StructureUploadKey, function(value)
- StructureUploadKey = tostring(value or "")
- UploadKeyCache.__SHORTNAME_UPLOAD_KEY = StructureUploadKey
- end)
-
- MakeButton(StructureFolder, "UPLOAD UNIVERSAL STRUCTURE REPORT", function()
- if not StructureScanner or type(StructureScanner.UploadReport) ~= "function" then
- UpdateStructureDisplay("UPLOAD MODULE NOT LOADED", nil)
- return
- end
- if StructureUploadKey == "" then
- UpdateStructureDisplay("ENTER UPLOAD KEY FIRST", nil)
- return
- end
- UpdateStructureDisplay("UPLOADING REPORT...", nil)
- task.spawn(function()
- local ok, success, message = pcall(function()
- return StructureScanner:UploadReport(StructureUploadKey)
- end)
- if not ok then
- UpdateStructureDisplay("UPLOAD ERROR: " .. tostring(success), nil)
- elseif success then
- UpdateStructureDisplay(message or "UPLOADED TO GITHUB", nil)
- else
- UpdateStructureDisplay("UPLOAD FAILED: " .. tostring(message), nil)
- end
- end)
- end, Color3.fromRGB(45, 105, 145))
-
- MakeButton(StructureFolder, "START UNIVERSAL STRUCTURE SCAN", function()
- if not StructureScanner or type(StructureScanner.Start) ~= "function" then
- UpdateStructureDisplay("MODULE NOT LOADED", nil)
- return
- end
- UpdateStructureDisplay("STARTING...", 0)
- local ok, result = pcall(function()
- return StructureScanner:Start(function(status, count)
- UpdateStructureDisplay(status, count)
- end)
- end)
- if not ok then
- UpdateStructureDisplay("ERROR: " .. tostring(result), nil)
- else
- UpdateStructureDisplay(type(result) == "string" and result or "SCANNING", nil)
- end
- end, Color3.fromRGB(45, 115, 75))
-
- MakeButton(StructureFolder, "STOP STRUCTURE SCAN", function()
- if StructureScanner and type(StructureScanner.Stop) == "function" then
- local ok = pcall(function() StructureScanner:Stop() end)
- UpdateStructureDisplay(ok and "STOPPED" or "STOP FAILED", nil)
- else
- UpdateStructureDisplay("MODULE NOT LOADED", nil)
- end
- end, Color3.fromRGB(125, 75, 55))
-
- MakeButton(StructureFolder, "COPY UNIVERSAL STRUCTURE REPORT", function()
- if not StructureScanner or type(StructureScanner.GetReport) ~= "function" then
- UpdateStructureDisplay("MODULE NOT LOADED", nil)
- return
- end
- local ok, report = pcall(function() return StructureScanner:GetReport() end)
- if not ok then
- UpdateStructureDisplay("REPORT ERROR", nil)
- return
- end
- local copied = false
- if type(setclipboard) == "function" then
- copied = pcall(function() setclipboard(report) end)
- end
- if not copied and type(toclipboard) == "function" then
- copied = pcall(function() toclipboard(report) end)
- end
- UpdateStructureDisplay(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE", nil)
- end)
-
- MakeButton(StructureFolder, "CLEAR UNIVERSAL STRUCTURE REPORT", function()
- if StructureScanner and type(StructureScanner.Clear) == "function" then
- local ok = pcall(function() StructureScanner:Clear() end)
- UpdateStructureDisplay(ok and "CLEARED" or "CLEAR FAILED", 0)
- else
- UpdateStructureDisplay("MODULE NOT LOADED", nil)
- end
- end, Color3.fromRGB(85, 75, 105))
-
- end
- local HubToggleConnection, HubExtras, RunService
- do -- section scope: keeps Luau local-register usage below the 200-local limit
- -- UNIVERSAL LIVE CHANGE OBSERVER
- local LiveObserverFolder = MakeFolder("UNIVERSAL LIVE OBSERVER", DetectionToolsFolder, false)
- Label(LiveObserverFolder, "UNIVERSAL LIVE CHANGE OBSERVER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(
- LiveObserverFolder,
- "Passively tracks changes to client-visible Value objects and UI labels/buttons in any experience. Chat, text-entry, and sensitive-looking paths are excluded.",
- 10,
- 48,
- Grey
- )
- local LiveObserverStatus = Label(LiveObserverFolder, "OBSERVER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
- LiveObserverStatus.Font = Enum.Font.GothamBold
- local LiveObserverCount = Label(LiveObserverFolder, "WATCHING: 0 | CHANGES: 0", 10, 22, Grey)
- local function UpdateLiveObserver(status, watched, changes)
- if status then LiveObserverStatus.Text = "OBSERVER: " .. tostring(status) end
- if watched == nil and LiveObserver and type(LiveObserver.GetCount) == "function" then
- local ok, count = pcall(function() return LiveObserver:GetCount() end)
- if ok then watched = count end
- end
- if changes == nil and LiveObserver and type(LiveObserver.GetChangeCount) == "function" then
- local ok, count = pcall(function() return LiveObserver:GetChangeCount() end)
- if ok then changes = count end
- end
- LiveObserverCount.Text = "WATCHING: " .. tostring(watched or 0) .. " | CHANGES: " .. tostring(changes or 0)
- end
- local LiveObserverUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(LiveObserverFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", LiveObserverUploadKey, function(value)
- LiveObserverUploadKey = tostring(value or "")
- UploadKeyCache.__SHORTNAME_UPLOAD_KEY = LiveObserverUploadKey
- end)
-
- MakeButton(LiveObserverFolder, "START UNIVERSAL LIVE OBSERVER", function()
- if not LiveObserver or type(LiveObserver.Start) ~= "function" then
- UpdateLiveObserver("MODULE NOT LOADED")
- return
- end
- local ok, result = pcall(function()
- return LiveObserver:Start(function(status, watched, changes)
- UpdateLiveObserver(status, watched, changes)
- end)
- end)
- if ok then UpdateLiveObserver(result or "STARTED") else UpdateLiveObserver("ERROR: " .. tostring(result)) end
- end, Color3.fromRGB(45, 115, 75))
-
- MakeButton(LiveObserverFolder, "STOP UNIVERSAL LIVE OBSERVER", function()
- if LiveObserver and type(LiveObserver.Stop) == "function" then
- local ok = pcall(function() LiveObserver:Stop() end)
- UpdateLiveObserver(ok and "STOPPED" or "STOP FAILED")
- else
- UpdateLiveObserver("MODULE NOT LOADED")
- end
- end, Color3.fromRGB(125, 75, 55))
-
- MakeButton(LiveObserverFolder, "UPLOAD LIVE OBSERVATION REPORT", function()
- if not LiveObserver or type(LiveObserver.UploadReport) ~= "function" then
- UpdateLiveObserver("MODULE NOT LOADED")
- return
- end
- if LiveObserverUploadKey == "" then
- UpdateLiveObserver("ENTER UPLOAD KEY FIRST")
- return
- end
- UpdateLiveObserver("UPLOADING REPORT...")
- task.spawn(function()
- local ok, success, message = pcall(function()
- return LiveObserver:UploadReport(LiveObserverUploadKey)
- end)
- if not ok then
- UpdateLiveObserver("UPLOAD ERROR: " .. tostring(success))
- elseif success then
- UpdateLiveObserver(message or "REPORT UPLOADED")
- else
- UpdateLiveObserver("UPLOAD FAILED: " .. tostring(message))
- end
- end)
- end, Color3.fromRGB(45, 105, 145))
-
- MakeButton(LiveObserverFolder, "COPY LIVE OBSERVATION REPORT", function()
- if not LiveObserver or type(LiveObserver.GetReport) ~= "function" then
- UpdateLiveObserver("MODULE NOT LOADED")
- return
- end
- local ok, report = pcall(function() return LiveObserver:GetReport() end)
- if not ok then UpdateLiveObserver("REPORT ERROR"); return end
- local copied = false
- if type(setclipboard) == "function" then copied = pcall(function() setclipboard(report) end) end
- if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(report) end) end
- UpdateLiveObserver(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE")
- end)
-
- MakeButton(LiveObserverFolder, "CLEAR LIVE OBSERVATION HISTORY", function()
- if LiveObserver and type(LiveObserver.Clear) == "function" then
- local ok = pcall(function() LiveObserver:Clear() end)
- UpdateLiveObserver(ok and "HISTORY CLEARED" or "CLEAR FAILED", nil, 0)
- else
- UpdateLiveObserver("MODULE NOT LOADED")
- end
- end, Color3.fromRGB(85, 75, 105))
-
- do -- bounded remote logger UI; owner-only Detection & Observation page
- local RemoteLoggerFolder = MakeFolder("UNIVERSAL REMOTE LOGGER", DetectionToolsFolder, false)
- Label(RemoteLoggerFolder, "UNIVERSAL REMOTE LOGGER", 12, 24, PurpleLight).Font = Enum.Font.GothamBold
- Label(RemoteLoggerFolder,
- "Records outgoing remote/bindable method, full instance path, and arguments from this client. Use a few in-game actions, refresh, then upload the report so features can be built from the captured calls.",
- 10, 52, Grey).TextWrapped = true
-
- local RemoteLoggerStatus = Label(RemoteLoggerFolder, "REMOTE LOGGER: READY", 11, 24, Color3.fromRGB(170, 210, 255))
- RemoteLoggerStatus.Font = Enum.Font.GothamBold
- local RemoteLoggerStats = Label(RemoteLoggerFolder, "CAPTURED: 0 | STORED: 0 | MAINREMOTE: 0", 10, 22, Grey)
- local RemoteLoggerPreview = Label(RemoteLoggerFolder, "No remote calls captured yet. Start the logger, use the game normally, then refresh this view.", 9, 96, Grey)
- RemoteLoggerPreview.TextWrapped = true
- RemoteLoggerPreview.TextYAlignment = Enum.TextYAlignment.Top
-
- local function RefreshRemoteLoggerView(status)
- if not RemoteLogger then
- RemoteLoggerStatus.Text = "REMOTE LOGGER: MODULE NOT LOADED"
- return
- end
- local ok, stats = pcall(function() return RemoteLogger:GetStats() end)
- if not ok then
- RemoteLoggerStatus.Text = "REMOTE LOGGER: STATS ERROR"
- return
- end
- RemoteLoggerStats.Text = "CAPTURED: " .. tostring(stats.Total or 0)
- .. " | STORED: " .. tostring(stats.Stored or 0)
- .. " | MAINREMOTE: " .. tostring(stats.MainRemote or 0)
- .. " | DROPPED: " .. tostring(stats.Dropped or 0)
- local entries = RemoteLogger:GetEntries(14)
- table.sort(entries, function(a, b)
- local am = a.Name == "MainRemote"
- local bm = b.Name == "MainRemote"
- if am ~= bm then return am end
- return tostring(a.Time) > tostring(b.Time)
- end)
- local lines = {}
- for _, entry in ipairs(entries) do
- local argsText = "nil"
- pcall(function()
- argsText = game:GetService("HttpService"):JSONEncode(entry.Arguments)
- end)
- table.insert(lines, "[" .. tostring(entry.Time) .. "] "
- .. (entry.Name == "MainRemote" and "★ " or "")
- .. tostring(entry.Class) .. "." .. tostring(entry.Method)
- .. " | " .. tostring(entry.Path) .. "\nARGS: " .. tostring(argsText))
- end
- RemoteLoggerPreview.Text = #lines > 0 and table.concat(lines, "\n")
- or "No calls captured yet. Try normal in-game actions, then refresh."
- if status then RemoteLoggerStatus.Text = "REMOTE LOGGER: " .. tostring(status) end
- end
-
- MakeButton(RemoteLoggerFolder, "START UNIVERSAL REMOTE LOGGER", function()
- if not RemoteLogger or type(RemoteLogger.Start) ~= "function" then
- RefreshRemoteLoggerView("MODULE NOT LOADED")
- return
- end
- local ok, success, message = pcall(function() return RemoteLogger:Start() end)
- if not ok then
- RefreshRemoteLoggerView("START ERROR: " .. tostring(success))
- elseif success then
- RefreshRemoteLoggerView(message or "STARTED")
- else
- RefreshRemoteLoggerView(message or "START FAILED")
- end
- end, Color3.fromRGB(45, 115, 75))
-
- MakeButton(RemoteLoggerFolder, "STOP UNIVERSAL REMOTE LOGGER", function()
- if RemoteLogger and type(RemoteLogger.Stop) == "function" then
- local ok = pcall(function() RemoteLogger:Stop() end)
- RefreshRemoteLoggerView(ok and "STOPPED" or "STOP FAILED")
- else
- RefreshRemoteLoggerView("MODULE NOT LOADED")
- end
- end, Color3.fromRGB(125, 75, 55))
-
- MakeButton(RemoteLoggerFolder, "REFRESH RECENT CALLS", function()
- RefreshRemoteLoggerView(RemoteLogger and RemoteLogger.Status or "MODULE NOT LOADED")
- end)
-
- MakeButton(RemoteLoggerFolder, "COPY FULL REMOTE REPORT", function()
- if not RemoteLogger or type(RemoteLogger.GetReport) ~= "function" then
- RefreshRemoteLoggerView("MODULE NOT LOADED")
- return
- end
- local ok, report = pcall(function() return RemoteLogger:GetReport() end)
- if not ok then RefreshRemoteLoggerView("REPORT ERROR"); return end
- local copied = false
- if type(setclipboard) == "function" then copied = pcall(function() setclipboard(report) end) end
- if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(report) end) end
- RefreshRemoteLoggerView(copied and "REPORT COPIED" or "CLIPBOARD UNAVAILABLE")
- end, Color3.fromRGB(65, 90, 130))
-
- local RemoteLoggerUploadKey = tostring(UploadKeyCache.__SHORTNAME_UPLOAD_KEY or "")
- MakeBox(RemoteLoggerFolder, "UPLOAD KEY (CACHED FOR THIS EXECUTOR SESSION)", RemoteLoggerUploadKey, function(value)
- RemoteLoggerUploadKey = tostring(value or "")
- UploadKeyCache.__SHORTNAME_UPLOAD_KEY = RemoteLoggerUploadKey
- end)
- MakeButton(RemoteLoggerFolder, "UPLOAD REMOTE REPORT TO ME", function()
- if not RemoteLogger or type(RemoteLogger.UploadReport) ~= "function" then
- RefreshRemoteLoggerView("UPLOAD MODULE NOT LOADED")
- return
- end
- if RemoteLoggerUploadKey == "" then
- RefreshRemoteLoggerView("ENTER UPLOAD KEY FIRST")
- return
- end
- RefreshRemoteLoggerView("UPLOADING REMOTE REPORT...")
- task.spawn(function()
- local ok, success, message = pcall(function()
- return RemoteLogger:UploadReport(RemoteLoggerUploadKey)
- end)
- if not ok then
- RefreshRemoteLoggerView("UPLOAD ERROR: " .. tostring(success))
- elseif success then
- RefreshRemoteLoggerView(message or "REMOTE REPORT UPLOADED")
- else
- RefreshRemoteLoggerView("UPLOAD FAILED: " .. tostring(message))
- end
- end)
- end, Color3.fromRGB(45, 115, 75))
-
- MakeButton(RemoteLoggerFolder, "CLEAR REMOTE HISTORY", function()
- if RemoteLogger and type(RemoteLogger.Clear) == "function" then
- local ok = pcall(function() RemoteLogger:Clear() end)
- RefreshRemoteLoggerView(ok and "HISTORY CLEARED" or "CLEAR FAILED")
- else
- RefreshRemoteLoggerView("MODULE NOT LOADED")
- end
- end, Color3.fromRGB(85, 75, 105))
-
- Label(RemoteLoggerFolder,
- "LIMITS: client-side only; cannot see server-only calls or other players' traffic. Incoming RemoteFunction callbacks and Bindable event listeners are not intercepted. Requires executor hookmetamethod + getnamecallmethod for outgoing-call capture. Log is capped at 250 entries; refresh is manual to avoid UI polling.",
- 9, 68, Grey).TextWrapped = true
+ Label(Console, "READ-ONLY / CLIENT-SIDE: this console cannot see server-only activity or another player's private traffic. Remote logging records outgoing calls from this client only.", 9, 48, Grey).TextWrapped = true
+ refreshConsole()
  end
 
  -- PLAYER UTILITIES (SETTINGS TAB)
