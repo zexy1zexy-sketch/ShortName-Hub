@@ -2877,17 +2877,6 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  Label(PlayerToolsFolder, "Enter a player name to spectate their character. Your own character is not teleported or attached.", 10, 38, Grey)
 
  local PlayerTrackerName = ""
- local AutoTeleportSpeed = 16
- local AutoTeleportSpeedStatus = Label(PlayerToolsFolder, "FOLLOW SPEED: 16 STUDS/SEC", 10, 22, Grey)
- MakeBox(PlayerToolsFolder, "FOLLOW SPEED (0.1-100 STUDS/SEC)", "16", function(value)
- local parsed = tonumber(value)
- if not parsed or parsed ~= parsed or parsed == math.huge or parsed == -math.huge then
- AutoTeleportSpeedStatus.Text = "FOLLOW SPEED: ENTER A NUMBER"
- return
- end
- AutoTeleportSpeed = math.clamp(parsed, 0.1, 100)
- AutoTeleportSpeedStatus.Text = "FOLLOW SPEED: " .. string.format("%.1f", AutoTeleportSpeed) .. " STUDS/SEC"
- end)
  local PlayerTrackerTarget
  local PlayerTrackerCharacterConnection
  local PlayerTrackerRemovingConnection
@@ -2982,33 +2971,94 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  MakeButton(PlayerToolsFolder, "STOP PLAYER TRACKER", StopPlayerTracker, Color3.fromRGB(85, 65, 95))
 
- -- AUTO TELEPORT TARGET DETECTOR: resolves a player by partial username/display name.
+ -- AUTO TELEPORT: repeatedly snaps the local character to the selected player's
+ -- latest root-part CFrame. This is teleporting, not pathfinding or smooth following.
  local TeleportTargetStatus = Label(PlayerToolsFolder, "AUTO TELEPORT: NO TARGET SELECTED", 10, 22, Grey)
  local SelectedTeleportTarget = nil
+ local AutoTeleportActive = false
+ local AutoTeleportToken = 0
+ local AutoTeleportInterval = 0.05
+
+ local function StopAutoTeleport(reason)
+ AutoTeleportActive = false
+ AutoTeleportToken = AutoTeleportToken + 1
+ if TeleportTargetStatus and TeleportTargetStatus.Parent then
+ TeleportTargetStatus.Text = "AUTO TELEPORT: " .. (reason or "STOPPED")
+ end
+ end
 
  local function DetectTeleportTarget()
  local target, findError = FindPlayerFromPartialName(PlayerTrackerName)
  if not target then
  SelectedTeleportTarget = nil
- TeleportTargetStatus.Text = "AUTO TELEPORT: " .. (findError or "PLAYER NOT FOUND")
+ StopAutoTeleport(findError or "PLAYER NOT FOUND")
  return nil
  end
 
  SelectedTeleportTarget = target
- TeleportTargetStatus.Text = "TARGET DETECTED: " .. target.Name .. " (@" .. target.DisplayName .. ")"
+ TeleportTargetStatus.Text = "TARGET SELECTED: " .. target.Name
  return target
  end
 
  MakeButton(PlayerToolsFolder, "DETECT TELEPORT TARGET", DetectTeleportTarget, Color3.fromRGB(45, 105, 75))
- MakeButton(PlayerToolsFolder, "CLEAR TELEPORT TARGET", function()
+ MakeButton(PlayerToolsFolder, "START AUTO TELEPORT", function()
+ local target = SelectedTeleportTarget or DetectTeleportTarget()
+ if not target then return end
+ if target == LocalPlayer or target.Parent ~= Players then
+ StopAutoTeleport("INVALID TARGET")
+ return
+ end
+
+ AutoTeleportToken = AutoTeleportToken + 1
+ local thisToken = AutoTeleportToken
+ AutoTeleportActive = true
+ TeleportTargetStatus.Text = "AUTO TELEPORT: LOCKED ON " .. target.Name
+
+ task.spawn(function()
+ while AutoTeleportActive and AutoTeleportToken == thisToken do
+ if not target.Parent or target.Parent ~= Players then
+ StopAutoTeleport("TARGET LEFT")
  SelectedTeleportTarget = nil
- TeleportTargetStatus.Text = "AUTO TELEPORT: TARGET CLEARED"
+ break
+ end
+
+ local targetCharacter = target.Character
+ local targetRoot = targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart")
+ local localCharacter = LocalPlayer and LocalPlayer.Character
+ local localRoot = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+
+ if targetRoot and localRoot then
+ local ok = pcall(function()
+ -- Small rear offset avoids occupying the exact same physical point.
+ localRoot.CFrame = targetRoot.CFrame * CFrame.new(0, 0, 3)
+ end)
+ if not ok then
+ TeleportTargetStatus.Text = "AUTO TELEPORT: MOVEMENT BLOCKED"
+ end
+ elseif not targetRoot then
+ TeleportTargetStatus.Text = "AUTO TELEPORT: WAITING FOR TARGET"
+ elseif not localRoot then
+ TeleportTargetStatus.Text = "AUTO TELEPORT: WAITING FOR YOUR CHARACTER"
+ end
+
+ task.wait(AutoTeleportInterval)
+ end
+ end)
+ end, Color3.fromRGB(45, 105, 75))
+
+ MakeButton(PlayerToolsFolder, "STOP AUTO TELEPORT", function()
+ StopAutoTeleport("STOPPED")
+ end, Color3.fromRGB(85, 65, 95))
+
+ MakeButton(PlayerToolsFolder, "CLEAR TELEPORT TARGET", function()
+ StopAutoTeleport("TARGET CLEARED")
+ SelectedTeleportTarget = nil
  end, Color3.fromRGB(85, 65, 95))
 
  local TeleportTargetRemovingConnection = Players.PlayerRemoving:Connect(function(leaving)
  if SelectedTeleportTarget == leaving then
+ StopAutoTeleport("TARGET LEFT")
  SelectedTeleportTarget = nil
- TeleportTargetStatus.Text = "AUTO TELEPORT: TARGET LEFT"
  end
  end)
 
@@ -3071,6 +3121,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  StopAutoReset()
  StopPlayerTracker()
+ StopAutoTeleport("HUB CLOSED")
  if TeleportTargetRemovingConnection then
  TeleportTargetRemovingConnection:Disconnect()
  TeleportTargetRemovingConnection = nil
