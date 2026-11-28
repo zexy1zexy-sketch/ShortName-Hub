@@ -1797,7 +1797,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  DetectionPage.Visible = OwnerViewEnabled and CurrentPage == "Observer"
  end
  if not OwnerViewEnabled then
- if CurrentPage == "Players" or CurrentPage == "Detection" then
+ if CurrentPage == "Players" or CurrentPage == "Observer" then
  SelectPage("Updates")
  end
  CommunityPanel.Visible = false
