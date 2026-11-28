@@ -3344,6 +3344,18 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  consoleStatus.Text = copied and "STATUS: LOGS COPIED" or "STATUS: CLIPBOARD UNAVAILABLE"
  end, Color3.fromRGB(65, 90, 130))
  Label(Console, "NOTE: This console combines reports from existing client-side detectors. It cannot see server-only activity or another player's private traffic. Remote logging records outgoing client calls only.", 9, 48, Grey).TextWrapped = true
+ local layoutIndex = 0
+ for _, child in ipairs(Console:GetChildren()) do
+ if child == logBox then
+ layoutIndex += 1
+ filterBox.LayoutOrder = layoutIndex
+ layoutIndex += 1
+ logBox.LayoutOrder = layoutIndex
+ elseif child ~= filterBox then
+ layoutIndex += 1
+ child.LayoutOrder = layoutIndex
+ end
+ end
  end
 
  -- Universal tools only: game-specific scanners remain on their respective game pages.
