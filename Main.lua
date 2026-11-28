@@ -454,7 +454,7 @@ SharedEnvironment.__SHORTNAME_SHOW_DIAGNOSTICS = ShowDiagnosticConsole
 -- Optional executor-supported auto-load after teleport/rejoin.
 -- The preference is stored locally so the queue can be renewed in each session.
 local AUTOLOAD_FILE = "ShortNameHub_AutoLoad.txt"
-local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/ShortName-Hub/refs/heads/main/Main.lua?build=1.4.2"
+local LOADER_URL = "https://raw.githubusercontent.com/zexy1zexy-sketch/refs/heads/main/Main.lua?build=" .. BUILD_VERSION
 local function GetQueueOnTeleport()
     if type(queue_on_teleport) == "function" then return queue_on_teleport end
     if type(queueonteleport) == "function" then return queueonteleport end
@@ -634,7 +634,7 @@ StartHub = function(skipKey)
     end
 
     local completed = 0
-    local total = 15
+    local total = 20
     local function Step(message)
         completed = completed + 1
         if Loading and type(Loading.SetProgress) == "function" then
