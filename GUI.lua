@@ -3346,6 +3346,8 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  Label(Console, "NOTE: This console combines reports from existing client-side detectors. It cannot see server-only activity or another player's private traffic. Remote logging records outgoing client calls only.", 9, 48, Grey).TextWrapped = true
  local layoutIndex = 0
  for _, child in ipairs(Console:GetChildren()) do
+ -- UIListLayout and UIPadding are not GuiObjects and do not have LayoutOrder.
+ if child:IsA("GuiObject") then
  if child == logBox then
  layoutIndex += 1
  filterBox.LayoutOrder = layoutIndex
@@ -3354,6 +3356,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  elseif child ~= filterBox then
  layoutIndex += 1
  child.LayoutOrder = layoutIndex
+ end
  end
  end
  end
