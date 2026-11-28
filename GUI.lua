@@ -3388,34 +3388,52 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  consoleStatus.Text = "STATUS: EXECUTOR HTTP REQUEST API UNAVAILABLE"
  return
  end
- consoleStatus.Text = "STATUS: UPLOADING OBSERVER REPORT..."
+ consoleStatus.Text = "STATUS: PREPARING REPORT..."
  task.spawn(function()
+ local taskOk, taskError = pcall(function()
  local HttpService = game:GetService("HttpService")
- local report = buildCombinedReport()
- if #report < 20 then
+ local reportOk, report = pcall(buildCombinedReport)
+ if not reportOk then error("REPORT BUILD FAILED: " .. tostring(report)) end
+ if type(report) ~= "string" or #report < 20 then
  consoleStatus.Text = "STATUS: NO REPORT DATA TO UPLOAD"
  return
  end
- if #report > 99000 then
- report = string.sub(report, 1, 99000) .. "\n[REPORT TRUNCATED TO FIT THE 100 KB WORKER LIMIT]"
+ -- Leave headroom for JSON overhead and the Worker's request-body limit.
+ local maxReportBytes = 78000
+ if #report > maxReportBytes then
+ report = string.sub(report, 1, maxReportBytes) .. "\n[REPORT TRUNCATED — SIZE SAFETY LIMIT]"
  end
+ local encodeOk, payload = pcall(function()
+ return HttpService:JSONEncode({report = report})
+ end)
+ if not encodeOk or type(payload) ~= "string" then
+ error("JSON ENCODE FAILED: " .. tostring(payload))
+ end
+ consoleStatus.Text = "STATUS: UPLOADING " .. tostring(#report) .. " BYTES..."
  local sent, response = pcall(function()
  return requestFunction({
  Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
  Method = "POST",
  Timeout = 45,
  Headers = {["Content-Type"] = "application/json", ["x-upload-key"] = uploadKey},
- Body = HttpService:JSONEncode({report = report})
+ Body = payload
  })
  end)
+ if not sent then error("HTTP REQUEST ERROR: " .. tostring(response)) end
  local code = type(response) == "table" and (response.StatusCode or response.Status or response.status_code) or nil
  local body = type(response) == "table" and (response.Body or response.body or "") or tostring(response)
+ body = tostring(body or "")
  local decodedOk, decoded = pcall(function() return HttpService:JSONDecode(body) end)
- if sent and code == 200 and decodedOk and type(decoded) == "table" and decoded.ok == true then
+ if code == 200 and decodedOk and type(decoded) == "table" and decoded.ok == true then
  consoleStatus.Text = "STATUS: UPLOAD CONFIRMED — SAVED TO GITHUB"
- appendConsole("[UPLOAD] Report saved to scanner-reports/latest.txt")
+ appendConsole("[UPLOAD] Report saved to scanner-reports/latest.txt (" .. tostring(#report) .. " bytes)")
  else
- consoleStatus.Text = "STATUS: UPLOAD FAILED — HTTP " .. tostring(code) .. " — " .. tostring(body):sub(1, 90)
+ consoleStatus.Text = "STATUS: UPLOAD FAILED — HTTP " .. tostring(code) .. " — " .. body:sub(1, 100)
+ end
+ end)
+ if not taskOk then
+ consoleStatus.Text = "STATUS: UPLOAD ERROR — " .. tostring(taskError):gsub("[%r\n]+", " "):sub(1, 115)
+ pcall(function() appendConsole("[UPLOAD ERROR] " .. tostring(taskError)) end)
  end
  end)
  end, Color3.fromRGB(45, 105, 145))
