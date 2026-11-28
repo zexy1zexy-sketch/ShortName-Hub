@@ -3166,15 +3166,49 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  Corner(logBox, 5)
  Stroke(logBox, Border, 1)
 
+ local filterBox = Instance.new("TextBox")
+ filterBox.Name = "LogFilter"
+ filterBox.Size = UDim2.new(1, 0, 0, 32)
+ filterBox.BackgroundColor3 = ButtonDark
+ filterBox.TextColor3 = White
+ filterBox.PlaceholderColor3 = Grey
+ filterBox.PlaceholderText = "Filter logs by category or text..."
+ filterBox.Text = ""
+ filterBox.TextSize = 10
+ filterBox.Font = Enum.Font.Gotham
+ filterBox.ClearTextOnFocus = false
+ filterBox.Parent = Console
+ Corner(filterBox, 5)
+ Stroke(filterBox, Border, 1)
+
  local consoleRunning = false
  local consolePaused = false
+ local consoleBuffer = {}
+ local consoleFilter = ""
+ local function renderConsole()
+ local visible = {}
+ for _, line in ipairs(consoleBuffer) do
+ if consoleFilter == "" or string.find(string.lower(line), consoleFilter, 1, true) then
+ table.insert(visible, line)
+ end
+ end
+ logBox.Text = #visible > 0 and table.concat(visible, "\n") or "[OBSERVER] No entries match this filter."
+ logBox.CursorPosition = #logBox.Text + 1
+ end
+ local function setConsoleText(value)
+ table.clear(consoleBuffer)
+ for line in tostring(value or ""):gmatch("[^\n]+") do
+ table.insert(consoleBuffer, line)
+ if #consoleBuffer > 2000 then table.remove(consoleBuffer, 1) end
+ end
+ renderConsole()
+ end
+ filterBox:GetPropertyChangedSignal("Text"):Connect(function() consoleFilter = string.lower(tostring(filterBox.Text or "")); renderConsole() end)
  local function appendConsole(line)
  if consolePaused then return end
- local current = logBox.Text
- if current == "" then current = "[OBSERVER] Ready." end
- logBox.Text = current .. "\n" .. tostring(line)
- if #logBox.Text > 48000 then logBox.Text = string.sub(logBox.Text, -42000) end
- logBox.CursorPosition = #logBox.Text + 1
+ table.insert(consoleBuffer, os.date("[%H:%M:%S] ") .. tostring(line))
+ while #consoleBuffer > 2000 do table.remove(consoleBuffer, 1) end
+ renderConsole()
  end
 
  local function getReport(moduleRef, methodName)
@@ -3201,9 +3235,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  addSection("STRUCTURE FINDER", StructureScanner)
  local combined = table.concat(sections, "\n\n")
  if combined ~= "" then
- logBox.Text = combined
- elseif logBox.Text == "" then
- logBox.Text = "[OBSERVER] No report data yet. Start a detector and use the game normally."
+ setConsoleText(combined)
+ elseif #consoleBuffer == 0 then
+ setConsoleText("[OBSERVER] No report data yet. Start a detector and use the game normally.")
  end
  local captured = 0
  if RemoteLogger and type(RemoteLogger.GetStats) == "function" then
@@ -3286,8 +3320,14 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  consoleStatus.Text = "STATUS: STOPPED"
  appendConsole("[OBSERVER] Live detectors stopped. Completed reports remain available.")
  end, Color3.fromRGB(115, 65, 65))
+ MakeButton(Console, "PAUSE / RESUME LOGGING", function()
+ consolePaused = not consolePaused
+ consoleStatus.Text = consolePaused and "STATUS: LOGGING PAUSED" or "STATUS: LOGGING RESUMED"
+ if not consolePaused then appendConsole("[OBSERVER] Logging resumed.") end
+ end, Color3.fromRGB(75, 75, 90))
  MakeButton(Console, "REFRESH LOG VIEW", refreshConsole, Color3.fromRGB(55, 65, 80))
  MakeButton(Console, "CLEAR LOGS", function()
+ table.clear(consoleBuffer)
  logBox.Text = ""
  if RemoteLogger and type(RemoteLogger.Clear) == "function" then pcall(function() RemoteLogger:Clear() end) end
  if LiveObserver and type(LiveObserver.Clear) == "function" then pcall(function() LiveObserver:Clear() end) end
