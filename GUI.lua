@@ -3271,6 +3271,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local ok, result = pcall(function() return ObjectScanner:Start(function(status, count)
  consoleStatus.Text = "STATUS: " .. tostring(status)
  consoleStats.Text = "OBJECT DISCOVERIES: " .. tostring(count or 0)
+ if tostring(status):find("COMPLETE", 1, true) or tostring(status):find("LIMIT REACHED", 1, true) then
+ task.defer(refreshConsole)
+ end
  end) end)
  appendConsole("[OBJECT_SCANNER] " .. tostring(ok and result or result))
  else appendConsole("[OBJECT_SCANNER] MODULE NOT LOADED") end
@@ -3290,6 +3293,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local ok, result = pcall(function() return StructureScanner:Start(function(status, count)
  consoleStatus.Text = "STATUS: " .. tostring(status)
  consoleStats.Text = "STRUCTURE DISCOVERIES: " .. tostring(count or 0)
+ if tostring(status):find("COMPLETE", 1, true) or tostring(status):find("LIMIT REACHED", 1, true) then
+ task.defer(refreshConsole)
+ end
  end) end)
  appendConsole("[STRUCTURE_FINDER] " .. tostring(ok and result or result))
  else appendConsole("[STRUCTURE_FINDER] MODULE NOT LOADED") end
@@ -3333,14 +3339,16 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  if LiveObserver and type(LiveObserver.Clear) == "function" then pcall(function() LiveObserver:Clear() end) end
  if ObjectScanner and type(ObjectScanner.Clear) == "function" then pcall(function() ObjectScanner:Clear() end) end
  if StructureScanner and type(StructureScanner.Clear) == "function" then pcall(function() StructureScanner:Clear() end) end
+ if InstanceInspector and type(InstanceInspector.Clear) == "function" then pcall(function() InstanceInspector:Clear() end) end
  consoleStats.Text = "CAPTURED: 0  |  REPORTS: 0/5"
  consoleStatus.Text = "STATUS: LOGS CLEARED"
  end, Color3.fromRGB(75, 75, 75))
  MakeButton(Console, "COPY ALL LOGS", function()
  refreshConsole()
  local copied = false
- if type(setclipboard) == "function" then copied = pcall(function() setclipboard(logBox.Text) end) end
- if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(logBox.Text) end) end
+ local allLogs = table.concat(consoleBuffer, "\n")
+ if type(setclipboard) == "function" then copied = pcall(function() setclipboard(allLogs) end) end
+ if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(allLogs) end) end
  consoleStatus.Text = copied and "STATUS: LOGS COPIED" or "STATUS: CLIPBOARD UNAVAILABLE"
  end, Color3.fromRGB(65, 90, 130))
  Label(Console, "NOTE: This console combines reports from existing client-side detectors. It cannot see server-only activity or another player's private traffic. Remote logging records outgoing client calls only.", 9, 48, Grey).TextWrapped = true
