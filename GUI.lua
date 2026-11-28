@@ -3222,7 +3222,10 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local reportCount = 0
  local function addSection(title, moduleRef)
  local report = getReport(moduleRef, "GetReport")
- if report then table.insert(sections, "========== " .. title .. " ==========\n" .. report) end
+ if report then
+ table.insert(sections, "========== " .. title .. " ==========\n" .. report)
+ reportCount += 1
+ end
  end
  table.insert(sections, "SHORTNAME HUB — OBSERVER CONSOLE")
  table.insert(sections, "Captured: " .. os.date("!%Y-%m-%d %H:%M:%S UTC"))
