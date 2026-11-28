@@ -1,5 +1,5 @@
 -- ShortName Hub loader for the private GitHub repository.
--- Current release: v1.3.2
+-- Current release: v1.4.3
 
 -- EARLY DIAGNOSTIC CONSOLE: create this before fetching or executing any modules.
 local DiagnosticLines = {}
@@ -322,7 +322,7 @@ pcall(BuildDiagnosticConsole)
 -- errors belong to the game and must not interrupt the Hub console.
 -- Refresh downloads fresh module source from the Cloudflare Worker and rebuilds the hub in-place.
 
-local BUILD_VERSION = "1.4.2"
+local BUILD_VERSION = "1.4.3"
 local CACHE_BUSTER = tostring(os.time()) .. "_" .. tostring(math.random(100000, 999999))
 local MODULE_ENDPOINT = "https://shortname-report-receive.ryft-amv.workers.dev/module?name="
 
