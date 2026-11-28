@@ -37,8 +37,12 @@ local function BuildUpdatesPage(page, config, accent, buttonDark, border, white,
  label(page, "CHANGELOG - v" .. currentVersion, 12, 25, accent.Light).Font = Enum.Font.GothamBold
  local updateItems = {
  {
+ "v1.4.3 - Standalone Observer console | Nov 28",
+ "Promoted Observer to its own owner-only top-level tab. Consolidated remote logging, live changes, object scanning, instance inspection, and structure finding into one console with an ALL selector, unified logs, filtering, copy/clear controls, and one authenticated report upload. Removed the duplicate detector folders and upload interfaces.",
+ },
+ {
  "v1.3.2 - Remove legacy combat tab and tools | Nov 26",
- "Removed the dedicated game tab, combat HUD, hitbox visualizer, weapon movement observer, and game-specific hitbox diagnostics. Retained read-only universal scanners, live observer, and remote logger under Detection & Observation; renamed scanner modules to remove legacy game-specific filenames.",
+ "Removed the dedicated game tab, combat HUD, hitbox visualizer, weapon movement observer, and game-specific hitbox diagnostics. Retained read-only universal scanners, live observer, and remote logger; renamed scanner modules to remove legacy game-specific filenames.",
  },
  {
  "v1.3.1 - Feedback location and text stroke cleanup | Nov 26",
@@ -3214,6 +3218,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  local function buildCombinedReport()
  local sections = {}
+ local reportCount = 0
  local function addSection(title, moduleRef)
  local report = getReport(moduleRef, "GetReport")
  if report then table.insert(sections, "========== " .. title .. " ==========\n" .. report) end
@@ -3245,7 +3250,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  local ok, count = pcall(function() return LiveObserver:GetChangeCount() end)
  if ok then captured += tonumber(count) or 0 end
  end
- consoleStats.Text = "CAPTURED: " .. tostring(captured) .. "  |  REPORTS: 5"
+ consoleStats.Text = "CAPTURED: " .. tostring(captured) .. "  |  REPORTS: " .. tostring(reportCount) .. "/5"
  end
 
  local function startOne(name)
