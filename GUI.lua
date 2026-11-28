@@ -563,7 +563,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end)
 
  end
- local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, PlayerToolsNav, SoonNav, IsNoobIncrementalExperience
+ local SidebarWidth, Sidebar, SidebarSearch, PlayerAdminUI, GameNav, PlayerToolsNav, DetectionNav, SoonNav, IsNoobIncrementalExperience
  do -- section scope: keeps Luau local-register usage below the 200-local limit
  -- SIDEBAR
  SidebarWidth = math.min(166, WindowWidth * 0.28); Sidebar = Instance.new("ScrollingFrame"); Sidebar.Name = "Sidebar"
