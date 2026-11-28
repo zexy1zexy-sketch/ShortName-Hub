@@ -3179,6 +3179,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  Stroke(logBox, Border, 1)
 
  local consolePaused = false
+ local consoleActive = false
  local consoleBuffer = {}
  local consoleFilter = ""
  local function renderConsole()
@@ -3254,6 +3255,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
 
  local function startOne(name)
+ consoleActive = true
  if name == "Remote Calls" then
  if RemoteLogger and type(RemoteLogger.Start) == "function" then
  local ok, success, message = pcall(function() return RemoteLogger:Start() end)
@@ -3309,6 +3311,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  refreshConsole()
  end
  local function startAll()
+ consoleActive = true
  consoleStatus.Text = "STATUS: STARTING ALL DETECTORS"
  appendConsole("[ALL] Starting every available detector...")
  for _, name in ipairs(detectorOptions) do
@@ -3328,6 +3331,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end, Color3.fromRGB(45, 105, 75))
  MakeButton(Console, "ALL — START EVERY DETECTOR", startAll, Color3.fromRGB(65, 85, 125))
  MakeButton(Console, "STOP ALL LIVE DETECTORS", function()
+ consoleActive = false
  if RemoteLogger and type(RemoteLogger.Stop) == "function" then pcall(function() RemoteLogger:Stop() end) end
  if LiveObserver and type(LiveObserver.Stop) == "function" then pcall(function() LiveObserver:Stop() end) end
  if ObjectScanner and type(ObjectScanner.Stop) == "function" then pcall(function() ObjectScanner:Stop() end) end
@@ -3388,6 +3392,9 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  consoleStatus.Text = "STATUS: NO REPORT DATA TO UPLOAD"
  return
  end
+ if #report > 99000 then
+ report = string.sub(report, 1, 99000) .. "\n[REPORT TRUNCATED TO FIT THE 100 KB WORKER LIMIT]"
+ end
  local sent, response = pcall(function()
  return requestFunction({
  Url = "https://shortname-report-receive.ryft-amv.workers.dev/upload",
@@ -3410,6 +3417,14 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end, Color3.fromRGB(45, 105, 145))
  Label(Console, "READ-ONLY / CLIENT-SIDE: this console cannot see server-only activity or another player's private traffic. Remote logging records outgoing calls from this client only.", 9, 48, Grey).TextWrapped = true
  refreshConsole()
+ task.spawn(function()
+ while ScreenGui.Parent and DetectionPage.Parent do
+ task.wait(2)
+ if consoleActive and DetectionPage.Visible and not consolePaused then
+ refreshConsole()
+ end
+ end
+ end)
  end
 
  -- PLAYER UTILITIES (SETTINGS TAB)
