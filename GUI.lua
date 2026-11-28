@@ -3640,6 +3640,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  -- SHORTNAME HUB EXTRAS: searchable roster, notifications, HUD, keybinds and profiles.
  HubExtras = {}
+ GUI.HubExtras = HubExtras
  do
  local HttpService = game:GetService("HttpService")
  HubExtras.HubToggleKey = Enum.KeyCode.RightControl
@@ -4220,6 +4221,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end)
 
  end
+  local HubExtras = GUI.HubExtras or {}
  -- COMING SOON PAGE
  Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey)
  GUI.SoonCard = Instance.new("Frame")
