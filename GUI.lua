@@ -3237,10 +3237,10 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  addSection("OBJECT SCAN", ObjectScanner)
  addSection("INSTANCE INSPECTION", InstanceInspector)
  addSection("STRUCTURE FINDER", StructureScanner)
- return table.concat(sections, "\n\n")
+ return table.concat(sections, "\n\n"), reportCount
  end
  local function refreshConsole()
- local report = buildCombinedReport()
+ local report, reportCount = buildCombinedReport()
  if report ~= "" then
  setConsoleText(report)
  elseif #consoleBuffer == 0 then
