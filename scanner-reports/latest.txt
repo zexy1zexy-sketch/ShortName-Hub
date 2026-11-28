@@ -1,1 +1,292 @@
-SHORTNAME HUB STARTUP DIAGNOSTICS\nCaptured: 2026-11-28 08:47:49 UTC\n\n02:47:40  Diagnostic console initialized before loading modules.\n02:47:40  Executor HTTP request API: available\n02:47:40  Loading KeySystem.lua directly from main branch.\n02:47:40  Loading LoadingScreen.lua directly from main branch.\n02:47:40  Loading Config.lua directly from main branch.\n02:47:40  Verified module release v1.4.3.\n02:47:41  Loading GUI.lua directly from main branch.\n02:47:41  COMPILE ERROR in GUI.lua: [string "kBdQrZYRhzRuwpqcMKWt"]:4588: Expected <eof>, got 'end'\n02:47:41  STARTUP FAILED: [string "PrHlnXJYfChMpVyLNNZl"]:423: Could not compile GUI.lua: [string "kBdQrZYRhzRuwpqcMKWt"]:4588: Expected <eof>, got 'end'\n02:47:41  FATAL LOADER ERROR: [string "PrHlnXJYfChMpVyLNNZl"]:796: [string "PrHlnXJYfChMpVyLNNZl"]:423: Could not compile GUI.lua: [string "kBdQrZYRhzRuwpqcMKWt"]:4588: Expected <eof>, got 'end'
+SHORTNAME HUB — OBSERVER CONSOLE
+
+Captured: 2026-11-28 09:06:35 UTC
+
+Game: Ugc | PlaceId: 130960021905304 | UniverseId: 10372466625
+
+Player: shortname_zen
+
+========== REMOTE CALLS ==========
+SHORTNAME HUB REMOTE OBSERVATION
+Place: 130960021905304 | Ugc
+Scope: outgoing calls made by this client only
+Total captured: 245 | Stored: 120 | Dropped: 125
+
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4512530960262643"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4514068986012901"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4516085748677072"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.45186022588700936"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0357293691547929"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03580302799905379"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03587894974500567"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.036013802962315024"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03607858313792541"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.036201344558546844"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0362419433252214"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.036274997199497686"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03626900671770706"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03624450800921014"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0361606004702063"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.036059131921868215"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.035985658785376226"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.035769702566721545"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0345889787972977"}
+[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03363741068128281"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.034895390015148874"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03617073989005143"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.036910484043309884"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.037716389460665675"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03830747985649813"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03934156528747544"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.040978809581494365"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04157464456731428"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.042363167050842844"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.042646265409151334"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.042526668288049116"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04211384196222855"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.041983352636477275"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04168856952502569"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04129980632180713"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04051260488184267"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03985450772900029"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.039045695303154035"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03785325745990086"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03592426357381264"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03385902773426156"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.035595329939423874"}
+[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.036850134280728586"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.037728296508591205"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.038822082930842085"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.03960711340513397"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04059968809483421"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.041432025673182354"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.04220578932484024"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49275306005376407"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49291509620504226"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49340426709022855"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4935811148413526"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49373706344292684"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4938157872609607"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49380346740632536"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4937439338754469"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4936736400586495"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49334511855372193"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4932024659782494"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49285329077368223"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49248858915258403"}
+[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4920759758505687"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4917781637083757"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49145034803149207"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49134691396065583"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4911901850708592"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4912101937207511"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49136215829566754"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49156595759365257"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49179334394537555"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49230805748368794"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4926835139965702"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4929384048616472"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4932836033643098"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49350517585862524"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4936266661832202"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4938157872609607"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49381582110682776"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49379118147880763"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49370890508836657"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49356429564590293"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.493291588719533"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.493130974625332"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49265486421164795"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.492322328927485"}
+[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4920759758505687"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4917781637083757"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49150199960661217"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49134691396065583"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49124240404115543"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4912035354131436"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4912861406637804"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49150206721432177"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4916297487400541"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49195671680430725"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49249586083941943"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4928688180536148"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4932835695281318"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4935658523457306"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49368971568497055"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4938157872609607"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4938157872609607"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49379118147880763"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49370890508836657"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49345475462915195"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.493220330786964"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4929723027321439"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49248858915258403"}
+[03:06:31] CLIENT RemoteFunction.InvokeServer | Players.shortname_zen.ClanRemote
+Args: {"1":"GetStatus"}
+[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4920759758505687"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4917781637083757"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49145034803149207"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.49134691396065583"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.1971968872358195"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.1972070835332925"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.19727283571503693"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.1973261887674803"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.1974281705092198"}
+[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.19760068258193006"}
+
+========== LIVE CHANGES ==========
+SHORTNAME HUB - UNIVERSAL LIVE CHANGE OBSERVATION
+Mode: PASSIVE / READ-ONLY
+Game: Ugc
+PlaceId: 130960021905304
+UniverseId: 10372466625
+Player: shortname_zen
+Watched properties: 0
+Recorded changes: 0
+Status: STOPPED
+----------------------------------------
+RECENT CHANGES (OLDEST FIRST)
+No changes captured yet.
+
+Privacy/safety: TextBox, chat, message, input, password, token, secret, and email paths are excluded.
+This observer does not inspect server-only objects, script source, remote traffic, or remote arguments.
+
+========== OBJECT SCAN ==========
+SHORTNAME HUB - UNIVERSAL GAME OBJECT SCAN REPORT
+Results: 0
+Objects inspected: 0
+Remote objects found: 0
+Script/module objects found: 0
+Scan limit: 50000
+----------------------------------------
+No matching game objects or remote objects were found.
+----------------------------------------
+Notes:
+- Remote objects are listed by name and path only; they are not called.
+- Script source is not read or executed.
+- Only client-visible/locally replicated content can be found.
+
+========== INSTANCE INSPECTION ==========
+No universal inspection run yet.
+
+========== STRUCTURE FINDER ==========
+No universal discovery scan run yet.
