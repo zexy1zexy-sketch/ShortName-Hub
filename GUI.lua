@@ -3081,6 +3081,231 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  DetectionToolsFolder = MakeFolder("DETECTION & OBSERVATION", DetectionPage or GamePage, false)
 
+
+ do -- unified observer console; keep the UI and callbacks in a local scope
+ local Console = MakeFolder("OBSERVER CONSOLE", DetectionToolsFolder, false)
+ Label(Console, "OBSERVER CONSOLE", 13, 24, White).Font = Enum.Font.GothamBold
+ Label(Console, "Select a detector or use ALL to start every available read-only observer and scanner. Logs stay local until you explicitly copy or upload a report.", 10, 42, Grey).TextWrapped = true
+
+ local consoleStatus = Label(Console, "STATUS: READY", 11, 23, Color3.fromRGB(170, 210, 255))
+ consoleStatus.Font = Enum.Font.GothamBold
+ local consoleStats = Label(Console, "CAPTURED: 0  |  DETECTORS: 0/5", 10, 22, Grey)
+
+ local selectedDetector = "Remote Calls"
+ local detectorOptions = {"Remote Calls", "Live Changes", "Object Scanner", "Instance Inspector", "Structure Finder"}
+ local selector = Instance.new("TextButton")
+ selector.Name = "DetectorSelector"
+ selector.Size = UDim2.new(1, 0, 0, 38)
+ selector.BackgroundColor3 = ButtonDark
+ selector.TextColor3 = White
+ selector.Text = "DETECTOR: " .. selectedDetector .. "  ▾"
+ selector.TextSize = 11
+ selector.Font = Enum.Font.GothamBold
+ selector.Parent = Console
+ Corner(selector, 5)
+ Stroke(selector, Border, 1)
+
+ local optionPanel = Instance.new("Frame")
+ optionPanel.Size = UDim2.new(1, 0, 0, 0)
+ optionPanel.BackgroundColor3 = Panel
+ optionPanel.BorderSizePixel = 0
+ optionPanel.ClipsDescendants = true
+ optionPanel.Visible = false
+ optionPanel.Parent = Console
+ Corner(optionPanel, 5)
+ local optionLayout = Instance.new("UIListLayout")
+ optionLayout.Padding = UDim.new(0, 3)
+ optionLayout.Parent = optionPanel
+ local optionButtons = {}
+ local function chooseDetector(name)
+ selectedDetector = name
+ selector.Text = "DETECTOR: " .. name .. "  ▾"
+ optionPanel.Visible = false
+ optionPanel.Size = UDim2.new(1, 0, 0, 0)
+ end
+ for _, name in ipairs(detectorOptions) do
+ local option = Instance.new("TextButton")
+ option.Size = UDim2.new(1, 0, 0, 30)
+ option.BackgroundColor3 = ButtonDark
+ option.TextColor3 = White
+ option.Text = name
+ option.TextSize = 10
+ option.Font = Enum.Font.GothamMedium
+ option.Parent = optionPanel
+ Corner(option, 4)
+ option.Activated:Connect(function() chooseDetector(name) end)
+ table.insert(optionButtons, option)
+ end
+ optionLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+ if optionPanel.Visible then optionPanel.Size = UDim2.new(1, 0, 0, optionLayout.AbsoluteContentSize.Y + 4) end
+ end)
+ selector.Activated:Connect(function()
+ local open = not optionPanel.Visible
+ optionPanel.Visible = open
+ optionPanel.Size = UDim2.new(1, 0, 0, open and (optionLayout.AbsoluteContentSize.Y + 4) or 0)
+ selector.Text = "DETECTOR: " .. selectedDetector .. (open and "  ▴" or "  ▾")
+ end)
+
+ local logBox = Instance.new("TextBox")
+ logBox.Name = "ObserverLog"
+ logBox.Size = UDim2.new(1, 0, 0, 245)
+ logBox.BackgroundColor3 = Color3.fromRGB(4, 4, 4)
+ logBox.TextColor3 = Color3.fromRGB(225, 225, 225)
+ logBox.PlaceholderColor3 = Grey
+ logBox.PlaceholderText = "Logs will appear here..."
+ logBox.Text = ""
+ logBox.TextSize = 10
+ logBox.Font = Enum.Font.Code
+ logBox.TextXAlignment = Enum.TextXAlignment.Left
+ logBox.TextYAlignment = Enum.TextYAlignment.Top
+ logBox.TextWrapped = false
+ logBox.MultiLine = true
+ logBox.ClearTextOnFocus = false
+ logBox.TextEditable = false
+ logBox.Parent = Console
+ Corner(logBox, 5)
+ Stroke(logBox, Border, 1)
+
+ local consoleRunning = false
+ local consolePaused = false
+ local function appendConsole(line)
+ if consolePaused then return end
+ local current = logBox.Text
+ if current == "" then current = "[OBSERVER] Ready." end
+ logBox.Text = current .. "\n" .. tostring(line)
+ if #logBox.Text > 48000 then logBox.Text = string.sub(logBox.Text, -42000) end
+ logBox.CursorPosition = #logBox.Text + 1
+ end
+
+ local function getReport(moduleRef, methodName)
+ if not moduleRef then return nil end
+ local ok, result = pcall(function() return moduleRef[methodName](moduleRef) end)
+ if ok and type(result) == "string" and result ~= "" then return result end
+ return nil
+ end
+
+ local function refreshConsole()
+ local sections = {}
+ local total = 0
+ local function addSection(title, moduleRef)
+ local report = getReport(moduleRef, "GetReport")
+ if report then
+ table.insert(sections, "========== " .. title .. " ==========\n" .. report)
+ total += 1
+ end
+ end
+ addSection("REMOTE CALLS", RemoteLogger)
+ addSection("LIVE CHANGES", LiveObserver)
+ addSection("OBJECT SCAN", ObjectScanner)
+ addSection("INSTANCE INSPECTION", InstanceInspector)
+ addSection("STRUCTURE FINDER", StructureScanner)
+ local combined = table.concat(sections, "\n\n")
+ if combined ~= "" then
+ logBox.Text = combined
+ elseif logBox.Text == "" then
+ logBox.Text = "[OBSERVER] No report data yet. Start a detector and use the game normally."
+ end
+ local captured = 0
+ if RemoteLogger and type(RemoteLogger.GetStats) == "function" then
+ local ok, stats = pcall(function() return RemoteLogger:GetStats() end)
+ if ok and stats then captured += tonumber(stats.Total) or 0 end
+ end
+ if LiveObserver and type(LiveObserver.GetChangeCount) == "function" then
+ local ok, count = pcall(function() return LiveObserver:GetChangeCount() end)
+ if ok then captured += tonumber(count) or 0 end
+ end
+ consoleStats.Text = "CAPTURED: " .. tostring(captured) .. "  |  REPORTS: " .. tostring(total) .. "/5"
+ end
+
+ local function startOne(name)
+ if name == "Remote Calls" then
+ if RemoteLogger and type(RemoteLogger.Start) == "function" then
+ local ok, success, message = pcall(function() return RemoteLogger:Start() end)
+ appendConsole("[REMOTE_CALLS] " .. tostring(ok and (message or (success and "RUNNING" or "START FAILED")) or success))
+ else appendConsole("[REMOTE_CALLS] MODULE NOT LOADED") end
+ elseif name == "Live Changes" then
+ if LiveObserver and type(LiveObserver.Start) == "function" then
+ local ok, result = pcall(function() return LiveObserver:Start(function(status, watched, changes)
+ consoleStatus.Text = "STATUS: " .. tostring(status)
+ consoleStats.Text = "WATCHING: " .. tostring(watched or 0) .. "  |  CHANGES: " .. tostring(changes or 0)
+ appendConsole("[LIVE_CHANGES] " .. tostring(status))
+ end) end)
+ appendConsole("[LIVE_CHANGES] " .. tostring(ok and result or result))
+ else appendConsole("[LIVE_CHANGES] MODULE NOT LOADED") end
+ elseif name == "Object Scanner" then
+ if ObjectScanner and type(ObjectScanner.Start) == "function" then
+ local ok, result = pcall(function() return ObjectScanner:Start(function(status, count)
+ consoleStatus.Text = "STATUS: " .. tostring(status)
+ consoleStats.Text = "OBJECT DISCOVERIES: " .. tostring(count or 0)
+ end) end)
+ appendConsole("[OBJECT_SCANNER] " .. tostring(ok and result or result))
+ else appendConsole("[OBJECT_SCANNER] MODULE NOT LOADED") end
+ elseif name == "Instance Inspector" then
+ if InstanceInspector and type(InstanceInspector.Inspect) == "function" then
+ task.spawn(function()
+ local ok, result, count = pcall(function() return InstanceInspector:Inspect(function(status, total)
+ consoleStatus.Text = "STATUS: " .. tostring(status)
+ consoleStats.Text = "OBJECTS INSPECTED: " .. tostring(total or 0)
+ end) end)
+ appendConsole("[INSTANCE_INSPECTOR] " .. tostring(ok and (result and ("COMPLETE (" .. tostring(count or 0) .. ")") or "FAILED") or result))
+ refreshConsole()
+ end)
+ else appendConsole("[INSTANCE_INSPECTOR] MODULE NOT LOADED") end
+ elseif name == "Structure Finder" then
+ if StructureScanner and type(StructureScanner.Start) == "function" then
+ local ok, result = pcall(function() return StructureScanner:Start(function(status, count)
+ consoleStatus.Text = "STATUS: " .. tostring(status)
+ consoleStats.Text = "STRUCTURE DISCOVERIES: " .. tostring(count or 0)
+ end) end)
+ appendConsole("[STRUCTURE_FINDER] " .. tostring(ok and result or result))
+ else appendConsole("[STRUCTURE_FINDER] MODULE NOT LOADED") end
+ end
+ refreshConsole()
+ end
+
+ local function startAll()
+ consoleRunning = true
+ consoleStatus.Text = "STATUS: STARTING ALL DETECTORS"
+ appendConsole("[ALL] Starting every available detector...")
+ for _, name in ipairs(detectorOptions) do startOne(name) end
+ consoleStatus.Text = "STATUS: ALL DETECTORS REQUESTED"
+ appendConsole("[ALL] Start requests sent. Some detectors perform one-time scans; live observers remain active.")
+ end
+ MakeButton(Console, "START SELECTED DETECTOR", function()
+ consoleRunning = true
+ startOne(selectedDetector)
+ consoleStatus.Text = "STATUS: " .. selectedDetector:upper() .. " START REQUESTED"
+ end, Color3.fromRGB(45, 105, 75))
+ MakeButton(Console, "ALL — START EVERY DETECTOR", startAll, Color3.fromRGB(65, 85, 125))
+ MakeButton(Console, "STOP ALL LIVE DETECTORS", function()
+ consoleRunning = false
+ if RemoteLogger and type(RemoteLogger.Stop) == "function" then pcall(function() RemoteLogger:Stop() end) end
+ if LiveObserver and type(LiveObserver.Stop) == "function" then pcall(function() LiveObserver:Stop() end) end
+ if ObjectScanner and type(ObjectScanner.Stop) == "function" then pcall(function() ObjectScanner:Stop() end) end
+ if StructureScanner and type(StructureScanner.Stop) == "function" then pcall(function() StructureScanner:Stop() end) end
+ consoleStatus.Text = "STATUS: STOPPED"
+ appendConsole("[OBSERVER] Live detectors stopped. Completed reports remain available.")
+ end, Color3.fromRGB(115, 65, 65))
+ MakeButton(Console, "REFRESH LOG VIEW", refreshConsole, Color3.fromRGB(55, 65, 80))
+ MakeButton(Console, "CLEAR LOGS", function()
+ logBox.Text = ""
+ if RemoteLogger and type(RemoteLogger.Clear) == "function" then pcall(function() RemoteLogger:Clear() end) end
+ if LiveObserver and type(LiveObserver.Clear) == "function" then pcall(function() LiveObserver:Clear() end) end
+ if ObjectScanner and type(ObjectScanner.Clear) == "function" then pcall(function() ObjectScanner:Clear() end) end
+ if StructureScanner and type(StructureScanner.Clear) == "function" then pcall(function() StructureScanner:Clear() end) end
+ consoleStats.Text = "CAPTURED: 0  |  REPORTS: 0/5"
+ consoleStatus.Text = "STATUS: LOGS CLEARED"
+ end, Color3.fromRGB(75, 75, 75))
+ MakeButton(Console, "COPY ALL LOGS", function()
+ refreshConsole()
+ local copied = false
+ if type(setclipboard) == "function" then copied = pcall(function() setclipboard(logBox.Text) end) end
+ if not copied and type(toclipboard) == "function" then copied = pcall(function() toclipboard(logBox.Text) end) end
+ consoleStatus.Text = copied and "STATUS: LOGS COPIED" or "STATUS: CLIPBOARD UNAVAILABLE"
+ end, Color3.fromRGB(65, 90, 130))
+ Label(Console, "NOTE: This console combines reports from existing client-side detectors. It cannot see server-only activity or another player's private traffic. Remote logging records outgoing client calls only.", 9, 48, Grey).TextWrapped = true
+ end
+
  -- Universal tools only: game-specific scanners remain on their respective game pages.
  local ObjectScannerFolder = MakeFolder("UNIVERSAL OBJECT SCANNER", DetectionToolsFolder, false)
 
