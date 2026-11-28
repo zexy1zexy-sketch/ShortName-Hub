@@ -1,6 +1,6 @@
 SHORTNAME HUB — OBSERVER CONSOLE
 
-Captured: 2026-11-28 09:06:35 UTC
+Captured: 2026-11-28 09:43:46 UTC
 
 Game: Ugc | PlaceId: 130960021905304 | UniverseId: 10372466625
 
@@ -10,248 +10,248 @@ Player: shortname_zen
 SHORTNAME HUB REMOTE OBSERVATION
 Place: 130960021905304 | Ugc
 Scope: outgoing calls made by this client only
-Total captured: 245 | Stored: 120 | Dropped: 125
+Total captured: 170 | Stored: 120 | Dropped: 50
 
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4512530960262643"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4514068986012901"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4516085748677072"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.45186022588700936"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.0357293691547929"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03580302799905379"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03587894974500567"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.036013802962315024"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03607858313792541"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.036201344558546844"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.0362419433252214"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.036274997199497686"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03626900671770706"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03624450800921014"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.0361606004702063"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.036059131921868215"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.035985658785376226"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.035769702566721545"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.0345889787972977"}
-[03:06:35] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03363741068128281"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.034895390015148874"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03617073989005143"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.036910484043309884"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.037716389460665675"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03830747985649813"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03934156528747544"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.040978809581494365"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04157464456731428"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.042363167050842844"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.042646265409151334"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.042526668288049116"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04211384196222855"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.041983352636477275"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04168856952502569"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04129980632180713"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04051260488184267"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03985450772900029"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.039045695303154035"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03785325745990086"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03592426357381264"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03385902773426156"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.035595329939423874"}
-[03:06:34] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.036850134280728586"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.037728296508591205"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.038822082930842085"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.03960711340513397"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04059968809483421"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.041432025673182354"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.04220578932484024"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49275306005376407"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49291509620504226"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49340426709022855"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4935811148413526"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49373706344292684"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4938157872609607"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49380346740632536"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4937439338754469"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4936736400586495"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49334511855372193"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4932024659782494"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49285329077368223"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49248858915258403"}
-[03:06:33] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4920759758505687"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4917781637083757"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49145034803149207"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49134691396065583"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4911901850708592"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4912101937207511"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49136215829566754"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49156595759365257"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49179334394537555"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49230805748368794"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4926835139965702"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4929384048616472"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4932836033643098"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49350517585862524"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4936266661832202"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4938157872609607"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49381582110682776"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49379118147880763"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49370890508836657"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49356429564590293"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.493291588719533"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.493130974625332"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49265486421164795"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.492322328927485"}
-[03:06:32] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4920759758505687"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4917781637083757"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49150199960661217"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49134691396065583"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49124240404115543"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4912035354131436"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4912861406637804"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49150206721432177"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4916297487400541"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49195671680430725"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49249586083941943"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4928688180536148"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4932835695281318"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4935658523457306"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49368971568497055"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4938157872609607"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4938157872609607"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49379118147880763"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49370890508836657"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49345475462915195"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.493220330786964"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4929723027321439"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49248858915258403"}
-[03:06:31] CLIENT RemoteFunction.InvokeServer | Players.shortname_zen.ClanRemote
+[03:43:46] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4595523569402476"}
+[03:43:46] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4596304013616759"}
+[03:43:46] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4596245820102176"}
+[03:43:46] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12456282472859145"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12455719316217155"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12455096089996227"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12454861066258462"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12454702631764995"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.1245473717198364"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12455079570753613"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12455415962670562"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12456222402798414"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12457079152466924"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12457924639894519"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12459096760269124"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12459706473790022"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12460915389906564"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12461311103840518"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.1246153937155007"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12461380935731577"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12460960442716475"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12460527935846283"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12459469196059061"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"0.12458728079043328"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235927114903941"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4236186361403915"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42359365954917916"}
+[03:43:45] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235516511263526"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4234745996124702"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42334855080523653"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42319139209197937"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4230305512756168"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4228272698525944"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4224299443048004"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4223723724630397"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4221368073997124"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4220769562814418"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42199355290247986"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42198208640716733"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4220078616033536"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42216447928483447"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4222491305990312"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4224117773198495"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.422741583480156"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42301718380683423"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4231405989966672"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.423416510359199"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235234389123137"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235927114903941"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4236186688324492"}
+[03:43:44] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235576009090816"}
+[03:43:44] CLIENT RemoteFunction.InvokeServer | Players.shortname_zen.ClanRemote
 Args: {"1":"GetStatus"}
-[03:06:31] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4920759758505687"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.4917781637083757"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49145034803149207"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.49134691396065583"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.1971968872358195"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.1972070835332925"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.19727283571503693"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.1973261887674803"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.1974281705092198"}
-[03:06:30] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
-Args: {"1":"-0.19760068258193006"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4234386409758493"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4232485929147832"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.423081178433174"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4228272698525944"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4225280355168762"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4223723724630397"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42212187713936555"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4220342904729228"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42197849293075607"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42206101367846943"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42220682087519623"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42241187534275154"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4227124011943165"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4229887496053346"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4231405989966672"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4234342932892769"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235667871434298"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4236186361403915"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4236030093920069"}
+[03:43:43] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42355766629139807"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42343867366525434"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4232256797225347"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4230557503169556"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4228272698525944"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4224912426365777"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42222733854045186"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42205444718871005"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42197999565655003"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4219945329475525"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.42215405736564815"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4223069279616702"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4227124011943165"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4229887496053346"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.423237642928926"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4233832985037792"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4235234389123137"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.28582993549764907"}
+[03:43:42] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2858232259838283"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.28580719775436136"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2857793659693667"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2856987606885854"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2856210459590229"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.28549494189806934"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2853808931808292"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2852883090521375"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.28520405067330445"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.28718810828613894"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.2962439210851598"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.3173416870443942"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.3283294556863018"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.3385335230779913"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.36325747554912957"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.3782507307598883"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.3910638349397861"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4015674396174191"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4223451554196558"}
+[03:43:41] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4426225146402712"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.4440239640720005"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012994002482150872"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012994003646305072"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012994005974613476"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012994004810459275"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012994003646305072"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.001299400015384247"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012993997825534068"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012993992004763063"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012993986183992058"}
+[03:43:40] CLIENT RemoteEvent.FireServer | ReplicatedStorage.ArmAimRemote
+Args: {"1":"-0.0012993986183992058"}
 
 ========== LIVE CHANGES ==========
 SHORTNAME HUB - UNIVERSAL LIVE CHANGE OBSERVATION
@@ -260,9 +260,9 @@ Game: Ugc
 PlaceId: 130960021905304
 UniverseId: 10372466625
 Player: shortname_zen
-Watched properties: 0
+Watched properties: 350
 Recorded changes: 0
-Status: STOPPED
+Status: RUNNING
 ----------------------------------------
 RECENT CHANGES (OLDEST FIRST)
 No changes captured yet.
@@ -272,13 +272,512 @@ This observer does not inspect server-only objects, script source, remote traffi
 
 ========== OBJECT SCAN ==========
 SHORTNAME HUB - UNIVERSAL GAME OBJECT SCAN REPORT
-Results: 0
-Objects inspected: 0
-Remote objects found: 0
-Script/module objects found: 0
+Results: 500
+Objects inspected: 49357
+Remote objects found: 130
+Script/module objects found: 315
 Scan limit: 50000
 ----------------------------------------
-No matching game objects or remote objects were found.
+1. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ViewPlayer
+2. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdatePageBoostStatus
+3. [block] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdateIceBlock
+4. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdateBanland
+5. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UndoCommand
+6. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SystemMessage
+7. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowWarning
+8. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowPage
+9. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowCommands
+10. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ShowBannedUser
+11. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SetResetButtonCallbackEnabled
+12. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SetCoreGuiEnabled
+13. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.SetCameraSubject
+14. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveServerRanks
+15. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveRanksInfo
+16. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrievePollData
+17. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveOfferStartTime
+18. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveGamepasses
+19. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveData
+20. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBroadcastData
+21. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBanland
+22. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RetrieveAlertData
+23. [store] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RestoreDefaultSettings
+24. [quest] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandSilent
+25. [quest] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandModification
+26. [quest] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RequestCommand
+27. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ReplyToPrivateMessage
+28. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ReplicationEffectClientCommand
+29. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ReplicateEffect
+30. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.RemoveStat
+31. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.RemovePermRank
+32. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.RankChanged
+33. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PurchaseAccessory
+34. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PromptGamepass
+35. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PlayerChattedIgnoreCommands
+36. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PlayerChatted
+37. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.PlaySoundInstance
+38. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Notice
+39. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Message
+40. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.JoinGroup
+41. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.InsertStat
+42. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Initialized
+43. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Hint
+44. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.GlobalAnnouncement
+45. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetPing
+46. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetLocalDate
+47. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetEmotes
+48. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.GetAnimationId
+49. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ForceChat
+50. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ForceBubbleChat
+51. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.FavoriteUGC
+52. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.FadeInIcon
+53. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ExecutePoll
+54. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ExecuteClientCommand
+55. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ExecuteBroadcast
+56. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ExecuteAlert
+57. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Error
+58. [admin] (BINDABLE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.EndDisco
+59. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.DeactivateClientCommand
+60. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreatePollMenu
+61. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateMenu
+62. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateLog
+63. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateEmotesMenu
+64. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateCommandMenu
+65. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateBanMenu
+66. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CreateAlert
+67. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.Clear
+68. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.CheckOffer
+69. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ChartsHttpNotice
+70. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ChangeStat
+71. [admin] (REMOTE FUNCTION) ReplicatedStorage.HDAdminHDClient.Signals.ChangeSetting
+72. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ChangeMainVariable
+73. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.BulkPurchaseFinished
+74. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.BindAudioEmitter
+75. [roll] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.BecomeControlled
+76. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.AddEmoteDetail
+77. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.ActivateClientCommand
+78. [admin] (REMOTE EVENT) ReplicatedStorage.HDAdminHDClient.Signals.UpdateSavedVersion
+79. [remote] (REMOTE EVENT) ReplicatedStorage.UpdateClanInfo
+80. [remote] (REMOTE EVENT) ReplicatedStorage.Replicate
+81. [remote] (BINDABLE EVENT) ReplicatedStorage.Laser
+82. [remote] (REMOTE EVENT) ReplicatedStorage.FlyFX
+83. [remote] (REMOTE EVENT) ReplicatedStorage.BindFly
+84. [remote] (REMOTE EVENT) ReplicatedStorage.ArmAimRemote
+85. [remote] (BINDABLE FUNCTION) ReplicatedStorage.GetUI
+86. [remote] (REMOTE EVENT) ReplicatedStorage.Flying.Events.BindFly
+87. [remote] (REMOTE EVENT) ReplicatedStorage.Packet.RemoteEvent
+88. [car] (BINDABLE FUNCTION) Workspace.Live.OscarBeanz89.Animate.PlayEmote
+89. [car] (REMOTE FUNCTION) Workspace.Live.OscarBeanz89.AimScript.RemoteFunction
+90. [remote] (BINDABLE FUNCTION) Workspace.Live.minisn1p3s9.Animate.PlayEmote
+91. [remote] (REMOTE FUNCTION) Workspace.Live.minisn1p3s9.AimScript.RemoteFunction
+92. [remote] (BINDABLE FUNCTION) Workspace.Live.Alavera_0.Animate.PlayEmote
+93. [remote] (REMOTE FUNCTION) Workspace.Live.Alavera_0.AimScript.RemoteFunction
+94. [remote] (REMOTE FUNCTION) Workspace.Live.lelerlele13.AimScript.RemoteFunction
+95. [remote] (BINDABLE FUNCTION) Workspace.Live.lelerlele13.Animate.PlayEmote
+96. [remote] (BINDABLE FUNCTION) Workspace.Live.Froxtyaurabetter67.Animate.PlayEmote
+97. [remote] (REMOTE FUNCTION) Workspace.Live.Froxtyaurabetter67.AimScript.RemoteFunction
+98. [remote] (REMOTE FUNCTION) Workspace.Live.Akiliano82.AimScript.RemoteFunction
+99. [remote] (BINDABLE FUNCTION) Workspace.Live.Akiliano82.Animate.PlayEmote
+100. [remote] (REMOTE FUNCTION) Workspace.Live.Skibiditoiletpart216.AimScript.RemoteFunction
+101. [remote] (BINDABLE FUNCTION) Workspace.Live.Skibiditoiletpart216.Animate.PlayEmote
+102. [remote] (BINDABLE FUNCTION) Workspace.Live.tyler_44571.Animate.PlayEmote
+103. [remote] (REMOTE FUNCTION) Workspace.Live.tyler_44571.AimScript.RemoteFunction
+104. [remote] (BINDABLE FUNCTION) Workspace.Live.PAYTHEBILLXD.Animate.PlayEmote
+105. [remote] (REMOTE FUNCTION) Workspace.Live.PAYTHEBILLXD.AimScript.RemoteFunction
+106. [remote] (BINDABLE FUNCTION) Workspace.Live.S0PRO3.Animate.PlayEmote
+107. [remote] (REMOTE FUNCTION) Workspace.Live.S0PRO3.AimScript.RemoteFunction
+108. [remote] (BINDABLE FUNCTION) Workspace.Live.its_wilianz.Animate.PlayEmote
+109. [remote] (REMOTE FUNCTION) Workspace.Live.its_wilianz.AimScript.RemoteFunction
+110. [remote] (BINDABLE FUNCTION) Workspace.Live.CoptanoprobloxTH.Animate.PlayEmote
+111. [remote] (REMOTE FUNCTION) Workspace.Live.CoptanoprobloxTH.AimScript.RemoteFunction
+112. [remote] (REMOTE FUNCTION) Workspace.Live.Loganthegreatbo.AimScript.RemoteFunction
+113. [remote] (BINDABLE FUNCTION) Workspace.Live.Loganthegreatbo.Animate.PlayEmote
+114. [remote] (BINDABLE FUNCTION) Workspace.Live.sisruejcjrjvoeykff.Animate.PlayEmote
+115. [remote] (REMOTE FUNCTION) Workspace.Live.sisruejcjrjvoeykff.AimScript.RemoteFunction
+116. [remote] (BINDABLE FUNCTION) Workspace.Live.Nico_dwje.Animate.PlayEmote
+117. [remote] (REMOTE FUNCTION) Workspace.Live.Nico_dwje.AimScript.RemoteFunction
+118. [remote] (BINDABLE FUNCTION) Workspace.Live.boajxjdnjdjks.Animate.PlayEmote
+119. [remote] (REMOTE FUNCTION) Workspace.Live.boajxjdnjdjks.AimScript.RemoteFunction
+120. [remote] (BINDABLE FUNCTION) Workspace.Live.Hwajin570.Animate.PlayEmote
+121. [remote] (REMOTE FUNCTION) Workspace.Live.Hwajin570.AimScript.RemoteFunction
+122. [remote] (BINDABLE FUNCTION) Workspace.Live.werepandabear.Animate.PlayEmote
+123. [remote] (REMOTE FUNCTION) Workspace.Live.werepandabear.AimScript.RemoteFunction
+124. [remote] (BINDABLE FUNCTION) Workspace.Live.shortname_zen.Animate.PlayEmote
+125. [remote] (REMOTE FUNCTION) Workspace.Live.shortname_zen.AimScript.RemoteFunction
+126. [remote] (BINDABLE EVENT) Workspace.Live.shortname_zen.Humanoid.Event
+127. [remote] (BINDABLE FUNCTION) Workspace.Live.Drkatona55.Animate.PlayEmote
+128. [remote] (REMOTE FUNCTION) Workspace.Live.Drkatona55.AimScript.RemoteFunction
+129. [remote] (BINDABLE FUNCTION) Workspace.Live.fxz_wwww.Animate.PlayEmote
+130. [remote] (REMOTE FUNCTION) Workspace.Live.fxz_wwww.AimScript.RemoteFunction
+131. [admin] (LOCAL SCRIPT) Players.shortname_zen.PlayerGui.HDAdminInterface.MainFrame.Pages.Boost.Buy.Banner.Buttons.Unlock.UIStroke.UIGradient.LocalScript
+132. [admin] (LOCAL SCRIPT) Players.shortname_zen.PlayerGui.HDAdminInterface.LocalScripts.HideGUIs
+133. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminInterface.MainFrame.Pages.Boost.Buy.Banner.Buttons.Unlock.UIStroke.UIGradient.LocalScript
+134. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminInterface.MainFrame.Pages.About.Soon.Info.LinkFrame.TextBox.LocalScript
+135. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminInterface.LocalScripts.HideGUIs
+136. [admin] (LOCAL SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminStarterCharacter
+137. [admin] (SCRIPT) ReplicatedStorage.HDAdminHDClient.StarterKit.HDAdminStartup
+138. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.VerifyUtil
+139. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.VERSION
+140. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.TextChatUtility
+141. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Signal
+142. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.SharedCoreFunctions
+143. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.SharedAPI
+144. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework.Warnings
+145. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework.Reference
+146. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework.MainVariables
+147. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.MainFramework
+148. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Events
+149. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Emotes
+150. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.Demojify
+151. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.CoreNotices
+152. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.SharedModules.BundleUtility
+153. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.CustomClientCommands
+154. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.Notices
+155. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.Messages
+156. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.InputHandler
+157. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.TopbarIcons
+158. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.ScreenAdapter
+159. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.RedNotices
+160. [settings] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageSettings
+161. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageModeration
+162. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageCommands
+163. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageBooster
+164. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageAbout.Updates
+165. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageAbout.Credits
+166. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs.PageAbout
+167. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.GUIs
+168. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.FlyCommand
+169. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.CmdBar
+170. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientNetwork
+171. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientCoreFunctions
+172. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientCommands
+173. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ClientAPI
+174. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Modules.ChatHandler
+175. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Packages.Janitor
+176. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Packages.GoodSignal
+177. [ult] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Themes.Default
+178. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Themes.Classic
+179. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Themes
+180. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Overflow
+181. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Features.Gamepad
+182. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Widget
+183. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Selection
+184. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Notice
+185. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Menu
+186. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Indicator
+187. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Dropdown
+188. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Container
+189. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Elements.Caption
+190. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.VERSION
+191. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Utility
+192. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Types
+193. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Reference
+194. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon.Attribute
+195. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminHDClient.Assets.Icon
+196. [admin] (MODULE SCRIPT) ReplicatedStorage.HDAdminSetup
+197. [zone] (MODULE SCRIPT) ReplicatedStorage.Zone
+198. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.Bone
+199. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.Vector3
+200. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.LinkAttachments
+201. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.Solvers.Attachment
+202. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.GoodSignal
+203. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.VisualizerCache
+204. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4.HitboxCaster
+205. [hit] (MODULE SCRIPT) ReplicatedStorage.RaycastHitboxV4
+206. [car] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.Animate
+207. [health] (SCRIPT) Workspace.Live.OscarBeanz89.Health
+208. [admin] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.HDAdminStarterCharacter
+209. [car] (SCRIPT) Workspace.Live.OscarBeanz89.LocalScript.Script
+210. [car] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.LocalScript
+211. [car] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.FlyLoader.Fly
+212. [car] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.FlyLoader
+213. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.LockOn
+214. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.CameraShake
+215. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+216. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+217. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+218. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.SmoothShiftLock.Constants
+219. [combat] (MODULE SCRIPT) Workspace.Live.OscarBeanz89.Combat.Modules.SmoothShiftLock
+220. [combat] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.Combat
+221. [car] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.CameraBobble
+222. [ragdoll] (SCRIPT) Workspace.Live.OscarBeanz89.Ragdoll
+223. [car] (LOCAL SCRIPT) Workspace.Live.OscarBeanz89.AimScript.LocalScript
+224. [car] (SCRIPT) Workspace.Live.OscarBeanz89.AimScript
+225. [health] (SCRIPT) Workspace.Live.minisn1p3s9.Health
+226. [admin] (LOCAL SCRIPT) Workspace.Live.minisn1p3s9.HDAdminStarterCharacter
+227. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.LockOn
+228. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.CameraShake
+229. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+230. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+231. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+232. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.SmoothShiftLock.Constants
+233. [combat] (MODULE SCRIPT) Workspace.Live.minisn1p3s9.Combat.Modules.SmoothShiftLock
+234. [combat] (LOCAL SCRIPT) Workspace.Live.minisn1p3s9.Combat
+235. [ragdoll] (SCRIPT) Workspace.Live.minisn1p3s9.Ragdoll
+236. [health] (SCRIPT) Workspace.Live.Alavera_0.Health
+237. [admin] (LOCAL SCRIPT) Workspace.Live.Alavera_0.HDAdminStarterCharacter
+238. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.LockOn
+239. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.CameraShake
+240. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+241. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+242. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+243. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.SmoothShiftLock.Constants
+244. [combat] (MODULE SCRIPT) Workspace.Live.Alavera_0.Combat.Modules.SmoothShiftLock
+245. [combat] (LOCAL SCRIPT) Workspace.Live.Alavera_0.Combat
+246. [ragdoll] (SCRIPT) Workspace.Live.Alavera_0.Ragdoll
+247. [ragdoll] (SCRIPT) Workspace.Live.lelerlele13.Ragdoll
+248. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+249. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+250. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+251. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.SmoothShiftLock.Constants
+252. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.SmoothShiftLock
+253. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.CameraShake
+254. [combat] (MODULE SCRIPT) Workspace.Live.lelerlele13.Combat.Modules.LockOn
+255. [combat] (LOCAL SCRIPT) Workspace.Live.lelerlele13.Combat
+256. [admin] (LOCAL SCRIPT) Workspace.Live.lelerlele13.HDAdminStarterCharacter
+257. [health] (SCRIPT) Workspace.Live.lelerlele13.Health
+258. [health] (SCRIPT) Workspace.Live.Froxtyaurabetter67.Health
+259. [admin] (LOCAL SCRIPT) Workspace.Live.Froxtyaurabetter67.HDAdminStarterCharacter
+260. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.LockOn
+261. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.CameraShake
+262. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+263. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+264. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+265. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.SmoothShiftLock.Constants
+266. [combat] (MODULE SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat.Modules.SmoothShiftLock
+267. [combat] (LOCAL SCRIPT) Workspace.Live.Froxtyaurabetter67.Combat
+268. [ragdoll] (SCRIPT) Workspace.Live.Froxtyaurabetter67.Ragdoll
+269. [ragdoll] (SCRIPT) Workspace.Live.Akiliano82.Ragdoll
+270. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+271. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+272. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+273. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.SmoothShiftLock.Constants
+274. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.SmoothShiftLock
+275. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.CameraShake
+276. [combat] (MODULE SCRIPT) Workspace.Live.Akiliano82.Combat.Modules.LockOn
+277. [combat] (LOCAL SCRIPT) Workspace.Live.Akiliano82.Combat
+278. [admin] (LOCAL SCRIPT) Workspace.Live.Akiliano82.HDAdminStarterCharacter
+279. [health] (SCRIPT) Workspace.Live.Akiliano82.Health
+280. [ragdoll] (SCRIPT) Workspace.Live.Skibiditoiletpart216.Ragdoll
+281. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+282. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+283. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+284. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.SmoothShiftLock.Constants
+285. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.SmoothShiftLock
+286. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.CameraShake
+287. [combat] (MODULE SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat.Modules.LockOn
+288. [combat] (LOCAL SCRIPT) Workspace.Live.Skibiditoiletpart216.Combat
+289. [admin] (LOCAL SCRIPT) Workspace.Live.Skibiditoiletpart216.HDAdminStarterCharacter
+290. [health] (SCRIPT) Workspace.Live.Skibiditoiletpart216.Health
+291. [health] (SCRIPT) Workspace.Live.tyler_44571.Health
+292. [admin] (LOCAL SCRIPT) Workspace.Live.tyler_44571.HDAdminStarterCharacter
+293. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.LockOn
+294. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.CameraShake
+295. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+296. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+297. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+298. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.SmoothShiftLock.Constants
+299. [combat] (MODULE SCRIPT) Workspace.Live.tyler_44571.Combat.Modules.SmoothShiftLock
+300. [combat] (LOCAL SCRIPT) Workspace.Live.tyler_44571.Combat
+301. [ragdoll] (SCRIPT) Workspace.Live.tyler_44571.Ragdoll
+302. [health] (SCRIPT) Workspace.Live.PAYTHEBILLXD.Health
+303. [admin] (LOCAL SCRIPT) Workspace.Live.PAYTHEBILLXD.HDAdminStarterCharacter
+304. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.LockOn
+305. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.CameraShake
+306. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+307. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+308. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+309. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.SmoothShiftLock.Constants
+310. [combat] (MODULE SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat.Modules.SmoothShiftLock
+311. [combat] (LOCAL SCRIPT) Workspace.Live.PAYTHEBILLXD.Combat
+312. [ragdoll] (SCRIPT) Workspace.Live.PAYTHEBILLXD.Ragdoll
+313. [health] (SCRIPT) Workspace.Live.S0PRO3.Health
+314. [admin] (LOCAL SCRIPT) Workspace.Live.S0PRO3.HDAdminStarterCharacter
+315. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.LockOn
+316. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.CameraShake
+317. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+318. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+319. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+320. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.SmoothShiftLock.Constants
+321. [combat] (MODULE SCRIPT) Workspace.Live.S0PRO3.Combat.Modules.SmoothShiftLock
+322. [combat] (LOCAL SCRIPT) Workspace.Live.S0PRO3.Combat
+323. [ragdoll] (SCRIPT) Workspace.Live.S0PRO3.Ragdoll
+324. [health] (SCRIPT) Workspace.Live.its_wilianz.Health
+325. [admin] (LOCAL SCRIPT) Workspace.Live.its_wilianz.HDAdminStarterCharacter
+326. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.LockOn
+327. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.CameraShake
+328. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+329. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+330. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+331. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.SmoothShiftLock.Constants
+332. [combat] (MODULE SCRIPT) Workspace.Live.its_wilianz.Combat.Modules.SmoothShiftLock
+333. [combat] (LOCAL SCRIPT) Workspace.Live.its_wilianz.Combat
+334. [ragdoll] (SCRIPT) Workspace.Live.its_wilianz.Ragdoll
+335. [health] (SCRIPT) Workspace.Live.CoptanoprobloxTH.Health
+336. [admin] (LOCAL SCRIPT) Workspace.Live.CoptanoprobloxTH.HDAdminStarterCharacter
+337. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.LockOn
+338. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.CameraShake
+339. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+340. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+341. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+342. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.SmoothShiftLock.Constants
+343. [combat] (MODULE SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat.Modules.SmoothShiftLock
+344. [combat] (LOCAL SCRIPT) Workspace.Live.CoptanoprobloxTH.Combat
+345. [ragdoll] (SCRIPT) Workspace.Live.CoptanoprobloxTH.Ragdoll
+346. [ragdoll] (SCRIPT) Workspace.Live.Loganthegreatbo.Ragdoll
+347. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+348. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+349. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+350. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.SmoothShiftLock.Constants
+351. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.SmoothShiftLock
+352. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.CameraShake
+353. [combat] (MODULE SCRIPT) Workspace.Live.Loganthegreatbo.Combat.Modules.LockOn
+354. [combat] (LOCAL SCRIPT) Workspace.Live.Loganthegreatbo.Combat
+355. [admin] (LOCAL SCRIPT) Workspace.Live.Loganthegreatbo.HDAdminStarterCharacter
+356. [health] (SCRIPT) Workspace.Live.Loganthegreatbo.Health
+357. [health] (SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Health
+358. [admin] (LOCAL SCRIPT) Workspace.Live.sisruejcjrjvoeykff.HDAdminStarterCharacter
+359. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.LockOn
+360. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.CameraShake
+361. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+362. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+363. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+364. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.SmoothShiftLock.Constants
+365. [combat] (MODULE SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat.Modules.SmoothShiftLock
+366. [combat] (LOCAL SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Combat
+367. [ragdoll] (SCRIPT) Workspace.Live.sisruejcjrjvoeykff.Ragdoll
+368. [health] (SCRIPT) Workspace.Live.Nico_dwje.Health
+369. [admin] (LOCAL SCRIPT) Workspace.Live.Nico_dwje.HDAdminStarterCharacter
+370. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.LockOn
+371. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.CameraShake
+372. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+373. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+374. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+375. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.SmoothShiftLock.Constants
+376. [combat] (MODULE SCRIPT) Workspace.Live.Nico_dwje.Combat.Modules.SmoothShiftLock
+377. [combat] (LOCAL SCRIPT) Workspace.Live.Nico_dwje.Combat
+378. [ragdoll] (SCRIPT) Workspace.Live.Nico_dwje.Ragdoll
+379. [health] (SCRIPT) Workspace.Live.boajxjdnjdjks.Health
+380. [admin] (LOCAL SCRIPT) Workspace.Live.boajxjdnjdjks.HDAdminStarterCharacter
+381. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.LockOn
+382. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.CameraShake
+383. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+384. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+385. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+386. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.SmoothShiftLock.Constants
+387. [combat] (MODULE SCRIPT) Workspace.Live.boajxjdnjdjks.Combat.Modules.SmoothShiftLock
+388. [combat] (LOCAL SCRIPT) Workspace.Live.boajxjdnjdjks.Combat
+389. [ragdoll] (SCRIPT) Workspace.Live.boajxjdnjdjks.Ragdoll
+390. [health] (SCRIPT) Workspace.Live.Hwajin570.Health
+391. [admin] (LOCAL SCRIPT) Workspace.Live.Hwajin570.HDAdminStarterCharacter
+392. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.LockOn
+393. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.CameraShake
+394. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+395. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+396. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+397. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.SmoothShiftLock.Constants
+398. [combat] (MODULE SCRIPT) Workspace.Live.Hwajin570.Combat.Modules.SmoothShiftLock
+399. [combat] (LOCAL SCRIPT) Workspace.Live.Hwajin570.Combat
+400. [ragdoll] (SCRIPT) Workspace.Live.Hwajin570.Ragdoll
+401. [health] (SCRIPT) Workspace.Live.werepandabear.Health
+402. [admin] (LOCAL SCRIPT) Workspace.Live.werepandabear.HDAdminStarterCharacter
+403. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.LockOn
+404. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.CameraShake
+405. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+406. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+407. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+408. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.SmoothShiftLock.Constants
+409. [combat] (MODULE SCRIPT) Workspace.Live.werepandabear.Combat.Modules.SmoothShiftLock
+410. [combat] (LOCAL SCRIPT) Workspace.Live.werepandabear.Combat
+411. [ragdoll] (SCRIPT) Workspace.Live.werepandabear.Ragdoll
+412. [health] (SCRIPT) Workspace.Live.shortname_zen.Health
+413. [admin] (LOCAL SCRIPT) Workspace.Live.shortname_zen.HDAdminStarterCharacter
+414. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.LockOn
+415. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.CameraShake
+416. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+417. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+418. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+419. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock.Constants
+420. [combat] (MODULE SCRIPT) Workspace.Live.shortname_zen.Combat.Modules.SmoothShiftLock
+421. [combat] (LOCAL SCRIPT) Workspace.Live.shortname_zen.Combat
+422. [ragdoll] (SCRIPT) Workspace.Live.shortname_zen.Ragdoll
+423. [health] (SCRIPT) Workspace.Live.Drkatona55.Health
+424. [admin] (LOCAL SCRIPT) Workspace.Live.Drkatona55.HDAdminStarterCharacter
+425. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.LockOn
+426. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.CameraShake
+427. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+428. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+429. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+430. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.SmoothShiftLock.Constants
+431. [combat] (MODULE SCRIPT) Workspace.Live.Drkatona55.Combat.Modules.SmoothShiftLock
+432. [combat] (LOCAL SCRIPT) Workspace.Live.Drkatona55.Combat
+433. [ragdoll] (SCRIPT) Workspace.Live.Drkatona55.Ragdoll
+434. [health] (SCRIPT) Workspace.Live.fxz_wwww.Health
+435. [admin] (LOCAL SCRIPT) Workspace.Live.fxz_wwww.HDAdminStarterCharacter
+436. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.LockOn
+437. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.CameraShake
+438. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.SmoothShiftLock.Dependencies.Signal
+439. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.SmoothShiftLock.Dependencies.Spring
+440. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.SmoothShiftLock.Dependencies.Maid
+441. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.SmoothShiftLock.Constants
+442. [combat] (MODULE SCRIPT) Workspace.Live.fxz_wwww.Combat.Modules.SmoothShiftLock
+443. [combat] (LOCAL SCRIPT) Workspace.Live.fxz_wwww.Combat
+444. [ragdoll] (SCRIPT) Workspace.Live.fxz_wwww.Ragdoll
+445. [ragdoll] (SCRIPT) Workspace.Live.R6_Animations.Ragdoll
+446. [map] (Folder) Workspace.Map
+447. [map] (Part) Workspace.Map.Gradient Part
+448. [safezone] (Decal) Workspace.Map.Gradient Part.SAFEZONEGRADIENT
+449. [map] (Weld) Workspace.Map.Gradient Part.Weld
+450. [map] (Part) Workspace.Map.Baseplate
+451. [map] (Texture) Workspace.Map.Baseplate.Texture
+452. [spawn] (SpawnLocation) Workspace.Map.SpawnLocation
+453. [spawn] (Decal) Workspace.Map.SpawnLocation.Decal
+454. [spawn] (Weld) Workspace.Map.SpawnLocation.Weld
+455. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle_Idle
+456. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe
+457. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart
+458. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Null
+459. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso
+460. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Null
+461. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Right Arm
+462. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
+463. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Idle.Keyframe.HumanoidRootPart.Torso.Left Arm
+464. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle_Shoot
+465. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe
+466. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart
+467. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Null
+468. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso
+469. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Null
+470. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm
+471. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
+472. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Left Arm
+473. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Shoot.Keyframe.HumanoidRootPart.Torso.Head
+474. [rifle] (KeyframeSequence) Workspace.Rig1.AnimSaves.Rifle_Hold
+475. [rifle] (Keyframe) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe
+476. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart
+477. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Null
+478. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso
+479. [rifle] (IntValue) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Null
+480. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm
+481. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
+482. [rifle] (Pose) Workspace.Rig1.AnimSaves.Rifle_Hold.Keyframe.HumanoidRootPart.Torso.Left Arm
+483. [gun] (KeyframeSequence) Workspace.Rig1.AnimSaves.Shotgun_Shoot
+484. [gun] (Keyframe) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe
+485. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart
+486. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Null
+487. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso
+488. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Left Arm
+489. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm
+490. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Right Arm.Hand
+491. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Head
+492. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Shoot.Keyframe.HumanoidRootPart.Torso.Null
+493. [gun] (KeyframeSequence) Workspace.Rig1.AnimSaves.Shotgun_Hold
+494. [gun] (Keyframe) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe
+495. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart
+496. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Null
+497. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso
+498. [gun] (IntValue) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Null
+499. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Left Arm
+500. [gun] (Pose) Workspace.Rig1.AnimSaves.Shotgun_Hold.Keyframe.HumanoidRootPart.Torso.Right Arm
 ----------------------------------------
 Notes:
 - Remote objects are listed by name and path only; they are not called.
@@ -286,7 +785,292 @@ Notes:
 - Only client-visible/locally replicated content can be found.
 
 ========== INSTANCE INSPECTION ==========
-No universal inspection run yet.
+SHORTNAME HUB - UNIVERSAL INSTANCE INSPECTION
+Mode: READ-ONLY / GAME-INDEPENDENT
+Roots: Workspace, ReplicatedStorage, ReplicatedFirst, StarterGui, StarterPlayer, Lighting, SoundService
+----------------------------------------
+Objects inspected: 25000
+Unique instance classes: 31
+
+INSTANCE CLASS COUNTS
+KeyframeSequence: 119
+Humanoid: 2
+Decal: 21
+Part: 9
+UIGridLayout: 7
+ImageLabel: 500
+SurfaceGui: 6
+Folder: 251
+UIGradient: 756
+AudioListener: 1
+Animator: 2
+Wire: 1
+UIStroke: 1256
+Pose: 13638
+Texture: 1
+StringValue: 240
+Weld: 10
+Script: 1
+BodyPartDescription: 12
+UICorner: 765
+KeyframeMarker: 112
+SpawnLocation: 1
+BlurEffect: 1
+IntValue: 3657
+Camera: 1
+TextLabel: 756
+Model: 6
+HumanoidDescription: 2
+Frame: 262
+ScrollingFrame: 6
+Keyframe: 2598
+
+REMOTE / BINDABLE INVENTORY (NEVER INVOKED)
+No client-visible remote or bindable instances found.
+
+SCRIPT / MODULE INVENTORY (SOURCE NOT READ)
+[Script] Workspace.Live.R6_Animations.Ragdoll
+
+VISIBLE UI INVENTORY
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Type | Text=TOP CLANS
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.Streamer University.Rank | Text=#1
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.Streamer University.Username | Text=Streamer University
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.Streamer University.Amount | Text=LEVEL 125
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.Demons.Rank | Text=#2
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.Demons.Username | Text=Demons
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.Demons.Amount | Text=LEVEL 120
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.prefix.Rank | Text=#3
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.prefix.Username | Text=prefix
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Top3.prefix.Amount | Text=LEVEL 87
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.just belt.Rank | Text=#4
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.just belt.Username | Text=just belt
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.just belt.Amount | Text=LEVEL 67
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.ELITES.Rank | Text=#5
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.ELITES.Username | Text=ELITES
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.ELITES.Amount | Text=LEVEL 64
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.1 of 1.Rank | Text=#6
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.1 of 1.Username | Text=1 of 1
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.1 of 1.Amount | Text=LEVEL 60
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.paraNoid.Rank | Text=#7
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.paraNoid.Username | Text=paraNoid
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.paraNoid.Amount | Text=LEVEL 60
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Blacklist.Rank | Text=#8
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Blacklist.Username | Text=Blacklist
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Blacklist.Amount | Text=LEVEL 59
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The one above all.Rank | Text=#9
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The one above all.Username | Text=The one above all
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The one above all.Amount | Text=LEVEL 58
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Chrome hearts .Rank | Text=#10
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Chrome hearts .Username | Text=Chrome hearts 
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Chrome hearts .Amount | Text=LEVEL 57
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Fight.Rank | Text=#11
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Fight.Username | Text=Fight
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Fight.Amount | Text=LEVEL 54
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Reality.Rank | Text=#12
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Reality.Username | Text=Reality
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Reality.Amount | Text=LEVEL 51
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.OWAYY.Rank | Text=#13
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.OWAYY.Username | Text=OWAYY
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.OWAYY.Amount | Text=LEVEL 50
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.StreamerUniversity 2.Rank | Text=#14
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.StreamerUniversity 2.Username | Text=StreamerUniversity 2
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.StreamerUniversity 2.Amount | Text=LEVEL 49
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.#####.Rank | Text=#15
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.#####.Username | Text=#####
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.#####.Amount | Text=LEVEL 47
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.La Bachi Deidad.Rank | Text=#16
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.La Bachi Deidad.Username | Text=La Bachi Deidad
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.La Bachi Deidad.Amount | Text=LEVEL 47
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.HOODRATZ.Rank | Text=#17
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.HOODRATZ.Username | Text=HOODRATZ
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.HOODRATZ.Amount | Text=LEVEL 45
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.RampantSimon.Rank | Text=#18
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.RampantSimon.Username | Text=RampantSimon
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.RampantSimon.Amount | Text=LEVEL 44
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others. XP.Rank | Text=#19
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others. XP.Username | Text= XP
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others. XP.Amount | Text=LEVEL 44
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Easy e.Rank | Text=#20
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Easy e.Username | Text=Easy e
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Easy e.Amount | Text=LEVEL 43
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Thes VIPs UFC.Rank | Text=#21
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Thes VIPs UFC.Username | Text=Thes VIPs UFC
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Thes VIPs UFC.Amount | Text=LEVEL 41
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others. deathrow.Rank | Text=#22
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others. deathrow.Username | Text= deathrow
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others. deathrow.Amount | Text=LEVEL 41
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Death Valley.Rank | Text=#23
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Death Valley.Username | Text=Death Valley
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Death Valley.Amount | Text=LEVEL 41
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.veiledfangs.Rank | Text=#24
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.veiledfangs.Username | Text=veiledfangs
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.veiledfangs.Amount | Text=LEVEL 41
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.solo attack.Rank | Text=#25
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.solo attack.Username | Text=solo attack
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.solo attack.Amount | Text=LEVEL 40
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.005.Rank | Text=#26
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.005.Username | Text=005
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.005.Amount | Text=LEVEL 39
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Quick Fist.Rank | Text=#27
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Quick Fist.Username | Text=Quick Fist
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Quick Fist.Amount | Text=LEVEL 39
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Vampirez .Rank | Text=#28
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Vampirez .Username | Text=Vampirez 
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Vampirez .Amount | Text=LEVEL 38
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.67 CLAN OFFICIAL .Rank | Text=#29
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.67 CLAN OFFICIAL .Username | Text=67 CLAN OFFICIAL 
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.67 CLAN OFFICIAL .Amount | Text=LEVEL 37
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.project akatsuki.Rank | Text=#30
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.project akatsuki.Username | Text=project akatsuki
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.project akatsuki.Amount | Text=LEVEL 37
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Looks_maxer.Rank | Text=#31
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Looks_maxer.Username | Text=Looks_maxer
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Looks_maxer.Amount | Text=LEVEL 37
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Dark Hunters.Rank | Text=#32
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Dark Hunters.Username | Text=Dark Hunters
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Dark Hunters.Amount | Text=LEVEL 36
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Barcelona.Rank | Text=#33
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Barcelona.Username | Text=Barcelona
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Barcelona.Amount | Text=LEVEL 36
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.ewqe.Rank | Text=#34
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.ewqe.Username | Text=ewqe
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.ewqe.Amount | Text=LEVEL 36
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.9 9 9.Rank | Text=#35
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.9 9 9.Username | Text=9 9 9
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.9 9 9.Amount | Text=LEVEL 35
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.bloodlusted.Rank | Text=#36
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.bloodlusted.Username | Text=bloodlusted
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.bloodlusted.Amount | Text=LEVEL 35
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.VX0.Rank | Text=#37
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.VX0.Username | Text=VX0
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.VX0.Amount | Text=LEVEL 34
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.GK X TOP REAPERS.Rank | Text=#38
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.GK X TOP REAPERS.Username | Text=GK X TOP REAPERS
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.GK X TOP REAPERS.Amount | Text=LEVEL 34
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Hellbound Yamato.Rank | Text=#39
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Hellbound Yamato.Username | Text=Hellbound Yamato
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Hellbound Yamato.Amount | Text=LEVEL 33
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.melee.Rank | Text=#40
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.melee.Username | Text=melee
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.melee.Amount | Text=LEVEL 33
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.strongest of all.Rank | Text=#41
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.strongest of all.Username | Text=strongest of all
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.strongest of all.Amount | Text=LEVEL 33
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The Shadow.Rank | Text=#42
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The Shadow.Username | Text=The Shadow
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The Shadow.Amount | Text=LEVEL 32
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.zxc.Rank | Text=#43
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.zxc.Username | Text=zxc
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.zxc.Amount | Text=LEVEL 32
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.time to sleep.Rank | Text=#44
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.time to sleep.Username | Text=time to sleep
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.time to sleep.Amount | Text=LEVEL 32
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The fire nation.Rank | Text=#45
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The fire nation.Username | Text=The fire nation
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.The fire nation.Amount | Text=LEVEL 32
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.INVICTUS.Rank | Text=#46
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.INVICTUS.Username | Text=INVICTUS
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.INVICTUS.Amount | Text=LEVEL 31
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.N0 MERCY.Rank | Text=#47
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.N0 MERCY.Username | Text=N0 MERCY
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.N0 MERCY.Amount | Text=LEVEL 31
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Shira1 Ryu.Rank | Text=#48
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Shira1 Ryu.Username | Text=Shira1 Ryu
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Shira1 Ryu.Amount | Text=LEVEL 31
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Great Romanians.Rank | Text=#49
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Great Romanians.Username | Text=Great Romanians
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.Great Romanians.Amount | Text=LEVEL 30
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.DARK.Rank | Text=#50
+[TextLabel] Workspace.Leaderboards.Clans.Core.Main.Others.DARK.Username | Text=DARK
+
+Safety / coverage:
+- No script source is read or executed.
+- No RemoteEvent, RemoteFunction, BindableEvent, or BindableFunction is invoked.
+- Only client-visible instances and selected metadata are inspected.
+- This is a general inventory, not proof of server behavior or exploitability.
+- Object cap: 25000
 
 ========== STRUCTURE FINDER ==========
-No universal discovery scan run yet.
+SHORTNAME HUB - UNIVERSAL GAME DISCOVERY REPORT
+Mode: PASSIVE / READ-ONLY
+Game: Ugc
+PlaceId: 130960021905304
+UniverseId: 10372466625
+Player: shortname_zen
+Objects inspected: 10063
+Scan limit: 18000
+RemoteEvents / RemoteFunctions / UnreliableRemoteEvents: 85
+BindableEvents / BindableFunctions: 8
+Relevant modules: 140
+System matches: 250
+Value objects: 350
+Visible UI text entries: 220
+Interactable prompts: 0
+----------------------------------------
+REMOTE INVENTORY (NAMES / PATHS ONLY)
+1. [RemoteEvent] ReplicatedStorage.Packet.RemoteEvent | Attributes={A=0}
+2. [RemoteEvent] ReplicatedStorage.Flying.Events.BindFly | Attributes=none
+3. [UnreliableRemoteEvent] ReplicatedStorage.Flying.Events.SpawnVFX | Attributes=none
+4. [UnreliableRemoteEvent] ReplicatedStorage.Flying.Events.Whiz | Attributes=none
+5. [RemoteEvent] ReplicatedStorage.ArmAimRemote | Attributes=none
+6. [RemoteEvent] ReplicatedStorage.BindFly | Attributes=none
+7. [RemoteEvent] ReplicatedStorage.FlyFX | Attributes=none
+8. [RemoteEvent] ReplicatedStorage.Replicate | Attributes=none
+9. [RemoteEvent] ReplicatedStorage.UpdateClanInfo | Attributes=none
+10. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.UpdateSavedVersion | Attributes=none
+11. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ActivateClientCommand | Attributes=none
+12. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.AddEmoteDetail | Attributes=none
+13. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.BecomeControlled | Attributes=none
+14. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.BindAudioEmitter | Attributes=none
+15. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.BulkPurchaseFinished | Attributes=none
+16. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ChangeMainVariable | Attributes=none
+17. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ChangeSetting | Attributes=none
+18. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ChangeStat | Attributes=none
+19. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ChartsHttpNotice | Attributes=none
+20. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CheckOffer | Attributes=none
+21. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Clear | Attributes=none
+22. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateAlert | Attributes=none
+23. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateBanMenu | Attributes=none
+24. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateCommandMenu | Attributes=none
+25. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateEmotesMenu | Attributes=none
+26. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateLog | Attributes=none
+27. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreateMenu | Attributes=none
+28. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.CreatePollMenu | Attributes=none
+29. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.DeactivateClientCommand | Attributes=none
+30. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Error | Attributes=none
+31. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ExecuteAlert | Attributes=none
+32. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ExecuteBroadcast | Attributes=none
+33. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ExecuteClientCommand | Attributes=none
+34. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ExecutePoll | Attributes=none
+35. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.FadeInIcon | Attributes=none
+36. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.FavoriteUGC | Attributes=none
+37. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ForceBubbleChat | Attributes=none
+38. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ForceChat | Attributes=none
+39. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetAnimationId | Attributes=none
+40. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetEmotes | Attributes=none
+41. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetLocalDate | Attributes=none
+42. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.GetPing | Attributes=none
+43. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.GlobalAnnouncement | Attributes=none
+44. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Hint | Attributes=none
+45. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.InsertStat | Attributes=none
+46. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.JoinGroup | Attributes=none
+47. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Message | Attributes=none
+48. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.Notice | Attributes=none
+49. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.PlaySoundInstance | Attributes=none
+50. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.PromptGamepass | Attributes=none
+51. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.PurchaseAccessory | Attributes=none
+52. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.RankChanged | Attributes=none
+53. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RemovePermRank | Attributes=none
+54. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.RemoveStat | Attributes=none
+55. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ReplicateEffect | Attributes=none
+56. [RemoteEvent] ReplicatedStorage.HDAdminHDClient.Signals.ReplicationEffectClientCommand | Attributes=none
+57. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.ReplyToPrivateMessage | Attributes=none
+58. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RequestCommand | Attributes=none
+59. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandModification | Attributes=none
+60. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RequestCommandSilent | Attributes=none
+61. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RestoreDefaultSettings | Attributes=none
+62. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveAlertData | Attributes=none
+63. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBanland | Attributes=none
+64. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.RetrieveBroadcastData | Attributes=none
+65. [RemoteFunction] ReplicatedStorage.HDAdminHDClient.Signals.R
+[REPORT TRUNCATED — SIZE SAFETY LIMIT]
