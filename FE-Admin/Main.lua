@@ -288,9 +288,180 @@ register("serverhop", "Find another public server (not implemented in this local
     addLine("Server hopping requires a separate supported server-browser module.", Color3.fromRGB(255,190,90))
 end)
 
+
+-- Extended local utility commands
+local savedFov = Workspace.CurrentCamera and Workspace.CurrentCamera.FieldOfView or 70
+local savedLighting = {
+    Brightness = Lighting.Brightness, ClockTime = Lighting.ClockTime,
+    FogEnd = Lighting.FogEnd, GlobalShadows = Lighting.GlobalShadows,
+    Ambient = Lighting.Ambient, OutdoorAmbient = Lighting.OutdoorAmbient
+}
+local history = {}
+local historyIndex = 1
+local noclipOn, flyOn = false, false
+local flySpeed = 55
+local noclipStep, flyStep, flyForce
+
+local function setHumanoid(key, value)
+    local h = getHumanoid()
+    if not h then addLine("Character unavailable."); return end
+    h[key] = value
+    addLine(key .. " updated locally.")
+end
+
+local function playerDetails(p)
+    if not p then addLine("Player not found."); return end
+    addLine("Username: " .. p.Name)
+    addLine("Display name: " .. p.DisplayName)
+    addLine("UserId: " .. tostring(p.UserId))
+    addLine("Account age: " .. tostring(p.AccountAge) .. " days")
+    addLine("Team: " .. (p.Team and p.Team.Name or "None"))
+    local c = p.Character
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    local r = c and c:FindFirstChild("HumanoidRootPart")
+    if h then addLine(string.format("Health: %.0f / %.0f", h.Health, h.MaxHealth)); addLine("State: " .. h:GetState().Name) end
+    if r then
+        local mine = getRoot()
+        addLine(string.format("Position: %.1f, %.1f, %.1f", r.Position.X, r.Position.Y, r.Position.Z))
+        if mine then addLine(string.format("Distance: %.1f studs", (r.Position-mine.Position).Magnitude)) end
+    end
+end
+
+register("playerinfo|info|whois", "Show player account and character information", function(a)
+    playerDetails(findPlayer(a[1]))
+end)
+register("find", "Find players by username or display-name text", function(a)
+    local q = string.lower(a[1] or "")
+    if q == "" then addLine("Usage: ;find <text>"); return end
+    for _,p in ipairs(Players:GetPlayers()) do
+        if string.find(string.lower(p.Name),q,1,true) or string.find(string.lower(p.DisplayName),q,1,true) then
+            addLine(p.Name .. " (" .. p.DisplayName .. ")")
+        end
+    end
+end)
+register("distance", "Measure distance to a player", function(a)
+    local p=findPlayer(a[1]); local x=getRoot(); local y=getRoot(p)
+    if x and y then addLine(string.format("%s: %.1f studs",p.Name,(x.Position-y.Position).Magnitude)) else addLine("Player or character unavailable.") end
+end)
+register("health", "Show your current health", function()
+    local h=getHumanoid(); if h then addLine(string.format("%.1f / %.1f",h.Health,h.MaxHealth)) end
+end)
+register("speedinfo", "Show local movement properties", function()
+    local h=getHumanoid(); if h then
+        addLine("WalkSpeed: "..h.WalkSpeed); addLine("JumpPower: "..h.JumpPower)
+        addLine("HipHeight: "..h.HipHeight); addLine("UseJumpPower: "..tostring(h.UseJumpPower))
+    end
+end)
+register("wsreset", "Reset local WalkSpeed to 16", function() setHumanoid("WalkSpeed",16) end)
+register("jpreset", "Reset local JumpPower to 50", function()
+    local h=getHumanoid(); if h then h.UseJumpPower=true; h.JumpPower=50; addLine("JumpPower reset.") end
+end)
+register("hipreset", "Reset local HipHeight to zero", function() setHumanoid("HipHeight",0) end)
+register("jump", "Make your character jump", function() local h=getHumanoid(); if h then h.Jump=true end end)
+register("platformstand", "Toggle local PlatformStand", function()
+    local h=getHumanoid(); if h then h.PlatformStand=not h.PlatformStand; addLine("PlatformStand: "..tostring(h.PlatformStand)) end
+end)
+register("autorotate", "Toggle local AutoRotate", function()
+    local h=getHumanoid(); if h then h.AutoRotate=not h.AutoRotate; addLine("AutoRotate: "..tostring(h.AutoRotate)) end
+end)
+register("freeze|anchor", "Anchor your local root part", function()
+    local r=getRoot(); if r then r.Anchored=true; addLine("Local root anchored.") end
+end)
+register("unfreeze|unanchor", "Unanchor your local root part", function()
+    local r=getRoot(); if r then r.Anchored=false; addLine("Local root unanchored.") end
+end)
+register("gravity", "Set local workspace gravity property", function(a)
+    Workspace.Gravity=math.clamp(numberArg(a,1,196.2),0,500); addLine("Local gravity property updated.")
+end)
+register("gravityreset", "Reset gravity property to 196.2", function() Workspace.Gravity=196.2 end)
+register("gravityinfo", "Display current gravity property", function() addLine("Gravity: "..Workspace.Gravity) end)
+register("day", "Set local lighting to daytime", function() Lighting.ClockTime=14 end)
+register("night", "Set local lighting to midnight", function() Lighting.ClockTime=0 end)
+register("dawn", "Set local lighting to dawn", function() Lighting.ClockTime=6 end)
+register("dusk", "Set local lighting to dusk", function() Lighting.ClockTime=18 end)
+register("fogoff", "Remove local fog visually", function() Lighting.FogEnd=1000000 end)
+register("fogreset", "Restore saved fog distance", function() Lighting.FogEnd=savedLighting.FogEnd end)
+register("shadows", "Toggle local global shadows", function()
+    Lighting.GlobalShadows=not Lighting.GlobalShadows; addLine("GlobalShadows: "..tostring(Lighting.GlobalShadows))
+end)
+register("ambient", "Set local ambient RGB values", function(a)
+    Lighting.Ambient=Color3.fromRGB(math.clamp(numberArg(a,1,100),0,255),math.clamp(numberArg(a,2,100),0,255),math.clamp(numberArg(a,3,100),0,255))
+end)
+register("outdoorambient", "Set local outdoor ambient RGB values", function(a)
+    Lighting.OutdoorAmbient=Color3.fromRGB(math.clamp(numberArg(a,1,100),0,255),math.clamp(numberArg(a,2,100),0,255),math.clamp(numberArg(a,3,100),0,255))
+end)
+register("fovreset", "Restore saved camera field of view", function()
+    if Workspace.CurrentCamera then Workspace.CurrentCamera.FieldOfView=savedFov end
+end)
+register("zoom", "Set camera maximum zoom distance", function(a)
+    LocalPlayer.CameraMaxZoomDistance=math.clamp(numberArg(a,1,128),1,1000)
+end)
+register("zoommin", "Set camera minimum zoom distance", function(a)
+    LocalPlayer.CameraMinZoomDistance=math.clamp(numberArg(a,1,0.5),0.5,100)
+end)
+register("zoomreset", "Restore default zoom distances", function()
+    LocalPlayer.CameraMinZoomDistance=0.5; LocalPlayer.CameraMaxZoomDistance=128
+end)
+register("firstperson", "Lock camera to first person", function() LocalPlayer.CameraMode=Enum.CameraMode.LockFirstPerson end)
+register("thirdperson", "Return camera to classic mode", function() LocalPlayer.CameraMode=Enum.CameraMode.Classic end)
+register("mouseunlock", "Release mouse lock", function() UserInputService.MouseBehavior=Enum.MouseBehavior.Default end)
+register("mouselock", "Lock mouse to center", function() UserInputService.MouseBehavior=Enum.MouseBehavior.LockCenter end)
+register("team", "Show your current team", function() addLine("Team: "..(LocalPlayer.Team and LocalPlayer.Team.Name or "None")) end)
+register("account", "Show your account information", function()
+    addLine("Username: "..LocalPlayer.Name); addLine("Display: "..LocalPlayer.DisplayName)
+    addLine("UserId: "..LocalPlayer.UserId); addLine("Account age: "..LocalPlayer.AccountAge.." days")
+end)
+register("place", "Show current PlaceId and JobId", function()
+    addLine("PlaceId: "..game.PlaceId); addLine("JobId: "..game.JobId)
+end)
+register("uptime", "Show local session duration", function()
+    addLine(string.format("Session: %.1f minutes",Workspace.DistributedGameTime/60))
+end)
+register("ping", "Show client network ping estimate", function()
+    local ok,v=pcall(function() return LocalPlayer:GetNetworkPing() end)
+    addLine(ok and string.format("Ping: %.0f ms",v*1000) or "Ping unavailable.")
+end)
+register("resetlighting", "Restore saved local lighting properties", function()
+    for k,v in pairs(savedLighting) do pcall(function() Lighting[k]=v end) end
+    addLine("Lighting restored.")
+end)
+register("resetall", "Reset local movement, camera, lighting and physics settings", function()
+    local h=getHumanoid()
+    if h then h.WalkSpeed=16; h.UseJumpPower=true; h.JumpPower=50; h.HipHeight=0; h.PlatformStand=false; h.AutoRotate=true end
+    if Workspace.CurrentCamera then Workspace.CurrentCamera.FieldOfView=savedFov end
+    for k,v in pairs(savedLighting) do pcall(function() Lighting[k]=v end) end
+    Workspace.Gravity=196.2
+    if noclipStep then noclipStep:Disconnect(); noclipStep=nil end
+    noclipOn=false
+    if flyStep then flyStep:Disconnect(); flyStep=nil end
+    if flyForce then flyForce:Destroy(); flyForce=nil end
+    flyOn=false
+    addLine("Local settings restored.")
+end)
+register("notify", "Show a local notification", function(a) notify(table.concat(a," ")) end)
+register("saylocal|echo", "Print text in the local terminal", function(a) addLine(table.concat(a," ")) end)
+register("commandcount", "Show number of registered command names", function()
+    local n=0; for _ in pairs(commands) do n+=1 end; addLine(n.." command names registered.")
+end)
+register("history", "Show recent command history", function()
+    for i=math.max(1,#history-19),#history do addLine(i..": "..history[i],CONFIG.Muted) end
+end)
+register("prefix", "Display command prefix", function() addLine("Prefix: "..CONFIG.Prefix) end)
+register("about", "Show standalone build information", function()
+    addLine("ShortName FE Admin - standalone client utility")
+    addLine("Branch: fe-admin-standalone")
+    addLine("Server authority is not available to executor-only scripts.")
+end)
+register("close|quit", "Close the admin interface", function() gui:Destroy() end)
+register("showui|restore", "Show the admin interface", function() frame.Visible=true end)
+register("hideui|minimize", "Hide the admin interface", function() frame.Visible=false end)
+
 local function execute(raw)
     raw = tostring(raw or "")
     if raw == "" then return end
+    table.insert(history, raw)
+    if #history > 100 then table.remove(history, 1) end
+    historyIndex = #history + 1
     addLine("> " .. raw, CONFIG.Accent)
     local parts = {}
     for token in string.gmatch(raw, "%S+") do table.insert(parts, token) end
@@ -308,5 +479,6 @@ end)
 
 addLine("ShortName FE Admin loaded.")
 addLine("Standalone branch build - client-side utilities only.", CONFIG.Muted)
-addLine("Type ;help to view commands.", CONFIG.Muted)
+addLine("Type ;help to view commands. RightCtrl toggles the window.", CONFIG.Muted)
+addLine("Use ;help <word> to search commands.", CONFIG.Muted)
 notify("Standalone client utility loaded.")
