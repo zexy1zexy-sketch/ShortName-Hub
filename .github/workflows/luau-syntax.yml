@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - gui-complete-fix
+    paths-ignore:
+      - 'scanner-reports/**'
   pull_request:
     branches:
       - main
