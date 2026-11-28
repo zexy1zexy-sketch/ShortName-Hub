@@ -4220,8 +4220,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  if GUI.StopSlapDetector then pcall(GUI.StopSlapDetector) end
  end)
 
- end
-  local HubExtras = GUI.HubExtras or {}
+ local HubExtras = GUI.HubExtras or {}
  -- COMING SOON PAGE
  Label(SoonPage, "COMING SOON", 17, 30).Font = Enum.Font.GothamBold; Label(SoonPage, "More features are being worked on.", 12, 25, Grey)
  GUI.SoonCard = Instance.new("Frame")
