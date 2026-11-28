@@ -3080,6 +3080,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
 
  -- OWNER-ONLY OBSERVER TAB: one top-level page, no nested detector folders.
  local HubToggleConnection, HubExtras, RunService
+ do -- section scope: keep Observer locals from exhausting GUI.Create register limits
  if DetectionPage then
  Label(DetectionPage, "OBSERVER CONSOLE", 17, 30).Font = Enum.Font.GothamBold
  Label(DetectionPage, "A single control center for passive client-side detectors. Choose one detector or ALL, review captured reports, then upload them to the private report inbox.", 10, 42, Grey).TextWrapped = true
@@ -3429,6 +3430,7 @@ function GUI.Create(Config, Controller, Scythe, ObjectScanner, InstanceInspector
  end
  end)
  end
+ end -- Observer section scope
 
  -- PLAYER UTILITIES (SETTINGS TAB)
  local UtilityFolder = SettingsPage
